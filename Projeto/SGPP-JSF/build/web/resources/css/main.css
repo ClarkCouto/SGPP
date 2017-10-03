@@ -1,0 +1,174 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01/10/2017, 17:11:26
+    Author     : mathe
+*/
+/* Shadows */
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+/* Elements */
+.button,
+.button--full {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 2px;
+  background-color: #17882C;
+  color: #FAFAFA;
+  font-weight: 500;
+  cursor: pointer;
+}
+.button:hover,
+.button--full:hover {
+  background-color: #23CD42;
+}
+.button--full {
+  width: 100%;
+}
+.link {
+  color: #17882C;
+  text-decoration: none;
+}
+.link:hover {
+  color: #23CD42;
+  text-decoration: underline;
+}
+.link:visited {
+  color: #00510F;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.form-group--label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.form-group--message {
+  padding: 5px;
+  color: #D02626;
+  font-size: 12px;
+  border-radius: 2px;
+}
+.form-group--input {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  box-shadow: none;
+  height: 30px;
+  line-height: 30px;
+  padding: 0px !important;
+  padding-left: 4px !important;
+}
+.form-group--input:focus {
+  border-color: #23CD42;
+  box-shadow: none;
+}
+.box {
+  background-color: #E7ECD9;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  border-radius: 5px;
+}
+.box--header {
+  background-color: #17882C;
+  color: #FAFAFA;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px;
+}
+.box--content {
+  padding: 20px;
+}
+.box--actions {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.box--actions--left {
+  margin-right: auto;
+}
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("#{resource['imgs/bg.png']}");
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+}
+.main-bar {
+  width: 265px;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #17882C;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.main-bar--start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #FAFAFA;
+}
+.main-bar--subtitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+.main-bar--end {
+  margin-top: auto;
+}
+.main-bar--logo {
+  max-width: calc(100% - 40px);
+}
+.content {
+  height: 100%;
+  width: calc(100% - 265px);
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.login-box {
+  width: 380px;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+}
+.alternative--label {
+  width: 380px;
+  text-align: center;
+}
+.alternative--label:before,
+.alternative--label:after {
+  background-color: #333333;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 45%;
+}
+.alternative--label:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+.alternative--label:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+/*# sourceMappingURL=main.css.map */
