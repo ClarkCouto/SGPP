@@ -7,9 +7,7 @@ package beans;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-
 import javax.faces.bean.RequestScoped;
-import models.Usuario;
 
 
 
@@ -18,33 +16,43 @@ import models.Usuario;
  * @author mathe
  */
 
-@ManagedBean(name="loginBean")
+@ManagedBean
 @RequestScoped
-public class loginBean implements Serializable {
-    private static final long serialVersionUID = 356240640918386194L;
-    private Usuario usuarioLogado = new Usuario();
+public class LoginBean implements Serializable {    
     
-    // Getters e Setters
+    private String cpf;
+    private String senha;
+    
+// Getters e Setters
 
-    public Usuario getUsuarioLogado() {
-        return usuarioLogado;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setUsuarioLogado(Usuario usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     
-    // Actions
+    
+// Ações
 
     public String logar() {
-        if (!(usuarioLogado.getCpf().equals("00000000000"))) {
-            return "index";
-        }
-        if (!(usuarioLogado.getSenha().equals("1234"))) {
-            return "index";
+        
+        
+        
+        if ((cpf.equals("034.527.460-11")) && (senha.equals("123456"))) {
+            return "index?faces-redirect=true";
         }
         
-        return "dashboard";
+        return "login";
     }
     
 }

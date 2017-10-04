@@ -1,15 +1,5 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 01/10/2017, 17:11:26
-    Author     : mathe
-*/
-
 @bg-color-main: #FAFAFA;
-@bg-color-block: #E7ECD9;
+@bg-color-block: rgba(255,255,255,0.95);
 @bg-color-feature: #17882C;
 @bg-color-feature-highlight: #23CD42;
 @bg-color-error: #D02626;
@@ -20,21 +10,27 @@ and open the template in the editor.
 @text-color-link-highlight: #23CD42;
 @text-color-link-visited: #00510F;
 
-/* Shadows */
+@color-separator: rgba(0,0,0,0.15);
+
+// Elements
 .shadow {   
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-/* Elements */
+.shadow-z-1 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
 .button {
-    padding: 5px 10px;
+    padding: 8px 16px;
     border: 0;
     border-radius: 2px;
     background-color: @bg-color-feature;
     color: @text-color-light;
     font-weight: 500;
+    text-decoration: none;
     cursor: pointer;    
-    
+
     &:hover {
         background-color: @bg-color-feature-highlight;
     }
@@ -43,95 +39,197 @@ and open the template in the editor.
 .button--full {
     &:extend(.button);    
     width: 100%;
-    
+
     &:hover {
         &:extend(.button:hover);
     }
 }
 
 .link {
+    background: none;
     color: @text-color-link;
+    border: 0;
     text-decoration: none;
+    display: inliine-block;
+    cursor: pointer;
+
+    &:hover {
+        color: @text-color-link-highlight;
+        text-decoration: underline;
+        padding: 0;
+    }
+
+    :visited {
+        color: @text-color-link-visited;
+    }
 }
 
-.link:hover {
-    color: @text-color-link-highlight;
-    text-decoration: underline;
+.form-container {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
 }
-
-.link:visited {
-    color: @text-color-link-visited;
-}
-
 .form-group {
     display: flex;
+    width: 100%;
     flex-direction: column;
     margin-bottom: 10px;
-}
+    justify-content: 'stretch';
 
-.form-group--label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.form-group--message {
-    padding: 5px;
-    color: @bg-color-error;
-    font-size: 12px;
-    border-radius: 2px;
-}
-
-.form-group--input {
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 5px;
-    box-shadow: none;
-    height: 30px;
-    line-height: 30px;
-    padding: 0px !important; // override-primefaces style
-    padding-left: 4px !important;
-    
-    &:focus {
-        border-color: @bg-color-feature-highlight;
-        box-shadow: none;
+    &--size-half {
+        &:extend(.form-group);
+        width: ~"calc(50% - 10px)";
     }
+    
+    &--label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    &--message {
+        padding: 5px;
+        color: @bg-color-error;
+        font-size: 12px;
+        border-radius: 2px;
+    }
+
+    &--text-input {
+        width: 100%;
+        height: 38px;
+        line-height: 38px;
+        padding: 0 8px !important; // override-primefaces style
+        border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 5px;
+        box-shadow: none;
+        box-sizing: border-box;
+        font-size: 14px;
+
+        &:focus {
+            border-color: @bg-color-feature-highlight;
+            box-shadow: none;
+        }
+    }
+
+    &--radio-group {
+        line-height: 30px;
+    }
+
 }
 
 .box {
     background-color: @bg-color-block;
-    align-self: center;
     display: flex;
     flex-direction: column;
     .shadow;
     overflow: hidden;
     border-radius: 5px;
+
+    &--header {
+        background-color: @bg-color-feature;
+        color: @text-color-light;
+        font-weight: 600;
+        text-align: center;
+        padding: 10px;
+    }
+
+    &--labeled-separator {
+        width: 340px;
+        text-align: center;
+        color: @text-color-main;
+
+        &:before,
+            &:after {
+            background-color: @color-separator;
+            content: "";
+            display: inline-block;
+            height: 1px;
+            position: relative;
+            vertical-align: middle;
+            width: 45%;
+        }
+
+        &:before {
+            right: 0.5em;
+            margin-left: -50%;
+        }
+
+        &:after {
+            left: 0.5em;
+            margin-right: -50%;
+        }   
+    }
+
+    &--content {
+        padding: 20px;
+    }
+
+    &--actions {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-top: 16px;
+
+        & > * {
+            margin-right: 10px;
+        }
+
+        & > :last-child:not(.box--actions--left) {
+            margin-right: 0;
+        }
+
+        &--left {        
+            margin-right: auto;
+
+            & > * {
+                margin-right: 10px;
+            }
+
+            & > :last-child {
+                margin-right: 0;
+            }
+
+        }
+
+        &--full .button, &--full .link {
+            display: block;
+            text-align: center;
+        }
+    }
 }
 
-.box--header {
-    background-color: @bg-color-feature;
-    color: @text-color-light;
-    font-weight: 600;
-    text-align: center;
-    padding: 10px;
-}
-
-.box--content {
+.action-row {
+    height: auto;
     padding: 20px;
-}
-
-.box--actions {
-    font-size: 14px;
+    border-radius: 5px;
+    background-color: @bg-color-block;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-end;
+    .shadow;
+    overflow: hidden;
+    text-decoration: none;
+    
+    &--label {
+        font-size: 18px;
+        font-weight: 600;
+        color: @text-color-link;
+        text-decoration: none;
+    }
+    
+    
+    &--icon {
+        color: @text-color-link;
+        font-size: 30px;
+    }
+    
+    &:hover {
+        .shadow-z-1;
+    }
 }
 
-.box--actions--left {
-    margin-right: auto;
-}
-
-
-// Page-specific
 .container {    
     position: absolute;
     top: 0;
@@ -144,6 +242,7 @@ and open the template in the editor.
 }
 
 .main-bar {
+    position: fixed;
     width: 265px;
     height: 100vh;
     padding: 20px;
@@ -153,68 +252,32 @@ and open the template in the editor.
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-}
-
-.main-bar--start {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;    
-    color: @text-color-light;
-}
 
 
-.main-bar--subtitle {
-    font-size: 20px;
-    font-weight: 500;
-}
+    &--start {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;    
+        color: @text-color-light;
+    }
+    
+    &--title {
+        margin: 0;
+    }
 
-.main-bar--end {
-    margin-top: auto;
-}
+    &--subtitle {
+        font-size: 20px;
+    }
 
-.main-bar--logo {
-    max-width: ~"calc(100% - 40px)"
+    &--logo {
+        max-width: ~"calc(100% - 40px)"
+    }
 }
 
 .content {
     height: 100%;
-    width: ~"calc(100% - 265px)";
+    width: 100%;
     min-height: 340px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.login-box {
-    width: 380px;
-    background-color: rgba(255,255,255,0.85);
-    display: flex;    
-    flex-direction: column;    
-}
-
-.alternative--label {
-    width: 380px;
-    text-align: center;
-    
-    &:before,
-    &:after {
-        background-color: @text-color-main;
-        content: "";
-        display: inline-block;
-        height: 1px;
-        position: relative;
-        vertical-align: middle;
-        width: 45%;
-    }
-    
-    &:before {
-        right: 0.5em;
-        margin-left: -50%;
-    }
-    
-    &:after {
-        left: 0.5em;
-        margin-right: -50%;
-    }   
+    margin-left: 265px;    
+    box-sizing: border-box;
 }

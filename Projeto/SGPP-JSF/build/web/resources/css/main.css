@@ -1,25 +1,18 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 01/10/2017, 17:11:26
-    Author     : mathe
-*/
-/* Shadows */
 .shadow {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
-/* Elements */
+.shadow-z-1 {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 .button,
 .button--full {
-  padding: 5px 10px;
+  padding: 8px 16px;
   border: 0;
   border-radius: 2px;
   background-color: #17882C;
   color: #FAFAFA;
   font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
 }
 .button:hover,
@@ -30,20 +23,36 @@ and open the template in the editor.
   width: 100%;
 }
 .link {
+  background: none;
   color: #17882C;
+  border: 0;
   text-decoration: none;
+  display: inliine-block;
+  cursor: pointer;
 }
 .link:hover {
   color: #23CD42;
   text-decoration: underline;
+  padding: 0;
 }
-.link:visited {
+.link :visited {
   color: #00510F;
 }
-.form-group {
+.form-container {
   display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+.form-group,
+.form-group--size-half {
+  display: flex;
+  width: 100%;
   flex-direction: column;
   margin-bottom: 10px;
+  justify-content: 'stretch';
+}
+.form-group--size-half {
+  width: calc(50% - 10px);
 }
 .form-group--label {
   font-size: 14px;
@@ -56,22 +65,26 @@ and open the template in the editor.
   font-size: 12px;
   border-radius: 2px;
 }
-.form-group--input {
+.form-group--text-input {
+  width: 100%;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 8px !important;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   box-shadow: none;
-  height: 30px;
-  line-height: 30px;
-  padding: 0px !important;
-  padding-left: 4px !important;
+  box-sizing: border-box;
+  font-size: 14px;
 }
-.form-group--input:focus {
+.form-group--text-input:focus {
   border-color: #23CD42;
   box-shadow: none;
 }
+.form-group--radio-group {
+  line-height: 30px;
+}
 .box {
-  background-color: #E7ECD9;
-  align-self: center;
+  background-color: rgba(255, 255, 255, 0.95);
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -85,6 +98,29 @@ and open the template in the editor.
   text-align: center;
   padding: 10px;
 }
+.box--labeled-separator {
+  width: 340px;
+  text-align: center;
+  color: #333333;
+}
+.box--labeled-separator:before,
+.box--labeled-separator:after {
+  background-color: rgba(0, 0, 0, 0.15);
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 45%;
+}
+.box--labeled-separator:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+.box--labeled-separator:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
 .box--content {
   padding: 20px;
 }
@@ -93,9 +129,53 @@ and open the template in the editor.
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-top: 16px;
+}
+.box--actions > * {
+  margin-right: 10px;
+}
+.box--actions > :last-child:not(.box--actions--left) {
+  margin-right: 0;
 }
 .box--actions--left {
   margin-right: auto;
+}
+.box--actions--left > * {
+  margin-right: 10px;
+}
+.box--actions--left > :last-child {
+  margin-right: 0;
+}
+.box--actions--full .button,
+.box--actions--full .link {
+  display: block;
+  text-align: center;
+}
+.action-row {
+  height: auto;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  text-decoration: none;
+}
+.action-row--label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #17882C;
+  text-decoration: none;
+}
+.action-row--icon {
+  color: #17882C;
+  font-size: 30px;
+}
+.action-row:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 .container {
   position: absolute;
@@ -108,6 +188,7 @@ and open the template in the editor.
   display: flex;
 }
 .main-bar {
+  position: fixed;
   width: 265px;
   height: 100vh;
   padding: 20px;
@@ -124,51 +205,20 @@ and open the template in the editor.
   justify-content: center;
   color: #FAFAFA;
 }
+.main-bar--title {
+  margin: 0;
+}
 .main-bar--subtitle {
   font-size: 20px;
-  font-weight: 500;
-}
-.main-bar--end {
-  margin-top: auto;
 }
 .main-bar--logo {
   max-width: calc(100% - 40px);
 }
 .content {
   height: 100%;
-  width: calc(100% - 265px);
+  width: 100%;
   min-height: 340px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.login-box {
-  width: 380px;
-  background-color: rgba(255, 255, 255, 0.85);
-  display: flex;
-  flex-direction: column;
-}
-.alternative--label {
-  width: 380px;
-  text-align: center;
-}
-.alternative--label:before,
-.alternative--label:after {
-  background-color: #333333;
-  content: "";
-  display: inline-block;
-  height: 1px;
-  position: relative;
-  vertical-align: middle;
-  width: 45%;
-}
-.alternative--label:before {
-  right: 0.5em;
-  margin-left: -50%;
-}
-.alternative--label:after {
-  left: 0.5em;
-  margin-right: -50%;
+  margin-left: 265px;
+  box-sizing: border-box;
 }
 /*# sourceMappingURL=main.css.map */

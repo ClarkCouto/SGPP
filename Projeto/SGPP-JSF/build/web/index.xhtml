@@ -7,7 +7,8 @@
     <h:head>
         <title>SGPP - IFRS POA</title>
         <h:outputStylesheet name="css/normalize.css" />        
-        <h:outputStylesheet name="css/main.css" />        
+        <h:outputStylesheet name="css/index.css" />        
+        <h:outputStylesheet name="css/font-awesome/css/font-awesome.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700" rel="stylesheet" />
         <link rel="icon" type="image/vnd.microsoft.icon" href="#{resource['imgs/favicon.ico']}" />
     </h:head>
@@ -15,55 +16,36 @@
         <div class="container">
             <div class="main-bar">
                 <div class="main-bar--start">
-                    <h1 class="main-bar--title">SGPP</h1>
-                    <h2 class="main-bar--subtitle">Sistema de Gerência de Projetos de Pesquisa</h2>
+                    <h1 class="main-bar--title">Menu</h1>
+                    <h2 class="main-bar--subtitle">Selecione a opção desejada</h2>
                 </div>
-                <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--end main-bar--logo"/>
+                <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--logo"/>
             </div>
             <div class="content">
-                <h:form styleClass="login-box box">
-                        <span class="box--header">Identifique-se</span>
-                        <div class="box--content">
-                            <div class="form-group">
-                                <h:outputLabel for="cpf" styleClass="form-group--label">CPF</h:outputLabel>
-                                <p:inputMask
-                                    value="#{loginBean.usuarioLogado.cpf}"
-                                    id="cpf"
-                                    label="CPF"
-                                    styleClass="form-group--input"
-                                    required="true"
-                                    mask="999.999.99-99"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="cpf" styleClass="form-group--message" />
-                            </div>
-                            <div class="form-group">
-                                <h:outputLabel for="password" styleClass="form-group--label">Senha</h:outputLabel>
-                                <h:inputSecret
-                                    value="#{loginBean.usuarioLogado.senha}"
-                                    id="password"
-                                    label="Senha"
-                                    styleClass="form-group--input"
-                                    required="true"
-                                    >
-                                    <f:validateRequired />
-                                    <f:validateLength minimum="4" />
-                                </h:inputSecret>
-                                <h:message for="password" styleClass="form-group--message" />
-                            </div>
-                            <div class="box--actions">
-                                <div class="box--actions--left">
-                                    <h:commandLink styleClass="link box--actions--left">Esqueceu sua senha?</h:commandLink>
-                                </div>
-                                <h:commandButton styleClass="button" value="Entrar" action="#{loginBean.logar}"/>
-                            </div>
-                        </div>
-                </h:form>
-                <div class="alternative">
-                    <p class="alternative--label">ou</p>
-                    <h:commandButton styleClass="button--full" value="Cadastre-se"></h:commandButton>
-                </div>
+                <h:link class="action-row action-row--menu" outcome="index">
+                    <span class="action-row--label">Editais</span>
+                    <span class="action-row--icon">
+                        <i class="fa fa-file-text-o" />
+                    </span>
+                </h:link>
+                <h:link class="action-row action-row--menu" outcome="index">
+                    <span class="action-row--label">Projetos de Pesquisa</span>
+                    <span class="action-row--icon">
+                        <i class="fa fa-search" />
+                    </span>
+                </h:link>
+                <h:link class="action-row action-row--menu" outcome="index">
+                    <span class="action-row--label">Declarações</span>
+                    <span class="action-row--icon">
+                        <i class="fa fa-check-square-o" />
+                    </span>
+                </h:link>
+                <h:link class="action-row action-row--menu" outcome="index">
+                    <span class="action-row--label">Relatórios</span>
+                    <span class="action-row--icon">
+                        <i class="fa fa-area-chart" />
+                    </span>
+                </h:link>
             </div>
         </div>
     </h:body>
