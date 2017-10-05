@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <h:outputStylesheet library="css" name="estilo.css"  />
+                <title>Cadastrar Projeto</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="false" collapsible="false">
+                    <h:panelGrid columns ="2">
+                    <h2> SGPP - Sistema de Gerenciamento de Projetos de Pesquisa.</h2>
+                    <h:graphicImage library="images" name="logo_ifrs.png" styleClass="imagemLogo"/>
+                    </h:panelGrid>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="50" closable="true" collapsible="true" styleClass="footer"> 
+                    <p>© 2017 Instituto Federal do Rio Grande do Sul - Campus Porto Alegre</p>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="185" header="SGPP" collapsible="true">
+                    <h:form id="formMenu">
+                        <p:panelMenu style="width:300px">
+                            <p:submenu label="Cadastrar">
+                                <p:menuitem value="Bolsa" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="CAGPPI" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Categoria Bolsa" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Coordenador" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Curso" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Edital" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Grupo de Pesquisa" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Instituição" url="#"  icon="ui-icon-clipboard" />
+                                <p:menuitem value="Projeto" url="cadastrarProjeto.xhtml" icon="ui-icon-clipboard" />
+                                <p:menuitem value="Texto Base Declaração" url="#"  icon="ui-icon-clipboard" />
+                            </p:submenu>
+                            <p:separator />
+                            <p:submenu label="Relatórios"  >
+                                <p:submenu label="Relatórios Administrativos" >
+                                </p:submenu>
+                                <p:submenu label="Relatórios Financeiros" >
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu label="Administrativo">
+                                <p:menuitem value="Area" url="#" icon="ui-icon-disk" />
+                                <p:menuitem value="Tipo Documento" url="#"  icon="ui-icon-disk" />
+                                <p:menuitem value="Sair" outcome="login" icon="ui-icon-home" />
+                            </p:submenu>
+                            <p:separator />
+                        </p:panelMenu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form>
+                        <h:panelGrid id="grid" columns="1"> 
+                            <f:facet name="header">
+                                <h2>Cadastrar Projeto</h2>
+                            </f:facet>
+                            
+                            <h:panelGrid columns="3">
+                                <p:outputLabel for="edital" value="Edital: " />
+                                <p:selectOneMenu id="edital" value="#{projetoBean.edital}" effect="fold" editable="false" required="true">
+                                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                                    <f:selectItems value="#{projetoBean.editais}" />
+                                </p:selectOneMenu>
+                                <p:message for="edital" />
+                            </h:panelGrid>   
+                            
+                            <p:panelGrid columns="2">
+				<p:outputLabel value="AIPCT" for="aipct"/>
+				<p:selectBooleanCheckbox id="aipct" value="#{projetoBean.projeto.aipct}"/>
+                            </p:panelGrid>
+                        
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel value="Título: "/>
+                                <p:inputText id="titulo" value="#{projetoBean.projeto.titulo}"  label="titulo" required="true" requiredMessage="Título é campo obrigatório" validatorMessage="Tamanho máximo 50 caracteres" > 
+                                    <f:validateLength minimum="1" maximum="50" />
+                                </p:inputText>
+                                <p:message for="titulo" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel value="Ano: "/>
+                                <p:inputMask id="ano" value="#{projetoBean.projeto.ano}" mask="9999" label="ano" required="true" requiredMessage="Ano é campo obrigatório" validatorMessage="Tamanho máximo 4 caracteres" > 
+                                    <f:validateLength minimum="4" maximum="4" />
+                                </p:inputMask>
+                                <p:message for="ano" />
+                            </h:panelGrid>  
+                            <h:panelGrid  columns="3" cellpadding="5">
+                                <p:outputLabel value="Data Início: "/>
+                                <p:calendar id="dataInicio" value="#{projetoBean.projeto.dataInicio}" />
+                                <p:message for="dataInicio" />
+                            </h:panelGrid>  
+                            <h:panelGrid  columns="3" cellpadding="5">
+                                <p:outputLabel value="Data Fim: "/>
+                                <p:calendar id="dataFim" value="#{projetoBean.projeto.dataFim}" />
+                                <p:message for="dataFim" />
+                            </h:panelGrid>   
+                            <p:separator />
+  
+                            <h:panelGrid columns="2">
+                                <p:commandButton value="Cadastrar" action="#{projetoBean.cadastrar()}"/>
+                                <p:commandButton value="Limpar" action="#{projetoBean.limpar()}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+
