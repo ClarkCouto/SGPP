@@ -5,6 +5,7 @@
  */
 package beans;
 
+import data.UserRepository;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import models.Usuario;
@@ -19,7 +20,6 @@ import models.Usuario;
 public class SignupBean {
     
     private Usuario usuario = new Usuario();
-   
     
 // Getters e Setters
 
@@ -37,7 +37,13 @@ public class SignupBean {
     
     public String cadastrar() {
         
-        System.out.println(usuario);
+        Boolean userAdded = UserRepository.getInstance().add(usuario);
+        
+        if (!userAdded) {
+            System.out.println("Erro ao adicionar usuário.\n");
+        }
+        
+        UserRepository.getInstance().list();
         
         return "login";
         

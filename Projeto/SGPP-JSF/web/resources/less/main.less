@@ -11,14 +11,17 @@
 @text-color-link-visited: #00510F;
 
 @color-separator: rgba(0,0,0,0.15);
+@color-translucid-dark: rgba(0,0,0,0.3);
 
 // Elements
 .shadow {   
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.1s cubic-bezier(.25,.8,.25,1);
 }
 
 .shadow-z-1 {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .button {
@@ -64,7 +67,7 @@
     }
 }
 
-.form-container {
+.form-group--container {
     display: flex;
     flex-flow: wrap;
     justify-content: space-between;
@@ -250,15 +253,33 @@
     background-color: @bg-color-feature;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
 
-
-    &--start {
+    &--header {
         display: flex;
         flex-direction: column;
         justify-content: center;    
         color: @text-color-light;
+    }
+    
+    &--actions {
+        
+        &--header {
+            font-size: 18px;
+            color: @text-color-light;
+        }
+        
+        &--item {            
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: @text-color-light;
+            background-color: @color-translucid-dark;
+            margin: 5px -20px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
     
     &--title {
@@ -270,7 +291,9 @@
     }
 
     &--logo {
-        max-width: ~"calc(100% - 40px)"
+        max-width: ~"calc(100% - 40px)";
+        margin-top: auto;
+        align-self: center;
     }
 }
 

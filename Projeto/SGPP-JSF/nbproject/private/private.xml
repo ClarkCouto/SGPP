@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/reset-password.xhtml</file>
-            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/login.xhtml</file>
-            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/resources/less/index.less</file>
-            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/src/java/beans/SignupBean.java</file>
-            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/resources/less/login.less</file>
-            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/resources/less/main.less</file>
+            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/cadastrarEditais.xhtml</file>
+            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/src/java/beans/ListaEditalBean.java</file>
+            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/src/java/models/Edital.java</file>
+            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/src/java/data/EditalRepository.java</file>
+            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/src/java/beans/CadastraEditalBean.java</file>
+            <file>file:/C:/Users/mathe/Documents/NetBeansProjects/SGPP-JSF/web/listarEditais.xhtml</file>
         </group>
     </open-files>
 </project-private>

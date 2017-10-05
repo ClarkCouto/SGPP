@@ -7,6 +7,7 @@ package models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -25,29 +26,15 @@ public class Usuario {
     private Boolean ativo;
     private String senha;
 
-    // Construtores
+// Construtores
     public Usuario() {
     }
     public Usuario(String cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
     }
-    public Usuario(String nome, String email, String telefoneCelular, String telefoneFixo, String cpf, String sexo, LocalDate dataNascimento, LocalDateTime dataCadastro, Boolean ativo, String senha) {
-        this.nome = nome;
-        this.email = email;
-        this.telefoneCelular = telefoneCelular;
-        this.telefoneFixo = telefoneFixo;
-        this.cpf = cpf;
-        this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
-        this.dataCadastro = dataCadastro;
-        this.ativo = ativo;
-        this.senha = senha;
-    }
-    
-    
 
-    // Getters & Setters
+// Getters & Setters
 
     public String getNome() {
         return nome;
@@ -120,14 +107,24 @@ public class Usuario {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    
+// Outros métodos
+    
+    public Boolean checkSenha(String s) {
+        return this.senha.equals(s);
     }
     
+    public Boolean changeSenha(String newPass, String oldPass) {
+        if (Objects.equals(this.senha, oldPass)) {
+           this.senha = newPass; 
+           return true;
+        }        
+        return false;
+    }
+    
+    @Override
+    public String toString() {
+        return "Usuario{" + "nome=" + nome + ", email=" + email + ", telefoneCelular=" + telefoneCelular + ", telefoneFixo=" + telefoneFixo + ", cpf=" + cpf + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", dataCadastro=" + dataCadastro + ", ativo=" + ativo + ", senha=" + senha + '}';
+    }    
     
 }

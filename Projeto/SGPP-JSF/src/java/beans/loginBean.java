@@ -5,9 +5,11 @@
  */
 package beans;
 
+import data.UserRepository;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import models.Usuario;
 
 
 
@@ -46,13 +48,13 @@ public class LoginBean implements Serializable {
 
     public String logar() {
         
+        Usuario user = UserRepository.getInstance().findByCpf(cpf);
         
+        if (user == null || !user.checkSenha(senha)) {
+                return "login?wrong-credentials=true";
+        }        
         
-        if ((cpf.equals("034.527.460-11")) && (senha.equals("123456"))) {
-            return "index?faces-redirect=true";
-        }
-        
-        return "login";
+        return "menu?faces-redirect=true";
     }
     
 }
