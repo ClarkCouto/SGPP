@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SGPP - IFRS POA</title>
+        <h:outputStylesheet name="css/normalize.css" />
+        <h:outputStylesheet name="css/login.css" />
+        <h:outputStylesheet name="css/font-awesome/css/font-awesome.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700" rel="stylesheet" />
+        <link rel="icon" type="image/vnd.microsoft.icon" href="#{resource['imgs/favicon.ico']}" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="main-bar">
+                <div class="main-bar--header">
+                    <h1 class="main-bar--title">Editais</h1>                    
+                </div>
+                <div class="main-bar--actions">
+                    <h3 class="main-bar--actions--header">Escolha uma ação abaixo: </h3>
+                    <h:link styleClass="main-bar--actions--item" outcome="cadastrarEditais">
+                        <span class="main-bar--actions--item--label">Cadastrar edital</span>
+                        <i class="main-bar--actions--item--icon fa fa-plus" />
+                    </h:link>
+                </div>
+                <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--end main-bar--logo"/>
+            </div>
+            <div class="content">
+                <h:form>
+                    <h:outputText value="A lista está vazia." rendered="#{listaEditalBean.editais.size() == 0}" />
+                    <h:dataTable
+                        value="#{listaEditalBean.editais}"
+                        var="edital"
+                        styleClass="table"
+                        headerClass="table--header"
+                        cellpadding="5"
+                        rowClasses="table--row--odd,table--row--even"
+                        cellspacing="0"
+                        rendered="#{listaEditalBean.editais.size() >= 1}"
+
+                    >
+                        <h:column >
+                            <f:facet name="header">Título</f:facet>
+                            <span>#{edital.titulo}</span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Número</f:facet>
+                            <span>#{edital.numero}</span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Origem</f:facet>
+                            <span>#{edital.origem}</span>
+                        </h:column>                    
+                        <h:column>
+                            <f:facet name="header">Editar</f:facet>
+                            <h:link styleClass="table--action" outcome="cadastrarEditais?id=${edital.idEdital}">
+                                <i class="fa fa-edit" />
+                            </h:link>
+                        </h:column>                    
+                        <h:column>
+                            <f:facet name="header">Deletar</f:facet>                            
+                            <h:commandLink styleClass="table--action" action="${listaEditalBean.removeById(edital.idEdital)}">
+                                <i class="fa fa-trash" />
+                            </h:commandLink>
+                        </h:column>                    
+                    </h:dataTable>                
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+
