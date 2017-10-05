@@ -11,11 +11,21 @@ import models.Edital;
 public class ListaEditalBean {
     
     public Collection<Edital> getEditais() {
-        return EditalRepository.getInstance().getEditais();
+        Collection<Edital> editais = EditalRepository.getInstance().getEditais();
+        
+        System.out.println(editais);
+        
+        return editais;
     }
     
-    public Boolean removeById(Long id) {
-        return EditalRepository.getInstance().removeById(id);
+    public String removeById(Long id) {
+        EditalRepository.getInstance().removeById(id);
+        
+        return "listarEditais";
     }
+    
+//    public String editById(Long id) {
+//        return "";
+//    }
     
 }

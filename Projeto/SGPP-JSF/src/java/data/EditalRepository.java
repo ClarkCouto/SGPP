@@ -11,22 +11,12 @@ import models.Edital;
 public class EditalRepository {
     
     private static EditalRepository instance;
-    private static Collection<Edital> editais;
+    private Collection<Edital> editais;
+    private Long numeroEditais = 0L;
     
     private EditalRepository() {
         editais = new ArrayList<>();
-        
-        // Edital para testes
-        editais.add(new Edital(
-                new Long(editais.size() + 1),
-                "ABERTURA DE INSCRIÇÕES PARA PÓS-GRADUAÇÃO - MESTRADO PROFISSIONAL EM INFORMÁTICA NA EDUCAÇÃO",
-                "029",
-                "Teste",
-                LocalDateTime.now(ZoneId.systemDefault())
-        ));
     }
-    
-    
     
     public static EditalRepository getInstance() {        
         if (instance == null) {
@@ -36,7 +26,7 @@ public class EditalRepository {
     }
     
     public Boolean add(Edital e) {
-        e.setIdEdital(new Long(editais.size() + 1));
+        e.setIdEdital(numeroEditais++);
         e.setDataCadastro(LocalDateTime.now((ZoneId.systemDefault())));
         e.setDataUltimaAlteracao(e.getDataCadastro());
         return editais.add(e);

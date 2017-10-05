@@ -242,6 +242,16 @@
   margin-left: 265px;
   box-sizing: border-box;
 }
+.table {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 5px;
+}
+.table--header {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
 .content {
   padding: 40px;
   display: flex;

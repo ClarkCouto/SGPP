@@ -12,7 +12,7 @@ import models.Edital;
 public class CadastraEditalBean {
     
     private Edital edital = new Edital();
-    private Boolean isEditando;
+    private Boolean isEditando = false;
     
 // Getters e Setters
 
@@ -52,7 +52,7 @@ public class CadastraEditalBean {
         }
         EditalRepository.getInstance().list();
         
-        return "listarEditais";
+        return "listarEditais?faces-redirect=true";
     }
     
 }

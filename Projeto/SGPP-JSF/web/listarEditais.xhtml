@@ -31,11 +31,14 @@
                 <h:dataTable
                     value="#{listaEditalBean.editais}"
                     var="edital"
-                    styleClass="action-list"
-                    headerClass="action-list--header"
-                    rowClasses="action-list--row--odd,action-list--row--even"
+                    styleClass="table"
+                    headerClass="table--header"
+                    cellpadding="5"
+                    rowClasses="table--row--odd,table--row--even"
+                    cellspacing="0"
+                    rendered="#{listaEditalBean.editais.size() >= 1}"
                 >
-                    <h:column>
+                    <h:column >
                         <f:facet name="header">Título</f:facet>
                         <span>#{edital.titulo}</span>
                     </h:column>
@@ -46,12 +49,14 @@
                     <h:column>
                         <f:facet name="header">Origem</f:facet>
                         <span>#{edital.origem}</span>
-                    </h:column>
+                    </h:column>                    
                     <h:column>
-                        <f:facet name="header">Origem</f:facet>
-                        <span>#{edital.origem}</span>
+                        <f:facet name="header">Editar</f:facet>
+                        <h:link styleClass="table--action" outcome="cadastrarEditais?id=${edital.idEdital}">
+                            <i class="fa fa-edit" />
+                        </h:link>
                     </h:column>
-                </h:dataTable>
+                </h:dataTable>                
             </div>
         </div>
     </h:body>
