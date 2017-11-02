@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{cadastraEditalBean.editar()}" />
+    </f:metadata>
+    <h:head>
+        <title>SGPP - IFRS POA</title>
+        <h:outputStylesheet name="css/normalize.css" />        
+        <h:outputStylesheet name="css/main.css" />        
+        <h:outputStylesheet name="css/font-awesome/css/font-awesome.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700" rel="stylesheet" />
+        <link rel="icon" type="image/vnd.microsoft.icon" href="#{resource['imgs/favicon.ico']}" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="main-bar">
+                <div class="main-bar--header">
+                    <h1 class="main-bar--header--title">SGPP</h1>
+                    <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
+                </div>
+                <div class="main-bar--current-page">
+                    <h:link class="main-bar--current-page--previous" outcome="listarEditais">
+                        <i class="fa fa-chevron-left"/>
+                    </h:link>
+                    <h1 class="main-bar--current-page--title">Cadastrar Editais</h1>                    
+                </div>                    
+            </div>
+            <div class="content">
+                <h:form>
+                    <div class="form-group--container">
+                        <div class="form-group">
+                            <h:outputLabel for="titulo" styleClass="form-group--label">Título</h:outputLabel>
+                            <h:inputText
+                                value="#{cadastraEditalBean.edital.titulo}"
+                                id="titulo"
+                                label="Título"
+                                styleClass="form-group--text-input"
+                                required="true"
+                                >
+                                <f:validateRequired />
+                            </h:inputText>
+                            <h:message for="titulo" styleClass="form-group--message" />
+                        </div>
+                        <div class="form-group--size-half">
+                            <h:outputLabel for="numero" styleClass="form-group--label">Número</h:outputLabel>
+                            <h:inputText
+                                value="#{cadastraEditalBean.edital.numero}"
+                                id="numero"
+                                label="Número"
+                                styleClass="form-group--text-input"
+                                required="true"
+                                >
+                                <f:validateRequired />
+                            </h:inputText>
+                            <h:message for="numero" styleClass="form-group--message" />
+                        </div>
+                        <div class="form-group--size-half">
+                            <h:outputLabel for="origem" styleClass="form-group--label">Origem</h:outputLabel>
+                            <h:inputText
+                                value="#{cadastraEditalBean.edital.origem}"
+                                id="origem"
+                                label="Origem"
+                                styleClass="form-group--text-input"
+                                required="true"
+                                >
+                                <f:validateRequired />
+                            </h:inputText>
+                            <h:message for="origem" styleClass="form-group--message" />
+                        </div>                        
+                    </div>
+                    <div class="box--actions">
+                        <h:commandButton styleClass="button" value="Salvar" action="#{cadastraEditalBean.salvar()}"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+
