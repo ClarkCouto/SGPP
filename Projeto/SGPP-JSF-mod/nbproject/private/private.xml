@@ -14,5 +14,11 @@
             <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/beans/CadastraEditalBean.java</file>
             <file>file:/home/matheus/Documentos/SGPP-JSF/web/cadastrarEditais.xhtml</file>
         </group>
+        <group name="IFRS">
+            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/cadastrarEdital.xhtml</file>
+            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/listarEditais.xhtml</file>
+            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/editarEdital.xhtml</file>
+            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/EditalBean.java</file>
+        </group>
     </open-files>
 </project-private>

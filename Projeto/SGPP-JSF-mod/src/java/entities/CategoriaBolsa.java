@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.CategoriaBolsaDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -71,6 +73,21 @@ public class CategoriaBolsa extends BaseEntityAudit implements Serializable{
             return false;
         }
         return true;
-    } 
-
+    }   
+    
+    public CategoriaBolsa buscarPeloId(Long id){
+        return new CategoriaBolsaDAO().findById(id);
+    }
+    
+    public List<CategoriaBolsa> buscarTodos() {
+        return new CategoriaBolsaDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new CategoriaBolsaDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new CategoriaBolsaDAO().save(this);
+    }
 }

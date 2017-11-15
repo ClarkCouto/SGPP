@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.GrupoDePesquisaDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,7 +74,20 @@ public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
         }
         return true;
     }
-
-  
     
+    public GrupoDePesquisa buscarPeloId(Long id){
+        return new GrupoDePesquisaDAO().findById(id);
+    }
+    
+    public List<GrupoDePesquisa> buscarTodos() {
+        return new GrupoDePesquisaDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new GrupoDePesquisaDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new GrupoDePesquisaDAO().save(this);
+    }
 }

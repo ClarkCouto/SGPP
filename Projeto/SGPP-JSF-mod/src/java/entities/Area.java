@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.AreaDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -57,4 +59,19 @@ public class Area extends BaseEntityAudit implements Serializable{
         return true;
     }   
     
+    public Area buscarPeloId(Long id){
+        return new AreaDAO().findById(id);
+    }
+    
+    public List<Area> buscarTodos() {
+        return new AreaDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new AreaDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new AreaDAO().save(this);
+    }
 }

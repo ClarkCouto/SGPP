@@ -5,9 +5,11 @@
  */
 package entities;
 
+import dao.ProjetoDAO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +30,6 @@ import javax.persistence.TemporalType;
 public class Projeto extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
     
-   
     @Column(nullable=false)
     private boolean aipct;
     
@@ -50,15 +51,15 @@ public class Projeto extends BaseEntityAudit implements Serializable{
     private Edital edital;
     
     @ManyToMany
-    @JoinTable( name="Projeto_Alunos", 
-        joinColumns={@JoinColumn(name="id")}, 
-        inverseJoinColumns={@JoinColumn(name="id")})
+    @JoinTable( name="PROJETO_ALUNOS", 
+        joinColumns={@JoinColumn(name="IDPROJETO")}, 
+        inverseJoinColumns={@JoinColumn(name="IDALUNO")})
     private Collection<Aluno> listaAlunos;
     
     @ManyToMany
-    @JoinTable( name="Projeto_Colaboradores", 
-        joinColumns={@JoinColumn(name="id")}, 
-        inverseJoinColumns={@JoinColumn(name="id")})
+    @JoinTable( name="PROJETO_COLABORADORES", 
+        joinColumns={@JoinColumn(name="IDPROJETO")}, 
+        inverseJoinColumns={@JoinColumn(name="IDCOLABORADORES")})
     private Collection<Colaborador> listaColaboradores;
     
     @Column(nullable=true, columnDefinition = "VARCHAR(100)")
@@ -195,7 +196,20 @@ public class Projeto extends BaseEntityAudit implements Serializable{
         }
         return true;
     }
-
     
+    public Projeto buscarPeloId(Long id){
+        return new ProjetoDAO().findById(id);
+    }
     
+    public List<Projeto> buscarTodos() {
+        return new ProjetoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new ProjetoDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new ProjetoDAO().save(this);
+    }
 }

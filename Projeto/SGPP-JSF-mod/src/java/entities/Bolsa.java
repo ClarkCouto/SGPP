@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.BolsaDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -73,6 +75,21 @@ public class Bolsa extends BaseEntityAudit implements Serializable{
             return false;
         }
         return true;
-    }    
+    }  
     
+    public Bolsa buscarPeloId(Long id){
+        return new BolsaDAO().findById(id);
+    }
+    
+    public List<Bolsa> buscarTodos() {
+        return new BolsaDAO().findAll();
+    }
+    
+    public boolean salvar(){
+        return new BolsaDAO().save(this);
+    }
+   
+    public boolean remover(Long id) {
+        return new BolsaDAO().remove(id);
+    }
 }

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SGPP - IFRS POA</title>
+        <h:outputStylesheet name="css/normalize.css" />
+        <h:outputStylesheet name="css/main.css" />
+        <h:outputStylesheet name="css/font-awesome/css/font-awesome.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700" rel="stylesheet" />
+        <link rel="icon" type="image/vnd.microsoft.icon" href="#{resource['imgs/favicon.ico']}" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="main-bar">
+                <div class="main-bar--header">
+                    <h1 class="main-bar--header--title">SGPP</h1>
+                    <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
+                </div>
+                <div class="main-bar--tabs">
+                    <h:link styleClass="main-bar--tabs--item selected" outcome="listarEditais">Editais</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="listarEditais">Projetos</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="listarEditais">Bolsistas</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="listarEditais">Coordenadores</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="listarEditais">Relatórios</h:link>
+                </div>
+                <div class="main-bar--actions">
+                    <h:link styleClass="button" outcome="cadastrarBolsa">
+                        <i class="fa fa-plus button--icon" />
+                        <span class="button--label">Cadastrar Bolsa</span>
+                    </h:link>
+                </div>
+            </div>
+            <div class="content">                                
+                <h:panelGroup
+                    layout="block"
+                    styleClass="message-bar message-bar--info"
+                    rendered="#{bolsaBean.bolsas.size() == 0}"
+                >   
+                    <span class="message-bar--icon">
+                        <i class="fa fa-info-circle" />
+                    </span>
+                    <span class="message-bar--text">Não há bolsas cadastrados.</span>
+                </h:panelGroup>
+                <h:form>
+                    <h:panelGroup
+                        layout="block"
+                        styleClass="data-table"
+                        rendered="#{bolsaBean.bolsas.size() != 0}"
+                    >
+                        <div class="data-table--header">
+                            <span class="data-table--header--cell">Categoria</span>
+                            <span class="data-table--header--cell">Nome</span>
+                            <span class="data-table--header--cell">Ativo</span>
+                            <span class="data-table--header--cell">Última Alteração</span>
+                            <span class="data-table--header--action">Editar</span>
+                            <span class="data-table--header--action">Excluir</span>
+                        </div>
+                        <div class="data-table--body">
+                            <ui:repeat
+                                value="#{bolsaBean.bolsas}"
+                                var="bolsa"    
+                            >
+                                <div class="data-table--row">
+                                    <span class="data-table--row--cell">#{bolsa.categoriaBolsa.nome}</span>
+                                    <span class="data-table--row--cell">#{bolsa.nome}</span>
+                                    <span class="data-table--row--cell">#{bolsa.ativo}</span>
+                                    <span class="data-table--row--cell">#{bolsa.dataUltimaAlteracao}</span>
+                                    <h:link styleClass="data-table--row--action" outcome="editarBolsa?id=${bolsa.id}">
+                                        <i class="fa fa-edit" />
+                                    </h:link>
+                                    <h:commandLink styleClass="data-table--row--action" action="${bolsaBean.removeById(bolsa.id)}">
+                                        <i class="fa fa-trash" />
+                                    </h:commandLink>
+                                </div>
+                            </ui:repeat>                    
+                        </div>
+                    </h:panelGroup>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.CursoDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -75,5 +77,19 @@ public class Curso extends BaseEntityAudit implements Serializable{
         return true;
     }
     
+    public Curso buscarPeloId(Long id){
+        return new CursoDAO().findById(id);
+    }
     
+    public List<Curso> buscarTodos() {
+        return new CursoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new CursoDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new CursoDAO().save(this);
+    }
 }

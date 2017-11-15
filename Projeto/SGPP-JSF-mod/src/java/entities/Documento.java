@@ -5,8 +5,10 @@
  */
 package entities;
 
+import dao.DocumentoDAO;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -122,6 +124,21 @@ public class Documento extends BaseEntityAudit implements Serializable{
             return false;
         }
         return true;
-    }   
+    }  
     
+    public Documento buscarPeloId(Long id){
+        return new DocumentoDAO().findById(id);
+    }
+    
+    public List<Documento> buscarTodos() {
+        return new DocumentoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new DocumentoDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new DocumentoDAO().save(this);
+    }
 }

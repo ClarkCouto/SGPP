@@ -5,6 +5,7 @@
  */
 package entities;
 
+import dao.UsuarioDAO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -78,4 +79,17 @@ public class Usuario extends Pessoa implements Serializable {
         return true;
     }
     
+// Outros métodos
+    public Boolean checkSenha(String s) {
+        System.out.println("checkSenha Senha: " + s);
+        return this.senha.equals(s);
+    }
+    
+    public Boolean changeSenha(String newPass, String oldPass) {
+        if (Objects.equals(this.senha, oldPass)) {
+           this.senha = newPass; 
+           return true;
+        }        
+        return false;
+    }
 }

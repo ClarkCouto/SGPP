@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -25,8 +24,8 @@ public class Coordenador extends Usuario implements Serializable{
     @ManyToOne
     private Area area;
     
-    @OneToMany
-    private Collection<GrupoDePesquisa> gruposDePesquisa;
+//    @OneToMany
+//    private Collection<GrupoDePesquisa> gruposDePesquisa;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String siape;
@@ -42,13 +41,13 @@ public class Coordenador extends Usuario implements Serializable{
         this.area = area;
     }
 
-    public Collection<GrupoDePesquisa> getGruposDePesquisa() {
-        return gruposDePesquisa;
-    }
-
-    public void setGruposDePesquisa(Collection<GrupoDePesquisa> gruposDePesquisa) {
-        this.gruposDePesquisa = gruposDePesquisa;
-    }
+//    public Collection<GrupoDePesquisa> getGruposDePesquisa() {
+//        return gruposDePesquisa;
+//    }
+//
+//    public void setGruposDePesquisa(Collection<GrupoDePesquisa> gruposDePesquisa) {
+//        this.gruposDePesquisa = gruposDePesquisa;
+//    }
 
     public String getSiape() {
         return siape;
@@ -63,7 +62,7 @@ public class Coordenador extends Usuario implements Serializable{
         int hash = 3;       
         hash = 53 * hash + Objects.hashCode(super.hashCode());
         hash = 53 * hash + Objects.hashCode(this.area);
-        hash = 53 * hash + Objects.hashCode(this.gruposDePesquisa);
+//        hash = 53 * hash + Objects.hashCode(this.gruposDePesquisa);
         hash = 53 * hash + Objects.hashCode(this.siape);
         return hash;
     }
@@ -86,13 +85,9 @@ public class Coordenador extends Usuario implements Serializable{
         if (!Objects.equals(this.area, other.area)) {
             return false;
         }
-        if (!Objects.equals(this.gruposDePesquisa, other.gruposDePesquisa)) {
-            return false;
-        }
+//        if (!Objects.equals(this.gruposDePesquisa, other.gruposDePesquisa)) {
+//            return false;
+//        }
         return true;
     }
-
-    
-    
-
 }

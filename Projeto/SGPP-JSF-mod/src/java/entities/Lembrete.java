@@ -5,8 +5,10 @@
  */
 package entities;
 
+import dao.LembreteDAO;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -107,7 +109,20 @@ public class Lembrete extends BaseEntityAudit implements Serializable{
         }
         return true;
     }
-
     
+    public Lembrete buscarPeloId(Long id){
+        return new LembreteDAO().findById(id);
+    }
     
+    public List<Lembrete> buscarTodos() {
+        return new LembreteDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new LembreteDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new LembreteDAO().save(this);
+    }
 }

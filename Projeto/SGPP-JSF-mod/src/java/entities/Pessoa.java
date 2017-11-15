@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.PessoaDAO;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -173,6 +175,21 @@ public abstract class Pessoa extends BaseEntityAudit {
             return false;
         }
         return true;
-    }      
-
+    } 
+    
+    public Pessoa buscarPeloId(Long id){
+        return new PessoaDAO().findById(id);
+    }
+    
+    public List<Pessoa> buscarTodos() {
+        return new PessoaDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new PessoaDAO().remove(id);
+    }  
+    
+    public boolean salvar(){
+        return new PessoaDAO().save(this);
+    }
 }

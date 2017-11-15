@@ -5,8 +5,10 @@
  */
 package entities;
 
+import dao.DeclaracaoDAO;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -122,5 +124,19 @@ public class Declaracao extends BaseEntityAudit implements Serializable{
         return true;
     }
     
+    public Declaracao buscarPeloId(Long id){
+        return new DeclaracaoDAO().findById(id);
+    }
     
+    public List<Declaracao> buscarTodos() {
+        return new DeclaracaoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new DeclaracaoDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new DeclaracaoDAO().save(this);
+    }
 }

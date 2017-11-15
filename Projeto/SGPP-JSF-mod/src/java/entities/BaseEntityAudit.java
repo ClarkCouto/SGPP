@@ -28,7 +28,7 @@ public class BaseEntityAudit extends BaseEntity {
     private String criadoPor;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataAlteracao;
+    private Date dataUltimaAlteracao;
     
     private String alteradoPor;
     
@@ -48,12 +48,12 @@ public class BaseEntityAudit extends BaseEntity {
         this.criadoPor = criadoPor;
     }
 
-    public Date getDataAlteracao() {
-        return dataAlteracao;
+    public Date getDataUltimaAlteracao() {
+        return dataUltimaAlteracao;
     }
 
-    public void setDataAlteracao(Date dataAlteracao) {
-        this.dataAlteracao = dataAlteracao;
+    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+        this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
     public String getAlteradoPor() {
@@ -67,11 +67,12 @@ public class BaseEntityAudit extends BaseEntity {
     @PrePersist
     public void setCreationDate() {
         this.setDataCriacao(new Date());
+        this.setDataUltimaAlteracao(new Date());
     }
     
     @PreUpdate
     public void setChangeDate() {
-        this.setDataAlteracao(new Date());
+        this.setDataUltimaAlteracao(new Date());
     }  
                
 }

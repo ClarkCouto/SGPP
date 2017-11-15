@@ -3,23 +3,18 @@ package dao;
 import entities.BaseEntity;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
 public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
-
     private static final long serialVersionUID = -5953225846505938118L;
     private EntityManager em;
     private Class entidade;
 
-    public BaseDAO() {
-    }
-
     public Class getEntidade() {
         if (entidade == null) {
-            entidade = (Class) ((ParameterizedType) getClass()
+            entidade = (Class<T>) ((ParameterizedType) getClass()
                     .getGenericSuperclass()).getActualTypeArguments()[0];
         }
         return entidade;
@@ -34,21 +29,29 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
         return (T) em.find(getEntidade(), id);
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id){
         em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         try {
-            Object ref = em.getReference(getEntidade(), id);
-            em.remove(ref);
+            Object obj = em.getReference(getEntidade(), id);
+            em.remove(obj);
             em.getTransaction().commit();
-        } catch (EntityNotFoundException e) {
-            System.out.println("Não existe o id: " + id);
-        } finally {
             em.close();
-        }
+            return true;
+        } 
+        catch (EntityNotFoundException e) {
+            em.getTransaction().rollback();
+            em.close();
+            return false;
+        } 
+        catch (Exception e) {
+            em.getTransaction().rollback();
+            em.close();
+            return false;
+        } 
     }
 
-    public void save(T t) {
+    public boolean save(T t){
         em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         
@@ -62,16 +65,20 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
                 em.persist(t);                
             }            
             em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+            em.clear();
+            em.close();
+            return true;
+        } 
+        catch (Exception e) {
             em.getTransaction().rollback();
+            em.clear();
+            em.close();
+            return false;
         }
-        em.clear();
-        em.close();
     }
 
     public List<T> findAll() {
         em = JPAUtil.getEntityManager();
-        return em.createQuery("Select entity FROM " + getEntidade().getSimpleName() + " entity").getResultList();
+        return (List) em.createQuery("Select entity FROM " + getEntidade().getSimpleName() + " entity").getResultList();
     }
 }

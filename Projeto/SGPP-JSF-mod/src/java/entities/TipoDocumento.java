@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.TipoDocumentoDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,7 +58,20 @@ public class TipoDocumento extends BaseEntityAudit implements Serializable{
         }
         return true;
     }
-
     
-       
+    public TipoDocumento buscarPeloId(Long id){
+        return new TipoDocumentoDAO().findById(id);
+    }
+    
+    public List<TipoDocumento> buscarTodos() {
+        return new TipoDocumentoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new TipoDocumentoDAO().remove(id);
+    }  
+    
+    public boolean salvar(){
+        return new TipoDocumentoDAO().save(this);
+    }
 }

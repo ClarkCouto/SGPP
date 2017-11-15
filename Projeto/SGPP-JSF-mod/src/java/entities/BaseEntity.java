@@ -28,16 +28,16 @@ public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     protected Long id;
     
-    @Column(name = "versao")
+    @Column
     @Version
     protected Long versao;
     
     @Basic(optional = false)
     @Column(nullable = false)
-    protected Boolean isActive;
+    protected Boolean ativo;
 
     public Long getId() {
         return id;
@@ -51,12 +51,12 @@ public abstract class BaseEntity implements Serializable {
         this.versao = versao;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
+    public Boolean getAtivo() {
+        return ativo;
     }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
@@ -64,7 +64,7 @@ public abstract class BaseEntity implements Serializable {
         int hash = 3;
         hash = 23 * hash + Objects.hashCode(this.id);
         hash = 23 * hash + Objects.hashCode(this.versao);
-        hash = 23 * hash + Objects.hashCode(this.isActive);
+        hash = 23 * hash + Objects.hashCode(this.ativo);
         return hash;
     }
 
@@ -86,7 +86,7 @@ public abstract class BaseEntity implements Serializable {
         if (!Objects.equals(this.versao, other.versao)) {
             return false;
         }
-        if (!Objects.equals(this.isActive, other.isActive)) {
+        if (!Objects.equals(this.ativo, other.ativo)) {
             return false;
         }
         return true;
@@ -98,8 +98,8 @@ public abstract class BaseEntity implements Serializable {
     }        
     
     @PrePersist
-    public void setIsActive() {
-        this.setIsActive(true);
+    public void setAtivo() {
+        this.setAtivo(true);
     } 
        
 }

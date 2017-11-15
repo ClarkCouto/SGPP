@@ -5,18 +5,18 @@
  */
 package entities;
 
+import dao.ColaboradorDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  *
  * @author CristianoSilva
  */
 @Entity
-@Table(name = "Colaborador")
 public class Colaborador extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
     
@@ -57,7 +57,21 @@ public class Colaborador extends BaseEntityAudit implements Serializable{
             return false;
         }
         return true;
+    } 
+    
+    public Colaborador buscarPeloId(Long id){
+        return new ColaboradorDAO().findById(id);
     }
-        
+    
+    public List<Colaborador> buscarTodos() {
+        return new ColaboradorDAO().findAll();
+    }
    
+    public boolean remover(Long id) {
+        return new ColaboradorDAO().remove(id);
+    }  
+    
+    public boolean salvar(){
+        return new ColaboradorDAO().save(this);
+    }
 }

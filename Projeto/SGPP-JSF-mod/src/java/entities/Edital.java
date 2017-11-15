@@ -5,8 +5,9 @@
  */
 package entities;
 
+import dao.EditalDAO;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,10 +24,10 @@ public class Edital extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
     
     @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
-    private Collection<Lembrete> lembretes;
+    private List<Lembrete> lembretes;
     
     @OneToMany(cascade={CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
-    private Collection<Bolsa> bolsas;
+    private List<Bolsa> bolsas;
 
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String numero;
@@ -43,19 +44,19 @@ public class Edital extends BaseEntityAudit implements Serializable{
     public Edital() {    
     }
     
-    public Collection<Lembrete> getLembretes() {
+    public List<Lembrete> getLembretes() {
         return lembretes;
     }
 
-    public void setLembretes(Collection<Lembrete> lembretes) {
+    public void setLembretes(List<Lembrete> lembretes) {
         this.lembretes = lembretes;
     }
 
-    public Collection<Bolsa> getBolsas() {
+    public List<Bolsa> getBolsas() {
         return bolsas;
     }
 
-    public void setBolsas(Collection<Bolsa> bolsas) {
+    public void setBolsas(List<Bolsa> bolsas) {
         this.bolsas = bolsas;
     }
 
@@ -135,5 +136,20 @@ public class Edital extends BaseEntityAudit implements Serializable{
         }
         return true;
     }
-        
+    
+    public Edital buscarPeloId(Long id){
+        return new EditalDAO().findById(id);
+    }
+    
+    public List<Edital> buscarTodos() {
+        return new EditalDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new EditalDAO().remove(id);
+    } 
+    
+    public boolean salvar(){
+        return new EditalDAO().save(this);
+    }
 }

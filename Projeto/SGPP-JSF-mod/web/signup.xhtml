@@ -31,7 +31,7 @@
                                 <div class="form--group">
                                     <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                     <h:inputText
-                                        value="#{signupBean.usuario.nome}"
+                                        value="#{usuarioBean.usuario.nome}"
                                         id="nome"
                                         label="Nome"
                                         styleClass="form--group--text-input"
@@ -44,7 +44,7 @@
                                 <div class="form--group">
                                     <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
                                     <h:inputText
-                                        value="#{signupBean.usuario.email}"
+                                        value="#{usuarioBean.usuario.email}"
                                         id="email"
                                         label="E-mail"
                                         styleClass="form--group--text-input"
@@ -58,7 +58,7 @@
                                 <div class="form--group size-half">
                                     <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
                                     <p:inputMask
-                                        value="#{signupBean.usuario.telefoneCelular}"
+                                        value="#{usuarioBean.usuario.telefoneCelular}"
                                         id="celular"
                                         label="Telefone Celular"
                                         styleClass="form--group--text-input"
@@ -72,7 +72,7 @@
                                 <div class="form--group size-half">
                                     <h:outputLabel for="tel-fixo" styleClass="form--group--label">Telefone Fixo</h:outputLabel>
                                     <p:inputMask
-                                        value="#{signupBean.usuario.telefoneFixo}"
+                                        value="#{usuarioBean.usuario.telefoneFixo}"
                                         id="tel-fixo"
                                         label="Telefone Fixo"
                                         styleClass="form--group--text-input"
@@ -86,7 +86,7 @@
                                 <div class="form--group">
                                     <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
                                     <p:inputMask
-                                        value="#{signupBean.usuario.cpf}"
+                                        value="#{usuarioBean.usuario.cpf}"
                                         id="cpf"
                                         label="CPF"
                                         styleClass="form--group--text-input"
@@ -100,7 +100,7 @@
                                 <div class="form--group size-half">
                                     <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
                                     <h:selectOneMenu
-                                        value="#{signupBean.usuario.sexo}"
+                                        value="#{usuarioBean.usuario.sexo}"
                                         id="sexo"
                                         label="Sexo"
                                         styleClass="form--group--text-input"
@@ -113,7 +113,7 @@
                                 <div class="form--group size-half">
                                     <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
                                     <p:inputMask
-                                        value="#{signupBean.usuario.dataNascimento}"
+                                        value="#{usuarioBean.usuario.dataNascimento}"
                                         id="data-nascimento"
                                         label="Data de Nascimento"
                                         styleClass="form--group--text-input"
@@ -125,15 +125,23 @@
                                     </p:inputMask>
                                     <h:message for="data-nascimento" styleClass="form--group--message" />
                                 </div>
+                                <div class="form-group--size-half">
+                                    <h:outputLabel for="tipo-usuario" styleClass="form-group--label">Tipo de Usuário</h:outputLabel>
+                                    <p:selectOneRadio id="tipo-usuario" value="#{usuarioBean.tipoUsuario}" columns="1">
+                                        <f:selectItems value="#{usuarioBean.tiposUsuario}" var="tipo" itemLabel="#{tipoUsuario}" itemValue="#{tipoUsuario}"/>
+                                    </p:selectOneRadio>
+                                    <h:message for="data-nascimento" styleClass="form-group--message" />
+                                </div>
                             </div>
                             <div class="box--actions">                               
-                                <h:commandButton styleClass="button box-action" value="Limpar" type="reset" action="#{signupBean.limpar()}" />
-                                <h:commandButton styleClass="button box-action" value="Enviar solicitação" action="#{signupBean.cadastrar()}" />
+                                <h:commandButton styleClass="button box-action" value="Limpar" type="reset" action="#{usuarioBean.limpar()}" />
+                                <h:commandButton styleClass="button box-action" value="Enviar solicitação" action="#{usuarioBean.cadastrar()}" />
                             </div>
                         </h:form>
                         <p class="box--labeled-separator">ou</p>
                         <div class="box--actions--full">       
                             <h:link styleClass="link" value="Identifique-se" outcome="login" />
+                            <p:messages id="messages" />
                         </div>
                     </div>
                 </div>

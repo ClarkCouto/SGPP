@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.InstituicaoDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,6 +58,20 @@ public class Instituicao extends BaseEntityAudit implements Serializable{
         }
         return true;
     }
-
     
+    public Instituicao buscarPeloId(Long id){
+        return new InstituicaoDAO().findById(id);
+    }
+    
+    public List<Instituicao> buscarTodos() {
+        return new InstituicaoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new InstituicaoDAO().remove(id);
+    }
+    
+    public boolean salvar(){
+        return new InstituicaoDAO().save(this);
+    }
 }

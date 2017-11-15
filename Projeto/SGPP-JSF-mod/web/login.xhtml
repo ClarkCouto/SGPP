@@ -30,7 +30,7 @@
                             <div class="form--group">
                                     <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
                                     <p:inputMask
-                                        value="#{loginBean.cpf}"
+                                        value="#{usuarioBean.usuario.cpf}"
                                         id="cpf"
                                         label="CPF"
                                         styleClass="form--group--text-input"
@@ -44,7 +44,7 @@
                             <div class="form--group">
                                 <h:outputLabel for="password" styleClass="form--group--label">Senha</h:outputLabel>
                                 <h:inputSecret
-                                    value="#{loginBean.senha}"
+                                    value="#{usuarioBean.usuario.senha}"
                                     id="password"
                                     label="Senha"
                                     styleClass="form--group--text-input"
@@ -59,12 +59,14 @@
                                 <div class="box--actions--left">
                                     <h:link styleClass="link box--actions--left" value="Esqueceu sua senha?" outcome="reset-password"/>
                                 </div>
-                                <h:commandButton styleClass="button" value="Entrar" action="#{loginBean.logar()}"/>
+                                <h:commandButton styleClass="button" value="Entrar" action="#{usuarioBean.logar()}"/>
+                                
                             </div>
                         </h:form>
                         <p class="box--labeled-separator">ou</p>
-                        <div class="box--actions--full">       
+                        <div class="box--actions--full">      
                             <h:link styleClass="link" value="Solicite o cadastro" outcome="signup" />
+                            <p:messages id="messages" /> 
                         </div>
                     </div>
                 </div>
