@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"    
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <div class="main-bar">
+                    <div class="main-bar--actions">
+                        <h:link styleClass="button" outcome="cadastrarCagppi">
+                            <i class="fa fa-plus button--icon" />
+                            <span class="button--label">Cadastrar CAGPPI</span>
+                        </h:link>
+                    </div>
+                </div>
+                <h:form>
+                    <h:panelGroup
+                        layout="block"
+                        styleClass="message-bar message-bar--info"
+                        rendered="#{cagppiBean.cagppis.size() == 0}"
+                    >   
+                        <span class="message-bar--icon">
+                            <i class="fa fa-info-circle" />
+                        </span>
+                        <span class="message-bar--text">Não há CAGPPI cadastrados.</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:dataTable var="cagppi" 
+                            value="#{cagppiBean.cagppi}" 
+                            widgetVar="cagppiTable"
+                            emptyMessage="Nenhum CAGPPI foi encontrado." 
+                            filteredValue="#{cagppiBean.listaFiltrada}"
+                            rendered="#{cagppiBean.cagppis.size() != 0}"
+                            >
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Procurar em todos os campos:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Filtrar"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column filterBy="#{cagppi.nome}" sortBy="#{cagppi.nome}" headerText="Nome" filterMatchMode="contains">
+                                <h:outputText value="#{cagppi.nome}" />
+                            </p:column>
+
+                            <p:column filterBy="#{cagppi.cpf}" sortBy="#{cagppi.cpf}" headerText="CPF" filterMatchMode="contains">
+                                <h:outputText value="#{cagppi.cpf}" >
+                                    <f:convertNumber pattern="999.999.999-99"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{cagppi.dataNascimento}" sortBy="#{cagppi.dataNascimento}" headerText="Data Nascimento" filterMatchMode="contains">
+                                <h:outputText value="#{cagppi.dataNascimento}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{cagppi.dataUltimaAlteracao}" sortBy="#{cagppi.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                                <h:outputText value="#{cagppi.dataUltimaAlteracao}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{cagppi.ativo}" sortBy="#{cagppi.ativo}" headerText="Ativo" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('cagppiTable').filter()">
+                                        <f:converter converterId="javax.faces.Boolean" />
+                                        <f:selectItem itemLabel="Todos" itemValue="" />
+                                        <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                        <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <h:outputText value="#{cagppi.ativo ? 'Ativo' : 'Inativo'}" />
+                            </p:column>
+                            
+                            <p:column headerText="Editar" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{cagppi.ativo}" action="${cagppiBean.editar(cagppi.id)}">
+                                    <i class="fa fa-edit" />
+                                </h:commandLink>
+                            </p:column>
+
+                            <p:column headerText="Excluir" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{cagppi.ativo}" action="${cagppiBean.remover(cagppi.id)}">
+                                    <i class="fa fa-trash" />
+                                </h:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

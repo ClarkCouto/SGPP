@@ -1,0 +1,14 @@
+.container {
+  flex-direction: row;
+}
+.content {
+  width: calc(100% - 265px);
+  background-image: url("#{resource['imgs/bg.png']}");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-box {
+  width: 380px;
+}
+/*# sourceMappingURL=login.css.map */

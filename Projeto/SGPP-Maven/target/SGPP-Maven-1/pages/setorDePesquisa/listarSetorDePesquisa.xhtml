@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"    
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <div class="main-bar">
+                    <div class="main-bar--actions">
+                        <h:link styleClass="button" outcome="cadastrarSetorDePesquisa">
+                            <i class="fa fa-plus button--icon" />
+                            <span class="button--label">Cadastrar Setor de Pesquisa</span>
+                        </h:link>
+                    </div>
+                </div>
+                <h:form>
+                    <h:panelGroup
+                        layout="block"
+                        styleClass="message-bar message-bar--info"
+                        rendered="#{setorDePesquisaBean.setorDePesquisas.size() == 0}"
+                    >   
+                        <span class="message-bar--icon">
+                            <i class="fa fa-info-circle" />
+                        </span>
+                        <span class="message-bar--text">Não há Setores cadastrados.</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:dataTable var="setorDePesquisa" 
+                            value="#{setorDePesquisaBean.setorDePesquisa}" 
+                            widgetVar="setorDePesquisaTable"
+                            emptyMessage="Nenhum setorDePesquisa foi encontrado." 
+                            filteredValue="#{setorDePesquisaBean.listaFiltrada}"
+                            rendered="#{setorDePesquisaBean.setoresDePesquisa.size() != 0}"
+                            >
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Procurar em todos os campos:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('setorDePesquisaTable').filter()"  placeholder="Filtrar"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column filterBy="#{setorDePesquisa.nome}" sortBy="#{setorDePesquisa.nome}" headerText="Nome" filterMatchMode="contains">
+                                <h:outputText value="#{setorDePesquisa.nome}" />
+                            </p:column>
+
+                            <p:column filterBy="#{setorDePesquisa.cpf}" sortBy="#{setorDePesquisa.cpf}" headerText="CPF" filterMatchMode="contains">
+                                <h:outputText value="#{setorDePesquisa.cpf}" >
+                                    <f:convertNumber pattern="999.999.999-99"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{setorDePesquisa.dataNascimento}" sortBy="#{setorDePesquisa.dataNascimento}" headerText="Data Nascimento" filterMatchMode="contains">
+                                <h:outputText value="#{setorDePesquisa.dataNascimento}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{setorDePesquisa.dataUltimaAlteracao}" sortBy="#{setorDePesquisa.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                                <h:outputText value="#{setorDePesquisa.dataUltimaAlteracao}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{setorDePesquisa.ativo}" sortBy="#{setorDePesquisa.ativo}" headerText="Ativo" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('setorDePesquisaTable').filter()">
+                                        <f:converter converterId="javax.faces.Boolean" />
+                                        <f:selectItem itemLabel="Todos" itemValue="" />
+                                        <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                        <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <h:outputText value="#{setorDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
+                            </p:column>
+                            
+                            <p:column headerText="Editar" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{setorDePesquisa.ativo}" action="${setorDePesquisaBean.editar(setorDePesquisa.id)}">
+                                    <i class="fa fa-edit" />
+                                </h:commandLink>
+                            </p:column>
+
+                            <p:column headerText="Excluir" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{setorDePesquisa.ativo}" action="${setorDePesquisaBean.remover(setorDePesquisa.id)}">
+                                    <i class="fa fa-trash" />
+                                </h:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
