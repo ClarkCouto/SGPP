@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <ui:composition>
+            <div class="main-bar">
+                <div class="main-bar--header">
+                    <h1 class="main-bar--header--title">SGPP</h1>
+                    <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
+                </div>
+                <div class="main-bar--tabs">
+                    <!-- SÓ APARECE PARA QUEM FOR DO SETOR DE PESQUISA -->
+                    <!--<c:if test="# {usuarioBean.usuario.tipo eq 'SetorDePesquisa'}">-->
+                        <h:link styleClass="main-bar--tabs--item selected" outcome="/pages/edital/listarEditais">Editais</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/projeto/listarProjetos">Projetos</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/edital/listarEditais">Bolsistas</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/coordenador/listarCoordenadores">Coordenadores</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/colaborador/listarColaboradores">Colaboradores</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/edital/listarEditais">Administração</h:link>
+                </div>
+                <!-- MENU DE OPÇÕES ADMINISTRATIVAS, NÃO SEI COMO VAMOS FAZER -->
+                <div class="main-bar--tabs">
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/area/listarAreas">Áreas</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/bolsa/listarBolsas">Bolsas</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/categoriaBolsa/listarCategoriasBolsa">Categorias Bolsa</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/curso/listarCursos">Cursos</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/grupoDePesquisa/listarGruposDePesquisa">Grupos De Pesquisa</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/instituicao/listarInstituicoes">Instituições</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/textoBaseDeclaracao/listarTextosBaseDeclaracao">Textos Base</h:link>
+                        <h:link styleClass="main-bar--tabs--item" outcome="/pages/tipoDocumento/listarTiposDocumento">Tipo De Documento</h:link>
+                    <!--</c:if>-->
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/edital/listarEditais">Relatórios</h:link>
+                </div>
+            </div>
+        </ui:composition>
+    </body>
+</html>

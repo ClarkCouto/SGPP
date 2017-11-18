@@ -20,7 +20,6 @@ import javax.persistence.Entity;
 public class CategoriaBolsa extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
    
-    
     @Column(nullable=false, columnDefinition = "VARCHAR(100)")
     private String descricao;
     

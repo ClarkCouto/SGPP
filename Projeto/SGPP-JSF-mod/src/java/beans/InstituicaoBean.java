@@ -16,10 +16,19 @@ import javax.faces.context.FacesContext;
 public class InstituicaoBean {
     private Instituicao instituicao = new Instituicao();
     private Instituicao instituicaoSelecionada;
-    private List<Instituicao> instituicaos;
+    private List<Instituicao> instituicoes;
+    private List<Instituicao> listaFiltrada;
     private Boolean editando;
     
 // Getters e Setters
+    public List<Instituicao> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Instituicao> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public Instituicao getInstituicao() {
         return instituicao;
     }
@@ -32,13 +41,13 @@ public class InstituicaoBean {
         this.instituicaoSelecionada = instituicao;
     }
       
-    public List<Instituicao> getInstituicaos(){
-        this.instituicaos = this.instituicao.buscarTodos();
-        return instituicaos;
+    public List<Instituicao> getInstituicoes(){
+        this.instituicoes = this.instituicao.buscarTodos();
+        return instituicoes;
     }
     
-    public void setInstituicaos(List<Instituicao> lista){
-        this.instituicaos = lista;
+    public void setInstituicoes(List<Instituicao> lista){
+        this.instituicoes = lista;
     }
 
     public Boolean getEditando() {
@@ -60,7 +69,7 @@ public class InstituicaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarInstituicao";
+        return "/pages/instituicao/editarInstituicao";
     }  
     
     public void limpar(){
@@ -71,23 +80,23 @@ public class InstituicaoBean {
     
     public String remover(Long id) {
         if(instituicao.remover(id))
-            return "listarInstituições?faces-redirect=true";
+            return "/pages/instituicao/listarInstituicoes?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Instituição!",
                                    "Erro ao excluir Instituição!"));
-            return "listarInstituições";
+            return "/pages/instituicao/listarInstituicoes";
         }
     }
     
     public String salvar() {
         if(instituicao.salvar())
-            return "listarInstituições?faces-redirect=true";
+            return "/pages/instituicao/listarInstituicoes?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Instituição!",
                                    "Erro ao salvar Instituição!"));
-            return "cadastrarInstituições";
+            return "/pages/instituicao/cadastrarInstituicoes";
         }
     }
 }

@@ -1,6 +1,13 @@
 package beans;
 
+import entities.Aluno;
+import entities.Cagppi;
+import entities.Coordenador;
 import entities.Declaracao;
+import entities.Pessoa;
+import entities.Projeto;
+import entities.SetorDePesquisa;
+import entities.TextoBaseDeclaracao;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,10 +23,28 @@ import javax.faces.context.FacesContext;
 public class DeclaracaoBean {
     private Declaracao declaracao = new Declaracao();
     private Declaracao declaracaoSelecionada;
-    private List<Declaracao> declaracaos;
+    private List<Declaracao> declaracoes;
+    private List<Declaracao> listaFiltrada;
+    private List<Pessoa> coordenadores;
+    private List<Projeto> projetos;
+    private List<Pessoa> pessoas;
+    private List<TextoBaseDeclaracao> textosBase;
     private Boolean editando;
     
 // Getters e Setters
+    public List<Declaracao> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Declaracao> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
+    public List<Pessoa> getCoordenadores(){
+        this.coordenadores = new Coordenador().buscarTodos();
+        return coordenadores;
+    }
+    
     public Declaracao getDeclaracao() {
         return declaracao;
     }
@@ -32,13 +57,13 @@ public class DeclaracaoBean {
         this.declaracaoSelecionada = declaracao;
     }
       
-    public List<Declaracao> getDeclaracaos(){
-        this.declaracaos = this.declaracao.buscarTodos();
-        return declaracaos;
+    public List<Declaracao> getDeclaracoes(){
+        this.declaracoes = this.declaracao.buscarTodos();
+        return declaracoes;
     }
     
-    public void setDeclaracaos(List<Declaracao> lista){
-        this.declaracaos = lista;
+    public void setDeclaracoes(List<Declaracao> lista){
+        this.declaracoes = lista;
     }
 
     public Boolean getEditando() {
@@ -47,6 +72,28 @@ public class DeclaracaoBean {
 
     public void setEditando(Boolean editando) {
         this.editando = editando;
+    }
+      
+    public List<Pessoa> getPessoas(){
+        List<Pessoa> listaAlunos = new Aluno().buscarTodos();
+        List<Pessoa> listaCoordenadores = new Coordenador().buscarTodos();
+        List<Pessoa> listaCagppi = new Cagppi().buscarTodos();
+        List<Pessoa> listaSetorDePesquisa = new SetorDePesquisa().buscarTodos();
+        pessoas.addAll(listaAlunos);
+        pessoas.addAll(listaCoordenadores);
+        pessoas.addAll(listaCagppi);
+        pessoas.addAll(listaSetorDePesquisa);
+        return pessoas;
+    }
+      
+    public List<Projeto> getProjetos(){
+        this.projetos = new Projeto().buscarTodos();
+        return projetos;
+    }
+      
+    public List<TextoBaseDeclaracao> getTextosBase(){
+        this.textosBase = new TextoBaseDeclaracao().buscarTodos();
+        return textosBase;
     }
     
 // Ações
@@ -60,7 +107,7 @@ public class DeclaracaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarDeclaracao";
+        return "/pages/declaracao/editarDeclaracao";
     }  
     
     public void limpar(){
@@ -71,23 +118,23 @@ public class DeclaracaoBean {
     
     public String remover(Long id) {
         if(declaracao.remover(id))
-            return "listarDeclaracoes?faces-redirect=true";
+            return "/pages/declaracao/listarDeclaracoes?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Declaração!",
                                    "Erro ao excluir Declaração!"));
-            return "listarDeclaracoes";
+            return "/pages/declaracao/listarDeclaracoes";
         }
     }
     
     public String salvar() {
         if(declaracao.salvar())
-            return "listarDeclaracoes?faces-redirect=true";
+            return "/pages/declaracao/listarDeclaracoes?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Declaração!",
                                    "Erro ao salvar Declaração!"));
-            return "cadastrarDeclaracoes";
+            return "/pages/declaracao/cadastrarDeclaracoes";
         }
     }
 }

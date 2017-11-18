@@ -1,13 +1,14 @@
 package dao;
 
-import entities.BaseEntity;
+import entities.BaseEntityAudit;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
-public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
+public abstract class BaseDAO<T extends BaseEntityAudit> implements Serializable {
     private static final long serialVersionUID = -5953225846505938118L;
     private EntityManager em;
     private Class entidade;
@@ -24,6 +25,11 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
         this.entidade = entidade;
     }
 
+    public List<T> findAll() {
+        em = JPAUtil.getEntityManager();
+        return (List) em.createQuery("Select entity FROM " + getEntidade().getSimpleName() + " entity").getResultList();
+    }
+
     public T findById(Long id) {
         em = JPAUtil.getEntityManager();
         return (T) em.find(getEntidade(), id);
@@ -33,10 +39,10 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
         em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         try {
-            Object obj = em.getReference(getEntidade(), id);
-            em.remove(obj);
-            em.getTransaction().commit();
+            T t = findById(id);
             em.close();
+            t.setAtivo(Boolean.FALSE);
+            save(t);
             return true;
         } 
         catch (EntityNotFoundException e) {
@@ -55,7 +61,7 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
         em = JPAUtil.getEntityManager();
         em.getTransaction().begin();
         
-        try {            
+        try {           
             T foundItem = null;
             if (t.getId() != null)
                 foundItem = em.find((Class<T>) t.getClass(), t.getId());
@@ -75,10 +81,5 @@ public abstract class BaseDAO<T extends BaseEntity> implements Serializable {
             em.close();
             return false;
         }
-    }
-
-    public List<T> findAll() {
-        em = JPAUtil.getEntityManager();
-        return (List) em.createQuery("Select entity FROM " + getEntidade().getSimpleName() + " entity").getResultList();
     }
 }

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <div class="main-bar--actions">
+                    <h:link styleClass="button" outcome="cadastrarTipoDocumento">
+                        <i class="fa fa-plus button--icon" />
+                        <span class="button--label">Cadastrar Tipo de Documento</span>
+                    </h:link>
+                </div>        
+                <h:form>                      
+                    <h:panelGroup
+                        layout="block"
+                        styleClass="message-bar message-bar--info"
+                        rendered="#{tipoDocumentoBean.tiposDocumento.size() == 0}"
+                    >   
+                        <span class="message-bar--icon">
+                            <i class="fa fa-info-circle" />
+                        </span>
+                        <span class="message-bar--text">Não há tipos de documento cadastrados.</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:dataTable var="tipoDocumento" 
+                            value="#{tipoDocumentoBean.tiposDocumento}" 
+                            widgetVar="tiposDocumentoTable"
+                            emptyMessage="Nenhum tipo de documento foi encontrado." 
+                            filteredValue="#{tipoDocumentoBean.listaFiltrada}"
+                            rendered="#{tipoDocumentoBean.tiposDocumento.size() != 0}"
+                            >
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Procurar em todos os campos:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('tiposDocumentoTable').filter()"  placeholder="Filtrar"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column filterBy="#{tipoDocumento.nome}" sortBy="#{tipoDocumento.nome}" headerText="Nome" filterMatchMode="contains">
+                                <h:outputText value="#{tipoDocumento.nome}" />
+                            </p:column>
+
+                            <p:column filterBy="#{tipoDocumento.dataUltimaAlteracao}" sortBy="#{tipoDocumento.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                                <h:outputText value="#{tipoDocumento.dataUltimaAlteracao}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{tipoDocumento.ativo}" sortBy="#{tipoDocumento.ativo}" headerText="Ativo" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('tiposDocumentoTable').filter()">
+                                        <f:converter converterId="javax.faces.Boolean" />
+                                        <f:selectItem itemLabel="Todos" itemValue="" />
+                                        <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                        <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <h:outputText value="#{tipoDocumento.ativo ? 'Ativo' : 'Inativo'}" />
+                            </p:column>
+                            
+                            <p:column headerText="Editar" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{tipoDocumento.ativo}" action="${tipoDocumentoBean.editar(tipoDocumento.id)}">
+                                    <i class="fa fa-edit" />
+                                </h:commandLink>
+                            </p:column>
+
+                            <p:column headerText="Excluir" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{tipoDocumento.ativo}" action="${tipoDocumentoBean.remover(tipoDocumento.id)}">
+                                    <i class="fa fa-trash" />
+                                </h:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
+
+

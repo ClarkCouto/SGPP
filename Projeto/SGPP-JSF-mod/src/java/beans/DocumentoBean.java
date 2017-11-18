@@ -1,6 +1,7 @@
 package beans;
 
 import entities.Documento;
+import entities.TipoDocumento;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,9 +18,19 @@ public class DocumentoBean {
     private Documento documento = new Documento();
     private Documento documentoSelecionado;
     private List<Documento> documentos;
+    private List<Documento> listaFiltrada;
+    private List<TipoDocumento> tiposDocumento;
     private Boolean editando;
     
 // Getters e Setters
+    public List<Documento> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Documento> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public Documento getDocumento() {
         return documento;
     }
@@ -47,6 +58,11 @@ public class DocumentoBean {
 
     public void setEditando(Boolean editando) {
         this.editando = editando;
+    }
+      
+    public List<TipoDocumento> getTiposDocumento(){
+        this.tiposDocumento = new TipoDocumento().buscarTodos();
+        return tiposDocumento;
     }
     
 // Ações

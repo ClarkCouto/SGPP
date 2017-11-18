@@ -1,6 +1,7 @@
 package beans;
 
 import entities.Bolsa;
+import entities.CategoriaBolsa;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,9 +18,19 @@ public class BolsaBean {
     private Bolsa bolsa = new Bolsa();
     private Bolsa bolsaSelecionada;
     private List<Bolsa> bolsas;
+    private List<Bolsa> listaFiltrada;
+    private List<CategoriaBolsa> categorias;
     private Boolean editando;
     
 // Getters e Setters
+    public List<Bolsa> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Bolsa> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public Bolsa getBolsa() {
         return bolsa;
     }
@@ -41,6 +52,11 @@ public class BolsaBean {
         this.bolsas = lista;
     }
 
+    public List<CategoriaBolsa> getCategorias(){
+        this.categorias = new CategoriaBolsa().buscarTodos();
+        return categorias;
+    }
+    
     public Boolean getEditando() {
         return editando;
     }
@@ -60,7 +76,7 @@ public class BolsaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarBolsa";
+        return "/pages/bolsa/editarBolsa";
     }  
     
     public void limpar(){
@@ -71,23 +87,23 @@ public class BolsaBean {
     
     public String remover(Long id) {
         if(bolsa.remover(id))
-            return "listarBolsas?faces-redirect=true";
+            return "/pages/bolsa/listarBolsas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Bolsa!",
                                    "Erro ao excluir Bolsa!"));
-            return "listarBolsas";
+            return "/pages/bolsa/listarBolsas";
         }
     }
     
     public String salvar() {
         if(bolsa.salvar())
-            return "listarBolsas?faces-redirect=true";
+            return "/pages/bolsa/listarBolsas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Bolsa!",
                                    "Erro ao salvar Bolsa!"));
-            return "cadastrarBolsas";
+            return "/pages/bolsa/cadastrarBolsas";
         }
     }
 }

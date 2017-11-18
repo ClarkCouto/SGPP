@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SGPP - IFRS POA</title>
+        <h:outputStylesheet name="css/normalize.css" />
+        <h:outputStylesheet name="css/main.css" />
+        <h:outputStylesheet name="css/font-awesome/css/font-awesome.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700" rel="stylesheet" />
+        <link rel="icon" type="image/vnd.microsoft.icon" href="#{resource['imgs/favicon.ico']}" />
+    </h:head>
+ 
+    <h:body>
+	<div id="page">
+	    <div id="header">
+		<ui:insert name="header" >
+                    <ui:include src="/template/header.xhtml" />
+		</ui:insert>
+	    </div>
+ 
+	    <div id="content">
+	  	<ui:insert name="content" >
+	 	  <ui:include src="/template/conteudo.xhtml" />
+	   	</ui:insert>
+	    </div>
+        </div>
+    </h:body>
+</html>

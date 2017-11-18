@@ -16,10 +16,19 @@ import javax.faces.context.FacesContext;
 public class TextoBaseDeclaracaoBean {
     private TextoBaseDeclaracao textoBaseDeclaracao = new TextoBaseDeclaracao();
     private TextoBaseDeclaracao textoBaseDeclaracaoSelecionado;
-    private List<TextoBaseDeclaracao> textoBaseDeclaracaos;
+    private List<TextoBaseDeclaracao> listaFiltrada;
+    private List<TextoBaseDeclaracao> textosBaseDeclaracao;
     private Boolean editando;
     
 // Getters e Setters
+    public List<TextoBaseDeclaracao> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<TextoBaseDeclaracao> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public TextoBaseDeclaracao getTextoBaseDeclaracao() {
         return textoBaseDeclaracao;
     }
@@ -32,13 +41,13 @@ public class TextoBaseDeclaracaoBean {
         this.textoBaseDeclaracaoSelecionado = textoBaseDeclaracao;
     }
       
-    public List<TextoBaseDeclaracao> getTextoBaseDeclaracaos(){
-        this.textoBaseDeclaracaos = this.textoBaseDeclaracao.buscarTodos();
-        return textoBaseDeclaracaos;
+    public List<TextoBaseDeclaracao> getTextosBaseDeclaracao(){
+        this.textosBaseDeclaracao = this.textoBaseDeclaracao.buscarTodos();
+        return textosBaseDeclaracao;
     }
     
-    public void setTextoBaseDeclaracaos(List<TextoBaseDeclaracao> lista){
-        this.textoBaseDeclaracaos = lista;
+    public void setTextosBaseDeclaracao(List<TextoBaseDeclaracao> lista){
+        this.textosBaseDeclaracao = lista;
     }
 
     public Boolean getEditando() {
@@ -60,7 +69,7 @@ public class TextoBaseDeclaracaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarTextoBaseDeclaracao";
+        return "/pages/textoBaseDeclaracao/editarTextoBaseDeclaracao";
     }  
     
     public void limpar(){
@@ -71,23 +80,23 @@ public class TextoBaseDeclaracaoBean {
     
     public String remover(Long id) {
         if(textoBaseDeclaracao.remover(id))
-            return "listarTextosBaseDeclaracao?faces-redirect=true";
+            return "/pages/textoBaseDeclaracao/listarTextosBaseDeclaracao?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Texto Base Declaração!",
                                    "Erro ao excluir Texto Base Declaração!"));
-            return "listarTextosBaseDeclaracao";
+            return "/pages/textoBaseDeclaracao/listarTextosBaseDeclaracao";
         }
     }
     
     public String salvar() {
         if(textoBaseDeclaracao.salvar())
-            return "listarTextosBaseDeclaracao?faces-redirect=true";
+            return "/pages/textoBaseDeclaracao/listarTextosBaseDeclaracao?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Texto Base Declaração!",
                                    "Erro ao salvar Texto Base Declaração!"));
-            return "listarTextosBaseDeclaracao";
+            return "/pages/textoBaseDeclaracao/listarTextosBaseDeclaracao";
         }
     }
 }

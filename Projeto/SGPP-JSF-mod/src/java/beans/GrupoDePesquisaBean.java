@@ -1,6 +1,8 @@
 package beans;
 
+import entities.Coordenador;
 import entities.GrupoDePesquisa;
+import entities.Instituicao;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,10 +18,25 @@ import javax.faces.context.FacesContext;
 public class GrupoDePesquisaBean {
     private GrupoDePesquisa grupoDePesquisa = new GrupoDePesquisa();
     private GrupoDePesquisa grupoDePesquisaSelecionado;
-    private List<GrupoDePesquisa> grupoDePesquisas;
+    private List<Coordenador> coordenadores;
+    private List<GrupoDePesquisa> gruposDePesquisa;
+    private List<GrupoDePesquisa> listaFiltrada;
     private Boolean editando;
     
 // Getters e Setters
+    public List<GrupoDePesquisa> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<GrupoDePesquisa> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
+    public List<Coordenador> getCoordenadores(){
+        this.coordenadores = (List<Coordenador>) (Coordenador) new Coordenador().buscarTodos();
+        return coordenadores;
+    }
+    
     public GrupoDePesquisa getGrupoDePesquisa() {
         return grupoDePesquisa;
     }
@@ -32,13 +49,13 @@ public class GrupoDePesquisaBean {
         this.grupoDePesquisaSelecionado = grupoDePesquisa;
     }
       
-    public List<GrupoDePesquisa> getGrupoDePesquisas(){
-        this.grupoDePesquisas = this.grupoDePesquisa.buscarTodos();
-        return grupoDePesquisas;
+    public List<GrupoDePesquisa> getGruposDePesquisa(){
+        this.gruposDePesquisa = this.grupoDePesquisa.buscarTodos();
+        return gruposDePesquisa;
     }
     
-    public void setGrupoDePesquisas(List<GrupoDePesquisa> lista){
-        this.grupoDePesquisas = lista;
+    public void setGruposDePesquisa(List<GrupoDePesquisa> lista){
+        this.gruposDePesquisa = lista;
     }
 
     public Boolean getEditando() {
@@ -60,7 +77,7 @@ public class GrupoDePesquisaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarGrupoDePesquisa";
+        return "/pages/grupoDePesquisa/editarGrupoDePesquisa";
     }  
     
     public void limpar(){
@@ -71,23 +88,23 @@ public class GrupoDePesquisaBean {
     
     public String remover(Long id) {
         if(grupoDePesquisa.remover(id))
-            return "listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/grupoDePesquisa/listarGrupoDePesquisas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir GrupoDePesquisa!",
                                    "Erro ao excluir GrupoDePesquisa!"));
-            return "listarGrupoDePesquisas";
+            return "/pages/grupoDePesquisa/listarGrupoDePesquisas";
         }
     }
     
     public String salvar() {
         if(grupoDePesquisa.salvar())
-            return "listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/grupoDePesquisa/listarGrupoDePesquisas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar GrupoDePesquisa!",
                                    "Erro ao salvar GrupoDePesquisa!"));
-            return "cadastrarGrupoDePesquisas";
+            return "/pages/grupoDePesquisa/cadastrarGrupoDePesquisas";
         }
     }
 }

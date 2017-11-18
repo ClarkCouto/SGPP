@@ -17,9 +17,18 @@ public class AreaBean {
     private Area area = new Area();
     private Area areaSelecionada;
     private List<Area> areas;
+    private List<Area> listaFiltrada;
     private Boolean editando;
     
 // Getters e Setters
+    public List<Area> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Area> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public Area getArea() {
         return area;
     }
@@ -60,7 +69,7 @@ public class AreaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarArea";
+        return "/pages/area/editarArea";
     }  
     
     public void limpar(){
@@ -71,23 +80,23 @@ public class AreaBean {
     
     public String remover(Long id) {
         if(area.remover(id))
-            return "listarAreas?faces-redirect=true";
+            return "/pages/area/listarAreas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Área!",
                                    "Erro ao excluir Área!"));
-            return "listarAreas";
+            return "/pages/area/listarAreas";
         }
     }
     
     public String salvar() {
         if(area.salvar())
-            return "listarAreas?faces-redirect=true";
+            return "/pages/area/listarAreas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Área!",
                                    "Erro ao salvar Área!"));
-            return "cadastrarAreas";
+            return "/pages/area/cadastrarAreas";
         }
     }
 }

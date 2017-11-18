@@ -16,10 +16,19 @@ import javax.faces.context.FacesContext;
 public class CategoriaBolsaBean {
     private CategoriaBolsa categoriaBolsa = new CategoriaBolsa();
     private CategoriaBolsa categoriaBolsaSelecionada;
-    private List<CategoriaBolsa> categoriaBolsas;
+    private List<CategoriaBolsa> categorias;
+    private List<CategoriaBolsa> listaFiltrada;
     private Boolean editando;
     
 // Getters e Setters
+    public List<CategoriaBolsa> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<CategoriaBolsa> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public CategoriaBolsa getCategoriaBolsa() {
         return categoriaBolsa;
     }
@@ -32,13 +41,13 @@ public class CategoriaBolsaBean {
         this.categoriaBolsaSelecionada = categoriaBolsa;
     }
       
-    public List<CategoriaBolsa> getCategoriaBolsas(){
-        this.categoriaBolsas = this.categoriaBolsa.buscarTodos();
-        return categoriaBolsas;
+    public List<CategoriaBolsa> getCategorias(){
+        this.categorias = this.categoriaBolsa.buscarTodos();
+        return categorias;
     }
     
-    public void setCategoriaBolsas(List<CategoriaBolsa> lista){
-        this.categoriaBolsas = lista;
+    public void setCategorias(List<CategoriaBolsa> lista){
+        this.categorias = lista;
     }
 
     public Boolean getEditando() {
@@ -60,7 +69,7 @@ public class CategoriaBolsaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarCategoriaBolsa";
+        return "/pages/categoriaBolsa/editarCategoriaBolsa";
     }  
     
     public void limpar(){
@@ -71,23 +80,23 @@ public class CategoriaBolsaBean {
     
     public String remover(Long id) {
         if(categoriaBolsa.remover(id))
-            return "listarCategoriasBolsa?faces-redirect=true";
+            return "/pages/categoriaBolsa/listarCategoriasBolsa?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Categoria!",
                                    "Erro ao excluir Categoria!"));
-            return "listarCategoriasBolsa";
+            return "/pages/categoriaBolsa/listarCategoriasBolsa";
         }
     }
     
     public String salvar() {
         if(categoriaBolsa.salvar())
-            return "listarCategoriasBolsa?faces-redirect=true";
+            return "/pages/categoriaBolsa/listarCategoriasBolsa?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Categoria!",
                                    "Erro ao salvar Categoria!"));
-            return "cadastrarCategoriaBolsa";
+            return "/pages/categoriaBolsa/cadastrarCategoriaBolsa";
         }
     }
 }

@@ -16,10 +16,19 @@ import javax.faces.context.FacesContext;
 public class ColaboradorBean {
     private Colaborador colaborador = new Colaborador();
     private Colaborador colaboradorSelecionado;
-    private List<Colaborador> colaboradors;
+    private List<Colaborador> colaboradores;
+    private List<Colaborador> listaFiltrada;
     private Boolean editando;
     
 // Getters e Setters
+    public List<Colaborador> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Colaborador> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
     public Colaborador getColaborador() {
         return colaborador;
     }
@@ -32,13 +41,13 @@ public class ColaboradorBean {
         this.colaboradorSelecionado = colaborador;
     }
       
-    public List<Colaborador> getColaboradors(){
-        this.colaboradors = this.colaborador.buscarTodos();
-        return colaboradors;
+    public List<Colaborador> getColaboradores(){
+        this.colaboradores = this.colaborador.buscarTodos();
+        return colaboradores;
     }
     
-    public void setColaboradors(List<Colaborador> lista){
-        this.colaboradors = lista;
+    public void setColaboradores(List<Colaborador> lista){
+        this.colaboradores = lista;
     }
 
     public Boolean getEditando() {
@@ -60,7 +69,7 @@ public class ColaboradorBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "editarColaborador";
+        return "/pages/colaborador/editarColaborador";
     }  
     
     public void limpar(){
@@ -71,23 +80,23 @@ public class ColaboradorBean {
     
     public String remover(Long id) {
         if(colaborador.remover(id))
-            return "listarColaboradores?faces-redirect=true";
+            return "/pages/colaborador/listarColaboradores?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Colaborador!",
                                    "Erro ao excluir Colaborador!"));
-            return "listarColaboradores";
+            return "/pages/colaborador/listarColaboradores";
         }
     }
     
     public String salvar() {
         if(colaborador.salvar())
-            return "listarColaboradores?faces-redirect=true";
+            return "/pages/colaborador/listarColaboradores?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Colaborador!",
                                    "Erro ao salvar Colaborador!"));
-            return "cadastrarColaborador";
+            return "/pages/colaborador/cadastrarColaborador";
         }
     }
 }
