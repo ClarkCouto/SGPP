@@ -66,6 +66,22 @@ public class BolsaBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            bolsaSelecionada = this.bolsa.buscarPeloId(id);
+
+        if (bolsaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Bolsa!",
+                                   "Erro ao buscar Bolsa!"));
+            return "/pages/listar/listarBolsas";
+        }
+        else {
+            this.bolsa = bolsaSelecionada;
+            return "/pages/detalhes/detalhesBolsa";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             bolsaSelecionada = this.bolsa.buscarPeloId(id);
@@ -76,7 +92,7 @@ public class BolsaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/bolsa/editarBolsa";
+        return "/pages/editar/editarBolsa";
     }  
     
     public void limpar(){
@@ -87,23 +103,23 @@ public class BolsaBean {
     
     public String remover(Long id) {
         if(bolsa.remover(id))
-            return "/pages/bolsa/listarBolsas?faces-redirect=true";
+            return "/pages/listar/listarBolsas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Bolsa!",
                                    "Erro ao excluir Bolsa!"));
-            return "/pages/bolsa/listarBolsas";
+            return "/pages/listar/listarBolsas";
         }
     }
     
     public String salvar() {
         if(bolsa.salvar())
-            return "/pages/bolsa/listarBolsas?faces-redirect=true";
+            return "/pages/listar/listarBolsas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Bolsa!",
                                    "Erro ao salvar Bolsa!"));
-            return "/pages/bolsa/cadastrarBolsas";
+            return "/pages/cadastrar/cadastrarBolsas";
         }
     }
 }

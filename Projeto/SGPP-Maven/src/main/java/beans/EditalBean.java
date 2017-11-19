@@ -105,6 +105,22 @@ public class EditalBean {
         this.edital.getLembretes().remove(new Lembrete());
     } 
     
+    public String detalhar(Long id){
+        if(id != null)
+            editalSelecionado = this.edital.buscarPeloId(id);
+
+        if (editalSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Edital!",
+                                   "Erro ao buscar Edital!"));
+            return "/pages/listar/listarEditais";
+        }
+        else {
+            this.edital = editalSelecionado;
+            return "/pages/detalhes/detalhesEdital";
+        }
+    }
+    
     public String editar(Long id) {
         if(id != null)
             editalSelecionado = this.edital.buscarPeloId(id);
@@ -115,7 +131,7 @@ public class EditalBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/edital/editarEdital";
+        return "/pages/editar/editarEdital";
     } 
     
     public void limpar(){
@@ -130,24 +146,24 @@ public class EditalBean {
     
     public String remover(Long id) {
         if(edital.remover(id))
-            return "/pages/edital/listarEditais?faces-redirect=true";
+            return "/pages/listar/listarEditais?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
                                    "Erro ao excluir Edital!"));
-            return "/pages/edital/listarEditais";
+            return "/pages/listar/listarEditais";
         }
     }
     
     public String salvar() {
         this.edital.setLembretes(lembretes);
         if(edital.salvar())
-            return "/pages/edital/listarEditais?faces-redirect=true";
+            return "/pages/listar/listarEditais?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Edital!",
                                    "Erro ao salvar Edital!"));
-            return "/pages/edital/cadastrarEditais";
+            return "/pages/cadastrar/cadastrarEditais";
         }
     }
 }

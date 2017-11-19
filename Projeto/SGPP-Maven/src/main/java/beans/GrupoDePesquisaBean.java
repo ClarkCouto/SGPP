@@ -2,7 +2,6 @@ package beans;
 
 import entities.Coordenador;
 import entities.GrupoDePesquisa;
-import entities.Instituicao;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -67,6 +66,22 @@ public class GrupoDePesquisaBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
+
+        if (grupoDePesquisaSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Grupo De Pesquisa!",
+                                   "Erro ao buscar Grupo De Pesquisa!"));
+            return "/pages/listar/listarGruposDePesquisa";
+        }
+        else {
+            this.grupoDePesquisa = grupoDePesquisaSelecionado;
+            return "/pages/detalhes/detalhesGrupoDePesquisa";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
@@ -77,7 +92,7 @@ public class GrupoDePesquisaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/grupoDePesquisa/editarGrupoDePesquisa";
+        return "/pages/editar/editarGrupoDePesquisa";
     }  
     
     public void limpar(){
@@ -88,23 +103,23 @@ public class GrupoDePesquisaBean {
     
     public String remover(Long id) {
         if(grupoDePesquisa.remover(id))
-            return "/pages/grupoDePesquisa/listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/listar/listarGrupoDePesquisas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir GrupoDePesquisa!",
-                                   "Erro ao excluir GrupoDePesquisa!"));
-            return "/pages/grupoDePesquisa/listarGrupoDePesquisas";
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Grupo De Pesquisa!",
+                                   "Erro ao excluir Grupo De Pesquisa!"));
+            return "/pages/listar/listarGrupoDePesquisas";
         }
     }
     
     public String salvar() {
         if(grupoDePesquisa.salvar())
-            return "/pages/grupoDePesquisa/listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/listar/listarGrupoDePesquisas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar GrupoDePesquisa!",
-                                   "Erro ao salvar GrupoDePesquisa!"));
-            return "/pages/grupoDePesquisa/cadastrarGrupoDePesquisas";
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Grupo De Pesquisa!",
+                                   "Erro ao salvar Grupo De Pesquisa!"));
+            return "/pages/cadastrar/cadastrarGrupoDePesquisas";
         }
     }
 }

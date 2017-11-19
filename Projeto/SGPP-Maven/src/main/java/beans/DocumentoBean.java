@@ -66,6 +66,22 @@ public class DocumentoBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            documentoSelecionado = this.documento.buscarPeloId(id);
+
+        if (documentoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Documento!",
+                                   "Erro ao buscar Documento!"));
+            return "/pages/listar/listarDocumentos";
+        }
+        else {
+            this.documento = documentoSelecionado;
+            return "/pages/detalhes/detalhesDocumento";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             documentoSelecionado = this.documento.buscarPeloId(id);

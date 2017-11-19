@@ -59,6 +59,22 @@ public class ColaboradorBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            colaboradorSelecionado = this.colaborador.buscarPeloId(id);
+
+        if (colaboradorSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Colaborador!",
+                                   "Erro ao buscar Colaborador!"));
+            return "/pages/listar/listarColaboradores";
+        }
+        else {
+            this.colaborador = colaboradorSelecionado;
+            return "/pages/detalhes/detalhesColaborador";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             colaboradorSelecionado = this.colaborador.buscarPeloId(id);
@@ -69,7 +85,7 @@ public class ColaboradorBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/colaborador/editarColaborador";
+        return "/pages/editar/editarColaborador";
     }  
     
     public void limpar(){
@@ -80,23 +96,23 @@ public class ColaboradorBean {
     
     public String remover(Long id) {
         if(colaborador.remover(id))
-            return "/pages/colaborador/listarColaboradores?faces-redirect=true";
+            return "/pages/listar/listarColaboradores?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Colaborador!",
                                    "Erro ao excluir Colaborador!"));
-            return "/pages/colaborador/listarColaboradores";
+            return "/pages/listar/listarColaboradores";
         }
     }
     
     public String salvar() {
         if(colaborador.salvar())
-            return "/pages/colaborador/listarColaboradores?faces-redirect=true";
+            return "/pages/listar/listarColaboradores?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Colaborador!",
                                    "Erro ao salvar Colaborador!"));
-            return "/pages/colaborador/cadastrarColaborador";
+            return "/pages/cadastrar/cadastrarColaborador";
         }
     }
 }

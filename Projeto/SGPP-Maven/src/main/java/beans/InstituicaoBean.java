@@ -59,6 +59,22 @@ public class InstituicaoBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            instituicaoSelecionada = this.instituicao.buscarPeloId(id);
+
+        if (instituicaoSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Instituição!",
+                                   "Erro ao buscar Instituição!"));
+            return "/pages/listar/listarInstituicoes";
+        }
+        else {
+            this.instituicao = instituicaoSelecionada;
+            return "/pages/detalhes/detalhesInstituicao";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             instituicaoSelecionada = this.instituicao.buscarPeloId(id);
@@ -69,7 +85,7 @@ public class InstituicaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/instituicao/editarInstituicao";
+        return "/pages/editar/editarInstituicao";
     }  
     
     public void limpar(){
@@ -80,23 +96,23 @@ public class InstituicaoBean {
     
     public String remover(Long id) {
         if(instituicao.remover(id))
-            return "/pages/instituicao/listarInstituicoes?faces-redirect=true";
+            return "/pages/listar/listarInstituicoes?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Instituição!",
                                    "Erro ao excluir Instituição!"));
-            return "/pages/instituicao/listarInstituicoes";
+            return "/pages/listar/listarInstituicoes";
         }
     }
     
     public String salvar() {
         if(instituicao.salvar())
-            return "/pages/instituicao/listarInstituicoes?faces-redirect=true";
+            return "/pages/listar/listarInstituicoes?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Instituição!",
                                    "Erro ao salvar Instituição!"));
-            return "/pages/instituicao/cadastrarInstituicoes";
+            return "/pages/cadastrar/cadastrarInstituicoes";
         }
     }
 }

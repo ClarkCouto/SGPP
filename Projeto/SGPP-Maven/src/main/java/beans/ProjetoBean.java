@@ -89,6 +89,22 @@ public class ProjetoBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            projetoSelecionado = this.projeto.buscarPeloId(id);
+
+        if (projetoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Projeto!",
+                                   "Erro ao buscar Projeto!"));
+            return "/pages/listar/listarProjetos";
+        }
+        else {
+            this.projeto = projetoSelecionado;
+            return "/pages/detalhes/detalhesTextoBaseDeclaracao";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             projetoSelecionado = this.projeto.buscarPeloId(id);
@@ -99,7 +115,7 @@ public class ProjetoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/projeto/editarProjeto";
+        return "/pages/editar/editarProjeto";
     }  
     
     public void limpar(){
@@ -110,23 +126,23 @@ public class ProjetoBean {
     
     public String remover(Long id) {
         if(projeto.remover(id))
-            return "/pages/projeto/listarProjetos?faces-redirect=true";
+            return "/pages/listar/listarProjetos?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Projeto!",
                                    "Erro ao excluir Projeto!"));
-            return "/pages/projeto/listarProjetos";
+            return "/pages/listar/listarProjetos";
         }
     }
     
     public String salvar() {
         if(projeto.salvar())
-            return "/pages/projeto/listarProjetos?faces-redirect=true";
+            return "/pages/listar/listarProjetos?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Projeto!",
                                    "Erro ao salvar Projeto!"));
-            return "/pages/projeto/cadastrarProjetos";
+            return "/pages/cadastrar/cadastrarProjetos";
         }
     }
 }
