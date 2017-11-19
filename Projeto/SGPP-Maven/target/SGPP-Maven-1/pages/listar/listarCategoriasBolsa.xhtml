@@ -27,7 +27,9 @@
                         <span class="message-bar--text">Não há categorias cadastradas.</span>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:dataTable var="categoriaBolsa" 
+                        <p:dataTable 
+                            id='lista'
+                            var="categoriaBolsa" 
                             value="#{categoriaBolsaBean.categorias}" 
                             widgetVar="categoriaBolsaTable"
                             emptyMessage="Nenhum categoriaBolsa foi encontrada." 
@@ -36,29 +38,32 @@
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('categoriaBolsaTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarCategoriaBolsa" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Categoria Bolsa</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('categoriaBolsaTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{categoriaBolsa.descricao}" sortBy="#{categoriaBolsa.descricao}" headerText="Descrição" filterMatchMode="contains">
+                            <p:column headerText="Descrição" sortBy="#{categoriaBolsa.descricao}" >
                                 <h:outputText value="#{categoriaBolsa.descricao}" />
                             </p:column>
 
-                            <p:column filterBy="#{categoriaBolsa.valor}" sortBy="#{categoriaBolsa.valor}" headerText="Valor" filterMatchMode="contains">
+                            <p:column headerText="Valor" sortBy="#{categoriaBolsa.valor}" >
                                 <h:outputText value="#{categoriaBolsa.valor}" >
                                     <f:convertNumber currencySymbol="R$" type="currency"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{categoriaBolsa.dataUltimaAlteracao}" sortBy="#{categoriaBolsa.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{categoriaBolsa.dataUltimaAlteracao}" >
                                 <h:outputText value="#{categoriaBolsa.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{categoriaBolsa.ativo}" sortBy="#{categoriaBolsa.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{categoriaBolsa.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('categoriaBolsaTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -77,9 +82,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{categoriaBolsa.ativo}" action="${categoriaBolsaBean.remover(categoriaBolsa.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{categoriaBolsa.ativo}" actionListener="${categoriaBolsaBean.remover(categoriaBolsa.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

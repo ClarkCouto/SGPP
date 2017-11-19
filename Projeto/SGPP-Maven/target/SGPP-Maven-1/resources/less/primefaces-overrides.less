@@ -1,0 +1,60 @@
+@import "variables.less";
+
+.ui-widget {
+    font-family: "Open Sans";
+
+    &-header,
+    &-footer {
+        background: @bg-color-feature-highlight;
+        color: @text-color-light;
+        text-shadow: none;
+        border: 1px solid @color-translucid-dark;        
+        overflow: hidden;
+    }
+}
+
+.ui-state-default {
+    background: @bg-color-main;
+    box-shadow: none;
+}
+
+.ui-widget-header a {
+    color: inherit;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    font-family: "Open Sans";
+    height: 38px;
+    line-height: 38px;
+    padding: 0 8px !important;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 5px;
+    box-shadow: none;
+    box-sizing: border-box;
+    font-size: 14px;
+
+    &:focus {
+        box-shadow: none;
+        border-color: @bg-color-feature-highlight;
+        box-shadow: none;
+        outline: 0;
+    }
+}
+
+.data-table--row--action {
+    background: none;
+    border: 0 !important;
+}
+
+.content .ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-footer {
+    padding: 8px;
+}
+
+.ui-datatable{
+    thead th, .ui-datatable tfoot td {
+        font-size: 12px;
+    }
+    tbody td {
+        font-size: 14px;
+    }
+}

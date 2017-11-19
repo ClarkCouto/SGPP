@@ -1,17 +1,4 @@
-@bg-color-main: #FAFAFA;
-@bg-color-block: rgba(255,255,255,0.95);
-@bg-color-feature: #004B18;
-@bg-color-feature-highlight: #008C47;
-@bg-color-error: #D02626;
-
-@text-color-main: #333333;
-@text-color-light: #FAFAFA;
-@text-color-link : #17882C;
-@text-color-link-highlight: #23CD42;
-@text-color-link-visited: #00510F;
-
-@color-separator: rgba(0,0,0,0.15);
-@color-translucid-dark: rgba(0,0,0,0.3);
+@import "variables.less";
 
 // Elements
 .shadow {   
@@ -31,7 +18,11 @@
 }
 
 .button {
-    padding: 8px 16px;
+    padding: 0 16px;
+    height: 38px;
+    line-height: 38px;
+    display: inline-block;
+    font-size: 14px;
     border: 0;
     border-radius: 2px;
     background-color: @bg-color-feature;
@@ -82,11 +73,35 @@
     flex-flow: wrap;
     justify-content: space-between;
     max-width: 600px;
-    margin: auto;        
+    margin: auto;       
+    
+    &--header {
+        width: 100%;
+        background-color: @bg-color-feature;
+        color: @text-color-light;
+        padding: 10px 20px;        
+        border-radius: 5px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+                
+        &--previous {
+            color: @text-color-light;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        
+        &--title {
+            font-size: 22px;
+            margin: auto;
+        }
+    }
     
     &--section {        
         display: block;
         width: 100%;
+        background: @bg-color-block;
         border: 1px solid @bg-color-feature;
         border-radius: 5px;                
         margin: auto;
@@ -147,6 +162,7 @@
         &--text-input {
             width: 100%;
             height: 38px;
+            background: @bg-color-main;
             line-height: 38px;
             padding: 0 8px !important; // override-primefaces style
             border: 1px solid rgba(0,0,0,0.15);
@@ -418,16 +434,17 @@
     width: 100%;
     height: 100%;    
     font-family: "Open Sans", sans-serif;
-    display: flex;
-    flex-direction: column;
 }
 
 .content {
-    padding: 20px 40px;    
+    padding: 20px 40px;
+    height: 100%;
+    background-image: url("#{resource['imgs/bg.png']}");    
 }
 
 .side-bar {
     width: 265px;
+    height: 100%;
     padding: 20px ;
     box-sizing: border-box;
     background-color: @bg-color-feature;
@@ -461,13 +478,16 @@
             font-size: 16px;
             font-weight: 600;
             text-decoration: none;
-            color: @text-color-light;
-            background-color: @color-translucid-dark;
-            margin: 5px -20px 0;
+            color: @text-color-light;            
+            margin: 0 -20px;
             padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            
+            &:hover {
+                background-color: @bg-color-feature;
+            }            
         }
     }
     

@@ -13,7 +13,11 @@
 }
 .button,
 .button--full {
-  padding: 8px 16px;
+  padding: 0 16px;
+  height: 38px;
+  line-height: 38px;
+  display: inline-block;
+  font-size: 14px;
   border: 0;
   border-radius: 2px;
   background-color: #004B18;
@@ -57,9 +61,30 @@
   max-width: 600px;
   margin: auto;
 }
+.form--header {
+  width: 100%;
+  background-color: #004B18;
+  color: #FAFAFA;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.form--header--previous {
+  color: #FAFAFA;
+  font-size: 16px;
+  text-decoration: none;
+}
+.form--header--title {
+  font-size: 22px;
+  margin: auto;
+}
 .form--section {
   display: block;
   width: 100%;
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid #004B18;
   border-radius: 5px;
   margin: auto;
@@ -108,6 +133,7 @@
 .form--group--text-input {
   width: 100%;
   height: 38px;
+  background: #FAFAFA;
   line-height: 38px;
   padding: 0 8px !important;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -336,14 +362,15 @@
   width: 100%;
   height: 100%;
   font-family: "Open Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 .content {
   padding: 20px 40px;
+  height: 100%;
+  background-image: url("#{resource['imgs/bg.png']}");
 }
 .side-bar {
   width: 265px;
+  height: 100%;
   padding: 20px ;
   box-sizing: border-box;
   background-color: #004B18;
@@ -373,12 +400,14 @@
   font-weight: 600;
   text-decoration: none;
   color: #FAFAFA;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin: 5px -20px 0;
+  margin: 0 -20px;
   padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.side-bar--actions--item:hover {
+  background-color: #004B18;
 }
 .side-bar--title {
   margin: 0;

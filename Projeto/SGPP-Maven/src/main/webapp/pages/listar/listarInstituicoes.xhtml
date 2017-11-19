@@ -27,7 +27,9 @@
                         <span class="message-bar--text">Não há instituições cadastradas.</span>
                     </h:panelGroup>               
                     <h:panelGroup>
-                        <p:dataTable var="instituicao" 
+                        <p:dataTable  
+                            id='lista'
+                            var="instituicao" 
                             value="#{instituicaoBean.instituicoes}" 
                             widgetVar="instituicaoTable"
                             emptyMessage="Nenhuma instituição foi encontrada." 
@@ -71,9 +73,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{instituicao.ativo}" action="${instituicaoBean.remover(instituicao.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{instituicao.ativo}" actionListener="${instituicaoBean.remover(instituicao.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

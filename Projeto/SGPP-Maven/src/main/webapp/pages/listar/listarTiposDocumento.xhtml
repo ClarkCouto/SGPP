@@ -27,7 +27,9 @@
                         <span class="message-bar--text">Não há tipos de documento cadastrados.</span>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:dataTable var="tipoDocumento" 
+                        <p:dataTable  
+                            id='lista'
+                            var="tipoDocumento" 
                             value="#{tipoDocumentoBean.tiposDocumento}" 
                             widgetVar="tiposDocumentoTable"
                             emptyMessage="Nenhum tipo de documento foi encontrado." 
@@ -71,9 +73,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{tipoDocumento.ativo}" action="${tipoDocumentoBean.remover(tipoDocumento.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{tipoDocumento.ativo}" actionListener="${tipoDocumentoBean.remover(tipoDocumento.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

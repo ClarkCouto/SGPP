@@ -27,7 +27,9 @@
                         <span class="message-bar--text">Não há cursos cadastrados.</span>
                     </h:panelGroup>         
                     <h:panelGroup>
-                        <p:dataTable var="curso" 
+                        <p:dataTable  
+                            id='lista'
+                            var="curso" 
                             value="#{cursoBean.curso}" 
                             widgetVar="cursoTable"
                             emptyMessage="Nenhuma instituição foi encontrada." 
@@ -75,9 +77,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{curso.ativo}" action="${cursoBean.remover(curso.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{curso.ativo}" actionListener="${cursoBean.remover(curso.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

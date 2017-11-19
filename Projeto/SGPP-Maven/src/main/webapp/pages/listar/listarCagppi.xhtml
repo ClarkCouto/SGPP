@@ -29,7 +29,9 @@
                         <span class="message-bar--text">Não há CAGPPI cadastrados.</span>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:dataTable var="cagppi" 
+                        <p:dataTable 
+                            id='lista'
+                            var="cagppi" 
                             value="#{cagppiBean.cagppi}" 
                             widgetVar="cagppiTable"
                             emptyMessage="Nenhum CAGPPI foi encontrado." 
@@ -38,9 +40,12 @@
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarCagppi" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Cagppi</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
@@ -85,9 +90,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{cagppi.ativo}" action="${cagppiBean.remover(cagppi.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{cagppi.ativo}" actionListener="${cagppiBean.remover(cagppi.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>
