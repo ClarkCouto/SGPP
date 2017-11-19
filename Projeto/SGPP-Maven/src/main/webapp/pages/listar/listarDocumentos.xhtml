@@ -9,81 +9,68 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">       
-                <h:form>                    
-                    <h:panelGroup
-                        layout="block"
-                        styleClass="message-bar message-bar--info"
-                        rendered="#{documentoBean.documentos.size() == 0}"
-                    >   
-                        <span class="message-bar--icon">
-                            <i class="fa fa-info-circle" />
-                        </span>
-                        <span class="message-bar--text">Não há documentos cadastrados.</span>
-                    </h:panelGroup>       
-                    <h:panelGroup>
-                        <p:dataTable  
-                            id='lista'
-                            var="documento" 
-                            value="#{documentoBean.documento}" 
-                            widgetVar="documentoTable"
-                            emptyMessage="Nenhum documento foi encontrado." 
-                            filteredValue="#{documentoBean.listaFiltrada}"
-                            rendered="#{documentoBean.documentos.size() != 0}"
-                            >
+                <h:form>             
+                    <p:dataTable  
+                        id='lista'
+                        var="documento" 
+                        value="#{documentoBean.documento}" 
+                        widgetVar="documentoTable"
+                        emptyMessage="Nenhum documento foi encontrado." 
+                        filteredValue="#{documentoBean.listaFiltrada}"
+                        >
 
-                            <f:facet name="header">
-                                <p:outputPanel>              
-                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarDocumento" style="float:left;">
-                                        <i class="fa fa-plus button--icon" />
-                                        <span class="button--label">Cadastrar Documento</span>
-                                    </h:link>
-                                    <p:inputText id="globalFilter" onkeyup="PF('documentoTable').filter()"  placeholder="Filtrar" style="float: right;" />
-                                </p:outputPanel>
+                        <f:facet name="header">
+                            <p:outputPanel>              
+                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarDocumento" style="float:left;">
+                                    <i class="fa fa-plus button--icon" />
+                                    <span class="button--label">Cadastrar Documento</span>
+                                </h:link>
+                                <p:inputText id="globalFilter" onkeyup="PF('documentoTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Tipo" sortBy="#{documento.tipoDocumento.nome}" >
+                            <h:outputText value="#{documento.tipoDocumento.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Nome" sortBy="#{documento.nome}" >
+                            <h:outputText value="#{documento.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Última Alteração" sortBy="#{documento.dataUltimaAlteracao}" >
+                            <h:outputText value="#{documento.dataUltimaAlteracao}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Ativo" sortBy="#{documento.ativo}" >
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('documentoTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                    <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                </p:selectOneButton>
                             </f:facet>
+                            <h:outputText value="#{documento.ativo ? 'Ativo' : 'Inativo'}" />
+                        </p:column>
 
-                            <p:column headerText="Tipo" sortBy="#{documento.tipoDocumento.nome}" >
-                                <h:outputText value="#{documento.tipoDocumento.nome}" />
-                            </p:column>
+                        <p:column headerText="Editar" >
+                            <h:commandLink styleClass="data-table--row--action" rendered="#{documento.ativo}" action="${documentoBean.editar(documento.id)}">
+                                <i class="fa fa-edit" />
+                            </h:commandLink>
+                        </p:column>
 
-                            <p:column headerText="Nome" sortBy="#{documento.nome}" >
-                                <h:outputText value="#{documento.nome}" />
-                            </p:column>
-
-                            <p:column headerText="Última Alteração" sortBy="#{documento.dataUltimaAlteracao}" >
-                                <h:outputText value="#{documento.dataUltimaAlteracao}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column headerText="Ativo" sortBy="#{documento.ativo}" >
-                                <f:facet name="filter">
-                                    <p:selectOneButton onchange="PF('documentoTable').filter()">
-                                        <f:converter converterId="javax.faces.Boolean" />
-                                        <f:selectItem itemLabel="Todos" itemValue="" />
-                                        <f:selectItem itemLabel="Ativos" itemValue="true" />
-                                        <f:selectItem itemLabel="Inativos" itemValue="false" />
-                                    </p:selectOneButton>
-                                </f:facet>
-                                <h:outputText value="#{documento.ativo ? 'Ativo' : 'Inativo'}" />
-                            </p:column>
-
-                            <p:column headerText="Editar" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{documento.ativo}" action="${documentoBean.editar(documento.id)}">
-                                    <i class="fa fa-edit" />
-                                </h:commandLink>
-                            </p:column>
-
-                            <p:column headerText="Excluir" >
-                                <p:commandButton value="Excluir" rendered="#{documento.ativo}" actionListener="${documentoBean.remover(documento.id)}" update="lista">
-                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
-                                </p:commandButton>
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                </p:confirmDialog>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGroup>
+                        <p:column headerText="Excluir" >
+                            <p:commandButton value="Excluir" rendered="#{documento.ativo}" actionListener="${documentoBean.remover(documento.id)}" update="lista">
+                                <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
             </ui:define>
     	</ui:composition>

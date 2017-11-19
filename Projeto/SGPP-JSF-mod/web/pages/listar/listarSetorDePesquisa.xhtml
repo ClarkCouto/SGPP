@@ -10,88 +10,75 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <h:form>
-                    <h:panelGroup
-                        layout="block"
-                        styleClass="message-bar message-bar--info"
-                        rendered="#{setorDePesquisaBean.setorDePesquisas.size() == 0}"
-                    >   
-                        <span class="message-bar--icon">
-                            <i class="fa fa-info-circle" />
-                        </span>
-                        <span class="message-bar--text">Não há Setores cadastrados.</span>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <p:dataTable  
-                            id='lista'
-                            var="setorDePesquisa" 
-                            value="#{setorDePesquisaBean.setorDePesquisa}" 
-                            widgetVar="setorDePesquisaTable"
-                            emptyMessage="Nenhum setorDePesquisa foi encontrado." 
-                            filteredValue="#{setorDePesquisaBean.listaFiltrada}"
-                            rendered="#{setorDePesquisaBean.setoresDePesquisa.size() != 0}"
-                            >
-                            
-                            <f:facet name="header">
-                                <p:outputPanel>              
-                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarSetorDePesquisa" style="float:left;">
-                                        <i class="fa fa-plus button--icon" />
-                                        <span class="button--label">Cadastrar Setor de Pesquisa</span>
-                                    </h:link>
-                                    <p:inputText id="globalFilter" onkeyup="PF('setorDePesquisaTable').filter()"  placeholder="Filtrar" style="float: right;" />
-                                </p:outputPanel>
+                    <p:dataTable  
+                        id='lista'
+                        var="setorDePesquisa" 
+                        value="#{setorDePesquisaBean.setorDePesquisa}" 
+                        widgetVar="setorDePesquisaTable"
+                        emptyMessage="Nenhum setorDePesquisa foi encontrado." 
+                        filteredValue="#{setorDePesquisaBean.listaFiltrada}"
+                        >
+
+                        <f:facet name="header">
+                            <p:outputPanel>              
+                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarSetorDePesquisa" style="float:left;">
+                                    <i class="fa fa-plus button--icon" />
+                                    <span class="button--label">Cadastrar Setor de Pesquisa</span>
+                                </h:link>
+                                <p:inputText id="globalFilter" onkeyup="PF('setorDePesquisaTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Nome" sortBy="#{setorDePesquisa.nome}" >
+                            <h:outputText value="#{setorDePesquisa.nome}" />
+                        </p:column>
+
+                        <p:column headerText="CPF" sortBy="#{setorDePesquisa.cpf}" >
+                            <h:outputText value="#{setorDePesquisa.cpf}" >
+                                <f:convertNumber pattern="999.999.999-99"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Data Nascimento" sortBy="#{setorDePesquisa.dataNascimento}" >
+                            <h:outputText value="#{setorDePesquisa.dataNascimento}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Última Alteração" sortBy="#{setorDePesquisa.dataUltimaAlteracao}" >
+                            <h:outputText value="#{setorDePesquisa.dataUltimaAlteracao}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Ativo" sortBy="#{setorDePesquisa.ativo}">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('setorDePesquisaTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                    <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                </p:selectOneButton>
                             </f:facet>
+                            <h:outputText value="#{setorDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
+                        </p:column>
 
-                            <p:column headerText="Nome" sortBy="#{setorDePesquisa.nome}" >
-                                <h:outputText value="#{setorDePesquisa.nome}" />
-                            </p:column>
+                        <p:column headerText="Editar" >
+                            <h:commandLink styleClass="data-table--row--action" rendered="#{setorDePesquisa.ativo}" action="${setorDePesquisaBean.editar(setorDePesquisa.id)}">
+                                <i class="fa fa-edit" />
+                            </h:commandLink>
+                        </p:column>
 
-                            <p:column headerText="CPF" sortBy="#{setorDePesquisa.cpf}" >
-                                <h:outputText value="#{setorDePesquisa.cpf}" >
-                                    <f:convertNumber pattern="999.999.999-99"/>
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column headerText="Data Nascimento" sortBy="#{setorDePesquisa.dataNascimento}" >
-                                <h:outputText value="#{setorDePesquisa.dataNascimento}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column headerText="Última Alteração" sortBy="#{setorDePesquisa.dataUltimaAlteracao}" >
-                                <h:outputText value="#{setorDePesquisa.dataUltimaAlteracao}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column headerText="Ativo" sortBy="#{setorDePesquisa.ativo}">
-                                <f:facet name="filter">
-                                    <p:selectOneButton onchange="PF('setorDePesquisaTable').filter()">
-                                        <f:converter converterId="javax.faces.Boolean" />
-                                        <f:selectItem itemLabel="Todos" itemValue="" />
-                                        <f:selectItem itemLabel="Ativos" itemValue="true" />
-                                        <f:selectItem itemLabel="Inativos" itemValue="false" />
-                                    </p:selectOneButton>
-                                </f:facet>
-                                <h:outputText value="#{setorDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
-                            </p:column>
-                            
-                            <p:column headerText="Editar" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{setorDePesquisa.ativo}" action="${setorDePesquisaBean.editar(setorDePesquisa.id)}">
-                                    <i class="fa fa-edit" />
-                                </h:commandLink>
-                            </p:column>
-
-                            <p:column headerText="Excluir" >
-                                <p:commandButton value="Excluir" rendered="#{setorDePesquisa.ativo}" actionListener="${setorDePesquisaBean.remover(setorDePesquisa.id)}" update="lista">
-                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
-                                </p:commandButton>
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                </p:confirmDialog>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGroup>
+                        <p:column headerText="Excluir" >
+                            <p:commandButton value="Excluir" rendered="#{setorDePesquisa.ativo}" actionListener="${setorDePesquisaBean.remover(setorDePesquisa.id)}" update="lista">
+                                <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
             </ui:define>
     	</ui:composition>
