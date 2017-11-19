@@ -8,13 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
-                <div class="main-bar--actions">
-                    <h:link styleClass="button" outcome="cadastrarDeclaracao">
-                        <i class="fa fa-plus button--icon" />
-                        <span class="button--label">Gerar Declaração</span>
-                    </h:link>
-                </div>            
+            <ui:define name="content">   
                 <h:form>                   
                     <h:panelGroup
                         layout="block"
@@ -38,37 +32,40 @@
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('declaracoesTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarDeclaracao" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Declaração</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('declaracoesTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{declaracao.dataEmissao}" sortBy="#{declaracao.dataEmissao}" headerText="Emissão" filterMatchMode="contains">
+                            <p:column headerText="Emissão" sortBy="#{declaracao.dataEmissao}"  >
                                 <h:outputText value="#{declaracao.dataEmissao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{declaracao.projeto.titulo}" sortBy="#{declaracao.projeto.titulo}" headerText="Projeto" filterMatchMode="contains">
+                            <p:column headerText="Projeto" sortBy="#{declaracao.projeto.titulo}" >
                                 <h:outputText value="#{declaracao.projeto.titulo}" />
                             </p:column>
 
-                            <p:column filterBy="#{declaracao.responsavel.nome}" sortBy="#{declaracao.responsavel.nome}" headerText="Responsável" filterMatchMode="contains">
+                            <p:column headerText="Responsável" sortBy="#{declaracao.responsavel.nome}" >
                                 <h:outputText value="#{declaracao.responsavel.nome}" />
                             </p:column>
                             
-                            <p:column filterBy="#{declaracao.destinatario.nome}" sortBy="#{declaracao.destinatario.nome}" headerText="Destinatário" filterMatchMode="contains">
+                            <p:column headerText="Destinatário" sortBy="#{declaracao.destinatario.nome}" >
                                 <h:outputText value="#{declaracao.destinatario.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{declaracao.dataUltimaAlteracao}" sortBy="#{declaracao.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{declaracao.dataUltimaAlteracao}" >
                                 <h:outputText value="#{declaracao.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{declaracao.ativo}" sortBy="#{declaracao.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{declaracao.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('declaracoesTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
