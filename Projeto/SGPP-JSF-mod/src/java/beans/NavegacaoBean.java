@@ -5,12 +5,14 @@
  */
 package beans;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
+import javax.faces.bean.RequestScoped;
+import utils.Aba;
 import utils.PaginasEnum;
 
 /**
@@ -18,11 +20,11 @@ import utils.PaginasEnum;
  * @author matheus
  */
 @ManagedBean
-@ApplicationScoped
+@RequestScoped
 public class NavegacaoBean {
     
     private PaginasEnum paginaAtual;
-    private final PaginasEnum[] paginas = PaginasEnum.values();
+    Collection<Aba> abas;
 
     public PaginasEnum getPaginaAtual() {
         return paginaAtual;
@@ -32,15 +34,9 @@ public class NavegacaoBean {
         this.paginaAtual = pagina;
     }
     
-    public PaginasEnum[] getPaginas() {
-        return paginas;
-    }
     
-    public void atualizaPagina(String parametroPagina) {        
-
-        if (parametroPagina != null && !parametroPagina.isEmpty())
-            this.setPaginaAtual(PaginasEnum.valueOf(parametroPagina));
-        
+    public Collection<Aba> getAbas () {                
+        return this.abas;
     }
     
 }

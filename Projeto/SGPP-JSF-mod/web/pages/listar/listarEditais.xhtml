@@ -7,9 +7,8 @@
       xmlns:p="http://primefaces.org/ui" 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">                
-                <h:form>                                                  
+        <ui:composition>
+            <h:form>                                                  
                     <p:dataTable var="edital" 
                                  value="#{editalBean.editais}" 
                                  widgetVar="editaisTable"
@@ -69,8 +68,7 @@
                             </h:commandLink>
                         </p:column>
                     </p:dataTable>
-                </h:form>
-            </ui:define>
+                </h:form>            
         </ui:composition>
     </h:body>
 </html>

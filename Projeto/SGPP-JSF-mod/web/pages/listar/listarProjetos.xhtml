@@ -7,8 +7,7 @@
       xmlns:p="http://primefaces.org/ui" 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-    	<ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
+    	<ui:composition>
                 <div class="main-bar">
                     <div class="main-bar--actions">
                         <h:link styleClass="button" outcome="cadastrarProjeto">
@@ -86,7 +85,6 @@
                         </p:dataTable>
                     </h:panelGroup>
                 </h:form>
-            </ui:define>
     	</ui:composition>
     </h:body>
 </html>
