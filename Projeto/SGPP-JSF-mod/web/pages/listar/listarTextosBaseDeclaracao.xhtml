@@ -8,13 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
-                <div class="main-bar--actions">
-                    <h:link styleClass="button" outcome="cadastrarTextoBaseDeclaracao">
-                        <i class="fa fa-plus button--icon" />
-                        <span class="button--label">Cadastrar Texto Base Declaração</span>
-                    </h:link>
-                </div>            
+            <ui:define name="content">        
                 <h:form>                        
                     <h:panelGroup
                         layout="block"
@@ -27,7 +21,8 @@
                         <span class="message-bar--text">Não há textos base cadastrados.</span>
                     </h:panelGroup>                  
                     <h:panelGroup>
-                        <p:dataTable 
+                        <p:dataTable  
+                            id='lista'
                             var="textoBaseDeclaracao" 
                             value="#{textoBaseDeclaracaoBean.textosBaseDeclaracao}" 
                             widgetVar="textosBaseTable"
@@ -35,30 +30,34 @@
                             filteredValue="#{textoBaseDeclaracaoBean.listaFiltrada}"
                             rendered="#{textoBaseDeclaracaoBean.textosBaseDeclaracao.size() != 0}"
                             >
+                            
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('textosBaseTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarTextoBaseDeclaracao" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Texto Base Declaração</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('textosBaseTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{textoBaseDeclaracao.identificador}" sortBy="#{textoBaseDeclaracao.identificador}" headerText="Identificador" filterMatchMode="contains">
+                            <p:column headerText="Identificador" sortBy="#{textoBaseDeclaracao.identificador}" >
                                 <h:outputText value="#{textoBaseDeclaracao.identificador}" />
                             </p:column>
 
-                            <p:column filterBy="#{textoBaseDeclaracao.dataUltimaAlteracao}" sortBy="#{textoBaseDeclaracao.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{textoBaseDeclaracao.dataUltimaAlteracao}" >
                                 <h:outputText value="#{textoBaseDeclaracao.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{textoBaseDeclaracao.dataDesativacao}" sortBy="#{textoBaseDeclaracao.dataDesativacao}" headerText="Data Desativação" filterMatchMode="contains">
+                            <p:column headerText="Data Desativação" sortBy="#{textoBaseDeclaracao.dataDesativacao}" >
                                 <h:outputText value="#{textoBaseDeclaracao.dataDesativacao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{textoBaseDeclaracao.ativo}" sortBy="#{textoBaseDeclaracao.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{textoBaseDeclaracao.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('textosBaseTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -77,9 +76,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{textoBaseDeclaracao.ativo}" action="${textoBaseDeclaracaoBean.remover(textoBaseDeclaracao.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{textoBaseDeclaracao.ativo}" actionListener="${textoBaseDeclaracaoBean.remover(textoBaseDeclaracao.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

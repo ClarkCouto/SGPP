@@ -9,14 +9,6 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <div class="main-bar">
-                    <div class="main-bar--actions">
-                        <h:link styleClass="button" outcome="cadastrarArea">
-                            <i class="fa fa-plus button--icon" />
-                            <span class="button--label">Cadastrar Área</span>
-                        </h:link>
-                    </div>
-                </div>
                 <h:form>    
                     <h:panelGroup
                         layout="block"
@@ -29,32 +21,37 @@
                         <span class="message-bar--text">Não há áreas cadastradas.</span>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:dataTable var="area" 
+                        <p:dataTable  
+                            id='lista'
+                            var="area" 
                             value="#{areaBean.area}" 
                             widgetVar="areaTable"
                             emptyMessage="Nenhum area foi encontrado." 
                             filteredValue="#{areaBean.listaFiltrada}"
                             rendered="#{areaBean.areas.size() != 0}"
                             >
-
+                            
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('areaTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarArea" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Área</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('areaTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{area.nome}" sortBy="#{area.nome}" headerText="Nome" filterMatchMode="contains">
+                            <p:column headerText="Nome" sortBy="#{area.nome}">
                                 <h:outputText value="#{area.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{area.dataUltimaAlteracao}" sortBy="#{area.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{area.dataUltimaAlteracao}">
                                 <h:outputText value="#{area.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{area.ativo}" sortBy="#{area.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{area.ativo}">
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('areaTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -73,9 +70,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{area.ativo}" action="${areaBean.remover(area.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{area.ativo}" actionListener="${areaBean.remover(area.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

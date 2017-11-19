@@ -8,13 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
-                <div class="main-bar--actions">
-                    <h:link styleClass="button" outcome="cadastrarCurso">
-                        <i class="fa fa-plus button--icon" />
-                        <span class="button--label">Cadastrar Curso</span>
-                    </h:link>
-                </div>       
+            <ui:define name="content">    
                 <h:form>                          
                     <h:panelGroup
                         layout="block"
@@ -27,7 +21,9 @@
                         <span class="message-bar--text">Não há cursos cadastrados.</span>
                     </h:panelGroup>         
                     <h:panelGroup>
-                        <p:dataTable var="curso" 
+                        <p:dataTable  
+                            id='lista'
+                            var="curso" 
                             value="#{cursoBean.curso}" 
                             widgetVar="cursoTable"
                             emptyMessage="Nenhuma instituição foi encontrada." 
@@ -36,27 +32,30 @@
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('cursoTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarCurso" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Curso</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('cursoTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{curso.instituicao.nome}" sortBy="#{curso.instituicao.nome}" headerText="Instiuição" filterMatchMode="contains">
+                            <p:column headerText="Instiuição" sortBy="#{curso.instituicao.nome}" >
                                 <h:outputText value="#{curso.instituicao.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{curso.nome}" sortBy="#{curso.nome}" headerText="Nome" filterMatchMode="contains">
+                            <p:column headerText="Nome" sortBy="#{curso.nome}" >
                                 <h:outputText value="#{curso.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{curso.dataUltimaAlteracao}" sortBy="#{curso.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{curso.dataUltimaAlteracao}" >
                                 <h:outputText value="#{curso.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{curso.ativo}" sortBy="#{curso.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{curso.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('cursoTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -75,9 +74,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{curso.ativo}" action="${cursoBean.remover(curso.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{curso.ativo}" actionListener="${cursoBean.remover(curso.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

@@ -9,58 +9,54 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <div class="main-bar">
-                    <div class="main-bar--actions">
-                        <h:link styleClass="button" outcome="cadastrarProjeto">
-                            <i class="fa fa-plus button--icon" />
-                            <span class="button--label">Cadastrar Projeto</span>
-                        </h:link>
-                    </div> 
-                </div>
                 <h:form>                                          
                     <h:panelGroup>
-                        <p:dataTable var="projeto" 
+                        <p:dataTable  
+                            id='lista'
+                            var="projeto" 
                             value="#{projetoBean.projeto}" 
                             widgetVar="projetoTable"
                             emptyMessage="Nenhum projeto foi encontrado." 
                             filteredValue="#{projetoBean.listaFiltrada}"
-
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('projetoTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarProjeto" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Projeto</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('projetoTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{projeto.projeto.titulo}" sortBy="#{projeto.projeto.titulo}" headerText="Edital" filterMatchMode="contains">
-                                <h:outputText value="#{projeto.projeto.titulo}" />
-                            </p:column>
-
-                            <p:column filterBy="#{projeto.ano}" sortBy="#{projeto.ano}" headerText="Ano" filterMatchMode="contains">
-                                <h:outputText value="#{projeto.ano}" />
-                            </p:column>
-
-                            <p:column filterBy="#{projeto.titulo}" sortBy="#{projeto.titulo}" headerText="Título" filterMatchMode="contains">
+                            <p:column headerText="Edital" sortBy="#{projeto.titulo}" >
                                 <h:outputText value="#{projeto.titulo}" />
                             </p:column>
 
-                            <p:column filterBy="#{projeto.coordenador.nome}" sortBy="#{projeto.coordenador.nome}" headerText="Coordenador" filterMatchMode="contains">
+                            <p:column headerText="Ano" sortBy="#{projeto.ano}" >
+                                <h:outputText value="#{projeto.ano}" />
+                            </p:column>
+
+                            <p:column headerText="Título" sortBy="#{projeto.titulo}" >
+                                <h:outputText value="#{projeto.titulo}" />
+                            </p:column>
+
+                            <p:column headerText="Coordenador" sortBy="#{projeto.coordenador.nome}" >
                                 <h:outputText value="#{projeto.coordenador.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{projeto.aipct}" sortBy="#{projeto.aipct}" headerText="AIPCT" filterMatchMode="contains">
+                            <p:column headerText="AIPCT" sortBy="#{projeto.aipct}" >
                                 <h:outputText value="#{projeto.aipct}" />
                             </p:column>
 
-                            <p:column filterBy="#{projeto.dataUltimaAlteracao}" sortBy="#{projeto.ativo}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{projeto.ativo}" >
                                 <h:outputText value="#{projeto.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{projeto.ativo}" sortBy="#{projeto.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{projeto.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('projetoTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -79,9 +75,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{projeto.ativo}" action="${projetoBean.remover(projeto.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{projeto.ativo}" actionListener="${projetoBean.remover(projeto.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>
