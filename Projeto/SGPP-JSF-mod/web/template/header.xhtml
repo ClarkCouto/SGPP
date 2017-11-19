@@ -8,23 +8,26 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
         <ui:composition>
-            <div class="side-bar">
-                <div class="side-bar--header">
-                    <h1 class="side-bar--title">SGPP</h1>                    
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{navegacaoBean.atualizaPagina(pagina)}" />
+            </f:metadata>
+            <div class="main-bar">
+                <div class="main-bar--header">
+                    <h1 class="main-bar--header--title">SGPP</h1>
+                    <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
                 </div>
-                <div class="side-bar--actions">                    
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/edital/listarEditais">Editais</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/projeto/listarProjetos">Projetos</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/coordenador/listarCoordenadores">Coordenadores</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/colaborador/listarColaboradores">Colaboradores</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/area/listarAreas">Áreas</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/bolsa/listarBolsas">Bolsas</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/categoriaBolsa/listarCategoriasBolsa">Categorias Bolsa</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/curso/listarCursos">Cursos</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/grupoDePesquisa/listarGruposDePesquisa">Grupos De Pesquisa</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/instituicao/listarInstituicoes">Instituições</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/textoBaseDeclaracao/listarTextosBaseDeclaracao">Textos Base</h:link>
-                    <h:link styleClass="side-bar--actions--item" outcome="/pages/tipoDocumento/listarTiposDocumento">Tipo De Documento</h:link>
+                <div class="main-bar--tabs">                    
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarEditais">Editais</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarProjetos">Projetos</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarCoordenadores">Coordenadores</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarColaboradores">Colaboradores</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarAreas">Áreas</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarBolsas">Bolsas</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarCategoriasBolsa">Categorias Bolsa</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarCursos">Cursos</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarGruposDePesquisa">Grupos De Pesquisa</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarInstituicoes">Instituições</h:link>
+                    <h:link styleClass="main-bar--tabs--item" outcome="/pages/listar/listarTextosBaseDeclaracao">Textos Base</h:link>
                 </div>
             </div>
         </ui:composition>
