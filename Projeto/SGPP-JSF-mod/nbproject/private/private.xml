@@ -2,23 +2,23 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/entities/Declaracao.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/dao/BaseDAO.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/beans/ListaEditalBean.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/test/Teste1.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/entities/GrupoDePesquisa.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/dao/DeclaracaoDAO.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/entities/BaseEntity.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/web/resources/less/main.less</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/src/java/beans/CadastraEditalBean.java</file>
-            <file>file:/home/matheus/Documentos/SGPP-JSF/web/cadastrarEditais.xhtml</file>
-        </group>
         <group name="IFRS">
             <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/cadastrarEdital.xhtml</file>
             <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/listarEditais.xhtml</file>
             <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/editarEdital.xhtml</file>
             <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/EditalBean.java</file>
+        </group>
+        <group>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/resources/less/login.less</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/resources/less/main.less</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/pages/edital/editarEdital.xhtml</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/resources/less/variables.less</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/resources/css/primefaces-overrides.css</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/pages/edital/cadastrarEdital.xhtml</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/resources/less/primefaces-overrides.less</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/EditalBean.java</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/src/conf/persistence.xml</file>
+            <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/pages/edital/listarEditais.xhtml</file>
         </group>
     </open-files>
 </project-private>

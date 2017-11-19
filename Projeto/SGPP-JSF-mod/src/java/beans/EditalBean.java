@@ -5,11 +5,11 @@ import entities.Bolsa;
 import entities.CategoriaBolsa;
 import entities.Edital;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import entities.Lembrete;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
  * @author CristianoSilva
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class EditalBean {
     private Edital edital = new Edital();
     private Edital editalSelecionado = new Edital();
@@ -27,6 +27,12 @@ public class EditalBean {
     private List<Edital> listaFiltrada;
     private List<Lembrete> lembretes = new ArrayList<>();
     private Boolean editando;
+
+// Construtor
+
+    public EditalBean() {
+    }
+        
     
 // Getters e Setters
     public List<Edital> getListaFiltrada() {
@@ -46,8 +52,9 @@ public class EditalBean {
     }
     
     public List<Edital> getEditais() {
-        this.editais = new EditalDAO().findAll();
-        return editais;
+        if(this.editais == null)
+            this.editais = new EditalDAO().findAll();
+        return this.editais;
     }  
 
     public void setEditalSelecionado(Edital edital) {
@@ -115,7 +122,7 @@ public class EditalBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/edital/editarEdital";
+        return "/pages/edital/editarEdital?id="+id;
     } 
     
     public void limpar(){

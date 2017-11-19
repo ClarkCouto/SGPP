@@ -17,24 +17,14 @@
                         </h:link>
                     </div> 
                 </div>
-                <h:form>                      
-                    <h:panelGroup
-                        layout="block"
-                        styleClass="message-bar message-bar--info"
-                        rendered="#{projetoBean.projetos.size() == 0}"
-                    >   
-                        <span class="message-bar--icon">
-                            <i class="fa fa-info-circle" />
-                        </span>
-                        <span class="message-bar--text">Não há projetos cadastrados.</span>
-                    </h:panelGroup>
+                <h:form>                                          
                     <h:panelGroup>
                         <p:dataTable var="projeto" 
                             value="#{projetoBean.projeto}" 
                             widgetVar="projetoTable"
                             emptyMessage="Nenhum projeto foi encontrado." 
                             filteredValue="#{projetoBean.listaFiltrada}"
-                            rendered="#{projetoBean.projetos.size() != 0}"
+
                             >
 
                             <f:facet name="header">

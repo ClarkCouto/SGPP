@@ -55,19 +55,10 @@
                                 </h:inputSecret>
                                 <h:message for="password" styleClass="form--group--message" />
                             </div>
-                            <div class="box--actions">
-                                <div class="box--actions--left">
-                                    <h:link styleClass="link box--actions--left" value="Esqueceu sua senha?" outcome="reset-password"/>
-                                </div>
-                                <h:commandButton styleClass="button" value="Entrar" action="#{usuarioBean.logar()}"/>
-                                
+                            <div class="box--actions">                                
+                                <h:commandButton styleClass="button" value="Entrar" action="#{usuarioBean.logar()}"/>                                
                             </div>
-                        </h:form>
-                        <p class="box--labeled-separator">ou</p>
-                        <div class="box--actions--full">      
-                            <h:link styleClass="link" value="Solicite o cadastro" outcome="signup" />
-                            <p:messages id="messages" /> 
-                        </div>
+                        </h:form>                        
                     </div>
                 </div>
             </div>
