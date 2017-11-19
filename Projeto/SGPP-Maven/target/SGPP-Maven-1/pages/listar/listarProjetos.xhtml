@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"     
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <div class="main-bar">
+                    <div class="main-bar--actions">
+                        <h:link styleClass="button" outcome="cadastrarProjeto">
+                            <i class="fa fa-plus button--icon" />
+                            <span class="button--label">Cadastrar Projeto</span>
+                        </h:link>
+                    </div> 
+                </div>
+                <h:form>                                          
+                    <h:panelGroup>
+                        <p:dataTable var="projeto" 
+                            value="#{projetoBean.projeto}" 
+                            widgetVar="projetoTable"
+                            emptyMessage="Nenhum projeto foi encontrado." 
+                            filteredValue="#{projetoBean.listaFiltrada}"
+
+                            >
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Procurar em todos os campos:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('projetoTable').filter()"  placeholder="Filtrar"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column filterBy="#{projeto.projeto.titulo}" sortBy="#{projeto.projeto.titulo}" headerText="Edital" filterMatchMode="contains">
+                                <h:outputText value="#{projeto.projeto.titulo}" />
+                            </p:column>
+
+                            <p:column filterBy="#{projeto.ano}" sortBy="#{projeto.ano}" headerText="Ano" filterMatchMode="contains">
+                                <h:outputText value="#{projeto.ano}" />
+                            </p:column>
+
+                            <p:column filterBy="#{projeto.titulo}" sortBy="#{projeto.titulo}" headerText="Título" filterMatchMode="contains">
+                                <h:outputText value="#{projeto.titulo}" />
+                            </p:column>
+
+                            <p:column filterBy="#{projeto.coordenador.nome}" sortBy="#{projeto.coordenador.nome}" headerText="Coordenador" filterMatchMode="contains">
+                                <h:outputText value="#{projeto.coordenador.nome}" />
+                            </p:column>
+
+                            <p:column filterBy="#{projeto.aipct}" sortBy="#{projeto.aipct}" headerText="AIPCT" filterMatchMode="contains">
+                                <h:outputText value="#{projeto.aipct}" />
+                            </p:column>
+
+                            <p:column filterBy="#{projeto.dataUltimaAlteracao}" sortBy="#{projeto.ativo}" headerText="Última Alteração" filterMatchMode="contains">
+                                <h:outputText value="#{projeto.dataUltimaAlteracao}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column filterBy="#{projeto.ativo}" sortBy="#{projeto.ativo}" headerText="Ativo" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('projetoTable').filter()">
+                                        <f:converter converterId="javax.faces.Boolean" />
+                                        <f:selectItem itemLabel="Todos" itemValue="" />
+                                        <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                        <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <h:outputText value="#{projeto.ativo ? 'Ativo' : 'Inativo'}" />
+                            </p:column>
+                            
+                            <p:column headerText="Editar" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{projeto.ativo}" action="${projetoBean.editar(projeto.id)}">
+                                    <i class="fa fa-edit" />
+                                </h:commandLink>
+                            </p:column>
+
+                            <p:column headerText="Excluir" >
+                                <h:commandLink styleClass="data-table--row--action" rendered="#{projeto.ativo}" action="${projetoBean.remover(projeto.id)}">
+                                    <i class="fa fa-trash" />
+                                </h:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

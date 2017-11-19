@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{grupoDePesquisaBean.limpar()}" />
+        </f:metadata>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <div class="main-bar">
+                    <div class="main-bar--current-page">
+                        <h:link class="main-bar--current-page--previous" outcome="listarGrupoDePesquisas">
+                            <i class="fa fa-chevron-left"/>
+                        </h:link>
+                        <h1 class="main-bar--current-page--title">Cadastrar Grupo De Pesquisa</h1>                        
+                    </div>                         
+                </div> 
+                <h:form>
+                    <div class="form">
+                        <h:panelGroup class="form--section">
+                            <div class="form--section--title">Informações do Grupo De Pesquisa</div>
+                            <div class="form--group">
+                                <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
+                                <h:inputText
+                                    value="#{grupoDePesquisaBean.grupoDePesquisa.nome}"
+                                    id="nome"
+                                    label="Nome"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Nome é obrigatório"
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="nome" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="coordenador" styleClass="form--group--label">Coordenador</h:outputLabel>
+                                 <p:selectOneMenu 
+                                    id="coordenador" 
+                                    value="#{grupoDePesquisaBean.grupoDePesquisa.coordenador}"
+                                    >
+                                    <f:selectItem itemLabel="-- Selecione --" itemValue="" />
+                                    <f:selectItems value="#{grupoDePesquisaBean.coordenadores}" />
+                                    <f:validateRequired />
+                                </p:selectOneMenu>
+                                <h:message for="coordenador" styleClass="form--group--message" />
+                            </div>
+                        </h:panelGroup>
+                        <div class="form--actions">
+                            <h:commandButton styleClass="button" value="Salvar" action="#{grupoDePesquisaBean.salvar()}"/>
+                        </div>
+                        <div class="form--actions">
+                            <p:messages id="messages" />  
+                        </div>
+                    </div>     
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
