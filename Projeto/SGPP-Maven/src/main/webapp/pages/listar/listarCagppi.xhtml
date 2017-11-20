@@ -9,14 +9,6 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <div class="main-bar">
-                    <div class="main-bar--actions">
-                        <h:link styleClass="button" outcome="cadastrarCagppi">
-                            <i class="fa fa-plus button--icon" />
-                            <span class="button--label">Cadastrar CAGPPI</span>
-                        </h:link>
-                    </div>
-                </div>
                 <h:form>
                     <h:panelGroup
                         layout="block"
@@ -49,29 +41,29 @@
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{cagppi.nome}" sortBy="#{cagppi.nome}" headerText="Nome" filterMatchMode="contains">
+                            <p:column headerText="Nome" sortBy="#{cagppi.nome}" >
                                 <h:outputText value="#{cagppi.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.cpf}" sortBy="#{cagppi.cpf}" headerText="CPF" filterMatchMode="contains">
+                            <p:column headerText="CPF" sortBy="#{cagppi.cpf}" >
                                 <h:outputText value="#{cagppi.cpf}" >
                                     <f:convertNumber pattern="999.999.999-99"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.dataNascimento}" sortBy="#{cagppi.dataNascimento}" headerText="Data Nascimento" filterMatchMode="contains">
+                            <p:column headerText="Data Nascimento" sortBy="#{cagppi.dataNascimento}" >
                                 <h:outputText value="#{cagppi.dataNascimento}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.dataUltimaAlteracao}" sortBy="#{cagppi.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{cagppi.dataUltimaAlteracao}" >
                                 <h:outputText value="#{cagppi.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.ativo}" sortBy="#{cagppi.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{cagppi.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('cagppiTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />

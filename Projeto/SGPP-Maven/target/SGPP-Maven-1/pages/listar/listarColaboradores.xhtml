@@ -75,9 +75,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{colaborador.ativo}" action="${colaboradorBean.remover(colaborador.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{colaborador.ativo}" actionListener="${colaboradorBean.remover(colaborador.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

@@ -9,13 +9,6 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                
-                <div class="main-bar--actions">
-                    <h:link styleClass="button" outcome="cadastrarBolsa">
-                        <i class="fa fa-plus button--icon" />
-                        <span class="button--label">Cadastrar Bolsa</span>
-                    </h:link>
-                </div>
                 <h:form>
                     <h:panelGroup
                         layout="block"
@@ -48,21 +41,21 @@
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{bolsa.categoriaBolsa.nome}" sortBy="#{bolsa.categoriaBolsa.nome}" headerText="Categoria" filterMatchMode="contains">
+                            <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.nome}" >
                                 <h:outputText value="#{bolsa.categoriaBolsa.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{bolsa.nome}" sortBy="#{bolsa.nome}" headerText="Nome" filterMatchMode="contains">
+                            <p:column headerText="Nome" sortBy="#{bolsa.nome}" >
                                 <h:outputText value="#{bolsa.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{bolsa.dataUltimaAlteracao}" sortBy="#{bolsa.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{bolsa.dataUltimaAlteracao}" >
                                 <h:outputText value="#{bolsa.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{bolsa.ativo}" sortBy="#{bolsa.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{bolsa.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('bolsaTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
