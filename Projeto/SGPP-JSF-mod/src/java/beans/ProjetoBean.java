@@ -28,7 +28,6 @@ public class ProjetoBean {
     private List<Edital> editais;
     private List<Projeto> projetos;
     private List<Projeto> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<Projeto> getListaFiltrada() {
@@ -78,32 +77,14 @@ public class ProjetoBean {
     
     public void setProjetos(List<Projeto> lista){
         this.projetos = lista;
-    }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
+    }    
     
 // Ações
-    public String editar(Long id){
-        if(id != null)
-            projetoSelecionado = this.projeto.buscarPeloId(id);
-
-        if (projetoSelecionado != null) {
-            this.projeto = projetoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
-        }
-        return "/pages/projeto/editarProjeto";
+    public String editar(Long id){            
+        return "/pages/projeto/editarProjeto" + id;
     }  
     
     public void limpar(){
-        this.editando = false;
         this.projeto = new Projeto();
         this.projetoSelecionado = new Projeto();
     }

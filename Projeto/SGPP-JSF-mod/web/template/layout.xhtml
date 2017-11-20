@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>SGPP - IFRS POA</title>
         <h:outputStylesheet name="css/normalize.css" />
@@ -17,12 +18,19 @@
  
     <h:body>
 	<div id="page" class="container">
-            <ui:insert name="header" >
-                <ui:include src="/template/header.xhtml">
-                    
-                </ui:include>   
-            </ui:insert>
- 
+            <div class="main-bar">
+                <div class="main-bar--header">
+                    <h1 class="main-bar--header--title">SGPP</h1>
+                    <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
+                </div>
+            </div>
+            <p:tabMenu activeIndex="#{aba}">
+                <p:menuitem value="Edital" outcome="/pages/listar/listarEditais" />
+                <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />                
+                <p:menuitem value="Grupos de Pesquisa" outcome="/pages/listar/listarGruposDePesquisa" />
+                <p:menuitem value="Relatórios" outcome="/pages/relatorios" />
+                <p:menuitem value="Declarações" outcome="/pages/declaracoes" />
+            </p:tabMenu>
 	    <div id="content" class="content">
 	  	<ui:insert name="content" >
 	 	  <ui:include src="/template/conteudo.xhtml" />

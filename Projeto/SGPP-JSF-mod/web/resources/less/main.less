@@ -74,6 +74,7 @@
     justify-content: space-between;
     max-width: 600px;
     margin: auto;       
+    padding: 40px;
     
     &--header {
         width: 100%;
@@ -437,8 +438,7 @@
 }
 
 .content {
-    padding: 20px 40px;
-    height: 100%;
+    min-height: 100%;
     background-image: url("#{resource['imgs/bg.png']}");    
 }
 
@@ -544,6 +544,7 @@
         }
         
         &--title {
+            color: @text-color-light;
             font-size: 22px;
             margin: 0;
         }

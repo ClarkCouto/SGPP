@@ -8,30 +8,36 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">     
+            <ui:param name="aba" value="2" />
+            <ui:define name="content">                                     
                 <h:form>
-                    <p:dataTable  
-                        id='lista'
-                        var="grupoDePesquisa" 
-                        value="#{grupoDePesquisaBean.gruposDePesquisa}" 
-                        widgetVar="gruposDePesquisaTable"
-                        emptyMessage="Nenhum gruo de pesquisa foi encontrado." 
-                        filteredValue="#{grupoDePesquisaBean.listaFiltrada}"
-                        >
+                    <h:panelGroup>
+                        <p:dataTable  
+                            id='lista'
+                            var="grupoDePesquisa" 
+                            value="#{grupoDePesquisaBean.gruposDePesquisa}" 
+                            widgetVar="gruposDePesquisaTable"
+                            emptyMessage="Nenhum grupo de pesquisa foi encontrado."
+                            filteredValue="#{grupoDePesquisaBean.listaFiltrada}"                            
+                            >
 
-                        <f:facet name="header">
-                            <p:outputPanel>              
-                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarGruposDePesquisa" style="float:left;">
-                                    <i class="fa fa-plus button--icon" />
-                                    <span class="button--label">Cadastrar Grupo de Pesquisa</span>
-                                </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Filtrar" style="float: right;" />
-                            </p:outputPanel>
-                        </f:facet>
-
-                        <p:column headerText="Coordenador" sortBy="#{grupoDePesquisa.coordenador.nome}">
-                            <h:outputText value="#{grupoDePesquisa.coordenador.nome}" />
-                        </p:column>
+                            <f:facet name="header">
+                                <p:outputPanel>              
+                                    <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarGruposDePesquisa">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Grupo de Pesquisa</span>
+                                    </h:link>
+                                    <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarCoordenador">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Coordenador</span>                                        
+                                    </h:link>
+                                    <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarCoordenador">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Aluno</span>                                        
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Filtrar" styleClass="right" />
+                                </p:outputPanel>
+                            </f:facet>
 
                         <p:column headerText="Nome" sortBy="#{grupoDePesquisa.nome}">
                             <h:outputText value="#{grupoDePesquisa.nome}" />

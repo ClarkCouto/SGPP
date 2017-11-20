@@ -8,19 +8,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
         <f:metadata>
-            <f:event type="preRenderView" listener="#{editalBean.limpar()}" />
+            <f:event type="preRenderView" listener="#{editalBean.limpar(param.id)}" />
         </f:metadata>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">                    
                 <h:form>
-                    <div class="form">
-
-                        <div class="form--header">
-                            <h:link class="form--header--previous" outcome="listarEditais">
-                                <i class="fa fa-chevron-left"/>
-                            </h:link>
-                            <h1 class="form--header--title">Cadastrar Edital</h1>                        
-                        </div>                 
+                    <div class="main-bar--current-page">
+                        <h:link class="main-bar--current-page--previous" outcome="/pages/listar/listarEditais">
+                            <i class="fa fa-chevron-left"/>
+                        </h:link>
+                        <h1 class="main-bar--current-page--title">Cadastrar Edital</h1>                                                
+                    </div>
+                    <div class="form">                                  
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Informações do Edital</div>
                             <div class="form--group">
@@ -197,13 +196,10 @@
                                     <f:ajax render="bolsas"/>
                                 </h:commandButton>
                             </div>                            
-                        </h:panelGroup>
+                        </h:panelGroup>                        
                         <div class="form--actions">
                             <h:commandButton styleClass="button" value="Salvar" action="#{editalBean.salvar()}"/>
-                        </div>
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
-                        </div>
+                        </div>                        
                     </div>     
                 </h:form>
             </ui:define>
