@@ -9,14 +9,6 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <div class="main-bar">
-                    <div class="main-bar--actions">
-                        <h:link styleClass="button" outcome="cadastrarCagppi">
-                            <i class="fa fa-plus button--icon" />
-                            <span class="button--label">Cadastrar CAGPPI</span>
-                        </h:link>
-                    </div>
-                </div>
                 <h:form>
                     <h:panelGroup
                         layout="block"
@@ -29,7 +21,9 @@
                         <span class="message-bar--text">Não há CAGPPI cadastrados.</span>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:dataTable var="cagppi" 
+                        <p:dataTable 
+                            id='lista'
+                            var="cagppi" 
                             value="#{cagppiBean.cagppi}" 
                             widgetVar="cagppiTable"
                             emptyMessage="Nenhum CAGPPI foi encontrado." 
@@ -38,35 +32,38 @@
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarCagppi" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Cagppi</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{cagppi.nome}" sortBy="#{cagppi.nome}" headerText="Nome" filterMatchMode="contains">
+                            <p:column headerText="Nome" sortBy="#{cagppi.nome}" >
                                 <h:outputText value="#{cagppi.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.cpf}" sortBy="#{cagppi.cpf}" headerText="CPF" filterMatchMode="contains">
+                            <p:column headerText="CPF" sortBy="#{cagppi.cpf}" >
                                 <h:outputText value="#{cagppi.cpf}" >
                                     <f:convertNumber pattern="999.999.999-99"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.dataNascimento}" sortBy="#{cagppi.dataNascimento}" headerText="Data Nascimento" filterMatchMode="contains">
+                            <p:column headerText="Data Nascimento" sortBy="#{cagppi.dataNascimento}" >
                                 <h:outputText value="#{cagppi.dataNascimento}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.dataUltimaAlteracao}" sortBy="#{cagppi.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{cagppi.dataUltimaAlteracao}" >
                                 <h:outputText value="#{cagppi.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{cagppi.ativo}" sortBy="#{cagppi.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{cagppi.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('cagppiTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -85,9 +82,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{cagppi.ativo}" action="${cagppiBean.remover(cagppi.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{cagppi.ativo}" actionListener="${cagppiBean.remover(cagppi.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

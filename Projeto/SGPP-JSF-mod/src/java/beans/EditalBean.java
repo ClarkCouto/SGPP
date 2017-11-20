@@ -26,11 +26,13 @@ public class EditalBean {
     private List<Edital> editais;
     private List<Edital> listaFiltrada;
     private List<Lembrete> lembretes = new ArrayList<>();
-    private Boolean editando;
 
 // Construtor
 
     public EditalBean() {
+        this.lembretes = this.edital.getLembretes();
+        if(this.lembretes == null)
+            this.lembretes = new ArrayList<>();
     }
         
     
@@ -72,24 +74,13 @@ public class EditalBean {
         this.bolsas = lista;
     }
     
-    public List<Lembrete> getLembretes(){
-        this.lembretes = this.edital.getLembretes();
-        if(this.lembretes == null)
-            this.lembretes = new ArrayList<>();
+    public List<Lembrete> getLembretes(){        
         return lembretes;
     }
     
     public void setLembretes(List<Lembrete> lista){
         this.lembretes = lista;
-    }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
+    }    
     
 // Ações
     public void adicionarBolsa() {
@@ -110,51 +101,44 @@ public class EditalBean {
     public void removerLembrete(Lembrete lembrete) {
 //        this.lembretes.remove(lembrete);
         this.edital.getLembretes().remove(new Lembrete());
+    }   
+    
+    public String editar(Long id) {        
+        return "/pages/cadastrar/cadastrarEdital?faces-redirect=true&id="+id;
     } 
     
-    public String editar(Long id) {
-        if(id != null)
-            editalSelecionado = this.edital.buscarPeloId(id);
-
-        if (editalSelecionado != null) {
-            this.edital = editalSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+    public void limpar(Long id){
+        if (id != null) {
+            EditalDAO dao =  new EditalDAO();        
+            Edital edital = dao.findById(id);
+            
+            if (edital == null)
+                edital =  new Edital();
+            
+            this.edital = edital;
         }
-        return "/pages/edital/editarEdital?id="+id;
-    } 
-    
-    public void limpar(){
-        this.editando = false;
-        this.bolsas = new ArrayList<>();
-        this.lembretes = new ArrayList<>();
-        this.editalSelecionado = new Edital();
-        this.edital = new Edital();
-        this.edital.setBolsas(bolsas);
-        this.edital.setLembretes(lembretes);
     }
     
     public String remover(Long id) {
         if(edital.remover(id))
-            return "/pages/edital/listarEditais?faces-redirect=true";
+            return "/pages/listar/listarEditais?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
                                    "Erro ao excluir Edital!"));
-            return "/pages/edital/listarEditais";
+            return "/pages/listar/listarEditais";
         }
     }
     
     public String salvar() {
         this.edital.setLembretes(lembretes);
         if(edital.salvar())
-            return "/pages/edital/listarEditais?faces-redirect=true";
+            return "/pages/listar/listarEditais?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Edital!",
                                    "Erro ao salvar Edital!"));
-            return "/pages/edital/cadastrarEditais";
+            return "/pages/listar/cadastrarEditais";
         }
     }
 }

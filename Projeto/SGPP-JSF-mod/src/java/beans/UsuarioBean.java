@@ -111,9 +111,9 @@ public class UsuarioBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado!",
                                    "Erro no Login!"));
-            return "index?faces-redirect=true";
+            return "/pages/listar/listarEditais?faces-redirect=true";
         }       
-        return "index?faces-redirect=true";
+        return "/pages/listar/listarEditais?faces-redirect=true";
     }
     
     public void limpar() {

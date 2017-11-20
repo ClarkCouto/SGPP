@@ -9,13 +9,6 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                
-                <div class="main-bar--actions">
-                    <h:link styleClass="button" outcome="cadastrarBolsa">
-                        <i class="fa fa-plus button--icon" />
-                        <span class="button--label">Cadastrar Bolsa</span>
-                    </h:link>
-                </div>
                 <h:form>
                     <h:panelGroup
                         layout="block"
@@ -28,7 +21,9 @@
                         <span class="message-bar--text">Não há bolsas cadastradas.</span>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:dataTable var="bolsa" 
+                        <p:dataTable  
+                            id='lista'
+                            var="bolsa" 
                             value="#{bolsaBean.bolsa}" 
                             widgetVar="bolsaTable"
                             emptyMessage="Nenhum bolsa foi encontrada." 
@@ -37,27 +32,30 @@
                             >
 
                             <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Procurar em todos os campos:" />
-                                    <p:inputText id="globalFilter" onkeyup="PF('bolsaTable').filter()"  placeholder="Filtrar"/>
+                                <p:outputPanel>              
+                                    <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarBolsa" style="float:left;">
+                                        <i class="fa fa-plus button--icon" />
+                                        <span class="button--label">Cadastrar Bolsa</span>
+                                    </h:link>
+                                    <p:inputText id="globalFilter" onkeyup="PF('bolsaTable').filter()"  placeholder="Filtrar" style="float: right;" />
                                 </p:outputPanel>
                             </f:facet>
 
-                            <p:column filterBy="#{bolsa.categoriaBolsa.nome}" sortBy="#{bolsa.categoriaBolsa.nome}" headerText="Categoria" filterMatchMode="contains">
+                            <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.nome}" >
                                 <h:outputText value="#{bolsa.categoriaBolsa.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{bolsa.nome}" sortBy="#{bolsa.nome}" headerText="Nome" filterMatchMode="contains">
+                            <p:column headerText="Nome" sortBy="#{bolsa.nome}" >
                                 <h:outputText value="#{bolsa.nome}" />
                             </p:column>
 
-                            <p:column filterBy="#{bolsa.dataUltimaAlteracao}" sortBy="#{bolsa.dataUltimaAlteracao}" headerText="Última Alteração" filterMatchMode="contains">
+                            <p:column headerText="Última Alteração" sortBy="#{bolsa.dataUltimaAlteracao}" >
                                 <h:outputText value="#{bolsa.dataUltimaAlteracao}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
-                            <p:column filterBy="#{bolsa.ativo}" sortBy="#{bolsa.ativo}" headerText="Ativo" filterMatchMode="equals">
+                            <p:column headerText="Ativo" sortBy="#{bolsa.ativo}" >
                                 <f:facet name="filter">
                                     <p:selectOneButton onchange="PF('bolsaTable').filter()">
                                         <f:converter converterId="javax.faces.Boolean" />
@@ -76,9 +74,13 @@
                             </p:column>
 
                             <p:column headerText="Excluir" >
-                                <h:commandLink styleClass="data-table--row--action" rendered="#{bolsa.ativo}" action="${bolsaBean.remover(bolsa.id)}">
-                                    <i class="fa fa-trash" />
-                                </h:commandLink>
+                                <p:commandButton value="Excluir" rendered="#{bolsa.ativo}" actionListener="${bolsaBean.remover(bolsa.id)}" update="lista">
+                                    <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </p:column>
                         </p:dataTable>
                     </h:panelGroup>

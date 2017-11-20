@@ -60,6 +60,7 @@
   justify-content: space-between;
   max-width: 600px;
   margin: auto;
+  padding: 40px;
 }
 .form--header {
   width: 100%;
@@ -364,7 +365,7 @@
   font-family: "Open Sans", sans-serif;
 }
 .content {
-  height: 100%;
+  min-height: 100%;
   background-image: url("#{resource['imgs/bg.png']}");
 }
 .side-bar {
@@ -452,6 +453,7 @@
   margin-right: 20px;
 }
 .main-bar--current-page--title {
+  color: #FAFAFA;
   font-size: 22px;
   margin: 0;
 }

@@ -9,6 +9,14 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
+.container .ui-widget-header .left {
+  float: left;
+  margin-right: 10px;
+}
+.container .ui-widget-header .right {
+  float: right;
+  margin-left: 10px;
+}
 .container .ui-widget-header a {
   color: inherit;
 }
@@ -45,35 +53,56 @@
 .container .ui-datatable thead th,
 .container .ui-datatable .ui-datatable tfoot td {
   font-size: 12px;
+  text-shadow: none;
+  padding: 8px 0;
 }
 .container .ui-datatable tbody td {
   font-size: 14px;
 }
-.container .ui-tabs {
+.container .ui-tabs,
+.container .ui-tabmenu {
   padding: 0;
   border-radius: 0;
   border: 0;
 }
-.container .ui-tabs .ui-tabs-panel {
+.container .ui-tabs .ui-tabs-panel,
+.container .ui-tabmenu .ui-tabs-panel {
   padding: 0;
 }
-.container .ui-tabs.ui-tabs-top > .ui-tabs-nav {
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav,
+.container .ui-tabs .ui-tabmenu-nav,
+.container .ui-tabmenu .ui-tabmenu-nav {
   padding: 10px 20px 0;
   border: 0;
+  border-radius: 0;
   background: #004B18;
 }
-.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default {
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default {
   background: none;
   border: 0;
   text-decoration: none;
   box-shadow: 0;
   color: #FAFAFA;
 }
-.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default a {
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default a,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default a,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default a,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default a {
   text-shadow: none;
   padding: 10px 20px;
 }
-.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-tabs-selected {
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-state-active,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-state-active,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default.ui-state-active,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default.ui-state-active {
   border-radius: 5px 5px 0 0;
   background: #008C47;
 }

@@ -23,7 +23,19 @@
                     <h1 class="main-bar--header--title">SGPP</h1>
                     <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
                 </div>
-            </div>            
+            </div>
+            <p:tabMenu activeIndex="#{aba}">
+                <p:menuitem value="Edital" outcome="/pages/listar/listarEditais" />
+                <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />                
+                <p:menuitem value="Grupos de Pesquisa" outcome="/pages/listar/listarGruposDePesquisa" />
+                <p:menuitem value="Relatórios" outcome="/pages/relatorios" />
+                <p:menuitem value="Declarações" outcome="/pages/declaracoes" />
+            </p:tabMenu>
+	    <div id="content" class="content">
+	  	<ui:insert name="content" >
+	 	  <ui:include src="/template/conteudo.xhtml" />
+	   	</ui:insert>
+	    </div>
         </div>
     </h:body>
 </html>
