@@ -14,12 +14,12 @@
             <ui:param name="aba" value="1" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="/pages/listar/listarProjetos" includeViewParams="false">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Projeto</h1>                        
-                    </div>                         
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarProjetos" style="float:left;" includeViewParams="false">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Projetos</span>
+                        </h:link>   
+                    </div>                       
                 </div>
                 <h:form>
                     <div class="form">

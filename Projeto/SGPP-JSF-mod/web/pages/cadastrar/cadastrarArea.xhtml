@@ -13,12 +13,12 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar"> 
-                    <div class="main-bar--actions">
-                        <h:link styleClass="button" outcome="cadastrarArea">
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarAreas" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Áreas</span>
-                        </h:link>
-                    </div>                    
+                        </h:link>   
+                    </div>                   
                 </div> 
                 <h:form>
                     <div class="form">

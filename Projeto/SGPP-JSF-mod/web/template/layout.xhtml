@@ -21,15 +21,17 @@
             <div class="main-bar">
                 <div class="main-bar--header">
                     <h1 class="main-bar--header--title">SGPP</h1>
+                    <h1 class="main-bar--header--title">Olá, #{usuarioBean.usuarioLogado.nome}</h1>
                     <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
                 </div>
             </div>
             <p:tabMenu activeIndex="#{aba}">
-                <p:menuitem value="Edital" outcome="/pages/listar/listarEditais" />
+                <p:menuitem value="Editais" outcome="/pages/listar/listarEditais" />
                 <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />                
                 <p:menuitem value="Grupos de Pesquisa" outcome="/pages/listar/listarGruposDePesquisa" />
                 <p:menuitem value="Relatórios" outcome="/pages/relatorios" />
                 <p:menuitem value="Declarações" outcome="/pages/declaracoes" />
+                <p:menuitem value="Administração" outcome="/pages/administracao" />
             </p:tabMenu>
 	    <div id="content" class="content">
 	  	<ui:insert name="content" >

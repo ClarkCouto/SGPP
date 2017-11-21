@@ -13,18 +13,18 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="listarSetorDePesquisa">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Setor de Pesquisa</h1>                        
-                    </div>                         
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarSetorDePesquisa" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Setores de Pesquisa</span>
+                        </h:link>   
+                    </div>                          
                 </div> 
                 <div class="login-box box">
-                    <span class="box--header">Solicite o cadastro</span>
                     <div class="box--content">
                         <h:form>
                             <div class="form">
+                            <div class="form--section--title">Cadastrar Setor de Pesquisa</div>
                                 <div class="form--group">
                                     <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                     <h:inputText

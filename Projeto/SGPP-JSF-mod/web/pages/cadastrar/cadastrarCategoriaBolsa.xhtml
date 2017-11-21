@@ -13,12 +13,12 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="listarCategoriasBolsa">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Categoria Bolsa</h1>                        
-                    </div>                         
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Categorias de Bolsas</span>
+                        </h:link>   
+                    </div>                            
                 </div> 
                 <h:form>
                     <div class="form">

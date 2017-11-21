@@ -11,14 +11,16 @@
             <f:event type="preRenderView" listener="#{editalBean.limpar(param.id)}" />
         </f:metadata>
         <ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">                    
+            <ui:define name="content">     
+                <div class="main-bar">      
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarEditais" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Editais</span>
+                        </h:link>   
+                    </div>                        
+                </div>                
                 <h:form>
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="/pages/listar/listarEditais">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Edital</h1>                                                
-                    </div>
                     <div class="form">                                  
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Informações do Edital</div>

@@ -12,13 +12,13 @@
         </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <div class="main-bar">
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="listarCursos">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Curso</h1>                        
-                    </div>                         
+                <div class="main-bar">      
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarCursos" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Cursos</span>
+                        </h:link>   
+                    </div>                        
                 </div> 
                 <h:form>
                     <div class="form">

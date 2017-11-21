@@ -55,8 +55,15 @@
                                 </h:inputSecret>
                                 <h:message for="password" styleClass="form--group--message" />
                             </div>
-                            <div class="box--actions">                                
-                                <h:commandButton styleClass="button" value="Entrar" action="#{usuarioBean.logar()}"/>                                
+                            <div class="box--actions">           
+                                <!-- Depois tem que recolocar o esqueceu a senha -->
+                                <div class="box--actions--left">
+                                    <h:link styleClass="link box--actions--left" value="Cadastrar usuário (temporário)" outcome="signup"/>
+                                </div>         
+                                <h:commandButton styleClass="button" value="Entrar" action="#{usuarioBean.logar()}"/>                           
+                            </div>
+                            <div class="box--actions">           
+                                <p:messages id="messages" />                              
                             </div>
                         </h:form>                        
                     </div>

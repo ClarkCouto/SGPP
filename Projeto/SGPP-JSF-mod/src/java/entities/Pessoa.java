@@ -31,7 +31,7 @@ public abstract class Pessoa extends BaseEntityAudit {
         Masculino, Feminino
     }
     
-    @Column(nullable=false, columnDefinition = "VARCHAR(11)")
+    @Column(nullable=false, columnDefinition = "VARCHAR(14)")
     private String cpf;   
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,10 +51,10 @@ public abstract class Pessoa extends BaseEntityAudit {
     @Column(nullable=false)
     private Sexo sexo;
     
-    @Column(nullable=true, columnDefinition = "VARCHAR(10)")
+    @Column(nullable=true, columnDefinition = "VARCHAR(15)")
     private String telefoneCelular;
     
-    @Column(nullable=true, columnDefinition = "VARCHAR(11)")
+    @Column(nullable=true, columnDefinition = "VARCHAR(14)")
     private String telefoneFixo;
     
     public Pessoa() {

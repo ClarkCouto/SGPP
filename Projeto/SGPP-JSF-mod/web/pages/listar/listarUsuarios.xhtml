@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">      
+                <h:form>      
+                    <p:dataTable  
+                        id='lista'
+                        var="usuario" 
+                        value="#{usuarioBean.usuarios}" 
+                        widgetVar="usuarioTable"
+                        emptyMessage="Nenhuma instituição foi encontrada." 
+                        filteredValue="#{usuarioBean.listaFiltrada}"
+                        >
+
+                        <f:facet name="header">
+                            <p:outputPanel>             
+                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarCagppi" style="float:left;">
+                                    <i class="fa fa-plus button--icon" />
+                                    <span class="button--label">Cadastrar CAGPPI</span>
+                                </h:link>            
+                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarCoordenador" style="float:left;">
+                                    <i class="fa fa-plus button--icon" />
+                                    <span class="button--label">Cadastrar Coordenador</span>
+                                </h:link>             
+                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarSetorDePesquisa" style="float:left;">
+                                    <i class="fa fa-plus button--icon" />
+                                    <span class="button--label">Cadastrar Setor de Pesquisa</span>
+                                </h:link>
+                                <p:inputText id="globalFilter" onkeyup="PF('usuarioTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Tipo" sortBy="#{usuario.tipo}" >
+                            <h:outputText value="#{usuario.tipo}" />
+                        </p:column>
+
+                        <p:column headerText="Nome" sortBy="#{usuario.nome}" >
+                            <h:outputText value="#{usuario.nome}" />
+                        </p:column>
+
+                        <p:column headerText="CPF" sortBy="#{usuario.cpf}" >
+                            <h:outputText value="#{usuario.cpf}" />
+                        </p:column>
+
+                        <p:column headerText="Data Nascimento" sortBy="#{usuario.dataNascimento}" >
+                            <h:outputText value="#{usuario.dataNascimento}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Última Alteração" sortBy="#{usuario.dataUltimaAlteracao}" >
+                            <h:outputText value="#{usuario.dataUltimaAlteracao}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Ativo" sortBy="#{usuario.ativo}" >
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('usuarioTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                    <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{usuario.ativo ? 'Ativo' : 'Inativo'}" />
+                        </p:column>
+
+                        <p:column headerText="Editar" >
+                            <h:commandLink styleClass="data-table--row--action" rendered="#{usuario.ativo}">
+                                <i class="fa fa-edit" />
+                            </h:commandLink>
+                        </p:column>
+
+                        <p:column headerText="Excluir" >
+                            <p:commandButton value="Excluir" rendered="#{usuario.ativo}"  update="lista">
+                                <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
+

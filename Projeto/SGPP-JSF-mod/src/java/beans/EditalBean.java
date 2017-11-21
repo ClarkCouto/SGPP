@@ -28,14 +28,15 @@ public class EditalBean {
     private List<Lembrete> lembretes = new ArrayList<>();
 
 // Construtor
-
     public EditalBean() {
         this.lembretes = this.edital.getLembretes();
+        this.bolsas = this.edital.getBolsas();
         if(this.lembretes == null)
             this.lembretes = new ArrayList<>();
+        if(this.bolsas == null)
+            this.bolsas = new ArrayList<>();
     }
-        
-    
+       
 // Getters e Setters
     public List<Edital> getListaFiltrada() {
         return listaFiltrada;
@@ -108,14 +109,11 @@ public class EditalBean {
     } 
     
     public void limpar(Long id){
-        if (id != null) {
-            EditalDAO dao =  new EditalDAO();        
-            Edital edital = dao.findById(id);
+        if (id != null) {   
+            edital = new Edital().buscarPeloId(id);
             
             if (edital == null)
                 edital =  new Edital();
-            
-            this.edital = edital;
         }
     }
     
@@ -132,6 +130,7 @@ public class EditalBean {
     
     public String salvar() {
         this.edital.setLembretes(lembretes);
+        this.edital.setBolsas(bolsas);
         if(edital.salvar())
             return "/pages/listar/listarEditais?faces-redirect=true";
         else {
