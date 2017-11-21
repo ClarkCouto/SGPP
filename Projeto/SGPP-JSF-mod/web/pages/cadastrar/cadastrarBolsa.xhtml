@@ -25,6 +25,25 @@
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Informações da Bolsa</div>
                             <div class="form--group size-half">
+                                <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
+                                <p:selectOneMenu id="categoria-bolsa" 
+                                    value="#{bolsaBean.bolsa.categoriaBolsa}" 
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="cat" 
+                                    filter="true" 
+                                    filterMatchMode="startsWith"
+                                    required='true'
+                                    requiredMessage="Categoria é obrigatória">                         
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                    <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
+                                    <p:column>
+                                        <h:outputText value="#{cat.descricao}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="categoria" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
                                     value="#{bolsaBean.bolsa.nome}"
@@ -37,25 +56,6 @@
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="nome" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
-                                <p:selectOneMenu id="categoria-bolsa" 
-                                    value="#{bolsaBean.bolsa.categoriaBolsa}" 
-                                    panelStyle="width:180px"
-                                    effect="fade" 
-                                    var="cat" 
-                                    style="width:160px" 
-                                    filter="true" 
-                                    filterMatchMode="startsWith"
-                                    required='true'
-                                    requiredMessage="Categoria é obrigatória">                                    
-                                    <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
-                                    <p:column>
-                                        <h:outputText value="#{cat.descricao}" />
-                                    </p:column>
-                                </p:selectOneMenu>
-                                <h:message for="categoria" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
                         <div class="form--actions">

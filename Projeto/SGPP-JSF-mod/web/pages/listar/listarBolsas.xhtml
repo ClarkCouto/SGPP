@@ -13,7 +13,7 @@
                     <p:dataTable  
                         id='lista'
                         var="bolsa" 
-                        value="#{bolsaBean.bolsa}" 
+                        value="#{bolsaBean.bolsas}" 
                         widgetVar="bolsaTable"
                         emptyMessage="Nenhum bolsa foi encontrada." 
                         filteredValue="#{bolsaBean.listaFiltrada}"
@@ -29,8 +29,8 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.nome}" >
-                            <h:outputText value="#{bolsa.categoriaBolsa.nome}" />
+                        <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.descricao}" >
+                            <h:outputText value="#{bolsa.categoriaBolsa.descricao}" />
                         </p:column>
 
                         <p:column headerText="Nome" sortBy="#{bolsa.nome}" >

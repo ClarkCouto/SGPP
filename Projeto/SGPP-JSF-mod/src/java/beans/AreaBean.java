@@ -59,6 +59,22 @@ public class AreaBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            areaSelecionada = this.area.buscarPeloId(id);
+
+        if (areaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Área!",
+                                   "Erro ao buscar Área!"));
+            return "/pages/listar/listarAreas";
+        }
+        else {
+            this.area = areaSelecionada;
+            return "/pages/detalhes/detalhesArea";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             areaSelecionada = this.area.buscarPeloId(id);
@@ -69,7 +85,7 @@ public class AreaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/area/editarArea";
+        return "/pages/editar/editarArea";
     }  
     
     public void limpar(){
@@ -80,23 +96,23 @@ public class AreaBean {
     
     public String remover(Long id) {
         if(area.remover(id))
-            return "/pages/area/listarAreas?faces-redirect=true";
+            return "/pages/listar/listarAreas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Área!",
                                    "Erro ao excluir Área!"));
-            return "/pages/area/listarAreas";
+            return "/pages/listar/listarAreas";
         }
     }
     
     public String salvar() {
         if(area.salvar())
-            return "/pages/area/listarAreas?faces-redirect=true";
+            return "/pages/listar/listarAreas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Área!",
                                    "Erro ao salvar Área!"));
-            return "/pages/area/cadastrarAreas";
+            return "/pages/cadastrar/cadastrarAreas";
         }
     }
 }

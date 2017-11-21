@@ -59,6 +59,22 @@ public class CategoriaBolsaBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
+
+        if (categoriaBolsaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Categoria!",
+                                   "Erro ao buscar Categoria!"));
+            return "/pages/listar/listarCategorias";
+        }
+        else {
+            this.categoriaBolsa = categoriaBolsaSelecionada;
+            return "/pages/detalhes/detalhesCategoria";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
@@ -69,7 +85,7 @@ public class CategoriaBolsaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/categoriaBolsa/editarCategoriaBolsa";
+        return "/pages/editar/editarCategoriaBolsa";
     }  
     
     public void limpar(){
@@ -80,23 +96,23 @@ public class CategoriaBolsaBean {
     
     public String remover(Long id) {
         if(categoriaBolsa.remover(id))
-            return "/pages/categoriaBolsa/listarCategoriasBolsa?faces-redirect=true";
+            return "/pages/listar/listarCategoriasBolsa?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Categoria!",
                                    "Erro ao excluir Categoria!"));
-            return "/pages/categoriaBolsa/listarCategoriasBolsa";
+            return "/pages/listar/listarCategoriasBolsa";
         }
     }
     
     public String salvar() {
         if(categoriaBolsa.salvar())
-            return "/pages/categoriaBolsa/listarCategoriasBolsa?faces-redirect=true";
+            return "/pages/listar/listarCategoriasBolsa?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Categoria!",
                                    "Erro ao salvar Categoria!"));
-            return "/pages/categoriaBolsa/cadastrarCategoriaBolsa";
+            return "/pages/cadastrar/cadastrarCategoriaBolsa";
         }
     }
 }

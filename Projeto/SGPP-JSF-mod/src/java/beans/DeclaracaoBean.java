@@ -97,6 +97,22 @@ public class DeclaracaoBean {
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            declaracaoSelecionada = this.declaracao.buscarPeloId(id);
+
+        if (declaracaoSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Declaração!",
+                                   "Erro ao buscar Declaração!"));
+            return "/pages/listar/listarDeclaracoes";
+        }
+        else {
+            this.declaracao = declaracaoSelecionada;
+            return "/pages/detalhes/detalhesDeclaracao";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             declaracaoSelecionada = this.declaracao.buscarPeloId(id);
@@ -107,7 +123,7 @@ public class DeclaracaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/declaracao/editarDeclaracao";
+        return "/pages/editar/editarDeclaracao";
     }  
     
     public void limpar(){
@@ -118,23 +134,23 @@ public class DeclaracaoBean {
     
     public String remover(Long id) {
         if(declaracao.remover(id))
-            return "/pages/declaracao/listarDeclaracoes?faces-redirect=true";
+            return "/pages/listar/listarDeclaracoes?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Declaração!",
                                    "Erro ao excluir Declaração!"));
-            return "/pages/declaracao/listarDeclaracoes";
+            return "/pages/listar/listarDeclaracoes";
         }
     }
     
     public String salvar() {
         if(declaracao.salvar())
-            return "/pages/declaracao/listarDeclaracoes?faces-redirect=true";
+            return "/pages/listar/listarDeclaracoes?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Declaração!",
                                    "Erro ao salvar Declaração!"));
-            return "/pages/declaracao/cadastrarDeclaracoes";
+            return "/pages/cadastrar/cadastrarDeclaracoes";
         }
     }
 }

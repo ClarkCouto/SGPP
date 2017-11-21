@@ -26,8 +26,9 @@ public class ProjetoBean {
     private List<Colaborador> colaboradores;
     private List<Coordenador> coordenadores;
     private List<Edital> editais;
-    private List<Projeto> projetos;
+    private Boolean editando;
     private List<Projeto> listaFiltrada;
+    private List<Projeto> projetos;
     
 // Getters e Setters
     public List<Projeto> getListaFiltrada() {
@@ -57,6 +58,14 @@ public class ProjetoBean {
         this.coordenadores = (List<Coordenador>) (Coordenador) new Coordenador().buscarTodos();
         return coordenadores;
     }
+
+    public Boolean getEditando() {
+        return editando;
+    }
+
+    public void setEditando(Boolean editando) {
+        this.editando = editando;
+    }
     
     public Projeto getProjeto() {
         return projeto;
@@ -80,34 +89,60 @@ public class ProjetoBean {
     }    
     
 // Ações
-    public String editar(Long id){            
-        return "/pages/projeto/editarProjeto" + id;
+    public String detalhar(Long id){
+        if(id != null)
+            projetoSelecionado = this.projeto.buscarPeloId(id);
+
+        if (projetoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Projeto!",
+                                   "Erro ao buscar Projeto!"));
+            return "/pages/listar/listarProjetos";
+        }
+        else {
+            this.projeto = projetoSelecionado;
+            return "/pages/detalhes/detalhesTextoBaseDeclaracao";
+        }
+    }
+    
+    public String editar(Long id){
+        if(id != null)
+            projetoSelecionado = this.projeto.buscarPeloId(id);
+
+        if (projetoSelecionado != null) {
+            this.projeto = projetoSelecionado;
+            this.editando = Boolean.TRUE;
+        } else {
+            this.editando = Boolean.FALSE;
+        }
+        return "/pages/editar/editarProjeto";
     }  
     
     public void limpar(){
+        this.editando = false;
         this.projeto = new Projeto();
         this.projetoSelecionado = new Projeto();
     }
     
     public String remover(Long id) {
         if(projeto.remover(id))
-            return "/pages/projeto/listarProjetos?faces-redirect=true";
+            return "/pages/listar/listarProjetos?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Projeto!",
                                    "Erro ao excluir Projeto!"));
-            return "/pages/projeto/listarProjetos";
+            return "/pages/listar/listarProjetos";
         }
     }
     
     public String salvar() {
         if(projeto.salvar())
-            return "/pages/projeto/listarProjetos?faces-redirect=true";
+            return "/pages/listar/listarProjetos?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Projeto!",
                                    "Erro ao salvar Projeto!"));
-            return "/pages/projeto/cadastrarProjetos";
+            return "/pages/cadastrar/cadastrarProjetos";
         }
     }
 }

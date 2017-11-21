@@ -104,6 +104,7 @@ public class UsuarioBean implements Serializable {
                     cag.setSexo(usuario.getSexo());
                     cag.setTelefoneCelular(usuario.getTelefoneCelular());
                     cag.setTelefoneFixo(usuario.getTelefoneFixo());
+                    cag.setTipo(tipo);
                     cag.setUltimoAcesso(new Date());
                     cag.salvar();
                     break;
@@ -123,6 +124,7 @@ public class UsuarioBean implements Serializable {
                     coordenador.setSexo(usuario.getSexo());
                     coordenador.setTelefoneCelular(usuario.getTelefoneCelular());
                     coordenador.setTelefoneFixo(usuario.getTelefoneFixo());
+                    coordenador.setTipo(tipo);
                     coordenador.setUltimoAcesso(new Date());
                     coordenador.salvar();
                     break;
@@ -140,6 +142,7 @@ public class UsuarioBean implements Serializable {
                     setor.setSexo(usuario.getSexo());
                     setor.setTelefoneCelular(usuario.getTelefoneCelular());
                     setor.setTelefoneFixo(usuario.getTelefoneFixo());
+                    setor.setTipo(tipo);
                     setor.setUltimoAcesso(new Date());
                     setor.salvar();
                     break;

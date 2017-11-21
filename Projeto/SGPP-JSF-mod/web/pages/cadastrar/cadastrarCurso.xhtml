@@ -25,6 +25,26 @@
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Informações do Curso</div>
                             <div class="form--group size-half">
+                                <h:outputLabel for="instituicao" styleClass="form--group--label">Instituição</h:outputLabel>
+                                <p:selectOneMenu id="instituicao" 
+                                    value="#{cursoBean.curso.instituicao}"
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="inst" 
+                                    filter="true" 
+                                    filterMatchMode="startsWith"
+                                    required='true'
+                                    requiredMessage="Instituição é obrigatória">
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>     
+                                    <f:selectItems value="#{cursoBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
+                                    <p:column>
+                                        <h:outputText value="#{inst.nome}" />
+                                    </p:column>
+                                    <f:validateRequired />
+                                </p:selectOneMenu>
+                                <h:message for="instituicao" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
                                     value="#{cursoBean.curso.nome}"
@@ -37,27 +57,6 @@
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="nome" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="instituicao" styleClass="form--group--label">Instituição</h:outputLabel>
-                                <p:selectOneMenu id="instituicao" 
-                                    value="#{cursoBean.curso.instituicao}" 
-                                    panelStyle="width:180px"
-                                    effect="fade" 
-                                    var="inst" 
-                                    style="width:160px" 
-                                    filter="true" 
-                                    filterMatchMode="startsWith"
-                                    required='true'
-                                    requiredMessage="Instituição é obrigatória">
-                                    <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                    <f:selectItems value="#{cursoBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
-                                    <p:column>
-                                        <h:outputText value="#{inst.nome}" />
-                                    </p:column>
-                                    <f:validateRequired />
-                                </p:selectOneMenu>
-                                <h:message for="instituicao" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
                         <div class="form--actions">

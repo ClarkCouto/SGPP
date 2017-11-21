@@ -2,11 +2,13 @@ package beans;
 
 import entities.Curso;
 import entities.Instituicao;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -60,12 +62,32 @@ public class CursoBean {
         this.editando = editando;
     }
     
-    public List<Instituicao> getInstituicoes(){
+    public List<SelectItem> getInstituicoes(){
         this.instituicoes = new Instituicao().buscarTodos();
-        return instituicoes;
+        List<SelectItem> items = new ArrayList<>();  
+        this.instituicoes.forEach((c) -> {
+            items.add(new SelectItem(c, c.getNome()));
+        }); 
+        return items;
     }
     
 // Ações
+    public String detalhar(Long id){
+        if(id != null)
+            cursoSelecionado = this.curso.buscarPeloId(id);
+
+        if (cursoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Curso!",
+                                   "Erro ao buscar Curso!"));
+            return "/pages/listar/listarCursos";
+        }
+        else {
+            this.curso = cursoSelecionado;
+            return "/pages/detalhes/detalhesCurso";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             cursoSelecionado = this.curso.buscarPeloId(id);
@@ -76,7 +98,7 @@ public class CursoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/curso/editarCurso";
+        return "/pages/editar/editarCurso";
     }  
     
     public void limpar(){
@@ -87,23 +109,23 @@ public class CursoBean {
     
     public String remover(Long id) {
         if(curso.remover(id))
-            return "/pages/curso/listarCursos?faces-redirect=true";
+            return "/pages/listar/listarCursos?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Curso!",
                                    "Erro ao excluir Curso!"));
-            return "/pages/curso/listarCursos";
+            return "/pages/listar/listarCursos";
         }
     }
     
     public String salvar() {
         if(curso.salvar())
-            return "/pages/curso/listarCursos?faces-redirect=true";
+            return "/pages/listar/listarCursos?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Curso!",
                                    "Erro ao salvar Curso!"));
-            return "/pages/curso/cadastrarCursos";
+            return "/pages/cadastrar/cadastrarCursos";
         }
     }
 }

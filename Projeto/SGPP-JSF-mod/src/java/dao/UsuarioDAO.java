@@ -6,7 +6,6 @@
 package dao;
 
 import entities.Usuario;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
