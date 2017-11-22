@@ -104,7 +104,8 @@ public class EditalBean {
     }
     
     public void removerLembrete(Long id) {
-        this.lembretes = this.lembretes.stream().filter(lembrete -> !Objects.equals(lembrete.getId(), id)).collect(Collectors.toList());
+        this.lembretes = this.lembretes.stream().filter(lembrete -> !Objects.equals(lembrete.getId(), id)).collect(Collectors.toList());        
+        this.edital.setLembretes(this.lembretes);
     }   
     
     public String editar(Long id) {        
@@ -125,8 +126,8 @@ public class EditalBean {
             return "/pages/listar/listarEditais?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
-                                   "Erro ao excluir Edital!"));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
+                        "Erro ao excluir Edital!"));
             return "/pages/listar/listarEditais";
         }
     }

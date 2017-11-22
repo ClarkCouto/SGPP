@@ -125,14 +125,12 @@
                                     </div>
 
                                     <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete.id)}">
-                                            <p:ajax process="@form" update="lembretes"/>
-                                        </h:commandButton>
+                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete.id)}" />                                        
                                     </div>
                                 </div>
                             </ui:repeat>
                             <div class="form--actions">
-                                <p:commandButton styleClass="button" value="Adicionar Novo Lembrete" actionListener="#{editalBean.adicionarLembrete}" /> 
+                                <h:commandButton styleClass="button" value="Adicionar lembrete" action="#{editalBean.adicionarLembrete()}"/>
                             </div>                            
                         </h:panelGroup>
                         <h:panelGroup
