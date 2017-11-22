@@ -85,7 +85,7 @@ public class GrupoDePesquisaBean {
         }
         else {
             this.grupoDePesquisa = grupoDePesquisaSelecionado;
-            return "/pages/detalhes/detalhesGrupoDePesquisa";
+            return "/pages/detalhes/detalhesGrupoDePesquisa?faces-redirect=true";
         }
     }
     
@@ -99,7 +99,7 @@ public class GrupoDePesquisaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarGrupoDePesquisa";
+        return "/pages/editar/editarGrupoDePesquisa?faces-redirect=true";
     }  
     
     public void limpar(){

@@ -71,7 +71,7 @@ public class TextoBaseDeclaracaoBean {
         }
         else {
             this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
-            return "/pages/detalhes/detalhesTextoBaseDeclaracao";
+            return "/pages/detalhes/detalhesTextoBaseDeclaracao?faces-redirect=true";
         }
     }
     
@@ -85,7 +85,7 @@ public class TextoBaseDeclaracaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarTextoBaseDeclaracao";
+        return "/pages/editar/editarTextoBaseDeclaracao?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -112,7 +112,7 @@ public class TextoBaseDeclaracaoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Texto Base Declaração!",
                                    "Erro ao salvar Texto Base Declaração!"));
-            return "/pages/cadastrar/listarTextosBaseDeclaracao";
+            return "/pages/cadastrar/cadastrarTextoBaseDeclaracao";
         }
     }
 }

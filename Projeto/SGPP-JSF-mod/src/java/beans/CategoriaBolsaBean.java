@@ -67,11 +67,11 @@ public class CategoriaBolsaBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Categoria!",
                                    "Erro ao buscar Categoria!"));
-            return "/pages/listar/listarCategorias";
+            return "/pages/listar/listarCategoriasBolsa";
         }
         else {
             this.categoriaBolsa = categoriaBolsaSelecionada;
-            return "/pages/detalhes/detalhesCategoria";
+            return "/pages/detalhes/detalhesCategoriaBolsa?faces-redirect=true";
         }
     }
     
@@ -85,7 +85,7 @@ public class CategoriaBolsaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarCategoriaBolsa";
+        return "/pages/editar/editarCategoriaBolsa?faces-redirect=true";
     }  
     
     public void limpar(){

@@ -60,14 +60,12 @@
                             <h:outputText value="#{grupoDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{grupoDePesquisa.ativo}" action="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(grupoDePesquisa.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" actionListener="${grupoDePesquisaBean.detalhar(grupoDePesquisa.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" actionListener="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}" icon="fa fa-edit" rendered="#{grupoDePesquisa.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(categoriaBolsa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

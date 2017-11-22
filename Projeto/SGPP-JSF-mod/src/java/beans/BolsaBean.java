@@ -84,7 +84,7 @@ public class BolsaBean {
         }
         else {
             this.bolsa = bolsaSelecionada;
-            return "/pages/detalhes/detalhesBolsa";
+            return "/pages/detalhes/detalhesBolsa?faces-redirect=true";
         }
     }
     
@@ -98,7 +98,7 @@ public class BolsaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarBolsa";
+        return "/pages/editar/editarBolsa?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -125,7 +125,7 @@ public class BolsaBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Bolsa!",
                                    "Erro ao salvar Bolsa!"));
-            return "/pages/cadastrar/cadastrarBolsas";
+            return "/pages/cadastrar/cadastrarBolsa";
         }
     }
 }

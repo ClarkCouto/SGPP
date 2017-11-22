@@ -71,7 +71,7 @@ public class InstituicaoBean {
         }
         else {
             this.instituicao = instituicaoSelecionada;
-            return "/pages/detalhes/detalhesInstituicao";
+            return "/pages/detalhes/detalhesInstituicao?faces-redirect=true";
         }
     }
     
@@ -85,7 +85,7 @@ public class InstituicaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarInstituicao";
+        return "/pages/editar/editarInstituicao?faces-redirect=true";
     }  
     
     public void limpar(){

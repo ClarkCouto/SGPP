@@ -101,7 +101,7 @@ public class ProjetoBean {
         }
         else {
             this.projeto = projetoSelecionado;
-            return "/pages/detalhes/detalhesTextoBaseDeclaracao";
+            return "/pages/detalhes/detalhesProjeto?faces-redirect=true";
         }
     }
     
@@ -115,7 +115,7 @@ public class ProjetoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarProjeto";
+        return "/pages/editar/editarProjeto?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -142,7 +142,7 @@ public class ProjetoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Projeto!",
                                    "Erro ao salvar Projeto!"));
-            return "/pages/cadastrar/cadastrarProjetos";
+            return "/pages/cadastrar/cadastrarProjeto";
         }
     }
 }

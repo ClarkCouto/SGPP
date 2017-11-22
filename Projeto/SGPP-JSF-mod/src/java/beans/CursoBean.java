@@ -84,7 +84,7 @@ public class CursoBean {
         }
         else {
             this.curso = cursoSelecionado;
-            return "/pages/detalhes/detalhesCurso";
+            return "/pages/detalhes/detalhesCurso?faces-redirect=true";
         }
     }
     
@@ -98,7 +98,7 @@ public class CursoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarCurso";
+        return "/pages/editar/editarCurso?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -125,7 +125,7 @@ public class CursoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Curso!",
                                    "Erro ao salvar Curso!"));
-            return "/pages/cadastrar/cadastrarCursos";
+            return "/pages/cadastrar/cadastrarCurso";
         }
     }
 }

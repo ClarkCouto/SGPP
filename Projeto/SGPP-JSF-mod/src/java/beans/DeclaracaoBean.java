@@ -109,7 +109,7 @@ public class DeclaracaoBean {
         }
         else {
             this.declaracao = declaracaoSelecionada;
-            return "/pages/detalhes/detalhesDeclaracao";
+            return "/pages/detalhes/detalhesDeclaracao?faces-redirect=true";
         }
     }
     
@@ -123,7 +123,7 @@ public class DeclaracaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarDeclaracao";
+        return "/pages/editar/editarDeclaracao?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -150,7 +150,7 @@ public class DeclaracaoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Declaração!",
                                    "Erro ao salvar Declaração!"));
-            return "/pages/cadastrar/cadastrarDeclaracoes";
+            return "/pages/cadastrar/cadastrarDeclaracao";
         }
     }
 }

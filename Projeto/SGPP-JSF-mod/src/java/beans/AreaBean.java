@@ -71,7 +71,7 @@ public class AreaBean {
         }
         else {
             this.area = areaSelecionada;
-            return "/pages/detalhes/detalhesArea";
+            return "/pages/detalhes/detalhesArea?faces-redirect=true";
         }
     }
     
@@ -85,7 +85,7 @@ public class AreaBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarArea";
+        return "/pages/editar/editarArea?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -112,7 +112,7 @@ public class AreaBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Área!",
                                    "Erro ao salvar Área!"));
-            return "/pages/cadastrar/cadastrarAreas";
+            return "/pages/cadastrar/cadastrarArea";
         }
     }
 }

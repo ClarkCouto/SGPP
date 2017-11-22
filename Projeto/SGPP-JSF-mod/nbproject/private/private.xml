@@ -5,12 +5,6 @@
         <group>
             <file>file:/home/matheus/Documentos/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/pages/cadastrar/cadastrarEdital.xhtml</file>
         </group>
-        <group name="IFRS">
-            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/web/pages/cadastrar/cadastrarBolsa.xhtml</file>
-            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/UsuarioBean.java</file>
-            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/src/conf/persistence.xml</file>
-            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/CategoryConverter.java</file>
-            <file>file:/Users/CristianoSilva/IFRS/SGPP/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/BolsaBean.java</file>
-        </group>
+        <group name="IFRS"/>
     </open-files>
 </project-private>

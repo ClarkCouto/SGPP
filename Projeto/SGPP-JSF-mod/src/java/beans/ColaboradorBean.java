@@ -71,7 +71,7 @@ public class ColaboradorBean {
         }
         else {
             this.colaborador = colaboradorSelecionado;
-            return "/pages/detalhes/detalhesColaborador";
+            return "/pages/detalhes/detalhesColaborador?faces-redirect=true";
         }
     }
     
@@ -85,7 +85,7 @@ public class ColaboradorBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarColaborador";
+        return "/pages/editar/editarColaborador?faces-redirect=true";
     }  
     
     public void limpar(){

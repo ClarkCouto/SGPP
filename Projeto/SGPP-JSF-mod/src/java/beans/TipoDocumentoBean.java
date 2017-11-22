@@ -71,7 +71,7 @@ public class TipoDocumentoBean {
         }
         else {
             this.tipoDocumento = tipoDocumentoSelecionado;
-            return "/pages/detalhes/detalhesTipoDocumento";
+            return "/pages/detalhes/detalhesTipoDocumento?faces-redirect=true";
         }
     }
     
@@ -85,7 +85,7 @@ public class TipoDocumentoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarTipoDocumento";
+        return "/pages/editar/editarTipoDocumento?faces-redirect=true";
     }  
     
     public void limpar(){
@@ -112,7 +112,7 @@ public class TipoDocumentoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Tipo de Documento!",
                                    "Erro ao salvar Tipo de Documento!"));
-            return "/pages/cadastrar/cadastrarTiposDocumento";
+            return "/pages/cadastrar/cadastrarTipoDocumento";
         }
     }
 }
