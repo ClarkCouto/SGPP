@@ -8,7 +8,10 @@ import javax.faces.bean.ManagedBean;
 import entities.Lembrete;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -17,7 +20,7 @@ import javax.faces.context.FacesContext;
  * @author CristianoSilva
  */
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 public class EditalBean {
     private Edital edital = new Edital();
     private Edital editalSelecionado = new Edital();
@@ -76,7 +79,7 @@ public class EditalBean {
     }
     
     public List<Lembrete> getLembretes(){        
-        return lembretes;
+        return this.lembretes;
     }
     
     public void setLembretes(List<Lembrete> lista){
@@ -89,19 +92,20 @@ public class EditalBean {
         this.edital.setBolsas(bolsas);
     }
     
-    public void removerBolsa(Bolsa bolsa) {
-        this.bolsas.remove(bolsa);
+    public void removerBolsa(Long id) {
+        this.bolsas = this.bolsas.stream().filter(bolsa -> !Objects.equals(bolsa.getId(), id)).collect(Collectors.toList());
         this.edital.setBolsas(bolsas);
     }
     
     public void adicionarLembrete() {
 //        this.lembretes.add(new Lembrete());
-        this.edital.getLembretes().add(new Lembrete());
+        this.lembretes.add(new Lembrete());
+        this.edital.setLembretes(lembretes);
     }
     
-    public void removerLembrete(Lembrete lembrete) {
-//        this.lembretes.remove(lembrete);
-        this.edital.getLembretes().remove(new Lembrete());
+    public void removerLembrete(Long id) {
+        this.lembretes = this.lembretes.stream().filter(lembrete -> !Objects.equals(lembrete.getId(), id)).collect(Collectors.toList());        
+        this.edital.setLembretes(this.lembretes);
     }   
     
     public String editar(Long id) {        
@@ -122,8 +126,8 @@ public class EditalBean {
             return "/pages/listar/listarEditais?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
-                                   "Erro ao excluir Edital!"));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
+                        "Erro ao excluir Edital!"));
             return "/pages/listar/listarEditais";
         }
     }

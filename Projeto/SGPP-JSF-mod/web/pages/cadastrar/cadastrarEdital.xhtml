@@ -76,14 +76,15 @@
                             <h:panelGroup
                                 layout="block"
                                 styleClass="message-bar"
-                                rendered="#{editalBean.edital.lembretes.size() == 0}">                                
+                                rendered="#{editalBean.lembretes.size() == 0}">                                
                                 <span class="message-bar--icon">
                                     <i class="fa fa-clock-o" />
                                 </span>
                                 <span class="message-bar--text">Adicione lembretes para entrega de documentos, datas limites do edital...</span> 
                             </h:panelGroup>
+                            
                             <ui:repeat
-                                value="#{editalBean.edital.lembretes}"
+                                value="#{editalBean.lembretes}"
                                 var="lembrete"
                                 varStatus="linha"
                                 >   
@@ -124,16 +125,12 @@
                                     </div>
 
                                     <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(linha.index)}">
-                                            <f:ajax render="lembretes"/>
-                                        </h:commandButton>
+                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete.id)}" />                                        
                                     </div>
                                 </div>
                             </ui:repeat>
                             <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Adicionar Novo Lembrete" action="#{editalBean.adicionarLembrete()}">
-                                    <f:ajax render="lembretes"/>
-                                </h:commandButton>
+                                <h:commandButton styleClass="button" value="Adicionar lembrete" action="#{editalBean.adicionarLembrete()}"/>
                             </div>                            
                         </h:panelGroup>
                         <h:panelGroup
