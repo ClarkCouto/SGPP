@@ -120,6 +120,22 @@
                                         <h:message for="lembrete-data-limite" styleClass="form--group--message" />
                                     </div>
                                     <div class="form--group size-half">
+                                        <h:outputLabel for="tipo-documento" styleClass="form--group--label">Tipo de Documento</h:outputLabel>
+                                        <p:selectOneMenu id="categoria-bolsa" 
+                                            value="#{lembrete.tipoDocumento}" 
+                                            converter="SimpleEntityConverter"
+                                            effect="fade" 
+                                            var="tipo" 
+                                            filter="true" 
+                                            filterMatchMode="startsWith">                     
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                            <f:selectItems value="#{editalBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
+                                            <p:column>
+                                                <h:outputText value="#{tipo.nome}" />
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form--group size-half">
                                         <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Obrigatório</h:outputLabel>
                                         <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" />
                                     </div>
@@ -168,20 +184,24 @@
                                         </h:inputText>
                                         <h:message for="bolsa-nome" styleClass="form--group--message" />
                                     </div>
-                                    <div class="form--group">
-                                        <h:outputLabel for="bolsa-categoria" styleClass="form--group--label">Categoria</h:outputLabel>
-                                        <p:inputMask
-                                            value="#{bolsa.categoriaBolsa}"
-                                            id="bolsa-categoria"
-                                            label="Bolsa"
-                                            styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Categoria é obrigatória"
-                                            mask="99/99/9999"
-                                            >
-                                            <f:validateRequired />
-                                        </p:inputMask>
-                                        <h:message for="bolsa-categoria" styleClass="form--group--message" />
+                                    <div class="form--group size-half">
+                                        <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
+                                        <p:selectOneMenu id="categoria-bolsa" 
+                                            value="#{bolsaBean.bolsa.categoriaBolsa}" 
+                                            converter="SimpleEntityConverter"
+                                            effect="fade" 
+                                            var="cat" 
+                                            filter="true" 
+                                            filterMatchMode="startsWith"
+                                            required='true'
+                                            requiredMessage="Categoria é obrigatória">                         
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                            <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
+                                            <p:column>
+                                                <h:outputText value="#{cat.descricao}" />
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                        <h:message for="categoria" styleClass="form--group--message" />
                                     </div>
                                     <div class="form--group">
                                         <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerBolsa(linha.index)}">
