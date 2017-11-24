@@ -52,9 +52,9 @@
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" actionListener="${tipoDocumentoBean.detalhar(tipoDocumento.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton value="Detalhar" action="${tipoDocumentoBean.detalhar(tipoDocumento.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" actionListener="${tipoDocumentoBean.editar(tipoDocumento.id)}" icon="fa fa-edit" rendered="#{tipoDocumento.ativo}"/>
+                            <p:commandButton value="Editar" action="${tipoDocumentoBean.editar(tipoDocumento.id)}" icon="fa fa-edit" rendered="#{tipoDocumento.ativo}"/>
                             
                             <p:commandButton value="Excluir" rendered="#{tipoDocumento.ativo}" actionListener="${tipoDocumentoBean.remover(tipoDocumento.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />

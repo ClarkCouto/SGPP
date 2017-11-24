@@ -15,7 +15,7 @@
                         var="area" 
                         value="#{areaBean.areas}" 
                         widgetVar="areaTable"
-                        emptyMessage="Nenhum area foi encontrado." 
+                        emptyMessage="Nenhuma área foi encontrada." 
                         filteredValue="#{areaBean.listaFiltrada}"
                         >
 
@@ -52,9 +52,9 @@
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" actionListener="${areaBean.detalhar(area.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton value="Detalhar" action="#{areaBean.detalhar(area.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" actionListener="${areaBean.editar(area.id)}" icon="fa fa-edit" rendered="#{area.ativo}"/>
+                            <p:commandButton value="Editar" action="${areaBean.editar(area.id)}" icon="fa fa-edit" rendered="#{area.ativo}"/>
                             
                             <p:commandButton value="Excluir" actionListener="${areaBean.remover(area.id)}" icon="fa fa-trash" rendered="#{area.ativo}" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />

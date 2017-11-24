@@ -42,7 +42,7 @@ public class AreaBean {
     }
       
     public List<Area> getAreas(){
-        this.areas = this.area.buscarTodos();
+        this.areas = area.buscarTodos();
         return areas;
     }
     
@@ -61,7 +61,7 @@ public class AreaBean {
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            areaSelecionada = this.area.buscarPeloId(id);
+            areaSelecionada = area.buscarPeloId(id);
 
         if (areaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -77,7 +77,7 @@ public class AreaBean {
     
     public String editar(Long id){
         if(id != null)
-            areaSelecionada = this.area.buscarPeloId(id);
+            areaSelecionada = area.buscarPeloId(id);
 
         if (areaSelecionada != null) {
             this.area = areaSelecionada;

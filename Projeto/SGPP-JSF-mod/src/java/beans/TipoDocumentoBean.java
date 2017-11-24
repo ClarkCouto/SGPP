@@ -107,7 +107,7 @@ public class TipoDocumentoBean {
     
     public String salvar() {
         if(tipoDocumento.salvar())
-            return "/pages/listar/listarTiposDocumeto?faces-redirect=true";
+            return "/pages/listar/listarTiposDocumento?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Tipo de Documento!",

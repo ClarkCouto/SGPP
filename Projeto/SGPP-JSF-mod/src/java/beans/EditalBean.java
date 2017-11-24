@@ -6,13 +6,13 @@ import entities.CategoriaBolsa;
 import entities.Edital;
 import javax.faces.bean.ManagedBean;
 import entities.Lembrete;
+import entities.TipoDocumento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,6 +26,7 @@ public class EditalBean {
     private Edital editalSelecionado = new Edital();
     private List<Bolsa> bolsas = new ArrayList<>();
     private List<CategoriaBolsa> categoriasBolsa;
+    private List<TipoDocumento> tiposDocumento;
     private List<Edital> editais;
     private List<Edital> listaFiltrada;
     private List<Lembrete> lembretes = new ArrayList<>();
@@ -78,13 +79,27 @@ public class EditalBean {
         this.bolsas = lista;
     }
     
+    public List<CategoriaBolsa> getCategoriasBolsa(){
+        this.categoriasBolsa = new CategoriaBolsa().buscarTodos();
+        if(this.categoriasBolsa == null)
+            this.categoriasBolsa = new ArrayList<>();
+        return categoriasBolsa;
+    }
+    
     public List<Lembrete> getLembretes(){        
         return this.lembretes;
     }
     
     public void setLembretes(List<Lembrete> lista){
         this.lembretes = lista;
-    }    
+    } 
+    
+    public List<TipoDocumento> getTiposDocumento(){
+        this.tiposDocumento = new TipoDocumento().buscarTodos();
+        if(this.tiposDocumento == null)
+            this.tiposDocumento = new ArrayList<>();
+        return tiposDocumento;
+    }   
     
 // Ações
     public void adicionarBolsa() {

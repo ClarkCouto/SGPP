@@ -20,7 +20,7 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Informações do Grupo De Pesquisa</div>
+                            <div class="form--section--title">Detalhes do Grupo De Pesquisa</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
@@ -30,9 +30,7 @@
                                     styleClass="form--group--text-input"
                                     readonly="true"
                                     >
-                                    <f:validateRequired />
                                 </h:inputText>
-                                <h:message for="nome" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="coordenador" styleClass="form--group--label">Coordenador</h:outputLabel>
@@ -40,19 +38,10 @@
                                     id="coordenador" 
                                     value="#{grupoDePesquisaBean.grupoDePesquisa.coordenador}"
                                     >
-                                    <f:selectItem itemLabel="-- Selecione --" itemValue="" />
                                     <f:selectItems value="#{grupoDePesquisaBean.coordenadores}" />
-                                    <f:validateRequired />
                                 </p:selectOneMenu>
-                                <h:message for="coordenador" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
-                        <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{grupoDePesquisaBean.salvar()}"/>
-                        </div>
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
-                        </div>
                     </div>     
                 </h:form>
             </ui:define>
