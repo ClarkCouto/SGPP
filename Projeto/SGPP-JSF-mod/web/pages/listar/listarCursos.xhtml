@@ -15,7 +15,7 @@
                         var="curso" 
                         value="#{cursoBean.cursos}" 
                         widgetVar="cursoTable"
-                        emptyMessage="Nenhuma instituição foi encontrada." 
+                        emptyMessage="Nenhum curso foi encontrado." 
                         filteredValue="#{cursoBean.listaFiltrada}"
                         >
 
@@ -56,9 +56,9 @@
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" actionListener="${cursoBean.detalhar(curso.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton value="Detalhar" action="${cursoBean.detalhar(curso.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" actionListener="${cursoBean.editar(curso.id)}" icon="fa fa-edit" rendered="#{curso.ativo}"/>
+                            <p:commandButton value="Editar" action="${cursoBean.editar(curso.id)}" icon="fa fa-edit" rendered="#{curso.ativo}"/>
                             
                             <p:commandButton value="Excluir" rendered="#{curso.ativo}" actionListener="${cursoBean.remover(curso.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />

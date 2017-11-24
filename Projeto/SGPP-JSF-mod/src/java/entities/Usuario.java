@@ -65,6 +65,7 @@ public class Usuario extends Pessoa implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.senha);
+        hash = 67 * hash + Objects.hashCode(this.tipo);
         hash = 67 * hash + Objects.hashCode(this.ultimoAcesso);
         return hash;
     }
@@ -82,6 +83,9 @@ public class Usuario extends Pessoa implements Serializable {
         }
         final Usuario other = (Usuario) obj;
         if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipo, other.tipo)) {
             return false;
         }
         if (!Objects.equals(this.ultimoAcesso, other.ultimoAcesso)) {

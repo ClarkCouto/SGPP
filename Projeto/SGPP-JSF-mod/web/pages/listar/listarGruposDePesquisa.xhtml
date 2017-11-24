@@ -61,9 +61,9 @@
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" actionListener="${grupoDePesquisaBean.detalhar(grupoDePesquisa.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton value="Detalhar" action="${grupoDePesquisaBean.detalhar(grupoDePesquisa.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" actionListener="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}" icon="fa fa-edit" rendered="#{grupoDePesquisa.ativo}"/>
+                            <p:commandButton value="Editar" action="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}" icon="fa fa-edit" rendered="#{grupoDePesquisa.ativo}"/>
                             
                             <p:commandButton value="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(categoriaBolsa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />

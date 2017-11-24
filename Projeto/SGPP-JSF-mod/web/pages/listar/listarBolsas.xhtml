@@ -15,7 +15,7 @@
                         var="bolsa" 
                         value="#{bolsaBean.bolsas}" 
                         widgetVar="bolsaTable"
-                        emptyMessage="Nenhum bolsa foi encontrada." 
+                        emptyMessage="Nenhuma bolsa foi encontrada." 
                         filteredValue="#{bolsaBean.listaFiltrada}"
                         >
 
@@ -56,9 +56,9 @@
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" actionListener="${bolsaBean.detalhar(bolsa.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton value="Detalhar" action="${bolsaBean.detalhar(bolsa.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" actionListener="${bolsaBean.editar(bolsa.id)}" icon="fa fa-edit" rendered="#{bolsa.ativo}"/>
+                            <p:commandButton value="Editar" action="${bolsaBean.editar(bolsa.id)}" icon="fa fa-edit" rendered="#{bolsa.ativo}"/>
                             
                             <p:commandButton value="Excluir" rendered="#{bolsa.ativo}" actionListener="${bolsaBean.remover(bolsa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
