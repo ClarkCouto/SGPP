@@ -65,8 +65,8 @@ public class CategoriaBolsaBean {
 
         if (categoriaBolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Categoria!",
-                                   "Erro ao buscar Categoria!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao v Categoria!",
+                                   "Erro ao localizar Categoria!"));
             return "/pages/listar/listarCategoriasBolsa";
         }
         else {

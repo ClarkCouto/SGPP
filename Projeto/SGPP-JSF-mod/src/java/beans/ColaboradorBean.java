@@ -65,8 +65,8 @@ public class ColaboradorBean {
 
         if (colaboradorSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Colaborador!",
-                                   "Erro ao buscar Colaborador!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Colaborador!",
+                                   "Erro ao localizar Colaborador!"));
             return "/pages/listar/listarColaboradores";
         }
         else {

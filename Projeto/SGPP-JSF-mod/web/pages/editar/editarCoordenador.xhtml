@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-    	<ui:composition template="/template/layout.xhtml">
+        <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar">
                     <div class="main-bar--current-page">   
@@ -16,177 +16,186 @@
                             <span class="button--label">Listar Coordenadores</span>
                         </h:link>   
                     </div>                          
-                </div> 
-                <div class="login-box box">
-                    <div class="box--content">
-                        <h:form>
-                            <div class="form">
-                                <div class="form--group">
-                                    <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
-                                    <h:inputText
-                                        value="#{setorDePesquisaBean.coordenador.nome}"
-                                        id="nome"
-                                        label="Nome"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        >
-                                        <f:validateRequired />
-                                    </h:inputText>
-                                    <h:message for="nome" styleClass="form--group--message" />                                
-                                </div>
-                                <div class="form--group">
-                                    <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
-                                    <h:inputText
-                                        value="#{setorDePesquisaBean.coordenador.email}"
-                                        id="email"
-                                        label="E-mail"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        >
-                                        <f:validateRequired />
-                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </h:inputText>
-                                    <h:message for="email" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.coordenador.telefoneCelular}"
-                                        id="celular"
-                                        label="Telefone Celular"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="(99) 99999-9999"
+                </div>                
+                <h:form>
+                    <div class="form">                                  
+                        <h:panelGroup class="form--section">
+                            <div class="form--section--title">Editar Coordenador</div>
+                            <div class="form--group">
+                                <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
+                                <h:inputText
+                                    value="#{coordenadorBean.coordenador.nome}"
+                                    id="nome"
+                                    label="Nome"
+                                    styleClass="form--group--text-input"
+                                    required="true"
                                     >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="celular" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="tel-fixo" styleClass="form--group--label">Telefone Fixo</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.coordenador.telefoneFixo}"
-                                        id="tel-fixo"
-                                        label="Telefone Fixo"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="(99) 99999-9999"
-                                    >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="tel-fixo" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group">
-                                    <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.coordenador.cpf}"
-                                        id="cpf"
-                                        label="CPF"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="999.999.999-99"
-                                    >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="cpf" styleClass="form--group--message" />
-                                </div>                            
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
-                                    <h:selectOneMenu
-                                        value="#{setorDePesquisaBean.coordenador.sexo}"
-                                        id="sexo"
-                                        label="Sexo"
-                                        styleClass="form--group--text-input"
-                                    >
-                                        <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
-                                        <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="sexo" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.coordenador.dataNascimento}"
-                                        id="data-nascimento"
-                                        label="Data de Nascimento"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="99/99/9999"
-                                        converter="cmd.converter.stringToDate"
-                                    >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="data-nascimento" styleClass="form--group--message" />
-                                </div>
-                                <div class="form-group--size-half">
-                                    <h:outputLabel for="tipo-coordenador" styleClass="form-group--label">Tipo de Usuário</h:outputLabel>
-                                    <p:selectOneRadio id="tipo-coordenador" value="#{setorDePesquisaBean.tipoUsuario}" columns="1">
-                                        <f:selectItems value="#{setorDePesquisaBean.tiposUsuario}" var="tipo" itemLabel="#{tipoUsuario}" itemValue="#{tipoUsuario}"/>
-                                    </p:selectOneRadio>
-                                    <h:message for="data-nascimento" styleClass="form-group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="grupo-pesquisa" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
-                                    <p:selectOneMenu id="grupo-pesquisa" 
-                                        value="#{setorDePesquisaBean.coordenador.grupoDePesquisa}" 
-                                        panelStyle="width:180px"
-                                        effect="fade" 
-                                        var="group" 
-                                        style="width:160px" 
-                                        filter="true" 
-                                        filterMatchMode="startsWith"
-                                        required='true'
-                                        requiredMessage="Grupo de Pesquisa é obrigatório">
-                                        <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                        <f:selectItems value="#{setorDePesquisaBean.gruposDePesquisa}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
-                                        <p:column>
-                                            <h:outputText value="#{group.nome}" />
-                                        </p:column>
-                                    </p:selectOneMenu>
-                                    <h:message for="categoria" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="area-coordenador" styleClass="form--group--label">Área</h:outputLabel>
-                                    <p:selectOneMenu id="area-coordenador" 
-                                        value="#{setorDePesquisaBean.coordenador.area}" 
-                                        panelStyle="width:180px"
-                                        effect="fade" 
-                                        var="a" 
-                                        style="width:160px" 
-                                        filter="true" 
-                                        filterMatchMode="startsWith"
-                                        required='true'
-                                        requiredMessage="Área é obrigatória">
-                                        <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                        <f:selectItems value="#{setorDePesquisaBean.areas}" var="area" itemLabel="#{area.nome}" itemValue="#{area}" />
-                                        <p:column>
-                                            <h:outputText value="#{a.nome}" />
-                                        </p:column>
-                                    </p:selectOneMenu>
-                                    <h:message for="categoria" styleClass="form--group--message" />
-                                </div>
-                                <div class="form-group--size-half">
-                                    <h:outputLabel for="tipo-usuario" styleClass="form-group--label">Tipo de Usuário</h:outputLabel>
-                                    <p:selectOneMenu 
-                                        id="tipo-usuario" 
-                                        value="#{setorDePesquisaBean.tipoUsuario}">
-                                        <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                        <f:selectItems value="#{setorDePesquisaBean.tiposUsuario}"/>
-                                    </p:selectOneMenu>
-                                    <h:message for="tipo-usuario" styleClass="form-group--message" />
-                                </div>
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="nome" styleClass="form--group--message" />                                
                             </div>
-                            <div class="box--actions">                               
-                                <h:commandButton styleClass="button box-action" value="Limpar" type="reset" action="#{setorDePesquisaBean.limpar()}" />
-                                <h:commandButton styleClass="button box-action" value="Enviar solicitação" action="#{setorDePesquisaBean.cadastrar()}" />
+                            <div class="form--group">
+                                <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
+                                <h:inputText
+                                    value="#{coordenadorBean.coordenador.email}"
+                                    id="email"
+                                    label="E-mail"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    >
+                                    <f:validateRequired />
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                                <h:message for="email" styleClass="form--group--message" />
                             </div>
-                        </h:form>
-                        <div class="box--actions--full">       
-                            <p:messages id="messages" />
-                        </div>
-                    </div>
-                </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
+                                <p:inputMask
+                                    value="#{coordenadorBean.coordenador.telefoneCelular}"
+                                    id="celular"
+                                    label="Telefone Celular"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    mask="(99) 99999-9999"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="celular" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="tel-fixo" styleClass="form--group--label">Telefone Fixo</h:outputLabel>
+                                <p:inputMask
+                                    value="#{coordenadorBean.coordenador.telefoneFixo}"
+                                    id="tel-fixo"
+                                    label="Telefone Fixo"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    mask="(99) 9999-9999"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="tel-fixo" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
+                                <p:inputMask
+                                    value="#{coordenadorBean.coordenador.cpf}"
+                                    id="cpf"
+                                    label="CPF"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    mask="999.999.999-99"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="cpf" styleClass="form--group--message" />
+                            </div>                            
+                            <div class="form--group size-half">
+                                <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
+                                <h:selectOneMenu
+                                    value="#{coordenadorBean.coordenador.sexo}"
+                                    id="sexo"
+                                    label="Sexo"
+                                    styleClass="form--group--text-input"
+                                >
+                                    <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
+                                    <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
+                                </h:selectOneMenu>
+                                <h:message for="sexo" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="area-coordenador" styleClass="form--group--label">Área</h:outputLabel>
+                                <p:selectOneMenu id="area-coordenador" 
+                                    value="#{coordenadorBean.coordenador.area}"  
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="ar" 
+                                    filter="true" 
+                                    filterMatchMode="contains"
+                                    required='true'
+                                    requiredMessage="Área é obrigatória">
+                                    <f:selectItem itemLabel="-- Selecione --" itemValue="" />
+                                    <f:selectItems value="#{coordenadorBean.areas}" var="area" itemLabel="#{area.nome}" itemValue="#{area}" />
+                                    <p:column>
+                                        <h:outputText value="#{ar.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="area-coordenador" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
+                                <p:inputMask
+                                    value="#{coordenadorBean.coordenador.dataNascimento}"
+                                    id="data-nascimento"
+                                    label="Data de Nascimento"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="data-nascimento" styleClass="form--group--message" />
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup
+                            id="grupos" 
+                            layout="block"
+                            class="form--section"
+                            >
+                            <div class="form--section--title">Adicionar Grupos De Pesquisa</div>
+                            <h:panelGroup
+                                layout="block"
+                                styleClass="message-bar"
+                                rendered="#{coordenadorBean.gruposDePesquisa.size() == 0}">                                
+                                <span class="message-bar--icon">
+                                    <i class="fa fa-clock-o" />
+                                </span>
+                                <span class="message-bar--text">Adicione os grupos de pesquisa deste coordenador...</span> 
+                            </h:panelGroup>
+                            
+                            <ui:repeat
+                                value="#{coordenadorBean.gruposDePesquisa}"
+                                var="grupo"
+                                varStatus="linha"
+                                >   
+                                <div class="form--row">
+                                    <div class="form--group size-half">
+                                        <h:outputLabel for="coordenador-grupo" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
+                                        <p:selectOneMenu id="grupo-pesquisa" 
+                                            value="#{grupo.grupoDePesquisa}" 
+                                            converter="SimpleEntityConverter"
+                                            effect="fade" 
+                                            var="group" 
+                                            filter="true" 
+                                            filterMatchMode="contains">                     
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                            <f:selectItems value="#{coordenadorBean.gruposDePesquisa}" var="grupoDePesquisa" itemLabel="#{grupoDePesquisa.nome}" itemValue="#{grupoDePesquisa}" />
+                                            <p:column>
+                                                <h:outputText value="#{group.nome}" />
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                    </div>
+
+                                    <div class="form--group">
+                                        <h:commandButton styleClass="button" value="Remover" action="#{coordenadorBean.removerGrupoDePesquisa(grupo.id)}" />                                        
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Adicionar grupo" action="#{coordenadorBean.adicionarGrupoDePesquisa()}"/>
+                            </div>                            
+                        </h:panelGroup>
+                                             
+                        <div class="form--actions">
+                            <h:commandButton styleClass="button" value="Limpar" action="#{coordenadorBean.limpar()}"/>
+                        </div>            
+                        <div class="form--actions">
+                            <h:commandButton styleClass="button" value="Salvar" action="#{coordenadorBean.salvar()}"/>
+                        </div>                        
+                    </div>     
+                </h:form>
             </ui:define>
-    	</ui:composition>
+        </ui:composition>
     </h:body>
 </html>

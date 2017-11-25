@@ -176,20 +176,4 @@ public abstract class Pessoa extends BaseEntityAudit {
         }
         return true;
     } 
-    
-    public Pessoa buscarPeloId(Long id){
-        return new PessoaDAO().findById(id);
-    }
-    
-    public List<Pessoa> buscarTodos() {
-        return new PessoaDAO().findAll();
-    }
-   
-    public boolean remover(Long id) {
-        return new PessoaDAO().remove(id);
-    }  
-    
-    public boolean salvar(){
-        return new PessoaDAO().save(this);
-    }
 }

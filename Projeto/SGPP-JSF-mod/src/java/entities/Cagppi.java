@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.CagppiDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -20,4 +22,21 @@ public class Cagppi extends Usuario implements Serializable{
     
     public Cagppi() {
     }    
+    
+    @Override
+    public Cagppi buscarPeloId(Long id){
+        return new CagppiDAO().findById(id);
+    }
+    
+    public List<Cagppi> buscarTodosCagppis() {
+        return new CagppiDAO().findAll();
+    }
+   
+//    public boolean remover(Long id) {
+//        return new CagppiDAO().remove(id);
+//    }  
+//    
+//    public boolean salvar(){
+//        return new CagppiDAO().save(this);
+//    }
 }

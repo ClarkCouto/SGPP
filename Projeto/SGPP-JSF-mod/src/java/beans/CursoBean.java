@@ -78,8 +78,8 @@ public class CursoBean {
 
         if (cursoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Curso!",
-                                   "Erro ao buscar Curso!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Curso!",
+                                   "Erro ao localizar Curso!"));
             return "/pages/listar/listarCursos";
         }
         else {

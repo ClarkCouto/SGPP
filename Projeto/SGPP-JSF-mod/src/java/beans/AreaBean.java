@@ -65,8 +65,8 @@ public class AreaBean {
 
         if (areaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Área!",
-                                   "Erro ao buscar Área!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Área!",
+                                   "Erro ao localizar Área!"));
             return "/pages/listar/listarAreas";
         }
         else {

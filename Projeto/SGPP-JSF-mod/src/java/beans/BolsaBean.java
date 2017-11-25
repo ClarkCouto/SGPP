@@ -78,8 +78,8 @@ public class BolsaBean {
 
         if (bolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Bolsa!",
-                                   "Erro ao buscar Bolsa!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Bolsa!",
+                                   "Erro ao localizar Bolsa!"));
             return "/pages/listar/listarBolsas";
         }
         else {

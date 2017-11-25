@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -78,12 +79,14 @@ public class EditalBean {
     public void setBolsas(List<Bolsa> lista){
         this.bolsas = lista;
     }
-    
-    public List<CategoriaBolsa> getCategoriasBolsa(){
+        
+    public List<SelectItem> getCategoriasBolsa(){
         this.categoriasBolsa = new CategoriaBolsa().buscarTodos();
-        if(this.categoriasBolsa == null)
-            this.categoriasBolsa = new ArrayList<>();
-        return categoriasBolsa;
+        List<SelectItem> items = new ArrayList<>();  
+        this.categoriasBolsa.forEach((c) -> {
+            items.add(new SelectItem(c, c.getDescricao()));
+        }); 
+        return items;
     }
     
     public List<Lembrete> getLembretes(){        
@@ -94,11 +97,13 @@ public class EditalBean {
         this.lembretes = lista;
     } 
     
-    public List<TipoDocumento> getTiposDocumento(){
+    public List<SelectItem> getTiposDocumento(){
         this.tiposDocumento = new TipoDocumento().buscarTodos();
-        if(this.tiposDocumento == null)
-            this.tiposDocumento = new ArrayList<>();
-        return tiposDocumento;
+        List<SelectItem> items = new ArrayList<>();  
+        this.tiposDocumento.forEach((t) -> {
+            items.add(new SelectItem(t, t.getNome()));
+        }); 
+        return items;
     }   
     
 // Ações
