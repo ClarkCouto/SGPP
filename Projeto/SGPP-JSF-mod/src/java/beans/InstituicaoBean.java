@@ -65,8 +65,8 @@ public class InstituicaoBean {
 
         if (instituicaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Instituição!",
-                                   "Erro ao buscar Instituição!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Instituição!",
+                                   "Erro ao localizar Instituição!"));
             return "/pages/listar/listarInstituicoes";
         }
         else {

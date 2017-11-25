@@ -28,8 +28,13 @@
                             
                         </h:panelGroup>
                         <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{projetoBean.salvar()}"/>
-                        </div>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{projetoBean.limpar()}"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{projetoBean.salvar()}"/>
+                            </div>   
+                        </div>   
                         <div class="form--actions">
                             <p:messages id="messages" />  
                         </div>

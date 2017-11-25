@@ -1,12 +1,10 @@
 package beans;
 
 import entities.Aluno;
-import entities.Cagppi;
+import entities.Colaborador;
 import entities.Coordenador;
 import entities.Declaracao;
-import entities.Pessoa;
 import entities.Projeto;
-import entities.SetorDePesquisa;
 import entities.TextoBaseDeclaracao;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -25,9 +23,10 @@ public class DeclaracaoBean {
     private Declaracao declaracaoSelecionada;
     private List<Declaracao> declaracoes;
     private List<Declaracao> listaFiltrada;
-    private List<Pessoa> coordenadores;
+    private List<Aluno> alunos;
+    private List<Colaborador> colaboradores;
+    private List<Coordenador> coordenadores;
     private List<Projeto> projetos;
-    private List<Pessoa> pessoas;
     private List<TextoBaseDeclaracao> textosBase;
     private Boolean editando;
     
@@ -40,8 +39,8 @@ public class DeclaracaoBean {
         this.listaFiltrada = listaFiltrada;
     }
     
-    public List<Pessoa> getCoordenadores(){
-        this.coordenadores = new Coordenador().buscarTodos();
+    public List<Coordenador> getCoordenadores(){
+        this.coordenadores = new Coordenador().buscarTodosCoordenadores();
         return coordenadores;
     }
     
@@ -53,7 +52,7 @@ public class DeclaracaoBean {
         this.declaracao = declaracao;
     }
 
-    public void setDeclaracaoSelecionado(Declaracao declaracao) {
+    public void setDeclaracaoSelecionada(Declaracao declaracao) {
         this.declaracaoSelecionada = declaracao;
     }
       
@@ -74,21 +73,19 @@ public class DeclaracaoBean {
         this.editando = editando;
     }
       
-    public List<Pessoa> getPessoas(){
-        List<Pessoa> listaAlunos = new Aluno().buscarTodos();
-        List<Pessoa> listaCoordenadores = new Coordenador().buscarTodos();
-        List<Pessoa> listaCagppi = new Cagppi().buscarTodos();
-        List<Pessoa> listaSetorDePesquisa = new SetorDePesquisa().buscarTodos();
-        pessoas.addAll(listaAlunos);
-        pessoas.addAll(listaCoordenadores);
-        pessoas.addAll(listaCagppi);
-        pessoas.addAll(listaSetorDePesquisa);
-        return pessoas;
+    public List<Aluno> getAlunos(){
+        this.alunos = new Aluno().buscarTodos();
+        return this.alunos;
+    }
+      
+    public List<Colaborador> getColaboradores(){
+        this.colaboradores = new Colaborador().buscarTodos();
+        return this.colaboradores;
     }
       
     public List<Projeto> getProjetos(){
         this.projetos = new Projeto().buscarTodos();
-        return projetos;
+        return this.projetos;
     }
       
     public List<TextoBaseDeclaracao> getTextosBase(){
@@ -103,8 +100,8 @@ public class DeclaracaoBean {
 
         if (declaracaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Declaração!",
-                                   "Erro ao buscar Declaração!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Declaração!",
+                                   "Erro ao localizar Declaração!"));
             return "/pages/listar/listarDeclaracoes";
         }
         else {

@@ -8,6 +8,7 @@ package entities;
 import dao.UsuarioDAO;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -92,6 +93,22 @@ public class Usuario extends Pessoa implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    public Usuario buscarPeloId(Long id){
+        return new UsuarioDAO().findById(id);
+    }
+    
+    public List<Usuario> buscarTodos() {
+        return new UsuarioDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new UsuarioDAO().remove(id);
+    }  
+    
+    public boolean salvar(){
+        return new UsuarioDAO().save(this);
     }
     
 // Outros métodos

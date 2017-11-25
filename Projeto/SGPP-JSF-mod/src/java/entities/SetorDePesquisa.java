@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.SetorDePesquisaDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -21,4 +23,20 @@ public class SetorDePesquisa extends Usuario implements Serializable{
     public SetorDePesquisa() {
     }
     
+    @Override
+    public SetorDePesquisa buscarPeloId(Long id){
+        return new SetorDePesquisaDAO().findById(id);
+    }
+    
+    public List<SetorDePesquisa> buscarTodosSetores() {
+        return new SetorDePesquisaDAO().findAll();
+    }
+   
+//    public boolean remover(Long id) {
+//        return new SetorDePesquisaDAO().remove(id);
+//    }  
+//    
+//    public boolean salvar(){
+//        return new SetorDePesquisaDAO().save(this);
+//    }
 }

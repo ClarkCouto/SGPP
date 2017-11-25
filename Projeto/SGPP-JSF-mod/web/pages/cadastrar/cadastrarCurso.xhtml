@@ -32,7 +32,7 @@
                                     effect="fade" 
                                     var="inst" 
                                     filter="true" 
-                                    filterMatchMode="startsWith"
+                                    filterMatchMode="contains"
                                     required='true'
                                     requiredMessage="Instituição é obrigatória">
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>     
@@ -60,8 +60,13 @@
                             </div>
                         </h:panelGroup>
                         <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{cursoBean.salvar()}"/>
-                        </div>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{cursoBean.limpar()}"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{cursoBean.salvar()}"/>
+                            </div>   
+                        </div>    
                         <div class="form--actions">
                             <p:messages id="messages" />  
                         </div>

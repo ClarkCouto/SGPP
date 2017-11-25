@@ -2,7 +2,6 @@ package beans;
 
 import entities.Coordenador;
 import entities.GrupoDePesquisa;
-import entities.Instituicao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -35,7 +34,7 @@ public class GrupoDePesquisaBean {
     }
     
     public List<SelectItem> getCoordenadores(){
-        this.coordenadores = (List<Coordenador>) (Coordenador) new Coordenador().buscarTodos();
+        this.coordenadores = new Coordenador().buscarTodosCoordenadores();
         List<SelectItem> items = new ArrayList<>();  
         this.coordenadores.forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
@@ -79,8 +78,8 @@ public class GrupoDePesquisaBean {
 
         if (grupoDePesquisaSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Grupo De Pesquisa!",
-                                   "Erro ao buscar Grupo De Pesquisa!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Grupo De Pesquisa!",
+                                   "Erro ao localizar Grupo De Pesquisa!"));
             return "/pages/listar/listarGruposDePesquisa";
         }
         else {
@@ -110,23 +109,23 @@ public class GrupoDePesquisaBean {
     
     public String remover(Long id) {
         if(grupoDePesquisa.remover(id))
-            return "/pages/listar/listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/listar/listarGruposDePesquisa?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Grupo De Pesquisa!",
                                    "Erro ao excluir Grupo De Pesquisa!"));
-            return "/pages/listar/listarGrupoDePesquisas";
+            return "/pages/listar/listarGruposDePesquisa";
         }
     }
     
     public String salvar() {
         if(grupoDePesquisa.salvar())
-            return "/pages/listar/listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/listar/listarGruposDePesquisa?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Grupo De Pesquisa!",
                                    "Erro ao salvar Grupo De Pesquisa!"));
-            return "/pages/cadastrar/cadastrarGrupoDePesquisas";
+            return "/pages/cadastrar/cadastrarGrupoDePesquisa";
         }
     }
 }
