@@ -65,8 +65,8 @@ public class TipoDocumentoBean {
 
         if (tipoDocumentoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Tipo de Documento!",
-                                   "Erro ao buscar Tipo de Documento!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Tipo de Documento!",
+                                   "Erro ao localizar Tipo de Documento!"));
             return "/pages/listar/listarTiposDocumento";
         }
         else {

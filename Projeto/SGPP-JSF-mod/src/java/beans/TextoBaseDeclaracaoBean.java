@@ -65,8 +65,8 @@ public class TextoBaseDeclaracaoBean {
 
         if (textoBaseDeclaracaoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Texto Base Declaração!",
-                                   "Erro ao buscar Texto Base Declaração!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Texto Base Declaração!",
+                                   "Erro ao localizar Texto Base Declaração!"));
             return "/pages/listar/listarTextosBaseDeclaracao";
         }
         else {

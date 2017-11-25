@@ -127,7 +127,7 @@
                                             effect="fade" 
                                             var="tipo" 
                                             filter="true" 
-                                            filterMatchMode="startsWith">                     
+                                            filterMatchMode="contains">                     
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
                                             <f:selectItems value="#{editalBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
                                             <p:column>
@@ -192,7 +192,7 @@
                                             effect="fade" 
                                             var="cat" 
                                             filter="true" 
-                                            filterMatchMode="startsWith"
+                                            filterMatchMode="contains"
                                             required='true'
                                             requiredMessage="Categoria é obrigatória">                         
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
@@ -215,10 +215,15 @@
                                     <f:ajax render="bolsas"/>
                                 </h:commandButton>
                             </div>                            
-                        </h:panelGroup>                        
+                        </h:panelGroup>  
                         <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{editalBean.salvar()}"/>
-                        </div>                        
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{editalBean.limpar()}"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{editalBean.salvar()}"/>
+                            </div>   
+                        </div>                       
                     </div>     
                 </h:form>
             </ui:define>

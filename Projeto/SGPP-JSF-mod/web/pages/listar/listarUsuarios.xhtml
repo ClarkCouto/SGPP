@@ -73,14 +73,12 @@
                             <h:outputText value="#{usuario.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{usuario.ativo}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{usuario.ativo}"  update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="${usuarioBean.detalhar(usuario.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${usuarioBean.editar(usuario.id)}" icon="fa fa-edit" rendered="#{usuario.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{usuario.ativo}" actionListener="${usuarioBean.remover(usuario.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
 public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
     
-    @ManyToOne
+    @ManyToOne(optional=true)
     private Coordenador coordenador;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")

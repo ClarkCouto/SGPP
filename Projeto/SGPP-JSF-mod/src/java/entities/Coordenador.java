@@ -5,8 +5,9 @@
  */
 package entities;
 
+import dao.CoordenadorDAO;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -26,7 +27,7 @@ public class Coordenador extends Usuario implements Serializable{
     private Area area;
     
     @OneToMany(mappedBy="coordenador")
-    private Collection<GrupoDePesquisa> gruposDePesquisa;
+    private List<GrupoDePesquisa> gruposDePesquisa;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String siape;
@@ -42,11 +43,11 @@ public class Coordenador extends Usuario implements Serializable{
         this.area = area;
     }
 
-    public Collection<GrupoDePesquisa> getGruposDePesquisa() {
+    public List<GrupoDePesquisa> getGruposDePesquisa() {
         return gruposDePesquisa;
     }
 
-    public void setGruposDePesquisa(Collection<GrupoDePesquisa> gruposDePesquisa) {
+    public void setGruposDePesquisa(List<GrupoDePesquisa> gruposDePesquisa) {
         this.gruposDePesquisa = gruposDePesquisa;
     }
 
@@ -91,4 +92,21 @@ public class Coordenador extends Usuario implements Serializable{
         }
         return true;
     }
+    
+    @Override
+    public Coordenador buscarPeloId(Long id){
+        return new CoordenadorDAO().findById(id);
+    }
+    
+    public List<Coordenador> buscarTodosCoordenadores() {
+        return new CoordenadorDAO().findAll();
+    }
+   
+//    public boolean remover(Long id) {
+//        return new CoordenadorDAO().remove(id);
+//    }  
+//    
+//    public boolean salvar(){
+//        return new CoordenadorDAO().save(this);
+//    }
 }

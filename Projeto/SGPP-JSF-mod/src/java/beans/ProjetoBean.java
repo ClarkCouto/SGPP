@@ -95,8 +95,8 @@ public class ProjetoBean {
 
         if (projetoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Projeto!",
-                                   "Erro ao buscar Projeto!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Projeto!",
+                                   "Erro ao localizar Projeto!"));
             return "/pages/listar/listarProjetos";
         }
         else {
