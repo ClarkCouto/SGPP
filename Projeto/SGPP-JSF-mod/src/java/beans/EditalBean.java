@@ -110,8 +110,8 @@ public class EditalBean {
         this.edital.setLembretes(lembretes);
     }
     
-    public void removerLembrete(Long id) {
-        this.lembretes = this.lembretes.stream().filter(lembrete -> !Objects.equals(lembrete.getId(), id)).collect(Collectors.toList());        
+    public void removerLembrete(Lembrete lembrete) {
+        this.lembretes.remove(lembrete);
         this.edital.setLembretes(this.lembretes);
     }   
     

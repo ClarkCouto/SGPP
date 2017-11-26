@@ -104,8 +104,8 @@ public class CoordenadorBean implements Serializable {
         this.coordenador.setGruposDePesquisa(gruposDePesquisa);
     }
     
-    public void removerGrupoDePesquisa(Long id) {
-        this.gruposDePesquisa = this.gruposDePesquisa.stream().filter(grupoDePesquisa -> !Objects.equals(grupoDePesquisa.getId(), id)).collect(Collectors.toList());        
+    public void removerGrupoDePesquisa(GrupoDePesquisa grupo) {
+        this.gruposDePesquisa.remove(grupo);
         this.coordenador.setGruposDePesquisa(this.gruposDePesquisa);
     }   
     

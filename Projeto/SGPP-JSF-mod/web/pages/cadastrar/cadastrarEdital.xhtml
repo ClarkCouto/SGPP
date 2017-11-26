@@ -138,7 +138,7 @@
                                     </div>
 
                                     <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete.id)}" />                                        
+                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete)}" />                                        
                                     </div>
                                 </div>
                             </ui:repeat>
@@ -155,16 +155,17 @@
                             <h:panelGroup
                                 layout="block"
                                 styleClass="message-bar"
-                                rendered="#{editalBean.edital.bolsas.size() == 0}">                                
+                                rendered="#{editalBean.bolsas.size() == 0}">                                
                                 <span class="message-bar--icon">
                                     <i class="fa fa-clock-o" />
                                 </span>
                                 <span class="message-bar--text">Adicione as bolsas disponíveis para o edital...</span> 
                             </h:panelGroup>
                             <ui:repeat
-                                value="#{editalBean.edital.bolsas}"
+                                value="#{editalBean.bolsas}"
                                 var="bolsa"
                                 varStatus="linha"
+                                rendered="#{editalBean.bolsas.size() > 0}"
                                 >   
                                 <div class="form--row">
                                     <div class="form--group">
@@ -184,11 +185,11 @@
                                     <div class="form--group size-half">
                                         <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
                                         <p:selectOneMenu id="categoria-bolsa" 
-                                            value="#{bolsaBean.bolsa.categoriaBolsa}" 
+                                            value="#{bolsa.categoriaBolsa}" 
                                             converter="SimpleEntityConverter"
                                             effect="fade" 
                                             var="cat" 
-                                            filter="true" 
+                                            filter="true"   
                                             filterMatchMode="contains"
                                             required='true'
                                             requiredMessage="Categoria é obrigatória">                         
@@ -201,7 +202,7 @@
                                         <h:message for="categoria" styleClass="form--group--message" />
                                     </div>
                                     <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerBolsa(linha.index)}">
+                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerBolsa(bolsa)}">
                                             <f:ajax render="edital.bolsas"/>
                                         </h:commandButton>
                                     </div>
