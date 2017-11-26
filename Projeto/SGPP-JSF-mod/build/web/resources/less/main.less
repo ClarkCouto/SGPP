@@ -529,12 +529,17 @@
         }
     }
     
-    &--current-page {
+    &--current-page, &--actions {
         background-color: @bg-color-feature-highlight;
-        padding: 10px 20px;
+        padding: 0px 20px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;        
+        
+        .button {
+            margin: 10px;
+        }
                 
         &--previous {
             color: @text-color-light;
@@ -553,6 +558,10 @@
             margin-left: auto;
             max-height: 40px;
         }
+    }
+    
+    &--actions {
+        justify-content: center;
     }
     
     &--tabs {

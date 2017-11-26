@@ -7,16 +7,20 @@
       xmlns:p="http://primefaces.org/ui" 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{editalBean.atualizar()}" />
+        </f:metadata>
         <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="0" />
             <ui:define name="content">                
                 <h:form>                                                  
-                    <p:dataTable var="edital" 
-                                 value="#{editalBean.editais}" 
-                                 widgetVar="editaisTable"
-                                 emptyMessage="Nenhum edital foi encontrado." 
-                                 filteredValue="#{editalBean.listaFiltrada}"
-                                 >
+                    <p:dataTable
+                        var="edital" 
+                        value="#{editalBean.editais}" 
+                        widgetVar="editaisTable"
+                        emptyMessage="Nenhum edital foi encontrado." 
+                        filteredValue="#{editalBean.listaFiltrada}"
+                    >
 
                         <f:facet name="header">
                             <p:outputPanel>              
@@ -58,17 +62,15 @@
                             <h:outputText value="#{edital.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
+                        <p:column headerText="Ações" >
                             <h:commandLink styleClass="data-table--row--action" rendered="#{edital.ativo}" action="${editalBean.editar(edital.id)}">
                                 <i class="fa fa-edit" />
                             </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
                             <h:commandLink styleClass="data-table--row--action" rendered="#{edital.ativo}" action="${editalBean.remover(edital.id)}">
                                 <i class="fa fa-trash" />
-                            </h:commandLink>
+                            </h:commandLink>                           
                         </p:column>
+
                     </p:dataTable>
                 </h:form>
             </ui:define>

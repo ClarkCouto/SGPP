@@ -6,10 +6,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"  
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:body>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{editalBean.limpar(param.id)}" />
-        </f:metadata>
+    <h:body>        
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">     
                 <div class="main-bar">      
@@ -216,10 +213,7 @@
                                 </h:commandButton>
                             </div>                            
                         </h:panelGroup>  
-                        <div class="form--actions">
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Limpar" action="#{editalBean.limpar()}"/>
-                            </div>       
+                        <div class="form--actions">                            
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Salvar" action="#{editalBean.salvar()}"/>
                             </div>   
