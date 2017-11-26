@@ -6,11 +6,13 @@ import entities.Colaborador;
 import entities.Coordenador;
 import entities.Edital;
 import entities.Projeto;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -23,6 +25,7 @@ public class ProjetoBean {
     private Projeto projetoSelecionado;
     private List<Aluno> alunos;
     private List<Bolsa> bolsas;
+    private String colaborador;
     private List<Colaborador> colaboradores;
     private List<Coordenador> coordenadores;
     private List<Edital> editais;
@@ -50,15 +53,28 @@ public class ProjetoBean {
     }
     
     public List<Colaborador> getColaboradores(){
-        this.colaboradores = new Colaborador().buscarTodos();
-        return colaboradores;
-    }
+        return this.colaboradores;
+    }   
     
-    public List<Coordenador> getCoordenadores(){
-        this.coordenadores = (List<Coordenador>) (Coordenador) new Coordenador().buscarTodos();
-        return coordenadores;
+    public List<SelectItem> getCoordenadores(){        
+        List<SelectItem> items = new ArrayList<>();  
+        new Coordenador().buscarTodos().forEach((c) -> {
+            items.add(new SelectItem(c, c.getNome()));
+        }); 
+        
+        return items;
     }
 
+    public List<SelectItem> getEditais() {
+        this.editais = new Edital().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.editais.forEach((c) -> {
+            items.add(new SelectItem(c, c.getTitulo()));
+        }); 
+        return items;
+    }
+        
+    
     public Boolean getEditando() {
         return editando;
     }
@@ -87,6 +103,14 @@ public class ProjetoBean {
     public void setProjetos(List<Projeto> lista){
         this.projetos = lista;
     }    
+
+    public String getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(String colaborador) {
+        this.colaborador = colaborador;
+    }       
     
 // Ações
     public String detalhar(Long id){
@@ -147,6 +171,14 @@ public class ProjetoBean {
                                    "Erro ao salvar Projeto!"));
             return "/pages/cadastrar/cadastrarProjeto";
         }
+    }
+    
+    public void adicionarColaborador() {
+        Colaborador novo = new Colaborador();
+        novo.setNome(this.colaborador);        
+        this.colaboradores.add(novo);
+        this.projeto.setListaColaboradores(this.colaboradores);
+        this.colaborador = "";
     }
 }
 
