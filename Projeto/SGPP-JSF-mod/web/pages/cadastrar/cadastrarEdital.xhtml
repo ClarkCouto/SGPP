@@ -65,7 +65,7 @@
                             </div>   
                         </h:panelGroup>
                         <h:panelGroup
-                            id="lembretes" 
+                            id="listaLembretes" 
                             layout="block"
                             class="form--section"
                             >
@@ -136,15 +136,16 @@
                                         <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Obrigatório</h:outputLabel>
                                         <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" />
                                     </div>
-
                                     <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete)}" />                                        
+                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete)}"/>
                                     </div>
                                 </div>
                             </ui:repeat>
                             <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Adicionar lembrete" action="#{editalBean.adicionarLembrete()}"/>
-                            </div>                            
+                                <h:commandButton styleClass="button" value="Adicionar Lembrete" action="#{editalBean.adicionarLembrete()}">
+                                    <f:ajax render="listaLembretes"/>
+                                </h:commandButton>
+                            </div>            
                         </h:panelGroup>
                         <h:panelGroup
                             id="bolsas" 

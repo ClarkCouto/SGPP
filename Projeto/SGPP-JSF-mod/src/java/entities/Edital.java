@@ -26,7 +26,7 @@ public class Edital extends BaseEntityAudit implements Serializable{
     @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Lembrete> lembretes;
     
-    @OneToMany(cascade={CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Bolsa> bolsas;
 
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")

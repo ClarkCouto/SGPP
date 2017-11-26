@@ -7,9 +7,6 @@
       xmlns:p="http://primefaces.org/ui" 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{editalBean.atualizar()}" />
-        </f:metadata>
         <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="0" />
             <ui:define name="content">                
@@ -25,10 +22,8 @@
 
                         <f:facet name="header">
                             <p:outputPanel>              
-                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarEdital" style="float:left;">
-                                    <i class="fa fa-plus button--icon" />
-                                    <span class="button--label">Cadastrar Edital</span>
-                                </h:link>
+                                <p:commandButton styleClass="button" value="Cadastrar Edital" action="${editalBean.cadastrar()}" icon="fa fa-plus button--icon"/>
+
                                 <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

@@ -191,8 +191,7 @@
                                             filter="true" 
                                             filterMatchMode="contains"
                                             required='true'
-                                            requiredMessage="Categoria é obrigatória">                         
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                            requiredMessage="Categoria é obrigatória">                                                         
                                             <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
                                             <p:column>
                                                 <h:outputText value="#{cat.descricao}" />

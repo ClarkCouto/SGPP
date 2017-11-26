@@ -113,10 +113,11 @@ public class EditalBean {
     public void removerLembrete(Lembrete lembrete) {
         this.lembretes.remove(lembrete);
         this.edital.setLembretes(this.lembretes);
-    }   
+    } 
     
-    public void atualizar() {
-        this.editais = new EditalDAO().findAll();
+    public String cadastrar(){
+        limpar();
+        return "/pages/cadastrar/cadastrarEdital?faces-redirect=true";
     }
     
     public String detalhar(Long id){
@@ -150,6 +151,13 @@ public class EditalBean {
             return "/pages/editar/editarEdital?faces-redirect=true";
         }
     }  
+    
+    public void limpar(){
+        this.bolsas = new ArrayList<>();  
+        this.edital = new Edital();
+        this.editalSelecionado = new Edital();
+        this.lembretes = new ArrayList<>();  
+    }
 
     public String remover(Long id) {
         if(edital.remover(id))
