@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -21,7 +22,7 @@ import javax.faces.model.SelectItem;
  * @author CristianoSilva
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class EditalBean {
     private Edital edital = new Edital();
     private List<Edital> editais;
@@ -119,8 +120,8 @@ public class EditalBean {
         this.edital.setLembretes(lembretes);
     }
     
-    public void removerLembrete(Long id) {
-        this.lembretes = this.lembretes.stream().filter(lembrete -> !Objects.equals(lembrete.getId(), id)).collect(Collectors.toList());        
+    public void removerLembrete(Lembrete lembrete) {
+        this.lembretes.remove(lembrete);
         this.edital.setLembretes(this.lembretes);
     }   
     
