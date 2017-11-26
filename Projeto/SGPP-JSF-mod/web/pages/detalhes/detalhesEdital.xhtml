@@ -143,15 +143,14 @@
                                     </div>
                                     <div class="form--group">
                                         <h:outputLabel for="bolsa-categoria" styleClass="form--group--label">Categoria</h:outputLabel>
-                                        <p:inputMask
-                                            value="#{bolsa.categoriaBolsa}"
-                                            id="bolsa-categoria"
-                                            label="Bolsa"
-                                            styleClass="form--group--text-input"
-                                            mask="99/99/9999"
-                                            readonly="true"
-                                            >
-                                        </p:inputMask>
+                                        <p:selectOneMenu id="categoria-bolsa" 
+                                            value="#{bolsa.categoriaBolsa}" 
+                                            converter="SimpleEntityConverter"
+                                            effect="fade" 
+                                            var="cat" 
+                                            disabled="true">                                                         
+                                            <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
+                                        </p:selectOneMenu>
                                     </div>
                                 </div>
                             </ui:repeat>                          

@@ -4,8 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="IFRS"/>
         <group>
-            <file>file:/C:/Users/mathe/Documents/Projetos/SGPP/Projeto/SGPP-JSF-mod/src/java/beans/CoordenadorBean.java</file>
-            <file>file:/C:/Users/mathe/Documents/Projetos/SGPP/Projeto/SGPP-JSF-mod/web/pages/cadastrar/cadastrarCoordenador.xhtml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/src/java/entities/Coordenador.java</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/web/pages/cadastrar/cadastrarGrupoDePesquisa.xhtml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/web/pages/cadastrar/cadastrarEdital.xhtml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/web/pages/editar/editarGrupoDePesquisa.xhtml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/web/pages/detalhes/detalhesGrupoDePesquisa.xhtml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/src/java/entities/GrupoDePesquisa.java</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/web/pages/listar/listarGruposDePesquisa.xhtml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Clark%20Couto/Documents/GitHub/SGPP/Projeto/SGPP-JSF-mod/src/java/entities/Colaborador.java</file>
         </group>
     </open-files>
 </project-private>
