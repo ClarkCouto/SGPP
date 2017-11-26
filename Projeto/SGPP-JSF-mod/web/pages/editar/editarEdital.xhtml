@@ -7,6 +7,9 @@
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{editalBean.editar(param.id)}" />
+        </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar">
@@ -73,14 +76,14 @@
                             <h:panelGroup
                                 layout="block"
                                 styleClass="message-bar"
-                                rendered="#{editalBean.edital.lembretes.size() == 0}">                                
+                                rendered="#{editalBean.lembretes.size() == 0}">                                
                                 <span class="message-bar--icon">
                                     <i class="fa fa-clock-o" />
                                 </span>
                                 <span class="message-bar--text">Adicione lembretes para entrega de documentos, datas limites do edital...</span> 
                             </h:panelGroup>
                             <ui:repeat
-                                value="#{editalBean.edital.lembretes}"
+                                value="#{editalBean.lembretes}"
                                 var="lembrete"
                             >   
                                 <div class="form--row">

@@ -12,87 +12,44 @@
             <ui:define name="content">                
                 
                 <div class="main-bar">
-                    <h1> Pendentes </h1>
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarAlunos" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Alunos</span>
+                    <div class="main-bar--actions">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarAreas">
+                            <span class="button--label">Áreas</span>
+                        </h:link>
+                        <h:link styleClass="button" outcome="/pages/listar/listarBolsas">
+                            <span class="button--label">Bolsas</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarCagppi">
+                            <span class="button--label">CAGPPIs</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarCategoriasBolsa">
+                            <span class="button--label">Categorias de Bolsas</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarCoordenadores">
+                            <span class="button--label">Coordenadores</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarCursos">
+                            <span class="button--label">Cursos</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarDocumentos">
+                            <span class="button--label">Documentos</span>
+                        </h:link>
+                        <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes">
+                            <span class="button--label">Instituições</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarSetorDePesquisa">
+                            <span class="button--label">Setores de Pesquisa</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarTextosBaseDeclaracao">
+                            <span class="button--label">Textos Base Declarações</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarTiposDocumento">
+                            <span class="button--label">Tipos de Documento</span>
+                        </h:link>   
+                        <h:link styleClass="button" outcome="/pages/listar/listarUsuarios">
+                            <span class="button--label">Usuários</span>
                         </h:link>   
                     </div>   
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarCoordenadores" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Coordenadores</span>
-                        </h:link>   
-                    </div>   
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarDocumentos" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Documentos</span>
-                        </h:link>   
-                    </div>   
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarTextosBaseDeclaracao" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Textos Base Declarações</span>
-                        </h:link>   
-                    </div>  
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarUsuarios" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Usuários</span>
-                        </h:link>   
-                    </div>      
-                    
-                    <h1> Prontos </h1>
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarAreas" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Áreas</span>
-                        </h:link>   
-                    </div>      
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarBolsas" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Bolsas</span>
-                        </h:link>   
-                    </div>   
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarCagppi" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar CAGPPIs</span>
-                        </h:link>   
-                    </div>    
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Categorias de Bolsas</span>
-                        </h:link>   
-                    </div>     
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarCursos" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Cursos</span>
-                        </h:link>   
-                    </div>           
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Instituições</span>
-                        </h:link>   
-                    </div>   
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarSetoresDePesquisa" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Setores de Pesquisa</span>
-                        </h:link>   
-                    </div>    
-                    <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
-                            <i class="fa fa-chevron-left" />
-                            <span class="button--label">Listar Tipos de Documento</span>
-                        </h:link>   
-                    </div>                      
                 </div> 
             </ui:define>
         </ui:composition>
