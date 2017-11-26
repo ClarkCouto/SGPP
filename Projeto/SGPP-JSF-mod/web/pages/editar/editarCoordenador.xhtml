@@ -123,7 +123,7 @@
                                     required='true'
                                     requiredMessage="Área é obrigatória.">
                                     <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                    <f:selectItems value="#{coordenadorBean.areas}" var="area" itemLabel="#{area.nome}" itemValue="#{area}" />
+                                    <f:selectItems value="#{coordenadorBean.areasOptions}" var="area" itemLabel="#{area.nome}" itemValue="#{area}" />
                                     <p:column>
                                         <h:outputText value="#{ar.nome}" />
                                     </p:column>
@@ -170,19 +170,17 @@
                                 >   
                                 <div class="form--row">
                                     <div class="form--group size-half">
-                                        <h:outputLabel for="coordenador-grupo" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
+                                        <h:outputLabel for="grupo-pesquisa" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
                                         <p:selectOneMenu id="grupo-pesquisa" 
-                                            value="#{grupo.grupoDePesquisa}" 
+                                            value="#{grupo}" 
                                             converter="SimpleEntityConverter"
                                             effect="fade" 
                                             var="group" 
                                             filter="true" 
                                             filterMatchMode="contains">                     
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{coordenadorBean.gruposDePesquisa}" var="grupoDePesquisa" itemLabel="#{grupoDePesquisa.nome}" itemValue="#{grupoDePesquisa}" />
-                                            <p:column>
-                                                <h:outputText value="#{group.nome}" />
-                                            </p:column>
+                                            <f:selectItem itemLabel="Teste"/>                                  
+                                            
                                         </p:selectOneMenu>
                                     </div>
 

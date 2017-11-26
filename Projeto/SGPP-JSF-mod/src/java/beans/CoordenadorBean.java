@@ -29,17 +29,17 @@ import javax.faces.model.SelectItem;
 public class CoordenadorBean implements Serializable {    
     private Coordenador coordenador = new Coordenador();
     private Coordenador coordenadorSelecionado;
-    private List<Area> areas; 
     private List<Coordenador> coordenadores; 
     private List<Coordenador> listaFiltrada;
     private List<GrupoDePesquisa> gruposDePesquisa;
+    private List<GrupoDePesquisa> gruposDePesquisaOptions;
     private Boolean editando;
     
 // Construtor
     public CoordenadorBean() {
         this.gruposDePesquisa = this.coordenador.getGruposDePesquisa();
         if(this.gruposDePesquisa == null)
-            this.gruposDePesquisa = new ArrayList<>();
+            this.gruposDePesquisa = new ArrayList<>();        
     }
     
     // Getters e Setters
@@ -51,21 +51,32 @@ public class CoordenadorBean implements Serializable {
         this.listaFiltrada = listaFiltrada;
     }
     
-    public List<SelectItem> getAreas(){
-        this.areas = new Area().buscarTodos();
+    public List<SelectItem> getAreasOptions(){
+        List<Area> areas = new Area().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
-        this.areas.forEach((c) -> {
+        areas.forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
         }); 
         return items;
     }
+
+    public List<GrupoDePesquisa> getGruposDePesquisa() {
+        return gruposDePesquisa;
+    }
+
+    public void setGruposDePesquisa(List<GrupoDePesquisa> gruposDePesquisa) {
+        this.gruposDePesquisa = gruposDePesquisa;
+    }
     
-    public List<SelectItem> getGruposDePesquisa(){
-        this.gruposDePesquisa = new GrupoDePesquisa().buscarTodos();
-        List<SelectItem> items = new ArrayList<>();  
-        this.gruposDePesquisa.forEach((c) -> {
+    
+    
+    public List<SelectItem> getGruposDePesquisaOptions(){        
+        this.gruposDePesquisaOptions = new GrupoDePesquisa().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();
+        this.gruposDePesquisaOptions.forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
-        }); 
+        });
+        
         return items;
     }
     
