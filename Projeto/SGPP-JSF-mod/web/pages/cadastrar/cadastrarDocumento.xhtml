@@ -32,7 +32,7 @@
                                     label="Nome"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Nome é obrigatório"
+                                    requiredMessage="Nome é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
@@ -42,7 +42,7 @@
                                 <h:outputLabel for="instituicao" styleClass="form--group--label">Instituição</h:outputLabel>
                                  <p:selectOneMenu id="categoria" value="#{documentoBean.documento.instituicao}"
                                     required='true'
-                                    requiredMessage="Instituição é obrigatória"
+                                    requiredMessage="Instituição é obrigatória."
                                     >
                                     <f:selectItem itemLabel="-- Selecione --" itemValue="" />
                                     <f:selectItems value="#{documentoBean.instituicoes}" />

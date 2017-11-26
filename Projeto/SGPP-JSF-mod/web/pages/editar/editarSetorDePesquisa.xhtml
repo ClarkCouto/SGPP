@@ -11,135 +11,136 @@
             <ui:define name="content">
                 <div class="main-bar">
                     <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarSetorDePesquisa" style="float:left;">
+                        <h:link styleClass="button" outcome="/pages/listar/listarSetoresDePesquisa" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Setores de Pesquisa</span>
                         </h:link>   
                     </div>                          
                 </div> 
-                <div class="login-box box">
-                    <div class="box--content">
-                        <h:form>
-                            <div class="form">
+                <h:form>
+                    <div class="form">              
+                        <h:panelGroup class="form--section">
                             <div class="form--section--title">Editar Setor de Pesquisa</div>
-                                <div class="form--group">
-                                    <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
-                                    <h:inputText
-                                        value="#{setorDePesquisaBean.setorDePesquisa.nome}"
-                                        id="nome"
-                                        label="Nome"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        >
-                                        <f:validateRequired />
-                                    </h:inputText>
-                                    <h:message for="nome" styleClass="form--group--message" />                                
-                                </div>
-                                <div class="form--group">
-                                    <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
-                                    <h:inputText
-                                        value="#{setorDePesquisaBean.setorDePesquisa.email}"
-                                        id="email"
-                                        label="E-mail"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        >
-                                        <f:validateRequired />
-                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </h:inputText>
-                                    <h:message for="email" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.setorDePesquisa.telefoneCelular}"
-                                        id="celular"
-                                        label="Telefone Celular"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="(99) 99999-9999"
+                            <div class="form--group">
+                                <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
+                                <h:inputText
+                                    value="#{setorDePesquisaBean.setorDePesquisa.nome}"
+                                    id="nome"
+                                    label="Nome"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Nome é obrigatório."
                                     >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="celular" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="tel-fixo" styleClass="form--group--label">Telefone Fixo</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.setorDePesquisa.telefoneFixo}"
-                                        id="tel-fixo"
-                                        label="Telefone Fixo"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="(99) 99999-9999"
-                                    >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="tel-fixo" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group">
-                                    <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.setorDePesquisa.cpf}"
-                                        id="cpf"
-                                        label="CPF"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="999.999.999-99"
-                                    >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="cpf" styleClass="form--group--message" />
-                                </div>                            
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
-                                    <h:selectOneMenu
-                                        value="#{setorDePesquisaBean.setorDePesquisa.sexo}"
-                                        id="sexo"
-                                        label="Sexo"
-                                        styleClass="form--group--text-input"
-                                    >
-                                        <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
-                                        <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
-                                    </h:selectOneMenu>
-                                    <h:message for="sexo" styleClass="form--group--message" />
-                                </div>
-                                <div class="form--group size-half">
-                                    <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
-                                    <p:inputMask
-                                        value="#{setorDePesquisaBean.setorDePesquisa.dataNascimento}"
-                                        id="data-nascimento"
-                                        label="Data de Nascimento"
-                                        styleClass="form--group--text-input"
-                                        required="true"
-                                        mask="99/99/9999"
-                                        converter="cmd.converter.stringToDate"
-                                    >
-                                        <f:validateRequired />
-                                    </p:inputMask>
-                                    <h:message for="data-nascimento" styleClass="form--group--message" />
-                                </div>
-                                <div class="form-group--size-half">
-                                    <h:outputLabel for="tipo-usuario" styleClass="form-group--label">Tipo de Usuário</h:outputLabel>
-                                    <p:selectOneMenu 
-                                        id="tipo-usuario" 
-                                        value="#{setorDePesquisaBean.tipoUsuario}">
-                                        <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                        <f:selectItems value="#{setorDePesquisaBean.tiposUsuario}"/>
-                                    </p:selectOneMenu>
-                                    <h:message for="tipo-usuario" styleClass="form-group--message" />
-                                </div>
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="nome" styleClass="form--group--message" />                                
                             </div>
-                            <div class="box--actions">                               
-                                <h:commandButton styleClass="button box-action" value="Limpar" type="reset" action="#{setorDePesquisaBean.limpar()}" />
-                                <h:commandButton styleClass="button box-action" value="Enviar solicitação" action="#{setorDePesquisaBean.cadastrar()}" />
+                            <div class="form--group">
+                                <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
+                                <h:inputText
+                                    value="#{setorDePesquisaBean.setorDePesquisa.email}"
+                                    id="email"
+                                    label="E-mail"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="E-mail é obrigatório."
+                                    >
+                                    <f:validateRequired />
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                                <h:message for="email" styleClass="form--group--message" />
                             </div>
-                        </h:form>
-                        <div class="box--actions--full">       
-                            <p:messages id="messages" />
+                            <div class="form--group size-half">
+                                <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
+                                <p:inputMask
+                                    value="#{setorDePesquisaBean.setorDePesquisa.telefoneCelular}"
+                                    id="celular"
+                                    label="Telefone Celular"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Telefone celular é obrigatório."
+                                    mask="(99) 99999-9999"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="celular" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="tel-fixo" styleClass="form--group--label">Telefone Fixo</h:outputLabel>
+                                <p:inputMask
+                                    value="#{setorDePesquisaBean.setorDePesquisa.telefoneFixo}"
+                                    id="tel-fixo"
+                                    label="Telefone Fixo"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Telefone fixo é obrigatório."
+                                    mask="(99) 9999-9999"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="tel-fixo" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group">
+                                <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
+                                <p:inputMask
+                                    value="#{setorDePesquisaBean.setorDePesquisa.cpf}"
+                                    id="cpf"
+                                    label="CPF"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="CPF é obrigatório."
+                                    mask="999.999.999-99"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="cpf" styleClass="form--group--message" />
+                            </div>                            
+                            <div class="form--group size-half">
+                                <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
+                                <h:selectOneMenu
+                                    value="#{setorDePesquisaBean.setorDePesquisa.sexo}"
+                                    id="sexo"
+                                    label="Sexo"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Sexo é obrigatório."
+                                >
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>   
+                                    <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
+                                    <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
+                                </h:selectOneMenu>
+                                <h:message for="sexo" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
+                                <p:inputMask
+                                    value="#{setorDePesquisaBean.setorDePesquisa.dataNascimento}"
+                                    id="data-nascimento"
+                                    label="Data de Nascimento"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Data de nascimento é obrigatória."
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="data-nascimento" styleClass="form--group--message" />
+                            </div>
+                            <div class="box--actions--full">       
+                                <p:messages id="messages" />
+                            </div>
+                        </h:panelGroup>
+                        <div class="box--actions">                               
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{setorDePesquisaBean.limpar()}" type="reset"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{setorDePesquisaBean.salvar()}"/>
+                            </div>   
                         </div>
                     </div>
-                </div>
+                </h:form>
             </ui:define>
     	</ui:composition>
     </h:body>

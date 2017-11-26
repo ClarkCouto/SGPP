@@ -80,7 +80,7 @@ public class SetorDePesquisaBean implements Serializable {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarSetoresDePesquisa?faces-redirect=true";
+        return "/pages/editar/editarSetorDePesquisa?faces-redirect=true";
     }  
     
     public void limpar(){
