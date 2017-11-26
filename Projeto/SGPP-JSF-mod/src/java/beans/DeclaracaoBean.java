@@ -114,13 +114,16 @@ public class DeclaracaoBean {
         if(id != null)
             declaracaoSelecionada = this.declaracao.buscarPeloId(id);
 
-        if (declaracaoSelecionada != null) {
-            this.declaracao = declaracaoSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (declaracaoSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Declaração!",
+                                   "Erro ao localizar Declaração!"));
+            return "/pages/listar/listarDeclaracoes";
         }
-        return "/pages/editar/editarDeclaracao?faces-redirect=true";
+        else {
+            this.declaracao = declaracaoSelecionada;
+            return "/pages/editar/editarDeclaracao?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

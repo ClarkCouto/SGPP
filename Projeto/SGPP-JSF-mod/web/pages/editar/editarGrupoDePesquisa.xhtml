@@ -11,7 +11,7 @@
             <ui:define name="content">
                 <div class="main-bar">
                     <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarGrupoDePesquisas" style="float:left;">
+                        <h:link styleClass="button" outcome="/pages/listar/listarGruposDePesquisa" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Grupos De Pesquisa</span>
                         </h:link>   
@@ -21,23 +21,7 @@
                     <div class="form">
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Editar Grupo De Pesquisa</div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="coordenador" styleClass="form--group--label">Coordenador</h:outputLabel>
-                                <p:selectOneMenu id="coordenador" 
-                                    value="#{grupoDePesquisaBean.grupoDePesquisa.coordenador}" 
-                                    converter="SimpleEntityConverter"
-                                    effect="fade" 
-                                    var="coord" 
-                                    filter="true" 
-                                    filterMatchMode="contains">                         
-                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                    <f:selectItems value="#{grupoDePesquisaBean.coordenadores}" var="coordenador" itemLabel="#{coordenador.nome}" itemValue="#{coordenador}" />
-                                    <p:column>
-                                        <h:outputText value="#{coord.nome}" />
-                                    </p:column>
-                                </p:selectOneMenu>
-                            </div>
-                            <div class="form--group size-half">
+                            <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
                                     value="#{grupoDePesquisaBean.grupoDePesquisa.nome}"

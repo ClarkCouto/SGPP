@@ -24,23 +24,7 @@
                     <div class="form">
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Cadastrar Grupo De Pesquisa</div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="grupo-coordenador" styleClass="form--group--label">Coordenador</h:outputLabel>
-                                <p:selectOneMenu id="grupo-coordenador" 
-                                    value="#{grupoDePesquisaBean.grupoDePesquisa.coordenador}" 
-                                    converter="SimpleEntityConverter"
-                                    effect="fade" 
-                                    var="coord" 
-                                    filter="true" 
-                                    filterMatchMode="contains">                         
-                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                    <f:selectItems value="#{grupoDePesquisaBean.coordenadores}" var="coordenador" itemLabel="#{coordenador.nome}" itemValue="#{coordenador}" />
-                                    <p:column>
-                                        <h:outputText value="#{coord.nome}" />
-                                    </p:column>
-                                </p:selectOneMenu>
-                            </div>
-                            <div class="form--group size-half">
+                            <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
                                     value="#{grupoDePesquisaBean.grupoDePesquisa.nome}"

@@ -74,13 +74,16 @@ public class CagppiBean implements Serializable {
         if(id != null)
             cagppiSelecionado = this.cagppi.buscarPeloId(id);
 
-        if (cagppiSelecionado != null) {
-            this.cagppi = cagppiSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (cagppiSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar CAGPPI!",
+                                   "Erro ao localizar CAGPPI!"));
+            return "/pages/listar/listarCagppi";
         }
-        return "/pages/editar/editarCagppi?faces-redirect=true";
+        else {
+            this.cagppi = cagppiSelecionado;
+            return "/pages/editar/editarCagppi?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

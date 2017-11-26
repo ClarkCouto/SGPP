@@ -15,6 +15,7 @@
             <ui:define name="content">                
                 <h:form>                                                  
                     <p:dataTable
+                        id='lista'
                         var="edital" 
                         value="#{editalBean.editais}" 
                         widgetVar="editaisTable"
@@ -63,14 +64,18 @@
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{edital.ativo}" action="${editalBean.editar(edital.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{edital.ativo}" action="${editalBean.remover(edital.id)}">
-                                <i class="fa fa-trash" />
-                            </h:commandLink>                           
+                            <p:commandButton value="Detalhar" action="${editalBean.detalhar(edital.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{edital.ativo}" actionListener="${editalBean.remover(edital.id)}" icon="fa fa-trash" update="lista">
+                                <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
                         </p:column>
-
                     </p:dataTable>
                 </h:form>
             </ui:define>

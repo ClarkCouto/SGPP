@@ -28,12 +28,9 @@
                                     id="titulo"
                                     label="Título"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Título é obrigatório"
+                                    readonly="true"
                                     >
-                                    <f:validateRequired />
                                 </h:inputText>
-                                <h:message for="titulo" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="numero" styleClass="form--group--label">Número</h:outputLabel>
@@ -42,12 +39,9 @@
                                     id="numero"
                                     label="Número"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Número é obrigatório"
+                                    readonly="true"
                                     >
-                                    <f:validateRequired />
                                 </h:inputText>
-                                <h:message for="numero" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="origem" styleClass="form--group--label">Origem</h:outputLabel>
@@ -56,12 +50,9 @@
                                     id="origem"
                                     label="Origem"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Origem é obrigatória"
+                                    readonly="true"
                                     >
-                                    <f:validateRequired />
                                 </h:inputText>
-                                <h:message for="origem" styleClass="form--group--message" />
                             </div>   
                         </h:panelGroup>
                         <h:panelGroup
@@ -69,7 +60,7 @@
                             layout="block"
                             class="form--section"
                             >
-                            <div class="form--section--title">Adicionar lembretes</div>
+                            <div class="form--section--title">Lembretes cadastrados</div>
                             <h:panelGroup
                                 layout="block"
                                 styleClass="message-bar"
@@ -77,7 +68,7 @@
                                 <span class="message-bar--icon">
                                     <i class="fa fa-clock-o" />
                                 </span>
-                                <span class="message-bar--text">Adicione lembretes para entrega de documentos, datas limites do edital...</span> 
+                                <span class="message-bar--text">Nenhum lembrete cadastrado para o edital...</span> 
                             </h:panelGroup>
                             <ui:repeat
                                 value="#{editalBean.edital.lembretes}"
@@ -92,12 +83,9 @@
                                             id="lembrete-descricao"
                                             label="Descrição"
                                             styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Descrição é obrigatória"
+                                            readonly="true"
                                             >
-                                            <f:validateRequired />
                                         </h:inputText>
-                                        <h:message for="lembrete-descricao" styleClass="form--group--message" />
                                     </div>
                                     <div class="form--group size-half">
                                         <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Data Limite Entrega</h:outputLabel>
@@ -110,35 +98,23 @@
                                             requiredMessage="Data Limite Entrega é obrigatória"
                                             mask="99/99/9999"
                                             converter="cmd.converter.stringToDate"
+                                            readonly="true"
                                             >
-                                            <f:validateRequired />
                                         </p:inputMask>
-                                        <h:message for="lembrete-data-limite" styleClass="form--group--message" />
                                     </div>
                                     <div class="form--group size-half">
                                         <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Obrigatório</h:outputLabel>
-                                        <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" />
-                                    </div>
-
-                                    <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(linha.index)}">
-                                            <f:ajax render="lembretes"/>
-                                        </h:commandButton>
+                                        <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" disabled="true"/>
                                     </div>
                                 </div>
-                            </ui:repeat>
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Adicionar Novo Lembrete" action="#{editalBean.adicionarLembrete()}">
-                                    <f:ajax render="lembretes"/>
-                                </h:commandButton>
-                            </div>                            
+                            </ui:repeat>                           
                         </h:panelGroup>
                         <h:panelGroup
                             id="bolsas" 
                             layout="block"
                             class="form--section"
                             >
-                            <div class="form--section--title">Adicionar bolsas</div>
+                            <div class="form--section--title">Bolsas cadastradas</div>
                             <h:panelGroup
                                 layout="block"
                                 styleClass="message-bar"
@@ -146,7 +122,7 @@
                                 <span class="message-bar--icon">
                                     <i class="fa fa-clock-o" />
                                 </span>
-                                <span class="message-bar--text">Adicione as bolsas disponíveis para o edital...</span> 
+                                <span class="message-bar--text">Nenhuma bolsa cadastrada para o edital...</span> 
                             </h:panelGroup>
                             <ui:repeat
                                 value="#{editalBean.edital.bolsas}"
@@ -161,12 +137,9 @@
                                             id="bolsa-nome"
                                             label="Nome"
                                             styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Nome é obrigatório"
+                                            readonly="true"
                                             >
-                                            <f:validateRequired />
                                         </h:inputText>
-                                        <h:message for="bolsa-nome" styleClass="form--group--message" />
                                     </div>
                                     <div class="form--group">
                                         <h:outputLabel for="bolsa-categoria" styleClass="form--group--label">Categoria</h:outputLabel>
@@ -175,30 +148,14 @@
                                             id="bolsa-categoria"
                                             label="Bolsa"
                                             styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Categoria é obrigatória"
                                             mask="99/99/9999"
+                                            readonly="true"
                                             >
-                                            <f:validateRequired />
                                         </p:inputMask>
-                                        <h:message for="bolsa-categoria" styleClass="form--group--message" />
-                                    </div>
-                                    <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerBolsa(linha.index)}">
-                                            <f:ajax render="edital.bolsas"/>
-                                        </h:commandButton>
                                     </div>
                                 </div>
-                            </ui:repeat>
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Adicionar Nova Bolsa" action="#{editalBean.adicionarBolsa()}">
-                                    <f:ajax render="bolsas"/>
-                                </h:commandButton>
-                            </div>                            
-                        </h:panelGroup>                        
-                        <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{editalBean.salvar()}"/>
-                        </div>                        
+                            </ui:repeat>                          
+                        </h:panelGroup>                          
                     </div>     
                 </h:form>
             </ui:define>

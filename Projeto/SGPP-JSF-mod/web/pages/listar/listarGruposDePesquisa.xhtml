@@ -37,11 +37,11 @@
                                 <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Filtrar" styleClass="right" />
                             </p:outputPanel>
                         </f:facet>
-
-                        <p:column headerText="Coordenador" sortBy="#{grupoDePesquisa.coordenador.nome}">
-                            <h:outputText value="#{grupoDePesquisa.coordenador.nome}" />
+<!--
+                        <p:column headerText="Coordenador" sortBy="# {grupoDePesquisa.coordenador.nome}">
+                            <h:outputText value="# {grupoDePesquisa.coordenador.nome}" />
                         </p:column>
-
+-->
                         <p:column headerText="Nome" sortBy="#{grupoDePesquisa.nome}">
                             <h:outputText value="#{grupoDePesquisa.nome}" />
                         </p:column>

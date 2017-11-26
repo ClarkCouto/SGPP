@@ -79,13 +79,16 @@ public class CategoriaBolsaBean {
         if(id != null)
             categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
 
-        if (categoriaBolsaSelecionada != null) {
-            this.categoriaBolsa = categoriaBolsaSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (categoriaBolsaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao v Categoria!",
+                                   "Erro ao localizar Categoria!"));
+            return "/pages/listar/listarCategoriasBolsa";
         }
-        return "/pages/editar/editarCategoriaBolsa?faces-redirect=true";
+        else {
+            this.categoriaBolsa = categoriaBolsaSelecionada;
+            return "/pages/editar/editarCategoriaBolsa?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

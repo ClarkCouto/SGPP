@@ -79,13 +79,16 @@ public class TipoDocumentoBean {
         if(id != null)
             tipoDocumentoSelecionado = this.tipoDocumento.buscarPeloId(id);
 
-        if (tipoDocumentoSelecionado != null) {
-            this.tipoDocumento = tipoDocumentoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (tipoDocumentoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Tipo de Documento!",
+                                   "Erro ao localizar Tipo de Documento!"));
+            return "/pages/listar/listarTiposDocumento";
         }
-        return "/pages/editar/editarTipoDocumento?faces-redirect=true";
+        else {
+            this.tipoDocumento = tipoDocumentoSelecionado;
+            return "/pages/editar/editarTipoDocumento?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
