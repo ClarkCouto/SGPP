@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -21,21 +21,21 @@ import javax.faces.model.SelectItem;
  * @author CristianoSilva
  */
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 public class EditalBean {
     private Edital edital = new Edital();
-    private Edital editalSelecionado = new Edital();
-    private List<Bolsa> bolsas = new ArrayList<>();
-    private List<CategoriaBolsa> categoriasBolsa;
-    private List<TipoDocumento> tiposDocumento;
     private List<Edital> editais;
     private List<Edital> listaFiltrada;
-    private List<Lembrete> lembretes = new ArrayList<>();
+    private List<Bolsa> bolsas;
+    private List<CategoriaBolsa> categoriasBolsa;
+    private List<TipoDocumento> tiposDocumento;
+    private List<Lembrete> lembretes;
 
 // Construtor
     public EditalBean() {
         this.lembretes = this.edital.getLembretes();
         this.bolsas = this.edital.getBolsas();
+        this.editais = new EditalDAO().findAll();
         if(this.lembretes == null)
             this.lembretes = new ArrayList<>();
         if(this.bolsas == null)
@@ -59,15 +59,11 @@ public class EditalBean {
         this.edital = edital;
     }
     
-    public List<Edital> getEditais() {
-        if(this.editais == null)
-            this.editais = new EditalDAO().findAll();
+    public List<Edital> getEditais() {        
         return this.editais;
     }  
 
-    public void setEditalSelecionado(Edital edital) {
-        this.editalSelecionado = edital;
-    }
+   
         
     public List<Bolsa> getBolsas(){
         this.bolsas = this.edital.getBolsas();
@@ -128,19 +124,15 @@ public class EditalBean {
         this.edital.setLembretes(this.lembretes);
     }   
     
-    public String editar(Long id) {        
-        return "/pages/cadastrar/cadastrarEdital?faces-redirect=true&id="+id;
-    } 
-    
-    public void limpar(Long id){
-        if (id != null) {   
-            edital = new Edital().buscarPeloId(id);
-            
-            if (edital == null)
-                edital =  new Edital();
-        }
+    public void atualizar() {
+        this.editais = new EditalDAO().findAll();
     }
     
+    public String editar(Long id) {        
+        this.edital = new EditalDAO().findById(id);                
+        return "/pages/cadastrar/editarEdital?faces-redirect=true&id=" + id;
+    }
+
     public String remover(Long id) {
         if(edital.remover(id))
             return "/pages/listar/listarEditais?faces-redirect=true";
@@ -151,7 +143,7 @@ public class EditalBean {
             return "/pages/listar/listarEditais";
         }
     }
-    
+
     public String salvar() {
         this.edital.setLembretes(lembretes);
         this.edital.setBolsas(bolsas);
