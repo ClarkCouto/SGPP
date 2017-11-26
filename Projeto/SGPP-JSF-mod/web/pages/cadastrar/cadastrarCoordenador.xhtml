@@ -6,10 +6,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"  
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:body>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{coordenadorBean.limpar()}" />
-        </f:metadata>
+    <h:body>        
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar">
@@ -126,7 +123,7 @@
                                     required='true'
                                     requiredMessage="Área é obrigatória.">
                                     <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                    <f:selectItems value="#{coordenadorBean.areas}" var="area" itemLabel="#{area.nome}" itemValue="#{area}" />
+                                    <f:selectItems value="#{coordenadorBean.areasOptions}" var="area" itemLabel="#{area.label}" itemValue="#{area}" />
                                     <p:column>
                                         <h:outputText value="#{ar.nome}" />
                                     </p:column>
@@ -167,30 +164,28 @@
                             </h:panelGroup>
                             
                             <ui:repeat
-                                value="#{coordenadorBean.gruposDePesquisa}"
+                                value="${coordenadorBean.gruposDePesquisa}"
                                 var="grupo"
                                 varStatus="linha"
                                 >   
                                 <div class="form--row">
                                     <div class="form--group size-half">
-                                        <h:outputLabel for="coordenador-grupo" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
-                                        <p:selectOneMenu id="grupo-pesquisa" 
-                                            value="#{grupo.grupoDePesquisa}" 
-                                            converter="SimpleEntityConverter"
+                                        <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
+                                        <p:selectOneMenu id="categoria-bolsa" 
+                                            value="#{grupo}"
                                             effect="fade" 
-                                            var="group" 
+                                            var="tipo" 
                                             filter="true" 
                                             filterMatchMode="contains">                     
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{coordenadorBean.gruposDePesquisa}" var="grupoDePesquisa" itemLabel="#{grupoDePesquisa.nome}" itemValue="#{grupoDePesquisa}" />
+                                            <f:selectItems value="#{coordenadorBean.gruposDePesquisaOptions}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
                                             <p:column>
-                                                <h:outputText value="#{group.nome}" />
+                                                <h:outputText value="#{tipo.nome}" />
                                             </p:column>
-                                        </p:selectOneMenu>
+                                        </p:selectOneMenu>                                       
                                     </div>
-
                                     <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{coordenadorBean.removerGrupoDePesquisa(grupo.id)}" />                                        
+                                        <h:commandButton styleClass="button" value="Remover" action="#{coordenadorBean.removerGrupoDePesquisa(grupo)}" />                                        
                                     </div>
                                 </div>
                             </ui:repeat>
