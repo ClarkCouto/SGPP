@@ -31,7 +31,7 @@
                                     filter="true" 
                                     filterMatchMode="contains"
                                     required='true'
-                                    requiredMessage="Categoria é obrigatória">                         
+                                    requiredMessage="Categoria é obrigatória.">                         
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
                                     <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
                                     <p:column>
@@ -48,7 +48,7 @@
                                     label="Nome"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Nome é obrigatório"
+                                    requiredMessage="Nome é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>

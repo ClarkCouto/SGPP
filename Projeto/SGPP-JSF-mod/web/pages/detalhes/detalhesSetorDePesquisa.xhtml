@@ -7,9 +7,6 @@
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{setorDePesquisaBean.limpar()}" />
-        </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar">
@@ -23,7 +20,7 @@
                 <h:form>
                     <div class="form">              
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Cadastrar Setor de Pesquisa</div>
+                            <div class="form--section--title">Detalhes Setor de Pesquisa</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
@@ -31,28 +28,33 @@
                                     id="nome"
                                     label="Nome"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Nome é obrigatório."
+                                    readonly="true"
                                     >
-                                    <f:validateRequired />
-                                </h:inputText>
-                                <h:message for="nome" styleClass="form--group--message" />                                
+                                </h:inputText>                            
                             </div>
-                            <div class="form--group">
+                            <div class="form--group size-half">
                                 <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
                                 <h:inputText
                                     value="#{setorDePesquisaBean.setorDePesquisa.email}"
                                     id="email"
                                     label="E-mail"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="E-mail é obrigatório."
+                                    readonly="true"
                                     >
-                                    <f:validateRequired />
-                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                </h:inputText>
-                                <h:message for="email" styleClass="form--group--message" />
+                                </h:inputText>                            
                             </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
+                                <p:inputMask
+                                    value="#{setorDePesquisaBean.setorDePesquisa.cpf}"
+                                    id="cpf"
+                                    label="CPF"
+                                    styleClass="form--group--text-input"
+                                    mask="999.999.999-99"
+                                    readonly="true"
+                                    >
+                                </p:inputMask>     
+                            </div>   
                             <div class="form--group size-half">
                                 <h:outputLabel for="tel-fixo" styleClass="form--group--label">Telefone Fixo</h:outputLabel>
                                 <p:inputMask
@@ -60,13 +62,10 @@
                                     id="tel-fixo"
                                     label="Telefone Fixo"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Telefone fixo é obrigatório."
                                     mask="(99) 9999-9999"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="tel-fixo" styleClass="form--group--message" />
+                                    readonly="true"
+                                    >
+                                </p:inputMask>                            
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
@@ -75,44 +74,23 @@
                                     id="celular"
                                     label="Telefone Celular"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Telefone celular é obrigatório."
                                     mask="(99) 99999-9999"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="celular" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--group">
-                                <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
-                                <p:inputMask
-                                    value="#{setorDePesquisaBean.setorDePesquisa.cpf}"
-                                    id="cpf"
-                                    label="CPF"
-                                    styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="CPF é obrigatório."
-                                    mask="999.999.999-99"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="cpf" styleClass="form--group--message" />
-                            </div>                            
+                                    readonly="true"
+                                    >
+                                </p:inputMask>     
+                            </div>                         
                             <div class="form--group size-half">
                                 <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
                                 <h:selectOneMenu
                                     value="#{setorDePesquisaBean.setorDePesquisa.sexo}"
                                     id="sexo"
                                     label="Sexo"
-                                    required="true"
-                                    requiredMessage="Sexo é obrigatório."
                                     styleClass="form--group--text-input"
+                                    disabled="true"
                                 >
-                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>   
                                     <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
                                     <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
                                 </h:selectOneMenu>
-                                <h:message for="sexo" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
@@ -121,25 +99,11 @@
                                     id="data-nascimento"
                                     label="Data de Nascimento"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Data de nascimento é obrigatória."
                                     mask="99/99/9999"
                                     converter="cmd.converter.stringToDate"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="data-nascimento" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--actions">
-                                <div class="form--actions">
-                                    <h:commandButton styleClass="button" value="Limpar" action="#{setorDePesquisaBean.limpar()}" type="reset"/>
-                                </div>       
-                                <div class="form--actions">
-                                    <h:commandButton styleClass="button" value="Salvar" action="#{setorDePesquisaBean.salvar()}"/>
-                                </div>   
-                            </div>   
-                            <div class="box--actions--full">       
-                                <p:messages id="messages" />
+                                    readonly="true"
+                                    >
+                                </p:inputMask>     
                             </div>
                         </h:panelGroup>
                     </div>

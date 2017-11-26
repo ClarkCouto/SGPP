@@ -31,7 +31,7 @@
                                     filter="true" 
                                     filterMatchMode="contains"
                                     required='true'
-                                    requiredMessage="Instituição é obrigatória">
+                                    requiredMessage="Instituição é obrigatória.">
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>     
                                     <f:selectItems value="#{cursoBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
                                     <p:column>
@@ -49,7 +49,7 @@
                                     label="Nome"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Nome é obrigatório"
+                                    requiredMessage="Nome é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
