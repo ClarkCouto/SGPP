@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -25,23 +24,13 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class EditalBean {
     private Edital edital = new Edital();
+    private Edital editalSelecionado;
     private List<Edital> editais;
     private List<Edital> listaFiltrada;
     private List<Bolsa> bolsas;
     private List<CategoriaBolsa> categoriasBolsa;
     private List<TipoDocumento> tiposDocumento;
     private List<Lembrete> lembretes;
-
-// Construtor
-    public EditalBean() {
-        this.lembretes = this.edital.getLembretes();
-        this.bolsas = this.edital.getBolsas();
-        this.editais = new EditalDAO().findAll();
-        if(this.lembretes == null)
-            this.lembretes = new ArrayList<>();
-        if(this.bolsas == null)
-            this.bolsas = new ArrayList<>();
-    }
        
 // Getters e Setters
     public List<Edital> getListaFiltrada() {
@@ -60,12 +49,11 @@ public class EditalBean {
         this.edital = edital;
     }
     
-    public List<Edital> getEditais() {        
+    public List<Edital> getEditais() {    
+        this.editais = this.edital.buscarTodos();
         return this.editais;
     }  
 
-   
-        
     public List<Bolsa> getBolsas(){
         this.bolsas = this.edital.getBolsas();
         if(this.bolsas == null)
@@ -86,7 +74,10 @@ public class EditalBean {
         return items;
     }
     
-    public List<Lembrete> getLembretes(){        
+    public List<Lembrete> getLembretes(){     
+        this.lembretes = this.edital.getLembretes();
+        if(this.lembretes == null)
+            this.lembretes = new ArrayList<>();   
         return this.lembretes;
     }
     
@@ -115,7 +106,6 @@ public class EditalBean {
     }
     
     public void adicionarLembrete() {
-//        this.lembretes.add(new Lembrete());
         this.lembretes.add(new Lembrete());
         this.edital.setLembretes(lembretes);
     }
@@ -129,10 +119,37 @@ public class EditalBean {
         this.editais = new EditalDAO().findAll();
     }
     
-    public String editar(Long id) {        
-        this.edital = new EditalDAO().findById(id);                
-        return "/pages/cadastrar/editarEdital?faces-redirect=true&id=" + id;
+    public String detalhar(Long id){
+        if(id != null)
+            editalSelecionado = this.edital.buscarPeloId(id);
+
+        if (editalSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Edital!",
+                                   "Erro ao localizar Edital!"));
+            return "/pages/listar/listarEditais";
+        }
+        else {
+            this.edital = editalSelecionado;
+            return "/pages/detalhes/detalhesEdital?faces-redirect=true";
+        }
     }
+    
+    public String editar(Long id){
+        if(id != null)
+            editalSelecionado = this.edital.buscarPeloId(id);
+
+        if (editalSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Edital!",
+                                   "Erro ao localizar Edital!"));
+            return "/pages/listar/listarEditais";
+        }
+        else {
+            this.edital = editalSelecionado;
+            return "/pages/editar/editarEdital?faces-redirect=true";
+        }
+    }  
 
     public String remover(Long id) {
         if(edital.remover(id))

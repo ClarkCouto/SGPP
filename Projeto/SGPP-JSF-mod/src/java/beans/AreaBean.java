@@ -79,13 +79,16 @@ public class AreaBean {
         if(id != null)
             areaSelecionada = area.buscarPeloId(id);
 
-        if (areaSelecionada != null) {
-            this.area = areaSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (areaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Área!",
+                                   "Erro ao localizar Área!"));
+            return "/pages/listar/listarAreas";
         }
-        return "/pages/editar/editarArea?faces-redirect=true";
+        else {
+            this.area = areaSelecionada;
+            return "/pages/editar/editarArea?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

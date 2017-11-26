@@ -109,13 +109,16 @@ public class ProjetoBean {
         if(id != null)
             projetoSelecionado = this.projeto.buscarPeloId(id);
 
-        if (projetoSelecionado != null) {
-            this.projeto = projetoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (projetoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Projeto!",
+                                   "Erro ao localizar Projeto!"));
+            return "/pages/listar/listarProjetos";
         }
-        return "/pages/editar/editarProjeto?faces-redirect=true";
+        else {
+            this.projeto = projetoSelecionado;
+            return "/pages/editar/editarProjeto?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

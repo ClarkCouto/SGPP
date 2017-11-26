@@ -74,13 +74,16 @@ public class SetorDePesquisaBean implements Serializable {
         if(id != null)
             setorDePesquisaSelecionado = this.setorDePesquisa.buscarPeloId(id);
 
-        if (setorDePesquisaSelecionado != null) {
-            this.setorDePesquisa = setorDePesquisaSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (setorDePesquisaSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Setor De Pesquisa!",
+                                   "Erro ao localizar Setor De Pesquisa!"));
+            return "/pages/listar/listarSetoresDePesquisa";
         }
-        return "/pages/editar/editarSetorDePesquisa?faces-redirect=true";
+        else {
+            this.setorDePesquisa = setorDePesquisaSelecionado;
+            return "/pages/editar/editarSetorDePesquisa?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

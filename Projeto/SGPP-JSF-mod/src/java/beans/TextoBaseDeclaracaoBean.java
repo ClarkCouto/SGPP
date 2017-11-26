@@ -79,13 +79,16 @@ public class TextoBaseDeclaracaoBean {
         if(id != null)
             textoBaseDeclaracaoSelecionado = this.textoBaseDeclaracao.buscarPeloId(id);
 
-        if (textoBaseDeclaracaoSelecionado != null) {
-            this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (textoBaseDeclaracaoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Texto Base Declaração!",
+                                   "Erro ao localizar Texto Base Declaração!"));
+            return "/pages/listar/listarTextosBaseDeclaracao";
         }
-        return "/pages/editar/editarTextoBaseDeclaracao?faces-redirect=true";
+        else {
+            this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
+            return "/pages/editar/editarTextoBaseDeclaracao?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

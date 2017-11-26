@@ -92,13 +92,16 @@ public class CursoBean {
         if(id != null)
             cursoSelecionado = this.curso.buscarPeloId(id);
 
-        if (cursoSelecionado != null) {
-            this.curso = cursoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (cursoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Curso!",
+                                   "Erro ao localizar Curso!"));
+            return "/pages/listar/listarCursos";
         }
-        return "/pages/editar/editarCurso?faces-redirect=true";
+        else {
+            this.curso = cursoSelecionado;
+            return "/pages/editar/editarCurso?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

@@ -79,13 +79,16 @@ public class ColaboradorBean {
         if(id != null)
             colaboradorSelecionado = this.colaborador.buscarPeloId(id);
 
-        if (colaboradorSelecionado != null) {
-            this.colaborador = colaboradorSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (colaboradorSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Colaborador!",
+                                   "Erro ao localizar Colaborador!"));
+            return "/pages/listar/listarColaboradores";
         }
-        return "/pages/editar/editarColaborador?faces-redirect=true";
+        else {
+            this.colaborador = colaboradorSelecionado;
+            return "/pages/editar/editarColaborador?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

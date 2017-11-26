@@ -26,7 +26,7 @@ public class Coordenador extends Usuario implements Serializable{
     @ManyToOne
     private Area area;
     
-    @OneToMany(mappedBy="coordenador")
+    @OneToMany
     private List<GrupoDePesquisa> gruposDePesquisa;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")

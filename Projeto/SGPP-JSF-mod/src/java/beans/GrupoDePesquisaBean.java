@@ -92,13 +92,16 @@ public class GrupoDePesquisaBean {
         if(id != null)
             grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
 
-        if (grupoDePesquisaSelecionado != null) {
-            this.grupoDePesquisa = grupoDePesquisaSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (grupoDePesquisaSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Grupo De Pesquisa!",
+                                   "Erro ao localizar Grupo De Pesquisa!"));
+            return "/pages/listar/listarGruposDePesquisa";
         }
-        return "/pages/editar/editarGrupoDePesquisa?faces-redirect=true";
+        else {
+            this.grupoDePesquisa = grupoDePesquisaSelecionado;
+            return "/pages/editar/editarGrupoDePesquisa?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

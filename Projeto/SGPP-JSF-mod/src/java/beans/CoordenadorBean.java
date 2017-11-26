@@ -32,7 +32,7 @@ public class CoordenadorBean implements Serializable {
     private List<Area> areas; 
     private List<Coordenador> coordenadores; 
     private List<Coordenador> listaFiltrada;
-    private List<GrupoDePesquisa> gruposDePesquisa = new ArrayList<>();
+    private List<GrupoDePesquisa> gruposDePesquisa;
     private Boolean editando;
     
 // Construtor

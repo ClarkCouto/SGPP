@@ -92,13 +92,16 @@ public class BolsaBean {
         if(id != null)
             bolsaSelecionada = this.bolsa.buscarPeloId(id);
 
-        if (bolsaSelecionada != null) {
-            this.bolsa = bolsaSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (bolsaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Bolsa!",
+                                   "Erro ao localizar Bolsa!"));
+            return "/pages/listar/listarBolsas";
         }
-        return "/pages/editar/editarBolsa?faces-redirect=true";
+        else {
+            this.bolsa = bolsaSelecionada;
+            return "/pages/editar/editarBolsa?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
