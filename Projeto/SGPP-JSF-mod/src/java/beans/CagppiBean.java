@@ -6,6 +6,7 @@
 package beans;
 
 import entities.Cagppi;
+import entities.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -104,18 +105,33 @@ public class CagppiBean implements Serializable {
     }
     
     public String salvar() {
-        cagppi.setAtivo(Boolean.TRUE);
-        cagppi.setDataNascimento(new Date());
-        cagppi.setSenha("1234");
-        cagppi.setTipo("Cagppi");
-        cagppi.setUltimoAcesso(new Date());
-        if(cagppi.salvar())
-            return "/pages/listar/listarCagppi?faces-redirect=true";
-        else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar CAGPPi!",
-                                   "Erro ao salvar CAGPPI!"));
-            return "/pages/cadastrar/cadastrarCagppi";
+        if(validarCpfUnico(cagppi.getCpf())){
+            cagppi.setAtivo(Boolean.TRUE);
+            cagppi.setDataNascimento(new Date());
+            cagppi.setSenha("1234");
+            cagppi.setTipo("Cagppi");
+            cagppi.setUltimoAcesso(new Date());
+            if(cagppi.salvar())
+                return "/pages/listar/listarCagppi?faces-redirect=true";
+            else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar CAGPPi!",
+                                       "Erro ao salvar CAGPPI!"));
+                return "/pages/cadastrar/cadastrarCagppi";
+            }
         }
+        else{
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Coordenador!",
+                                   "Já existe um Usuário cadastrado com este CPF!"));
+            return "/pages/cadastrar/cadastrarCoordenador";
+        }
+    }
+    
+    public boolean validarCpfUnico(String cpf){
+        Usuario user = new Usuario().buscarPeloCpf(cpf);
+        if(user == null)
+            return true;
+        return false;
     }
 }

@@ -8,16 +8,14 @@ package beans;
 import entities.Area;
 import entities.Coordenador;
 import entities.GrupoDePesquisa;
+import entities.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -217,19 +215,34 @@ public class CoordenadorBean implements Serializable {
     }
     
     public String salvar() {
-        coordenador.setAtivo(Boolean.TRUE);
-        coordenador.setDataNascimento(new Date());
-        coordenador.setGruposDePesquisa(gruposDePesquisaSelecionados);
-        coordenador.setSenha("1234");
-        coordenador.setTipo("Coordenador");
-        coordenador.setUltimoAcesso(new Date());
-        if(coordenador.salvar())
-            return "/pages/listar/listarCoordenadores?faces-redirect=true";
-        else {
+        if(validarCpfUnico(coordenador.getCpf())){
+            coordenador.setAtivo(Boolean.TRUE);
+            coordenador.setDataNascimento(new Date());
+            coordenador.setGruposDePesquisa(gruposDePesquisaSelecionados);
+            coordenador.setSenha("1234");
+            coordenador.setTipo("Coordenador");
+            coordenador.setUltimoAcesso(new Date());
+            if(coordenador.salvar())
+                return "/pages/listar/listarCoordenadores?faces-redirect=true";
+            else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Coordenador!",
+                                       "Erro ao salvar Coordenador!"));
+                return "/pages/cadastrar/cadastrarCoordenador";
+            }
+        }
+        else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Coordenador!",
-                                   "Erro ao salvar Coordenador!"));
+                                   "Já existe um Usuário cadastrado com este CPF!"));
             return "/pages/cadastrar/cadastrarCoordenador";
         }
+    }
+    
+    public boolean validarCpfUnico(String cpf){
+        Usuario user = new Usuario().buscarPeloCpf(cpf);
+        if(user == null)
+            return true;
+        return false;
     }
 }
