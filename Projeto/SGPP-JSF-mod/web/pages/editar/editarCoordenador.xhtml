@@ -171,17 +171,18 @@
                                 <div class="form--row">
                                     <div class="form--group size-half">
                                         <h:outputLabel for="grupo-pesquisa" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
-                                        <p:selectOneMenu id="grupo-pesquisa" 
-                                            value="#{grupo}" 
-                                            converter="SimpleEntityConverter"
+                                        <p:selectOneMenu id="grupo-pesquisa"  
+                                            value="#{grupo}"
                                             effect="fade" 
-                                            var="group" 
+                                            var="tipo" 
                                             filter="true" 
                                             filterMatchMode="contains">                     
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItem itemLabel="Teste"/>                                  
-                                            
-                                        </p:selectOneMenu>
+                                            <f:selectItems value="#{coordenadorBean.gruposDePesquisaOptions}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+                                            <p:column>
+                                                <h:outputText value="#{tipo.nome}" />
+                                            </p:column>
+                                        </p:selectOneMenu>    
                                     </div>
 
                                     <div class="form--group">

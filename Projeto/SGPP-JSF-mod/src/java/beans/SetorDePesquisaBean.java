@@ -6,6 +6,7 @@
 package beans;
 
 import entities.SetorDePesquisa;
+import entities.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -104,18 +105,33 @@ public class SetorDePesquisaBean implements Serializable {
     }
     
     public String salvar() {
-        setorDePesquisa.setAtivo(Boolean.TRUE);
-        setorDePesquisa.setDataNascimento(new Date());
-        setorDePesquisa.setSenha("1234");
-        setorDePesquisa.setTipo("SetorDePesquisa");
-        setorDePesquisa.setUltimoAcesso(new Date());
-        if(setorDePesquisa.salvar())
-            return "/pages/listar/listarSetoresDePesquisa?faces-redirect=true";
-        else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Setor De Pesquisa!",
-                                   "Erro ao salvar Setor De Pesquisa!"));
-            return "/pages/cadastrar/cadastrarSetorDePesquisa";
+        if(validarCpfUnico(setorDePesquisa.getCpf())){
+            setorDePesquisa.setAtivo(Boolean.TRUE);
+            setorDePesquisa.setDataNascimento(new Date());
+            setorDePesquisa.setSenha("1234");
+            setorDePesquisa.setTipo("SetorDePesquisa");
+            setorDePesquisa.setUltimoAcesso(new Date());
+            if(setorDePesquisa.salvar())
+                return "/pages/listar/listarSetoresDePesquisa?faces-redirect=true";
+            else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Setor De Pesquisa!",
+                                       "Erro ao salvar Setor De Pesquisa!"));
+                return "/pages/cadastrar/cadastrarSetorDePesquisa";
+            }
         }
+        else{
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Coordenador!",
+                                   "Já existe um Usuário cadastrado com este CPF!"));
+            return "/pages/cadastrar/cadastrarCoordenador";
+        }
+    }
+    
+    public boolean validarCpfUnico(String cpf){
+        Usuario user = new Usuario().buscarPeloCpf(cpf);
+        if(user == null)
+            return true;
+        return false;
     }
 }

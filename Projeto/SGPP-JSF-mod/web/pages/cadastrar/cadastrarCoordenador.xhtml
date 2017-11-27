@@ -169,18 +169,22 @@
                                 varStatus="linha"
                                 >   
                                 <div class="form--row">
-                                    <div class="form--group size-half">
+                                    <div class="form--group">
                                         <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
                                         <p:selectOneMenu id="categoria-bolsa" 
                                             value="#{grupo}"
                                             effect="fade" 
-                                            var="tipo" 
+                                            var="group" 
                                             filter="true" 
-                                            filterMatchMode="contains">                     
+                                            filterMatchMode="contains"
+                                            valueChangeListener="#{coordenadorBean.atualizarGrupoSelecionado}"
+                                            immediate="true" 
+                                            >                     
+                                            <p:ajax listener="#{coordenadorBean.atualizarGrupoSelecionado}" event="change"/>
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
                                             <f:selectItems value="#{coordenadorBean.gruposDePesquisaOptions}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
                                             <p:column>
-                                                <h:outputText value="#{tipo.nome}" />
+                                                <h:outputText value="#{group.nome}" />
                                             </p:column>
                                         </p:selectOneMenu>                                       
                                     </div>
@@ -190,7 +194,9 @@
                                 </div>
                             </ui:repeat>
                             <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Adicionar grupo" action="#{coordenadorBean.adicionarGrupoDePesquisa()}"/>
+                                <h:commandButton styleClass="button" value="Adicionar grupo" action="#{coordenadorBean.adicionarGrupoDePesquisa()}">
+                                    <f:ajax render="grupos"/>
+                                </h:commandButton>
                             </div>                            
                         </h:panelGroup>      
                         <div class="form--actions">

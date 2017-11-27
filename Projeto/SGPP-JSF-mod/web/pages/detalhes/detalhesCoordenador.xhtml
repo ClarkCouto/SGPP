@@ -94,7 +94,7 @@
                                     effect="fade" 
                                     var="ar" 
                                     disabled="true">
-                                    <f:selectItems value="#{coordenadorBean.areas}" var="area" itemLabel="#{area.nome}" itemValue="#{area}" />
+                                    <f:selectItems value="#{coordenadorBean.areasOptions}" var="area" itemLabel="#{area.label}" itemValue="#{area}" />
                                     <p:column>
                                         <h:outputText value="#{ar.nome}" />
                                     </p:column>
