@@ -9,9 +9,11 @@ import dao.CoordenadorDAO;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 /**
@@ -26,7 +28,7 @@ public class Coordenador extends Usuario implements Serializable{
     @ManyToOne
     private Area area;
     
-    @OneToMany
+    @OneToMany(cascade={CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<GrupoDePesquisa> gruposDePesquisa;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
@@ -101,12 +103,4 @@ public class Coordenador extends Usuario implements Serializable{
     public List<Coordenador> buscarTodosCoordenadores() {
         return new CoordenadorDAO().findAll();
     }
-   
-//    public boolean remover(Long id) {
-//        return new CoordenadorDAO().remove(id);
-//    }  
-//    
-//    public boolean salvar(){
-//        return new CoordenadorDAO().save(this);
-//    }
 }

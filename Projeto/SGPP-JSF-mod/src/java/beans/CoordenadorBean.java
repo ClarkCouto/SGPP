@@ -17,7 +17,9 @@ import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -33,14 +35,7 @@ public class CoordenadorBean implements Serializable {
     private List<Coordenador> listaFiltrada;
     private List<GrupoDePesquisa> gruposDePesquisa;
     private List<GrupoDePesquisa> gruposDePesquisaOptions;
-    private Boolean editando;
-    
-// Construtor
-    public CoordenadorBean() {
-        this.gruposDePesquisa = this.coordenador.getGruposDePesquisa();
-        if(this.gruposDePesquisa == null)
-            this.gruposDePesquisa = new ArrayList<>();        
-    }
+    private List<GrupoDePesquisa> gruposDePesquisaSelecionados;
     
     // Getters e Setters
     public List<Coordenador> getListaFiltrada() {
@@ -61,14 +56,21 @@ public class CoordenadorBean implements Serializable {
     }
 
     public List<GrupoDePesquisa> getGruposDePesquisa() {
+        this.gruposDePesquisa = this.coordenador.getGruposDePesquisa();
+        if(this.gruposDePesquisa == null){
+            this.gruposDePesquisa = new ArrayList<>();  
+            this.gruposDePesquisaSelecionados = new ArrayList<>();  
+        }
         return gruposDePesquisa;
+    }
+
+    public List<GrupoDePesquisa> getGruposDePesquisaSelecionados() {
+        return gruposDePesquisaSelecionados;
     }
 
     public void setGruposDePesquisa(List<GrupoDePesquisa> gruposDePesquisa) {
         this.gruposDePesquisa = gruposDePesquisa;
     }
-    
-    
     
     public List<SelectItem> getGruposDePesquisaOptions(){        
         this.gruposDePesquisaOptions = new GrupoDePesquisa().buscarTodos();
@@ -76,7 +78,6 @@ public class CoordenadorBean implements Serializable {
         this.gruposDePesquisaOptions.forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
         });
-        
         return items;
     }
     
@@ -100,14 +101,6 @@ public class CoordenadorBean implements Serializable {
     public void setCoordenadores(List<Coordenador> coordenadores){
         this.coordenadores = coordenadores;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
     // Ações
     public void adicionarGrupoDePesquisa() {
@@ -119,6 +112,61 @@ public class CoordenadorBean implements Serializable {
         this.gruposDePesquisa.remove(grupo);
         this.coordenador.setGruposDePesquisa(this.gruposDePesquisa);
     }   
+    
+//    public String atualizarGrupoSelecionado(ValueChangeEvent event) {
+//        GrupoDePesquisa grupo = this.gruposDePesquisaOptions.get(Integer.parseInt(event.getNewValue().toString().replaceAll("\\D+",""))-1);
+//        Integer num = Integer.parseInt(event.getOldValue().toString().replaceAll("\\D+",""))-1;
+//        if(num != -1){
+//            if(!this.gruposDePesquisaSelecionados.contains(grupo)){
+//                this.gruposDePesquisaSelecionados.add(grupo);
+//                this.coordenador.setGruposDePesquisa(this.gruposDePesquisaSelecionados);
+//            }
+//            else{
+//                FacesContext.getCurrentInstance().addMessage(null,
+//                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este Grupo de Pesquisa já foi adicionado anteriormente",
+//                                       "Este Grupo de Pesquisa já foi adicionado anteriormente!"));
+//            }
+//        }
+//        else{
+//            this.gruposDePesquisaSelecionados.add(grupo);
+//            this.coordenador.setGruposDePesquisa(this.gruposDePesquisaSelecionados);
+//        }
+//        return "/pages/cadastrar/cadastrarCoordenador";
+//    } 
+    
+    public String atualizarGrupoSelecionado(ValueChangeEvent event) {
+        GrupoDePesquisa grupo = null;
+        Long novo = Long.parseLong(event.getNewValue().toString().replaceAll("\\D+",""));
+        for(GrupoDePesquisa g : gruposDePesquisaOptions){
+            if(g.getId() == novo)
+                grupo = g;
+        }
+        Long id;
+        if(event.getOldValue().toString().replaceAll("\\D+","").equals(""))
+            id = null;
+        else
+            id = Long.parseLong(event.getOldValue().toString().replaceAll("\\D+",""));
+        
+        if(id != null){
+            if(!this.gruposDePesquisaSelecionados.contains(grupo)){
+                for(int i = 0; i < gruposDePesquisaSelecionados.size(); i++){
+                    if(gruposDePesquisaSelecionados.get(i).getId() == id)
+                        gruposDePesquisaSelecionados.set(i, grupo);
+                }
+            }
+            else{
+                FacesContext.getCurrentInstance().addMessage(null,
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este Grupo de Pesquisa já foi adicionado anteriormente",
+                                       "Este Grupo de Pesquisa já foi adicionado anteriormente!"));
+            }
+        }
+        else{
+            this.gruposDePesquisaSelecionados.add(grupo);
+        }
+        this.gruposDePesquisa = this.gruposDePesquisaSelecionados;
+        this.coordenador.setGruposDePesquisa(this.gruposDePesquisaSelecionados);
+        return "/pages/cadastrar/cadastrarCoordenador";
+    } 
     
     public String detalhar(Long id){
         if(id != null)
@@ -140,17 +188,19 @@ public class CoordenadorBean implements Serializable {
         if(id != null)
             coordenadorSelecionado = this.coordenador.buscarPeloId(id);
 
-        if (coordenadorSelecionado != null) {
-            this.coordenador = coordenadorSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (coordenadorSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Coordenador!",
+                                   "Erro ao localizar Coordenador!"));
+            return "/pages/listar/listarCoordenadores";
         }
-        return "/pages/editar/editarCoordenador?faces-redirect=true";
+        else {
+            this.coordenador = coordenadorSelecionado;
+            return "/pages/editar/editarCoordenador?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.coordenador = new Coordenador();
         this.coordenadorSelecionado = new Coordenador();
     }
@@ -169,7 +219,7 @@ public class CoordenadorBean implements Serializable {
     public String salvar() {
         coordenador.setAtivo(Boolean.TRUE);
         coordenador.setDataNascimento(new Date());
-        coordenador.setGruposDePesquisa(gruposDePesquisa);
+        coordenador.setGruposDePesquisa(gruposDePesquisaSelecionados);
         coordenador.setSenha("1234");
         coordenador.setTipo("Coordenador");
         coordenador.setUltimoAcesso(new Date());

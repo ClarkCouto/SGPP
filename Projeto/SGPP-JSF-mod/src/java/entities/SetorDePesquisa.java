@@ -31,12 +31,4 @@ public class SetorDePesquisa extends Usuario implements Serializable{
     public List<SetorDePesquisa> buscarTodosSetores() {
         return new SetorDePesquisaDAO().findAll();
     }
-   
-//    public boolean remover(Long id) {
-//        return new SetorDePesquisaDAO().remove(id);
-//    }  
-//    
-//    public boolean salvar(){
-//        return new SetorDePesquisaDAO().save(this);
-//    }
 }

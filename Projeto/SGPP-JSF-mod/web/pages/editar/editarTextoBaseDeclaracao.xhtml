@@ -37,28 +37,25 @@
                             </div>
                             <div class="form--group">
                                 <h:outputLabel for="texto" styleClass="form--group--label">Texto Declaração</h:outputLabel>
-                                <p:inputTextarea 
-                                    value="#{textoBaseDeclaracaoBean.textoBaseDeclaracao.texto}"
-                                    rows="5" 
-                                    cols="30" 
-                                    counter="contador" 
-                                    maxlength="1000" 
-                                    counterTemplate="{0} caracteres restantes." 
-                                    autoResize="false"
+                                <p:textEditor 
+                                    widgetVar="texto" 
+                                    value="#{textoBaseDeclaracaoBean.textoBaseDeclaracao.texto}" 
+                                    height="300" 
+                                    style="margin-bottom:10px"
                                     required='true'
                                     requiredMessage="Texto da declaração é obrigatório."
-                                    />
-                                    <!-- Tem que baixar o Primefaces 6.0.6 -->
-                                    <!--<p:textEditor widgetVar="texto" value="# {editorView.text}" height="300" style="margin-bottom:10px"/>-->
-                                <h:outputText id="contador" />
+                                />
                                 <h:message for="texto" styleClass="form--group--message" />
                             </div>
-                            
-                            
                         </h:panelGroup>
                         <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{textoBaseDeclaracaoBean.salvar()}"/>
-                        </div>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{textoBaseDeclaracaoBean.limpar()}" type="reset"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{textoBaseDeclaracaoBean.salvar()}"/>
+                            </div>   
+                        </div>    
                         <div class="form--actions">
                             <p:messages id="messages" />  
                         </div>
