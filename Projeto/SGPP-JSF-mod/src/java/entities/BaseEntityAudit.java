@@ -66,6 +66,7 @@ public class BaseEntityAudit extends BaseEntity {
 
     @PrePersist
     public void setCreationDate() {
+        this.setAtivo(Boolean.TRUE);
         this.setDataCriacao(new Date());
         this.setDataUltimaAlteracao(new Date());
     }

@@ -35,6 +35,7 @@ public class CoordenadorBean implements Serializable {
     private List<GrupoDePesquisa> gruposDePesquisa;
     private List<GrupoDePesquisa> gruposDePesquisaOptions;
     private List<Instituicao> instituicoes;
+    private boolean editando;
     
     // Getters e Setters
     public List<Coordenador> getListaFiltrada() {
@@ -64,7 +65,8 @@ public class CoordenadorBean implements Serializable {
 
     public void setGruposDePesquisa() {
         getGruposDePesquisa();
-        this.gruposDePesquisa.add(this.grupoDePesquisaSelecionado);
+        if(!this.gruposDePesquisa.contains(this.grupoDePesquisaSelecionado))
+            this.gruposDePesquisa.add(this.grupoDePesquisaSelecionado);
     }
 
     public GrupoDePesquisa getGrupoDePesquisaSelecionado() {
@@ -75,9 +77,8 @@ public class CoordenadorBean implements Serializable {
         this.grupoDePesquisaSelecionado = grupoDePesquisaSelecionado;
     }
     
-    public List<SelectItem> getGruposDePesquisaOptions(){        
+    public List<SelectItem> getGruposDePesquisaOptions(){   
         this.gruposDePesquisaOptions = new GrupoDePesquisa().buscarTodos();
-//        this.gruposDePesquisaOptions.removeAll(this.gruposDePesquisa);
         List<SelectItem> items = new ArrayList<>();
         this.gruposDePesquisaOptions.forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
@@ -142,6 +143,7 @@ public class CoordenadorBean implements Serializable {
             return "/pages/listar/listarCoordenadores";
         }
         else {
+            this.editando = true;
             this.coordenador = coordenadorSelecionado;
             return "/pages/editar/editarCoordenador?faces-redirect=true";
         }
@@ -164,11 +166,20 @@ public class CoordenadorBean implements Serializable {
     }
     
     public String salvar() {
-            if(validarCpfUnico(coordenador.getCpf())){
+        setGruposDePesquisa();
+        coordenador.setGruposDePesquisa(gruposDePesquisa);
+        if(this.editando){
+            if(coordenador.salvar())
+                return "/pages/listar/listarCoordenadores?faces-redirect=true";
+            else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao editar Coordenador!",
+                                       "Erro ao editar Coordenador!"));
+                return "/pages/editar/editarCoordenador";
+            }
+        }
+        else if(validarCpfUnico(coordenador.getCpf())){
             coordenador.setAtivo(Boolean.TRUE);
-            coordenador.setDataNascimento(new Date());
-            setGruposDePesquisa();
-            coordenador.setGruposDePesquisa(gruposDePesquisa);
             coordenador.setSenha("1234");
             coordenador.setTipo("Coordenador");
             coordenador.setUltimoAcesso(new Date());
@@ -183,8 +194,8 @@ public class CoordenadorBean implements Serializable {
         }
         else{
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Coordenador!",
-                                   "Já existe um Usuário cadastrado com este CPF!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Já existe um Usuário cadastrado com este CPF!",
+                                   "Teste"));
             return "/pages/cadastrar/cadastrarCoordenador";
         }
     }
