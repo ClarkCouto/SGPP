@@ -8,6 +8,7 @@ package beans;
 import entities.Area;
 import entities.Coordenador;
 import entities.GrupoDePesquisa;
+import entities.Instituicao;
 import entities.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -29,11 +29,12 @@ import javax.faces.model.SelectItem;
 public class CoordenadorBean implements Serializable {    
     private Coordenador coordenador = new Coordenador();
     private Coordenador coordenadorSelecionado;
+    private GrupoDePesquisa grupoDePesquisaSelecionado;
     private List<Coordenador> coordenadores; 
     private List<Coordenador> listaFiltrada;
     private List<GrupoDePesquisa> gruposDePesquisa;
     private List<GrupoDePesquisa> gruposDePesquisaOptions;
-    private List<GrupoDePesquisa> gruposDePesquisaSelecionados;
+    private List<Instituicao> instituicoes;
     
     // Getters e Setters
     public List<Coordenador> getListaFiltrada() {
@@ -51,32 +52,45 @@ public class CoordenadorBean implements Serializable {
             items.add(new SelectItem(c, c.getNome()));
         }); 
         return items;
-    }
+    }    
 
     public List<GrupoDePesquisa> getGruposDePesquisa() {
         this.gruposDePesquisa = this.coordenador.getGruposDePesquisa();
         if(this.gruposDePesquisa == null){
             this.gruposDePesquisa = new ArrayList<>();  
-            this.gruposDePesquisaSelecionados = new ArrayList<>();  
         }
         return gruposDePesquisa;
     }
 
-    public List<GrupoDePesquisa> getGruposDePesquisaSelecionados() {
-        return gruposDePesquisaSelecionados;
+    public void setGruposDePesquisa() {
+        getGruposDePesquisa();
+        this.gruposDePesquisa.add(this.grupoDePesquisaSelecionado);
     }
 
-    public void setGruposDePesquisa(List<GrupoDePesquisa> gruposDePesquisa) {
-        this.gruposDePesquisa = gruposDePesquisa;
+    public GrupoDePesquisa getGrupoDePesquisaSelecionado() {
+        return grupoDePesquisaSelecionado;
+    }
+
+    public void setGrupoDePesquisaSelecionado(GrupoDePesquisa grupoDePesquisaSelecionado) {
+        this.grupoDePesquisaSelecionado = grupoDePesquisaSelecionado;
     }
     
     public List<SelectItem> getGruposDePesquisaOptions(){        
         this.gruposDePesquisaOptions = new GrupoDePesquisa().buscarTodos();
+//        this.gruposDePesquisaOptions.removeAll(this.gruposDePesquisa);
         List<SelectItem> items = new ArrayList<>();
         this.gruposDePesquisaOptions.forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
         });
         return items;
+    } 
+
+    public List<Instituicao> getInstituicoes() {
+        this.instituicoes = new Instituicao().buscarTodos();
+        if(this.instituicoes == null){
+            this.instituicoes = new ArrayList<>();  
+        }
+        return instituicoes;
     }
     
     public Coordenador getCoordenador() {
@@ -100,72 +114,7 @@ public class CoordenadorBean implements Serializable {
         this.coordenadores = coordenadores;
     }
     
-    // Ações
-    public void adicionarGrupoDePesquisa() {
-        this.gruposDePesquisa.add(new GrupoDePesquisa());
-        this.coordenador.setGruposDePesquisa(gruposDePesquisa);
-    }
-    
-    public void removerGrupoDePesquisa(GrupoDePesquisa grupo) {
-        this.gruposDePesquisa.remove(grupo);
-        this.coordenador.setGruposDePesquisa(this.gruposDePesquisa);
-    }   
-    
-//    public String atualizarGrupoSelecionado(ValueChangeEvent event) {
-//        GrupoDePesquisa grupo = this.gruposDePesquisaOptions.get(Integer.parseInt(event.getNewValue().toString().replaceAll("\\D+",""))-1);
-//        Integer num = Integer.parseInt(event.getOldValue().toString().replaceAll("\\D+",""))-1;
-//        if(num != -1){
-//            if(!this.gruposDePesquisaSelecionados.contains(grupo)){
-//                this.gruposDePesquisaSelecionados.add(grupo);
-//                this.coordenador.setGruposDePesquisa(this.gruposDePesquisaSelecionados);
-//            }
-//            else{
-//                FacesContext.getCurrentInstance().addMessage(null,
-//                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este Grupo de Pesquisa já foi adicionado anteriormente",
-//                                       "Este Grupo de Pesquisa já foi adicionado anteriormente!"));
-//            }
-//        }
-//        else{
-//            this.gruposDePesquisaSelecionados.add(grupo);
-//            this.coordenador.setGruposDePesquisa(this.gruposDePesquisaSelecionados);
-//        }
-//        return "/pages/cadastrar/cadastrarCoordenador";
-//    } 
-    
-    public String atualizarGrupoSelecionado(ValueChangeEvent event) {
-        GrupoDePesquisa grupo = null;
-        Long novo = Long.parseLong(event.getNewValue().toString().replaceAll("\\D+",""));
-        for(GrupoDePesquisa g : gruposDePesquisaOptions){
-            if(g.getId() == novo)
-                grupo = g;
-        }
-        Long id;
-        if(event.getOldValue().toString().replaceAll("\\D+","").equals(""))
-            id = null;
-        else
-            id = Long.parseLong(event.getOldValue().toString().replaceAll("\\D+",""));
-        
-        if(id != null){
-            if(!this.gruposDePesquisaSelecionados.contains(grupo)){
-                for(int i = 0; i < gruposDePesquisaSelecionados.size(); i++){
-                    if(gruposDePesquisaSelecionados.get(i).getId() == id)
-                        gruposDePesquisaSelecionados.set(i, grupo);
-                }
-            }
-            else{
-                FacesContext.getCurrentInstance().addMessage(null,
-                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este Grupo de Pesquisa já foi adicionado anteriormente",
-                                       "Este Grupo de Pesquisa já foi adicionado anteriormente!"));
-            }
-        }
-        else{
-            this.gruposDePesquisaSelecionados.add(grupo);
-        }
-        this.gruposDePesquisa = this.gruposDePesquisaSelecionados;
-        this.coordenador.setGruposDePesquisa(this.gruposDePesquisaSelecionados);
-        return "/pages/cadastrar/cadastrarCoordenador";
-    } 
-    
+    // Ações    
     public String detalhar(Long id){
         if(id != null)
             coordenadorSelecionado = this.coordenador.buscarPeloId(id);
@@ -215,10 +164,11 @@ public class CoordenadorBean implements Serializable {
     }
     
     public String salvar() {
-        if(validarCpfUnico(coordenador.getCpf())){
+            if(validarCpfUnico(coordenador.getCpf())){
             coordenador.setAtivo(Boolean.TRUE);
             coordenador.setDataNascimento(new Date());
-            coordenador.setGruposDePesquisa(gruposDePesquisaSelecionados);
+            setGruposDePesquisa();
+            coordenador.setGruposDePesquisa(gruposDePesquisa);
             coordenador.setSenha("1234");
             coordenador.setTipo("Coordenador");
             coordenador.setUltimoAcesso(new Date());

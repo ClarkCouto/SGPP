@@ -9,8 +9,10 @@ import dao.GrupoDePesquisaDAO;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 /**
@@ -21,7 +23,7 @@ import javax.persistence.ManyToOne;
 public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
     
-//    @ManyToOne(optional=true)
+//    @ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 //    private Coordenador coordenador;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")

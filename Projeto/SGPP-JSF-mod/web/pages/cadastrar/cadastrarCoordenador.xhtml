@@ -20,6 +20,7 @@
                 <h:form>
                     <div class="form">                                  
                         <h:panelGroup class="form--section">
+                            <p:growl id="messages" /> 
                             <div class="form--section--title">Cadastrar Coordenador</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
@@ -35,7 +36,7 @@
                                 </h:inputText>
                                 <h:message for="nome" styleClass="form--group--message" />                                
                             </div>
-                            <div class="form--group">
+                            <div class="form--group size-half">
                                 <h:outputLabel for="email" styleClass="form--group--label">E-mail</h:outputLabel>
                                 <h:inputText
                                     value="#{coordenadorBean.coordenador.email}"
@@ -50,6 +51,21 @@
                                 </h:inputText>
                                 <h:message for="email" styleClass="form--group--message" />
                             </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
+                                <p:inputMask
+                                    value="#{coordenadorBean.coordenador.cpf}"
+                                    id="cpf"
+                                    label="CPF"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="CPF é obrigatório."
+                                    mask="999.999.999-99"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="cpf" styleClass="form--group--message" />
+                            </div> 
                             <div class="form--group size-half">
                                 <h:outputLabel for="celular" styleClass="form--group--label">Telefone Celular</h:outputLabel>
                                 <p:inputMask
@@ -79,22 +95,7 @@
                                     <f:validateRequired />
                                 </p:inputMask>
                                 <h:message for="tel-fixo" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
-                                <p:inputMask
-                                    value="#{coordenadorBean.coordenador.cpf}"
-                                    id="cpf"
-                                    label="CPF"
-                                    styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="CPF é obrigatório."
-                                    mask="999.999.999-99"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="cpf" styleClass="form--group--message" />
-                            </div>                            
+                            </div>                           
                             <div class="form--group size-half">
                                 <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
                                 <h:selectOneMenu
@@ -112,6 +113,32 @@
                                 <h:message for="sexo" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
+                                <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
+                                <p:inputMask
+                                    value="#{coordenadorBean.coordenador.dataNascimento}"
+                                    id="data-nascimento"
+                                    label="Data de Nascimento"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Data de nascimento é obrigatória."
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="data-nascimento" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="siape" styleClass="form--group--label">SIAPE</h:outputLabel>
+                                <p:inputText
+                                    value="#{coordenadorBean.coordenador.siape}"
+                                    id="siape"
+                                    label="SIAPE"
+                                    styleClass="form--group--text-input"
+                                >
+                                </p:inputText>
+                            </div> 
+                            <div class="form--group size-half">
                                 <h:outputLabel for="area-coordenador" styleClass="form--group--label">Área</h:outputLabel>
                                 <p:selectOneMenu id="area-coordenador" 
                                     value="#{coordenadorBean.coordenador.area}"  
@@ -119,7 +146,7 @@
                                     effect="fade" 
                                     var="ar" 
                                     filter="true" 
-                                    filterMatchMode="startsWith"
+                                    filterMatchMode="contains"
                                     required='true'
                                     requiredMessage="Área é obrigatória.">
                                     <f:selectItem itemLabel="-- Selecione --" itemValue="" />
@@ -131,74 +158,44 @@
                                 <h:message for="area-coordenador" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
-                                <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
-                                <p:inputMask
-                                    value="#{coordenadorBean.coordenador.dataNascimento}"
-                                    id="data-nascimento"
-                                    label="Data de Nascimento"
-                                    styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Data de nascimento é obrigatório."
-                                    mask="99/99/9999"
-                                    converter="cmd.converter.stringToDate"
-                                >
-                                    <f:validateRequired />
-                                </p:inputMask>
-                                <h:message for="data-nascimento" styleClass="form--group--message" />
+                                <h:outputLabel for="grupo-coordenador" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
+                                <p:selectOneMenu id="grupo-coordenador" 
+                                    value="#{coordenadorBean.grupoDePesquisaSelecionado}"  
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="group" 
+                                    filter="true" 
+                                    filterMatchMode="contains"
+                                    required='true'
+                                    requiredMessage="Grupo de Pesquisa é obrigatório.">
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/> 
+                                    <f:selectItems value="#{coordenadorBean.gruposDePesquisaOptions}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+                                    <p:column>
+                                        <h:outputText value="#{group.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="grupo-coordenador" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="instituicao-coordenador" styleClass="form--group--label">Instituição</h:outputLabel>
+                                <p:selectOneMenu id="instituicao-coordenador" 
+                                    value="#{coordenadorBean.coordenador.instituicao}"  
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="inst" 
+                                    filter="true" 
+                                    filterMatchMode="contains"
+                                    required='true'
+                                    requiredMessage="Instituição é obrigatória.">
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/> 
+                                    <f:selectItems value="#{coordenadorBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
+                                    <p:column>
+                                        <h:outputText value="#{inst.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="grupo-coordenador" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
-                        <h:panelGroup
-                            id="grupos" 
-                            layout="block"
-                            class="form--section"
-                            >
-                            <div class="form--section--title">Adicionar Grupos De Pesquisa</div>
-                            <h:panelGroup
-                                layout="block"
-                                styleClass="message-bar"
-                                rendered="#{coordenadorBean.gruposDePesquisa.size() == 0}">                                
-                                <span class="message-bar--icon">
-                                    <i class="fa fa-clock-o" />
-                                </span>
-                                <span class="message-bar--text">Adicione os grupos de pesquisa deste coordenador...</span> 
-                            </h:panelGroup>
-                            
-                            <ui:repeat
-                                value="${coordenadorBean.gruposDePesquisa}"
-                                var="grupo"
-                                varStatus="linha"
-                                >   
-                                <div class="form--row">
-                                    <div class="form--group">
-                                        <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Grupo de Pesquisa</h:outputLabel>
-                                        <p:selectOneMenu id="categoria-bolsa" 
-                                            value="#{grupo}"
-                                            effect="fade" 
-                                            var="group" 
-                                            filter="true" 
-                                            filterMatchMode="contains"
-                                            valueChangeListener="#{coordenadorBean.atualizarGrupoSelecionado}"
-                                            immediate="true" 
-                                            >                     
-                                            <p:ajax listener="#{coordenadorBean.atualizarGrupoSelecionado}" event="change"/>
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{coordenadorBean.gruposDePesquisaOptions}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
-                                            <p:column>
-                                                <h:outputText value="#{group.nome}" />
-                                            </p:column>
-                                        </p:selectOneMenu>                                       
-                                    </div>
-                                    <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{coordenadorBean.removerGrupoDePesquisa(grupo)}" />                                        
-                                    </div>
-                                </div>
-                            </ui:repeat>
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Adicionar grupo" action="#{coordenadorBean.adicionarGrupoDePesquisa()}">
-                                    <f:ajax render="grupos"/>
-                                </h:commandButton>
-                            </div>                            
-                        </h:panelGroup>      
                         <div class="form--actions">
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Limpar" action="#{coordenadorBean.limpar()}"/>

@@ -5,9 +5,7 @@
  */
 package entities;
 
-import dao.PessoaDAO;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +35,6 @@ public abstract class Pessoa extends BaseEntityAudit {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataNascimento;
             
-    //@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String email;
     

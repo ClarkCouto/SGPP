@@ -31,12 +31,4 @@ public class Cagppi extends Usuario implements Serializable{
     public List<Cagppi> buscarTodosCagppis() {
         return new CagppiDAO().findAll();
     }
-   
-//    public boolean remover(Long id) {
-//        return new CagppiDAO().remove(id);
-//    }  
-//    
-//    public boolean salvar(){
-//        return new CagppiDAO().save(this);
-//    }
 }
