@@ -58,7 +58,24 @@
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Salvar" action="#{textoBaseDeclaracaoBean.salvar()}"/>
                             </div>   
-                        </div>   
+                        </div>  <h:panelGroup
+                                layout="block"
+                                styleClass="message-bar">                               
+                                <div class="form--group size-half">
+                                    <b>TAG:</b> <br />
+                                    #projeto<br />
+                                    #coordenador<br />
+                                    #destinatario<br />
+                                    #data</div>
+                                
+                                <div class="form--group size-half">
+                                    <b>Valor que irá trocar:</b><br />
+                                    Título do projeto<br />
+                                    Nome do destinatario<br />
+                                    Nome do colaborador<br />
+                                    Data atual da geração<br />
+                                </div>
+                        </h:panelGroup> 
                         <div class="form--actions">
                             <p:messages id="messages" />  
                         </div>
