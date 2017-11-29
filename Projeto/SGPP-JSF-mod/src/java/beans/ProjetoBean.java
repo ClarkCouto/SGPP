@@ -68,8 +68,8 @@ public class ProjetoBean {
     public List<SelectItem> getEditais() {
         this.editais = new Edital().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
-        this.editais.forEach((c) -> {
-            items.add(new SelectItem(c, c.getTitulo()));
+        this.editais.forEach((e) -> {
+            items.add(new SelectItem(e, e.getTitulo()));
         }); 
         return items;
     }
@@ -163,9 +163,12 @@ public class ProjetoBean {
     }
     
     public String salvar() {
-        if(projeto.salvar())
+        try {
+            System.out.println(projeto);            
+            projeto.salvar();
             return "/pages/listar/listarProjetos?faces-redirect=true";
-        else {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Projeto!",
                                    "Erro ao salvar Projeto!"));
