@@ -5,3 +5,6 @@
 /Projeto/SGPP-JSF-mod/nbproject/private/
 /Projeto/SGPP-JSF-mod/dist/
 /Projeto/SGPP-JSF-mod/build/
+/Projeto/SGPP-JSF-mod/build/web/WEB-INF/lib/eclipselink.jar
+/Projeto/SGPP-JSF-mod/build/web/WEB-INF/lib/javax.faces.jar
+/Projeto/SGPP-JSF-mod/nbproject/private/private.properties

@@ -1,6 +1,5 @@
 package beans;
 
-import dao.EditalDAO;
 import entities.Bolsa;
 import entities.CategoriaBolsa;
 import entities.Edital;

@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,6 +32,7 @@ public class UsuarioBean implements Serializable {
     private List<Usuario> listaFiltrada;
     private String tipoUsuario;
     private static List<String> tiposUsuario;
+    private HttpSession session;
     
     // Getters e Setters
     public List<Usuario> getListaFiltrada() {
@@ -59,6 +61,13 @@ public class UsuarioBean implements Serializable {
     }
    
     public Usuario getUsuarioLogado() {
+        if(this.usuarioLogado == null){
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            session = (HttpSession) facesContext.getExternalContext().getSession(false);
+            this.usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+        }
+        if(this.usuarioLogado == null)
+            encerraSessao();
         return usuarioLogado;
     }
 
@@ -163,11 +172,25 @@ public class UsuarioBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado!",
                                    "Erro no Login!"));
-            //return "login";
-            return "/pages/listar/listarEditais?faces-redirect=true";
-        }       
-        setUsuarioLogado(this.usuario);
+            return "login";
+            //return "/pages/listar/listarEditais?faces-redirect=true";
+        }           
+        setUsuarioLogado(user);
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        session = (HttpSession) ctx.getExternalContext().getSession(false);
+        session.setAttribute("usuarioLogado", usuarioLogado);
         return "/pages/listar/listarEditais?faces-redirect=true";
+    }
+    
+    public void encerraSessao() {
+        try {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            session = (HttpSession) ctx.getExternalContext().getSession(false);
+            session.setAttribute("usuarioLogado", null);
+            ctx.getExternalContext().redirect(ctx.getExternalContext().getRequestContextPath() + "/faces/login.xhtml");
+            session.invalidate();
+        } catch (Exception e) {
+        }
     }
     
     public void limpar() {

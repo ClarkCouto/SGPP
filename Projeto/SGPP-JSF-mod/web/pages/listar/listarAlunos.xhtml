@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"   
+      xmlns:p="http://primefaces.org/ui"   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <h:form>    
+                    <p:dataTable  
+                        id='lista'
+                        var="aluno" 
+                        value="#{alunoBean.alunos}" 
+                        widgetVar="alunoTable"
+                        emptyMessage="Nenhum aluno foi encontrado." 
+                        filteredValue="#{alunoBean.listaFiltrada}"
+                        >
+
+                        <f:facet name="header">
+                            <p:outputPanel>              
+                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarProjeto" style="float:left;">
+                                    <i class="fa fa-plus button--icon" />
+                                    <span class="button--label">Cadastrar Projeto</span>
+                                </h:link>
+                                <p:inputText id="globalFilter" onkeyup="PF('alunoTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Instituição" sortBy="#{aluno.curso.instituicao.nome}">
+                            <h:outputText value="#{aluno.curso.instituicao.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Curso" sortBy="#{aluno.curso.nome}">
+                            <h:outputText value="#{aluno.curso.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Nome" sortBy="#{aluno.nome}">
+                            <h:outputText value="#{aluno.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Bolsista" sortBy="#{aluno.bolsista}">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('alunoTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Sim" itemValue="true" />
+                                    <f:selectItem itemLabel="Não" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{aluno.bolsista ? 'Sim' : 'Não'}" />
+                        </p:column>
+
+                        <p:column headerText="Bolsa" sortBy="#{aluno.bolsa.nome}">
+                            <h:outputText value="#{aluno.bolsa.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Última Alteração" sortBy="#{aluno.dataUltimaAlteracao}">
+                            <h:outputText value="#{aluno.dataUltimaAlteracao}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Ativo" sortBy="#{aluno.ativo}">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('alunoTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:selectItem itemLabel="Ativos" itemValue="true" />
+                                    <f:selectItem itemLabel="Inativos" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{aluno.ativo ? 'Ativo' : 'Inativo'}" />
+                        </p:column>
+
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="#{alunoBean.detalhar(aluno.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${alunoBean.editar(aluno.id)}" icon="fa fa-edit" rendered="#{aluno.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" actionListener="${alunoBean.remover(aluno.id)}" icon="fa fa-trash" rendered="#{aluno.ativo}" update="lista">
+                                <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
