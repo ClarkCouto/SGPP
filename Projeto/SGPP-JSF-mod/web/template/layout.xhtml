@@ -21,6 +21,10 @@
             <div class="main-bar">
                 <div class="main-bar--header">
                     <h1 class="main-bar--header--title">SGPP</h1>
+                    <h:outputText value="#{usuarioBean.usuarioLogado.nome}" />
+                    <h:form>
+                        <h:commandButton styleClass="button" value="Log out" action="#{usuarioBean.encerraSessao}"/>
+                    </h:form>
                     <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
                 </div>
             </div>
