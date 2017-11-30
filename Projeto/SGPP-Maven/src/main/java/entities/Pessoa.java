@@ -5,9 +5,7 @@
  */
 package entities;
 
-import dao.PessoaDAO;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,13 +29,12 @@ public abstract class Pessoa extends BaseEntityAudit {
         Masculino, Feminino
     }
     
-    @Column(nullable=false, columnDefinition = "VARCHAR(11)")
+    @Column(nullable=false, columnDefinition = "VARCHAR(14)")
     private String cpf;   
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataNascimento;
             
-    //@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String email;
     
@@ -51,10 +48,10 @@ public abstract class Pessoa extends BaseEntityAudit {
     @Column(nullable=false)
     private Sexo sexo;
     
-    @Column(nullable=true, columnDefinition = "VARCHAR(10)")
+    @Column(nullable=true, columnDefinition = "VARCHAR(15)")
     private String telefoneCelular;
     
-    @Column(nullable=true, columnDefinition = "VARCHAR(11)")
+    @Column(nullable=true, columnDefinition = "VARCHAR(14)")
     private String telefoneFixo;
     
     public Pessoa() {
@@ -176,20 +173,4 @@ public abstract class Pessoa extends BaseEntityAudit {
         }
         return true;
     } 
-    
-    public Pessoa buscarPeloId(Long id){
-        return new PessoaDAO().findById(id);
-    }
-    
-    public List<Pessoa> buscarTodos() {
-        return new PessoaDAO().findAll();
-    }
-   
-    public boolean remover(Long id) {
-        return new PessoaDAO().remove(id);
-    }  
-    
-    public boolean salvar(){
-        return new PessoaDAO().save(this);
-    }
 }

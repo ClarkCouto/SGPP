@@ -8,14 +8,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="5" />
             <ui:define name="content">
                 <h:form>
                     <p:dataTable  
                         id='lista'
                         var="bolsa" 
-                        value="#{bolsaBean.bolsa}" 
+                        value="#{bolsaBean.bolsas}" 
                         widgetVar="bolsaTable"
-                        emptyMessage="Nenhum bolsa foi encontrada." 
+                        emptyMessage="Nenhuma bolsa foi encontrada." 
                         filteredValue="#{bolsaBean.listaFiltrada}"
                         >
 
@@ -29,8 +30,8 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.nome}" >
-                            <h:outputText value="#{bolsa.categoriaBolsa.nome}" />
+                        <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.descricao}" >
+                            <h:outputText value="#{bolsa.categoriaBolsa.descricao}" />
                         </p:column>
 
                         <p:column headerText="Nome" sortBy="#{bolsa.nome}" >
@@ -55,14 +56,12 @@
                             <h:outputText value="#{bolsa.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{bolsa.ativo}" action="${bolsaBean.editar(bolsa.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{bolsa.ativo}" actionListener="${bolsaBean.remover(bolsa.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="${bolsaBean.detalhar(bolsa.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${bolsaBean.editar(bolsa.id)}" icon="fa fa-edit" rendered="#{bolsa.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{bolsa.ativo}" actionListener="${bolsaBean.remover(bolsa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

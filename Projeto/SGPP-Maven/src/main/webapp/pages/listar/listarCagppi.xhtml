@@ -8,6 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="5" />
             <ui:define name="content">
                 <h:form>
                     <p:dataTable 
@@ -63,14 +64,12 @@
                             <h:outputText value="#{cagppi.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{cagppi.ativo}" action="${cagppiBean.editar(cagppi.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{cagppi.ativo}" actionListener="${cagppiBean.remover(cagppi.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="${cagppiBean.detalhar(cagppi.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${cagppiBean.editar(cagppi.id)}" icon="fa fa-edit" rendered="#{cagppi.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{cagppi.ativo}" actionListener="${cagppiBean.remover(cagppi.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

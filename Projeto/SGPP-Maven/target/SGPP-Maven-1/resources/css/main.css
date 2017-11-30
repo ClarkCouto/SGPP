@@ -60,6 +60,7 @@
   justify-content: space-between;
   max-width: 600px;
   margin: auto;
+  padding: 40px;
 }
 .form--header {
   width: 100%;
@@ -364,8 +365,7 @@
   font-family: "Open Sans", sans-serif;
 }
 .content {
-  padding: 20px 40px;
-  height: 100%;
+  min-height: 100%;
   background-image: url("#{resource['imgs/bg.png']}");
 }
 .side-bar {
@@ -439,26 +439,39 @@
   margin-left: auto;
   max-height: 40px;
 }
-.main-bar--current-page {
+.main-bar--current-page,
+.main-bar--actions {
   background-color: #008C47;
-  padding: 10px 20px;
+  padding: 0px 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
 }
-.main-bar--current-page--previous {
+.main-bar--current-page .button,
+.main-bar--actions .button {
+  margin: 10px;
+}
+.main-bar--current-page--previous,
+.main-bar--actions--previous {
   color: #FAFAFA;
   font-size: 16px;
   text-decoration: none;
   margin-right: 20px;
 }
-.main-bar--current-page--title {
+.main-bar--current-page--title,
+.main-bar--actions--title {
+  color: #FAFAFA;
   font-size: 22px;
   margin: 0;
 }
-.main-bar--current-page--logo {
+.main-bar--current-page--logo,
+.main-bar--actions--logo {
   margin-left: auto;
   max-height: 40px;
+}
+.main-bar--actions {
+  justify-content: center;
 }
 .main-bar--tabs {
   padding: 10px 20px 0;

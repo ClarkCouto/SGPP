@@ -1,16 +1,19 @@
 package beans;
 
-import dao.EditalDAO;
 import entities.Bolsa;
 import entities.CategoriaBolsa;
 import entities.Edital;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import entities.Lembrete;
+import entities.TipoDocumento;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -20,14 +23,14 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class EditalBean {
     private Edital edital = new Edital();
-    private Edital editalSelecionado = new Edital();
-    private List<Bolsa> bolsas = new ArrayList<>();
-    private List<CategoriaBolsa> categoriasBolsa;
+    private Edital editalSelecionado;
     private List<Edital> editais;
     private List<Edital> listaFiltrada;
-    private List<Lembrete> lembretes = new ArrayList<>();
-    private Boolean editando;
-    
+    private List<Bolsa> bolsas;
+    private List<CategoriaBolsa> categoriasBolsa;
+    private List<TipoDocumento> tiposDocumento;
+    private List<Lembrete> lembretes;
+       
 // Getters e Setters
     public List<Edital> getListaFiltrada() {
         return listaFiltrada;
@@ -45,15 +48,11 @@ public class EditalBean {
         this.edital = edital;
     }
     
-    public List<Edital> getEditais() {
-        this.editais = new EditalDAO().findAll();
-        return editais;
+    public List<Edital> getEditais() {    
+        this.editais = this.edital.buscarTodos();
+        return this.editais;
     }  
 
-    public void setEditalSelecionado(Edital edital) {
-        this.editalSelecionado = edital;
-    }
-        
     public List<Bolsa> getBolsas(){
         this.bolsas = this.edital.getBolsas();
         if(this.bolsas == null)
@@ -64,25 +63,35 @@ public class EditalBean {
     public void setBolsas(List<Bolsa> lista){
         this.bolsas = lista;
     }
+        
+    public List<SelectItem> getCategoriasBolsa(){
+        this.categoriasBolsa = new CategoriaBolsa().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.categoriasBolsa.forEach((c) -> {
+            items.add(new SelectItem(c, c.getDescricao()));
+        }); 
+        return items;
+    }
     
-    public List<Lembrete> getLembretes(){
+    public List<Lembrete> getLembretes(){     
         this.lembretes = this.edital.getLembretes();
         if(this.lembretes == null)
-            this.lembretes = new ArrayList<>();
-        return lembretes;
+            this.lembretes = new ArrayList<>();   
+        return this.lembretes;
     }
     
     public void setLembretes(List<Lembrete> lista){
         this.lembretes = lista;
-    }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
+    } 
+    
+    public List<SelectItem> getTiposDocumento(){
+        this.tiposDocumento = new TipoDocumento().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.tiposDocumento.forEach((t) -> {
+            items.add(new SelectItem(t, t.getNome()));
+        }); 
+        return items;
+    }   
     
 // Ações
     public void adicionarBolsa() {
@@ -90,20 +99,25 @@ public class EditalBean {
         this.edital.setBolsas(bolsas);
     }
     
-    public void removerBolsa(Bolsa bolsa) {
-        this.bolsas.remove(bolsa);
+    public void removerBolsa(Long id) {
+        this.bolsas = this.bolsas.stream().filter(bolsa -> !Objects.equals(bolsa.getId(), id)).collect(Collectors.toList());
         this.edital.setBolsas(bolsas);
     }
     
     public void adicionarLembrete() {
-//        this.lembretes.add(new Lembrete());
-        this.edital.getLembretes().add(new Lembrete());
+        this.lembretes.add(new Lembrete());
+        this.edital.setLembretes(lembretes);
     }
     
     public void removerLembrete(Lembrete lembrete) {
-//        this.lembretes.remove(lembrete);
-        this.edital.getLembretes().remove(new Lembrete());
+        this.lembretes.remove(lembrete);
+        this.edital.setLembretes(this.lembretes);
     } 
+    
+    public String cadastrar(){
+        limpar();
+        return "/pages/cadastrar/cadastrarEdital?faces-redirect=true";
+    }
     
     public String detalhar(Long id){
         if(id != null)
@@ -111,59 +125,60 @@ public class EditalBean {
 
         if (editalSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Edital!",
-                                   "Erro ao buscar Edital!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Edital!",
+                                   "Erro ao localizar Edital!"));
             return "/pages/listar/listarEditais";
         }
         else {
             this.edital = editalSelecionado;
-            return "/pages/detalhes/detalhesEdital";
+            return "/pages/detalhes/detalhesEdital?faces-redirect=true";
         }
     }
     
-    public String editar(Long id) {
+    public String editar(Long id){
         if(id != null)
             editalSelecionado = this.edital.buscarPeloId(id);
 
-        if (editalSelecionado != null) {
-            this.edital = editalSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (editalSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Edital!",
+                                   "Erro ao localizar Edital!"));
+            return "/pages/listar/listarEditais";
         }
-        return "/pages/editar/editarEdital";
-    } 
+        else {
+            this.edital = editalSelecionado;
+            return "/pages/editar/editarEdital?faces-redirect=true";
+        }
+    }  
     
     public void limpar(){
-        this.editando = false;
-        this.bolsas = new ArrayList<>();
-        this.lembretes = new ArrayList<>();
-        this.editalSelecionado = new Edital();
+        this.bolsas = new ArrayList<>();  
         this.edital = new Edital();
-        this.edital.setBolsas(bolsas);
-        this.edital.setLembretes(lembretes);
+        this.editalSelecionado = new Edital();
+        this.lembretes = new ArrayList<>();  
     }
-    
+
     public String remover(Long id) {
         if(edital.remover(id))
             return "/pages/listar/listarEditais?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
-                                   "Erro ao excluir Edital!"));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
+                        "Erro ao excluir Edital!"));
             return "/pages/listar/listarEditais";
         }
     }
-    
+
     public String salvar() {
         this.edital.setLembretes(lembretes);
+        this.edital.setBolsas(bolsas);
         if(edital.salvar())
             return "/pages/listar/listarEditais?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Edital!",
                                    "Erro ao salvar Edital!"));
-            return "/pages/cadastrar/cadastrarEditais";
+            return "/pages/listar/cadastrarEditais";
         }
     }
 }

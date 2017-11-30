@@ -8,14 +8,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="5" />
             <ui:define name="content">
                 <h:form>    
                     <p:dataTable  
                         id='lista'
                         var="area" 
-                        value="#{areaBean.area}" 
+                        value="#{areaBean.areas}" 
                         widgetVar="areaTable"
-                        emptyMessage="Nenhum area foi encontrado." 
+                        emptyMessage="Nenhuma área foi encontrada." 
                         filteredValue="#{areaBean.listaFiltrada}"
                         >
 
@@ -51,14 +52,12 @@
                             <h:outputText value="#{area.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{area.ativo}" action="${areaBean.editar(area.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{area.ativo}" actionListener="${areaBean.remover(area.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="#{areaBean.detalhar(area.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${areaBean.editar(area.id)}" icon="fa fa-edit" rendered="#{area.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" actionListener="${areaBean.remover(area.id)}" icon="fa fa-trash" rendered="#{area.ativo}" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

@@ -2,11 +2,13 @@ package beans;
 
 import entities.Bolsa;
 import entities.CategoriaBolsa;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -52,9 +54,13 @@ public class BolsaBean {
         this.bolsas = lista;
     }
 
-    public List<CategoriaBolsa> getCategorias(){
+    public List<SelectItem> getCategorias(){
         this.categorias = new CategoriaBolsa().buscarTodos();
-        return categorias;
+        List<SelectItem> items = new ArrayList<>();  
+        this.categorias.forEach((c) -> {
+            items.add(new SelectItem(c, c.getDescricao()));
+        }); 
+        return items;
     }
     
     public Boolean getEditando() {
@@ -72,13 +78,13 @@ public class BolsaBean {
 
         if (bolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Bolsa!",
-                                   "Erro ao buscar Bolsa!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Bolsa!",
+                                   "Erro ao localizar Bolsa!"));
             return "/pages/listar/listarBolsas";
         }
         else {
             this.bolsa = bolsaSelecionada;
-            return "/pages/detalhes/detalhesBolsa";
+            return "/pages/detalhes/detalhesBolsa?faces-redirect=true";
         }
     }
     
@@ -86,13 +92,16 @@ public class BolsaBean {
         if(id != null)
             bolsaSelecionada = this.bolsa.buscarPeloId(id);
 
-        if (bolsaSelecionada != null) {
-            this.bolsa = bolsaSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (bolsaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Bolsa!",
+                                   "Erro ao localizar Bolsa!"));
+            return "/pages/listar/listarBolsas";
         }
-        return "/pages/editar/editarBolsa";
+        else {
+            this.bolsa = bolsaSelecionada;
+            return "/pages/editar/editarBolsa?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
@@ -119,7 +128,7 @@ public class BolsaBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Bolsa!",
                                    "Erro ao salvar Bolsa!"));
-            return "/pages/cadastrar/cadastrarBolsas";
+            return "/pages/cadastrar/cadastrarBolsa";
         }
     }
 }

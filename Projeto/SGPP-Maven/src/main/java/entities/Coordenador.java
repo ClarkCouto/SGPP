@@ -5,14 +5,18 @@
  */
 package entities;
 
+import dao.CoordenadorDAO;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author CristianoSilva
@@ -25,8 +29,9 @@ public class Coordenador extends Usuario implements Serializable{
     @ManyToOne
     private Area area;
     
-    @OneToMany(mappedBy="coordenador")
-    private Collection<GrupoDePesquisa> gruposDePesquisa;
+//    @XmlTransient 
+    @OneToMany(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private List<GrupoDePesquisa> gruposDePesquisa;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String siape;
@@ -42,11 +47,11 @@ public class Coordenador extends Usuario implements Serializable{
         this.area = area;
     }
 
-    public Collection<GrupoDePesquisa> getGruposDePesquisa() {
+    public List<GrupoDePesquisa> getGruposDePesquisa() {
         return gruposDePesquisa;
     }
 
-    public void setGruposDePesquisa(Collection<GrupoDePesquisa> gruposDePesquisa) {
+    public void setGruposDePesquisa(List<GrupoDePesquisa> gruposDePesquisa) {
         this.gruposDePesquisa = gruposDePesquisa;
     }
 
@@ -90,5 +95,14 @@ public class Coordenador extends Usuario implements Serializable{
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public Coordenador buscarPeloId(Long id){
+        return new CoordenadorDAO().findById(id);
+    }
+    
+    public List<Coordenador> buscarTodosCoordenadores() {
+        return new CoordenadorDAO().findAll();
     }
 }

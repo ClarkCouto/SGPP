@@ -8,6 +8,7 @@ package entities;
 import dao.UsuarioDAO;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -30,9 +31,20 @@ public class Usuario extends Pessoa implements Serializable {
     @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimoAcesso;
+    
+    @Column(nullable=false, columnDefinition = "VARCHAR(20)")
+    private String tipo;
 
     public Usuario() {
     }  
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public String getSenha() {
         return senha;
@@ -49,11 +61,12 @@ public class Usuario extends Pessoa implements Serializable {
     public void setUltimoAcesso(Date ultimoAcesso) {
         this.ultimoAcesso = ultimoAcesso;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.senha);
+        hash = 67 * hash + Objects.hashCode(this.tipo);
         hash = 67 * hash + Objects.hashCode(this.ultimoAcesso);
         return hash;
     }
@@ -73,13 +86,36 @@ public class Usuario extends Pessoa implements Serializable {
         if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
         if (!Objects.equals(this.ultimoAcesso, other.ultimoAcesso)) {
             return false;
         }
         return true;
     }
     
+    public Usuario buscarPeloId(Long id){
+        return new UsuarioDAO().findById(id);
+    }
+    
+    public List<Usuario> buscarTodos() {
+        return new UsuarioDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new UsuarioDAO().remove(id);
+    }  
+    
+    public boolean salvar(){
+        return new UsuarioDAO().save(this);
+    }
+    
 // Outros métodos
+    public Usuario buscarPeloCpf(String cpf){
+        return new UsuarioDAO().findByCpf(cpf);
+    }
+    
     public Boolean checkSenha(String s) {
         System.out.println("checkSenha Senha: " + s);
         return this.senha.equals(s);

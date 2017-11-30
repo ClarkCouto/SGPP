@@ -5,7 +5,9 @@
  */
 package entities;
 
+import dao.AlunoDAO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -84,5 +86,21 @@ public class Aluno extends Pessoa implements Serializable{
             return false;
         }
         return true;
+    }
+    
+    public Aluno buscarPeloId(Long id){
+        return new AlunoDAO().findById(id);
+    }
+    
+    public List<Aluno> buscarTodos() {
+        return new AlunoDAO().findAll();
+    }
+   
+    public boolean remover(Long id) {
+        return new AlunoDAO().remove(id);
+    }  
+    
+    public boolean salvar(){
+        return new AlunoDAO().save(this);
     }
 }

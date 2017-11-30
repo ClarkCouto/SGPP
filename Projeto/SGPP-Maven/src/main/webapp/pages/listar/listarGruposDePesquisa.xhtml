@@ -8,31 +8,32 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">     
+            <ui:param name="aba" value="2" />
+            <ui:define name="content">                                     
                 <h:form>
                     <p:dataTable  
                         id='lista'
                         var="grupoDePesquisa" 
                         value="#{grupoDePesquisaBean.gruposDePesquisa}" 
                         widgetVar="gruposDePesquisaTable"
-                        emptyMessage="Nenhum gruo de pesquisa foi encontrado." 
-                        filteredValue="#{grupoDePesquisaBean.listaFiltrada}"
+                        emptyMessage="Nenhum grupo de pesquisa foi encontrado."
+                        filteredValue="#{grupoDePesquisaBean.listaFiltrada}"                            
                         >
 
                         <f:facet name="header">
                             <p:outputPanel>              
-                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarGruposDePesquisa" style="float:left;">
+                                <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarGrupoDePesquisa">
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Grupo de Pesquisa</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Filtrar" styleClass="right" />
                             </p:outputPanel>
                         </f:facet>
-
-                        <p:column headerText="Coordenador" sortBy="#{grupoDePesquisa.coordenador.nome}">
-                            <h:outputText value="#{grupoDePesquisa.coordenador.nome}" />
+<!--
+                        <p:column headerText="Coordenador" sortBy="# {grupoDePesquisa.coordenador.nome}">
+                            <h:outputText value="# {grupoDePesquisa.coordenador.nome}" />
                         </p:column>
-
+-->
                         <p:column headerText="Nome" sortBy="#{grupoDePesquisa.nome}">
                             <h:outputText value="#{grupoDePesquisa.nome}" />
                         </p:column>
@@ -55,14 +56,12 @@
                             <h:outputText value="#{grupoDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{grupoDePesquisa.ativo}" action="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(grupoDePesquisa.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="${grupoDePesquisaBean.detalhar(grupoDePesquisa.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}" icon="fa fa-edit" rendered="#{grupoDePesquisa.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(grupoDePesquisa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

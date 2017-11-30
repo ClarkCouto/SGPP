@@ -6,7 +6,6 @@
 package dao;
 
 import entities.Usuario;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -25,17 +24,16 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
                 + "where u.cpf like '"
                 + cpf + "'",
                 Usuario.class);
-
-        Usuario user = null;
         
         try {
-            List<Usuario> usuario = query.getResultList();
-            user = usuario.get(0);
+            Usuario usuario = query.getSingleResult();
+            em.close();
+            return usuario;
         } 
         catch (Exception e) {
+            em.close();
             e.printStackTrace();
         }
-        em.close();
-        return user;
+        return null;
     }
 }

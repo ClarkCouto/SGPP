@@ -1,18 +1,30 @@
 package beans;
 
+import com.itextpdf.html2pdf.HtmlConverter;
 import entities.Aluno;
-import entities.Cagppi;
+import entities.Colaborador;
 import entities.Coordenador;
 import entities.Declaracao;
-import entities.Pessoa;
 import entities.Projeto;
-import entities.SetorDePesquisa;
 import entities.TextoBaseDeclaracao;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -21,15 +33,21 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class DeclaracaoBean {
-    private Declaracao declaracao = new Declaracao();
+    private Declaracao declaracao;
     private Declaracao declaracaoSelecionada;
     private List<Declaracao> declaracoes;
     private List<Declaracao> listaFiltrada;
-    private List<Pessoa> coordenadores;
+    private List<Aluno> alunos;
+    private List<Colaborador> colaboradores;
+    private List<Coordenador> coordenadores;
     private List<Projeto> projetos;
-    private List<Pessoa> pessoas;
     private List<TextoBaseDeclaracao> textosBase;
     private Boolean editando;
+    private String texto = "ARQUIVO GERADO HERE";
+    private StreamedContent file;
+    private String arquivoTempName;
+    private String projeto;
+    private String aluno;
     
 // Getters e Setters
     public List<Declaracao> getListaFiltrada() {
@@ -40,8 +58,8 @@ public class DeclaracaoBean {
         this.listaFiltrada = listaFiltrada;
     }
     
-    public List<Pessoa> getCoordenadores(){
-        this.coordenadores = new Coordenador().buscarTodos();
+    public List<Coordenador> getCoordenadores(){
+        this.coordenadores = new Coordenador().buscarTodosCoordenadores();
         return coordenadores;
     }
     
@@ -53,7 +71,7 @@ public class DeclaracaoBean {
         this.declaracao = declaracao;
     }
 
-    public void setDeclaracaoSelecionado(Declaracao declaracao) {
+    public void setDeclaracaoSelecionada(Declaracao declaracao) {
         this.declaracaoSelecionada = declaracao;
     }
       
@@ -69,26 +87,25 @@ public class DeclaracaoBean {
     public Boolean getEditando() {
         return editando;
     }
-
+//Editado 26/11/2017, adicionado retorno para SELECT
     public void setEditando(Boolean editando) {
         this.editando = editando;
     }
       
-    public List<Pessoa> getPessoas(){
-        List<Pessoa> listaAlunos = new Aluno().buscarTodos();
-        List<Pessoa> listaCoordenadores = new Coordenador().buscarTodos();
-        List<Pessoa> listaCagppi = new Cagppi().buscarTodos();
-        List<Pessoa> listaSetorDePesquisa = new SetorDePesquisa().buscarTodos();
-        pessoas.addAll(listaAlunos);
-        pessoas.addAll(listaCoordenadores);
-        pessoas.addAll(listaCagppi);
-        pessoas.addAll(listaSetorDePesquisa);
-        return pessoas;
+    public List<Aluno> getAlunos(){
+        this.alunos = new Aluno().buscarTodos();
+        return this.alunos;
     }
       
+    public List<Colaborador> getColaboradores(){
+        this.colaboradores = new Colaborador().buscarTodos();
+        return this.colaboradores;
+    }
+      
+    //Editado 26/11/2017, adicionado retorno para SELECT
     public List<Projeto> getProjetos(){
         this.projetos = new Projeto().buscarTodos();
-        return projetos;
+        return this.projetos;
     }
       
     public List<TextoBaseDeclaracao> getTextosBase(){
@@ -103,13 +120,13 @@ public class DeclaracaoBean {
 
         if (declaracaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Declaração!",
-                                   "Erro ao buscar Declaração!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Declaração!",
+                                   "Erro ao localizar Declaração!"));
             return "/pages/listar/listarDeclaracoes";
         }
         else {
             this.declaracao = declaracaoSelecionada;
-            return "/pages/detalhes/detalhesDeclaracao";
+            return "/pages/detalhes/detalhesDeclaracao?faces-redirect=true";
         }
     }
     
@@ -123,12 +140,13 @@ public class DeclaracaoBean {
         } else {
             this.editando = Boolean.FALSE;
         }
-        return "/pages/editar/editarDeclaracao";
+        return "/pages/editar/editarDeclaracao?faces-redirect=true";
     }  
     
     public void limpar(){
         this.editando = false;
         this.declaracao = new Declaracao();
+        //texto = "Novo Bean"; //testes para ver se era executado toda vez que entrava na aba
         this.declaracaoSelecionada = new Declaracao();
     }
     
@@ -150,8 +168,112 @@ public class DeclaracaoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Declaração!",
                                    "Erro ao salvar Declaração!"));
-            return "/pages/cadastrar/cadastrarDeclaracoes";
+            return "/pages/cadastrar/cadastrarDeclaracao";
         }
     }
+    
+    //////////////////////para gerar e salvar o PDF
+      public void gerarPDF(){
+          texto = declaracao.getTextoBaseDeclaracao().getTexto();
+          String coord = declaracao.getResponsavel().getNome();
+          String dest = declaracao.getDestinatario().getNome();
+          //String coord = projeto;
+          //String dest = aluno;
+                  
+          //Tags especiais
+          texto = texto.replaceAll("#coordenador", coord);
+          texto = texto.replaceAll("#aluno", dest);
+          texto = texto.replaceAll("#destinatario", dest);
+          texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(new Date()));
+//          texto.replaceAll("#coordenadorCPF", declaracao.getProjeto().getCoordenador().getCpf());
+//          texto.replaceAll("#alunoCPF", declaracao.getProjeto().getCoordenador().getCpf());
+                    //... e assim vai nas TAGs possíveis, além de tag de datas
+          
+        try {
+            //String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/declaracoes/");
+            String path = System.getProperty("java.io.tmpdir");
+            arquivoTempName = path+(new Date().getTime())+" Arquivo para imprimir"+".pdf";
+            
+            HtmlConverter.convertToPdf(texto, new FileOutputStream(arquivoTempName));
+            texto = path + texto; //Testes: Ver diretório que é salvo.
+        } catch (IOException ex) {
+            Logger.getLogger(DeclaracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public String getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(String projeto) {
+        this.projeto = projeto;
+    }
+
+    public String getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(String aluno) {
+        this.aluno = aluno;
+    }
+    
+    
+      
+      
+    
+        public List<SelectItem> getTextosBaseSelect(){
+        this.textosBase = new TextoBaseDeclaracao().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.textosBase.forEach((c) -> {
+            if (c.getAtivo()){
+            items.add(new SelectItem(c, c.getIdentificador()));}
+        }); 
+        return items;
+        }
+        
+     
+        public List<SelectItem> getCoordenadoresSelect(){
+            this.coordenadores = new Coordenador().buscarTodosCoordenadores();
+            List<SelectItem> items = new ArrayList<>();  
+            this.coordenadores.forEach((c) -> {
+                if (c.getAtivo()){
+                items.add(new SelectItem(c, c.getNome()));}
+            }); 
+            return items;
+        }
+        
+        
+
+        public void setFile(StreamedContent file) {
+        this.file = file;
+    }
+
+    //https://pt.stackoverflow.com/questions/49042/como-fazer-download-de-um-arquivo-pdf-com-jsf
+    //http://www.guj.com.br/t/resolvido-filedownload-primefaces-jsf/190724/6
+    public StreamedContent getFile()  {
+        gerarPDF(); //Método que cria o PDF e salva localmente
+        //String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
+        InputStream stream;
+        try {
+            stream = new FileInputStream(arquivoTempName); //Caminho onde está salvo o arquivo.
+            file = new DefaultStreamedContent(stream, "application/pdf", declaracao.getTextoBaseDeclaracao().getIdentificador()+".pdf");  
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DeclaracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+        return file;  
+    } 
+    
+    
 }
 

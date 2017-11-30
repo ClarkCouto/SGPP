@@ -9,8 +9,10 @@ import dao.GrupoDePesquisaDAO;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 /**
@@ -21,8 +23,8 @@ import javax.persistence.ManyToOne;
 public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
     
-    @ManyToOne
-    private Coordenador coordenador;
+//    @ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
+//    private Coordenador coordenador;
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String nome;
@@ -30,13 +32,13 @@ public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
     public GrupoDePesquisa() {
     }
 
-    public Coordenador getCoordenador() {
-        return coordenador;
-    }
-
-    public void setCoordenador(Coordenador coordenador) {
-        this.coordenador = coordenador;
-    }
+//    public Coordenador getCoordenador() {
+//        return coordenador;
+//    }
+//
+//    public void setCoordenador(Coordenador coordenador) {
+//        this.coordenador = coordenador;
+//    }
 
     public String getNome() {
         return nome;
@@ -49,7 +51,7 @@ public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.coordenador);
+//        hash = 23 * hash + Objects.hashCode(this.coordenador);
         hash = 23 * hash + Objects.hashCode(this.nome);
         return hash;
     }
@@ -69,9 +71,9 @@ public class GrupoDePesquisa extends BaseEntityAudit implements Serializable{
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.coordenador, other.coordenador)) {
-            return false;
-        }
+//        if (!Objects.equals(this.coordenador, other.coordenador)) {
+//            return false;
+//        }
         return true;
     }
     

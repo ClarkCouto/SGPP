@@ -74,6 +74,7 @@
     justify-content: space-between;
     max-width: 600px;
     margin: auto;       
+    padding: 40px;
     
     &--header {
         width: 100%;
@@ -437,8 +438,7 @@
 }
 
 .content {
-    padding: 20px 40px;
-    height: 100%;
+    min-height: 100%;
     background-image: url("#{resource['imgs/bg.png']}");    
 }
 
@@ -529,12 +529,17 @@
         }
     }
     
-    &--current-page {
+    &--current-page, &--actions {
         background-color: @bg-color-feature-highlight;
-        padding: 10px 20px;
+        padding: 0px 20px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;        
+        
+        .button {
+            margin: 10px;
+        }
                 
         &--previous {
             color: @text-color-light;
@@ -544,6 +549,7 @@
         }
         
         &--title {
+            color: @text-color-light;
             font-size: 22px;
             margin: 0;
         }
@@ -552,6 +558,10 @@
             margin-left: auto;
             max-height: 40px;
         }
+    }
+    
+    &--actions {
+        justify-content: center;
     }
     
     &--tabs {

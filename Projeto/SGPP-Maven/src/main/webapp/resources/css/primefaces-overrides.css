@@ -1,24 +1,30 @@
-.ui-widget {
+.container .ui-widget {
   font-family: "Open Sans";
 }
-.ui-widget-header,
-.ui-widget-footer {
+.container .ui-widget-header,
+.container .ui-widget-footer {
   background: #008C47;
   color: #FAFAFA;
   text-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
-.ui-state-default {
+.container .ui-widget-header .left {
+  float: left;
+  margin-right: 10px;
+}
+.container .ui-widget-header .right {
+  float: right;
+  margin-left: 10px;
+}
+.container .ui-widget-header a {
+  color: inherit;
+}
+.container .ui-state-default {
   background: #FAFAFA;
   box-shadow: none;
 }
-.ui-widget-header a {
-  color: inherit;
-}
-.ui-inputfield,
-.ui-widget-content .ui-inputfield,
-.ui-widget-header .ui-inputfield {
+.container .ui-inputfield {
   font-family: "Open Sans";
   height: 38px;
   line-height: 38px;
@@ -29,26 +35,75 @@
   box-sizing: border-box;
   font-size: 14px;
 }
-.ui-inputfield:focus,
-.ui-widget-content .ui-inputfield:focus,
-.ui-widget-header .ui-inputfield:focus {
+.container .ui-inputfield:focus {
   border-color: #008C47;
   box-shadow: none;
   outline: 0;
 }
-.data-table--row--action {
+.container .data-table--row--action {
   background: none;
   border: 0 !important;
 }
-.content .ui-datatable .ui-datatable-header,
-.ui-datatable .ui-datatable-footer {
+.container .ui-datatable .ui-datatable-header,
+.container .ui-datatable .ui-datatable-footer {
   padding: 8px;
+  border: 0;
+  border-radius: 0;
 }
-.ui-datatable thead th,
-.ui-datatable .ui-datatable tfoot td {
+.container .ui-datatable thead th,
+.container .ui-datatable .ui-datatable tfoot td {
   font-size: 12px;
+  text-shadow: none;
+  padding: 8px 0;
 }
-.ui-datatable tbody td {
+.container .ui-datatable tbody td {
   font-size: 14px;
+}
+.container .ui-tabs,
+.container .ui-tabmenu {
+  padding: 0;
+  border-radius: 0;
+  border: 0;
+}
+.container .ui-tabs .ui-tabs-panel,
+.container .ui-tabmenu .ui-tabs-panel {
+  padding: 0;
+}
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav,
+.container .ui-tabs .ui-tabmenu-nav,
+.container .ui-tabmenu .ui-tabmenu-nav {
+  padding: 10px 20px 0;
+  border: 0;
+  border-radius: 0;
+  background: #004B18;
+}
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default {
+  background: none;
+  border: 0;
+  text-decoration: none;
+  box-shadow: 0;
+  color: #FAFAFA;
+}
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default a,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default a,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default a,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default a {
+  text-shadow: none;
+  padding: 10px 20px;
+}
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default.ui-tabs-selected,
+.container .ui-tabs.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-state-active,
+.container .ui-tabmenu.ui-tabs-top > .ui-tabs-nav .ui-state-default.ui-state-active,
+.container .ui-tabs .ui-tabmenu-nav .ui-state-default.ui-state-active,
+.container .ui-tabmenu .ui-tabmenu-nav .ui-state-default.ui-state-active {
+  border-radius: 5px 5px 0 0;
+  background: #008C47;
 }
 /*# sourceMappingURL=primefaces-overrides.css.map */

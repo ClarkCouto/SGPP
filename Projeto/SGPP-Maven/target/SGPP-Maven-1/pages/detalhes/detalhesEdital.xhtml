@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="0" />
+            <ui:define name="content">     
+                <div class="main-bar">      
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarEditais" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Editais</span>
+                        </h:link>   
+                    </div>                        
+                </div>                
+                <h:form>
+                    <div class="form">                                  
+                        <h:panelGroup class="form--section">
+                            <div class="form--section--title">Detalhes do Edital</div>
+                            <div class="form--group">
+                                <h:outputLabel for="titulo" styleClass="form--group--label">Título</h:outputLabel>
+                                <h:inputText
+                                    value="#{editalBean.edital.titulo}"
+                                    id="titulo"
+                                    label="Título"
+                                    styleClass="form--group--text-input"
+                                    readonly="true"
+                                    >
+                                </h:inputText>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="numero" styleClass="form--group--label">Número</h:outputLabel>
+                                <h:inputText
+                                    value="#{editalBean.edital.numero}"
+                                    id="numero"
+                                    label="Número"
+                                    styleClass="form--group--text-input"
+                                    readonly="true"
+                                    >
+                                </h:inputText>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="origem" styleClass="form--group--label">Origem</h:outputLabel>
+                                <h:inputText
+                                    value="#{editalBean.edital.origem}"
+                                    id="origem"
+                                    label="Origem"
+                                    styleClass="form--group--text-input"
+                                    readonly="true"
+                                    >
+                                </h:inputText>
+                            </div>   
+                        </h:panelGroup>
+                        <h:panelGroup
+                            id="lembretes" 
+                            layout="block"
+                            class="form--section"
+                            >
+                            <div class="form--section--title">Lembretes cadastrados</div>
+                            <h:panelGroup
+                                layout="block"
+                                styleClass="message-bar"
+                                rendered="#{editalBean.edital.lembretes.size() == 0}">                                
+                                <span class="message-bar--icon">
+                                    <i class="fa fa-clock-o" />
+                                </span>
+                                <span class="message-bar--text">Nenhum lembrete cadastrado para o edital...</span> 
+                            </h:panelGroup>
+                            <ui:repeat
+                                value="#{editalBean.edital.lembretes}"
+                                var="lembrete"
+                                varStatus="linha"
+                                >   
+                                <div class="form--row">
+                                    <div class="form--group">
+                                        <h:outputLabel for="lembrete-descricao" styleClass="form--group--label">Descrição</h:outputLabel>
+                                        <h:inputText
+                                            value="#{lembrete.descricao}"
+                                            id="lembrete-descricao"
+                                            label="Descrição"
+                                            styleClass="form--group--text-input"
+                                            readonly="true"
+                                            >
+                                        </h:inputText>
+                                    </div>
+                                    <div class="form--group size-half">
+                                        <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Data Limite Entrega</h:outputLabel>
+                                        <p:inputMask
+                                            value="#{lembrete.dataLimite}"
+                                            id="lembrete-data-limite"
+                                            label="Data Limite"
+                                            styleClass="form--group--text-input"
+                                            required="true"
+                                            requiredMessage="Data Limite Entrega é obrigatória"
+                                            mask="99/99/9999"
+                                            converter="cmd.converter.stringToDate"
+                                            readonly="true"
+                                            >
+                                        </p:inputMask>
+                                    </div>
+                                    <div class="form--group size-half">
+                                        <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Obrigatório</h:outputLabel>
+                                        <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" disabled="true"/>
+                                    </div>
+                                </div>
+                            </ui:repeat>                           
+                        </h:panelGroup>
+                        <h:panelGroup
+                            id="bolsas" 
+                            layout="block"
+                            class="form--section"
+                            >
+                            <div class="form--section--title">Bolsas cadastradas</div>
+                            <h:panelGroup
+                                layout="block"
+                                styleClass="message-bar"
+                                rendered="#{editalBean.edital.bolsas.size() == 0}">                                
+                                <span class="message-bar--icon">
+                                    <i class="fa fa-clock-o" />
+                                </span>
+                                <span class="message-bar--text">Nenhuma bolsa cadastrada para o edital...</span> 
+                            </h:panelGroup>
+                            <ui:repeat
+                                value="#{editalBean.edital.bolsas}"
+                                var="bolsa"
+                                varStatus="linha"
+                                >   
+                                <div class="form--row">
+                                    <div class="form--group">
+                                        <h:outputLabel for="bolsa-nome" styleClass="form--group--label">Nome</h:outputLabel>
+                                        <h:inputText
+                                            value="#{bolsa.nome}"
+                                            id="bolsa-nome"
+                                            label="Nome"
+                                            styleClass="form--group--text-input"
+                                            readonly="true"
+                                            >
+                                        </h:inputText>
+                                    </div>
+                                    <div class="form--group">
+                                        <h:outputLabel for="bolsa-categoria" styleClass="form--group--label">Categoria</h:outputLabel>
+                                        <p:selectOneMenu id="categoria-bolsa" 
+                                            value="#{bolsa.categoriaBolsa}" 
+                                            converter="SimpleEntityConverter"
+                                            effect="fade" 
+                                            var="cat" 
+                                            disabled="true">                                                         
+                                            <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </ui:repeat>                          
+                        </h:panelGroup>                          
+                    </div>     
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

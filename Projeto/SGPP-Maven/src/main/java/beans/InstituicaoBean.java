@@ -65,13 +65,13 @@ public class InstituicaoBean {
 
         if (instituicaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Instituição!",
-                                   "Erro ao buscar Instituição!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Instituição!",
+                                   "Erro ao localizar Instituição!"));
             return "/pages/listar/listarInstituicoes";
         }
         else {
             this.instituicao = instituicaoSelecionada;
-            return "/pages/detalhes/detalhesInstituicao";
+            return "/pages/detalhes/detalhesInstituicao?faces-redirect=true";
         }
     }
     
@@ -79,13 +79,16 @@ public class InstituicaoBean {
         if(id != null)
             instituicaoSelecionada = this.instituicao.buscarPeloId(id);
 
-        if (instituicaoSelecionada != null) {
-            this.instituicao = instituicaoSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (instituicaoSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Instituição!",
+                                   "Erro ao localizar Instituição!"));
+            return "/pages/listar/listarInstituicoes";
         }
-        return "/pages/editar/editarInstituicao";
+        else {
+            this.instituicao = instituicaoSelecionada;
+            return "/pages/editar/editarInstituicao?faces-redirect=true";
+        }
     }  
     
     public void limpar(){

@@ -11,24 +11,158 @@
             <f:event type="preRenderView" listener="#{projetoBean.limpar()}" />
         </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="1" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="listarProjetos">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Projeto</h1>                        
-                    </div>                         
-                </div> 
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarProjetos" style="float:left;" includeViewParams="false">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Projetos</span>
+                        </h:link>   
+                    </div>                       
+                </div>
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Informações do Projeto</div>
-                            
+                            <div class="form--section--title">Cadastrar Projeto</div>
+                            <div class="form--group">
+                                <h:outputLabel for="titulo" styleClass="form--group--label">Título</h:outputLabel>
+                                <h:inputText
+                                    value="#{projetoBean.projeto.titulo}"
+                                    id="titulo"
+                                    label="Origem"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Título é obrigatório"
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="titulo" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="edital" styleClass="form--group--label">Edital</h:outputLabel>
+                                <p:selectOneMenu id="edital" 
+                                    value="#{projetoBean.projeto.edital}"
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="edital" 
+                                    filter="true" 
+                                    filterMatchMode="contains">                     
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                    <f:selectItems value="#{projetoBean.editais}" var="editalSelecionado" itemLabel="#{editalSelecionado.label}" itemValue="#{editalSelecionado}" />
+                                    <p:column>
+                                        <h:outputText value="#{edital.titulo}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="coordenador" styleClass="form--group--label">Coordenador</h:outputLabel>
+                                <p:selectOneMenu id="coordenador" 
+                                    value="#{projetoBean.projeto.coordenador}" 
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="coordenador" 
+                                    filter="true" 
+                                    filterMatchMode="contains">                     
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                    <f:selectItems value="#{projetoBean.coordenadores}" var="coordenadorOpcao" itemLabel="#{coordenadorOpcao.label}" itemValue="#{edital}" />
+                                    <p:column>
+                                        <h:outputText value="#{coordenador.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="coordenador" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="aipct" styleClass="form--group--label">AIPCT</h:outputLabel>
+                                <p:selectBooleanButton
+                                    value="#{projetoBean.projeto.aipct}"
+                                    onLabel="Sim"
+                                    offLabel="Nao"
+                                />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="ano" styleClass="form--group--label">Ano</h:outputLabel>
+                                <h:inputText
+                                    value="#{projetoBean.projeto.ano}"
+                                    id="ano"
+                                    maxlength="4"
+                                    label="Origem"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Ano é obrigatório"
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="titulo" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-inicio" styleClass="form--group--label">Data do Início</h:outputLabel>
+                                <p:inputMask
+                                    value="#{projetoBean.projeto.dataInicio}"
+                                    id="data-inicio"
+                                    label="Data de Inicio"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Data de nascimento é obrigatória."
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="data-inicio" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-fim" styleClass="form--group--label">Data do Fim</h:outputLabel>
+                                <p:inputMask
+                                    value="#{projetoBean.projeto.dataFim}"
+                                    id="data-nascimento"
+                                    label="Data de Fim"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Data de nascimento é obrigatória."
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                >
+                                    <f:validateRequired />
+                                </p:inputMask>
+                                <h:message for="data-fim" styleClass="form--group--message" />
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup class="form--section">
+                            <div class="form--section--title">Cadastrar Alunos</div>
+                        </h:panelGroup>
+                        <h:panelGroup
+                            class="form--section"
+                        >
+                            <div class="form--section--title" id="listaColaboradores">Cadastar Colaboradores</div>
+                            <div class="form--actions">
+                                <h:inputText
+                                    value="#{projetoBean.colaborador}"
+                                    id="colaborador"
+                                    label="Colaborador"
+                                    styleClass="form--group--text-input"                                    
+                                />                                
+                                <h:commandButton styleClass="button" value="Adicionar" action="#{projetoBean.adicionarColaborador()}">
+                                    <f:ajax render="listaColaboradores"/>
+                                </h:commandButton>
+                            </div>                            
+                            <ui:repeat
+                                value="#{projetoBean.colaboradores}"
+                                var="colaborador"
+                            >
+                                <div>
+                                    <span>#{colaborador}</span>
+                                </div>
+                            </ui:repeat>
                         </h:panelGroup>
                         <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{projetoBean.salvar()}"/>
-                        </div>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{projetoBean.limpar()}"/>
+                            </div>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{projetoBean.salvar()}"/>
+                            </div>
+                        </div>   
                         <div class="form--actions">
                             <p:messages id="messages" />  
                         </div>

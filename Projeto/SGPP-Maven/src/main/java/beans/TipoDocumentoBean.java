@@ -65,13 +65,13 @@ public class TipoDocumentoBean {
 
         if (tipoDocumentoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Tipo de Documento!",
-                                   "Erro ao buscar Tipo de Documento!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Tipo de Documento!",
+                                   "Erro ao localizar Tipo de Documento!"));
             return "/pages/listar/listarTiposDocumento";
         }
         else {
             this.tipoDocumento = tipoDocumentoSelecionado;
-            return "/pages/detalhes/detalhesTipoDocumento";
+            return "/pages/detalhes/detalhesTipoDocumento?faces-redirect=true";
         }
     }
     
@@ -79,13 +79,16 @@ public class TipoDocumentoBean {
         if(id != null)
             tipoDocumentoSelecionado = this.tipoDocumento.buscarPeloId(id);
 
-        if (tipoDocumentoSelecionado != null) {
-            this.tipoDocumento = tipoDocumentoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (tipoDocumentoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Tipo de Documento!",
+                                   "Erro ao localizar Tipo de Documento!"));
+            return "/pages/listar/listarTiposDocumento";
         }
-        return "/pages/editar/editarTipoDocumento";
+        else {
+            this.tipoDocumento = tipoDocumentoSelecionado;
+            return "/pages/editar/editarTipoDocumento?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
@@ -107,12 +110,12 @@ public class TipoDocumentoBean {
     
     public String salvar() {
         if(tipoDocumento.salvar())
-            return "/pages/listar/listarTiposDocumeto?faces-redirect=true";
+            return "/pages/listar/listarTiposDocumento?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Tipo de Documento!",
                                    "Erro ao salvar Tipo de Documento!"));
-            return "/pages/cadastrar/cadastrarTiposDocumento";
+            return "/pages/cadastrar/cadastrarTipoDocumento";
         }
     }
 }

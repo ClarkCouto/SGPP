@@ -3,7 +3,6 @@ package dao;
 import entities.BaseEntityAudit;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;

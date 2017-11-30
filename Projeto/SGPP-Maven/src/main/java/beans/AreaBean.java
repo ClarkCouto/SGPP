@@ -42,7 +42,7 @@ public class AreaBean {
     }
       
     public List<Area> getAreas(){
-        this.areas = this.area.buscarTodos();
+        this.areas = area.buscarTodos();
         return areas;
     }
     
@@ -61,31 +61,34 @@ public class AreaBean {
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            areaSelecionada = this.area.buscarPeloId(id);
+            areaSelecionada = area.buscarPeloId(id);
 
         if (areaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Área!",
-                                   "Erro ao buscar Área!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Área!",
+                                   "Erro ao localizar Área!"));
             return "/pages/listar/listarAreas";
         }
         else {
             this.area = areaSelecionada;
-            return "/pages/detalhes/detalhesArea";
+            return "/pages/detalhes/detalhesArea?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            areaSelecionada = this.area.buscarPeloId(id);
+            areaSelecionada = area.buscarPeloId(id);
 
-        if (areaSelecionada != null) {
-            this.area = areaSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (areaSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Área!",
+                                   "Erro ao localizar Área!"));
+            return "/pages/listar/listarAreas";
         }
-        return "/pages/editar/editarArea";
+        else {
+            this.area = areaSelecionada;
+            return "/pages/editar/editarArea?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
@@ -112,7 +115,7 @@ public class AreaBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Área!",
                                    "Erro ao salvar Área!"));
-            return "/pages/cadastrar/cadastrarAreas";
+            return "/pages/cadastrar/cadastrarArea";
         }
     }
 }

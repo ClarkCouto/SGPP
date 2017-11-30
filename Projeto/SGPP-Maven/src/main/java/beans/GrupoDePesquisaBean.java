@@ -2,11 +2,13 @@ package beans;
 
 import entities.Coordenador;
 import entities.GrupoDePesquisa;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -31,9 +33,13 @@ public class GrupoDePesquisaBean {
         this.listaFiltrada = listaFiltrada;
     }
     
-    public List<Coordenador> getCoordenadores(){
-        this.coordenadores = (List<Coordenador>) (Coordenador) new Coordenador().buscarTodos();
-        return coordenadores;
+    public List<SelectItem> getCoordenadores(){
+        this.coordenadores = new Coordenador().buscarTodosCoordenadores();
+        List<SelectItem> items = new ArrayList<>();  
+        this.coordenadores.forEach((c) -> {
+            items.add(new SelectItem(c, c.getNome()));
+        }); 
+        return items;
     }
     
     public GrupoDePesquisa getGrupoDePesquisa() {
@@ -72,13 +78,13 @@ public class GrupoDePesquisaBean {
 
         if (grupoDePesquisaSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Grupo De Pesquisa!",
-                                   "Erro ao buscar Grupo De Pesquisa!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Grupo De Pesquisa!",
+                                   "Erro ao localizar Grupo De Pesquisa!"));
             return "/pages/listar/listarGruposDePesquisa";
         }
         else {
             this.grupoDePesquisa = grupoDePesquisaSelecionado;
-            return "/pages/detalhes/detalhesGrupoDePesquisa";
+            return "/pages/detalhes/detalhesGrupoDePesquisa?faces-redirect=true";
         }
     }
     
@@ -86,13 +92,16 @@ public class GrupoDePesquisaBean {
         if(id != null)
             grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
 
-        if (grupoDePesquisaSelecionado != null) {
-            this.grupoDePesquisa = grupoDePesquisaSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (grupoDePesquisaSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Grupo De Pesquisa!",
+                                   "Erro ao localizar Grupo De Pesquisa!"));
+            return "/pages/listar/listarGruposDePesquisa";
         }
-        return "/pages/editar/editarGrupoDePesquisa";
+        else {
+            this.grupoDePesquisa = grupoDePesquisaSelecionado;
+            return "/pages/editar/editarGrupoDePesquisa?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
@@ -103,23 +112,23 @@ public class GrupoDePesquisaBean {
     
     public String remover(Long id) {
         if(grupoDePesquisa.remover(id))
-            return "/pages/listar/listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/listar/listarGruposDePesquisa?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Grupo De Pesquisa!",
                                    "Erro ao excluir Grupo De Pesquisa!"));
-            return "/pages/listar/listarGrupoDePesquisas";
+            return "/pages/listar/listarGruposDePesquisa";
         }
     }
     
     public String salvar() {
         if(grupoDePesquisa.salvar())
-            return "/pages/listar/listarGrupoDePesquisas?faces-redirect=true";
+            return "/pages/listar/listarGruposDePesquisa?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Grupo De Pesquisa!",
                                    "Erro ao salvar Grupo De Pesquisa!"));
-            return "/pages/cadastrar/cadastrarGrupoDePesquisas";
+            return "/pages/cadastrar/cadastrarGrupoDePesquisa";
         }
     }
 }

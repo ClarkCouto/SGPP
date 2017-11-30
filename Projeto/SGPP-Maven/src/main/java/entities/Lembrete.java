@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +31,9 @@ public class Lembrete extends BaseEntityAudit implements Serializable{
     
     @OneToOne
     private Documento documento;
+    
+    @XmlTransient 
+    public TipoDocumento tipoDocumento;
     
     @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -71,6 +75,14 @@ public class Lembrete extends BaseEntityAudit implements Serializable{
 
     public void setObrigatorio(boolean obrigatorio) {
         this.obrigatorio = obrigatorio;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     @Override

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="5" />
+            <ui:define name="content">
+                <div class="main-bar">
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarTextosBaseDeclaracao" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Textos Base Declarações</span>
+                        </h:link>   
+                    </div>                          
+                </div> 
+                <h:form>
+                    <div class="form">
+                        <h:panelGroup class="form--section">
+                            <div class="form--section--title">Editar Texto Base Declaração</div>
+                            <div class="form--group">
+                                <h:outputLabel for="identificador" styleClass="form--group--label">Identificador</h:outputLabel>
+                                <h:inputText
+                                    value="#{textoBaseDeclaracaoBean.textoBaseDeclaracao.identificador}"
+                                    id="identificador"
+                                    label="Identificador"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Identificador é obrigatório."
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="identificador" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group">
+                                <h:outputLabel for="texto" styleClass="form--group--label">Texto Declaração</h:outputLabel>
+                                <p:textEditor 
+                                    widgetVar="texto" 
+                                    value="#{textoBaseDeclaracaoBean.textoBaseDeclaracao.texto}" 
+                                    height="300" 
+                                    style="margin-bottom:10px"
+                                    required='true'
+                                    requiredMessage="Texto da declaração é obrigatório."
+                                />
+                                <h:message for="texto" styleClass="form--group--message" />
+                            </div>
+                        </h:panelGroup>
+                        <div class="form--actions">
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{textoBaseDeclaracaoBean.limpar()}" type="reset"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{textoBaseDeclaracaoBean.salvar()}"/>
+                            </div>   
+                        </div>    
+                        <div class="form--actions">
+                            <p:messages id="messages" />  
+                        </div>
+                    </div>     
+                </h:form>
+            </ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

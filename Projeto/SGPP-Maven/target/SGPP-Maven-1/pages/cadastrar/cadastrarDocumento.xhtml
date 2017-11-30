@@ -11,19 +11,20 @@
             <f:event type="preRenderView" listener="#{documentoBean.limpar()}" />
         </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="1" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">
-                        <h:link class="main-bar--current-page--previous" outcome="listarDocumentos">
-                            <i class="fa fa-chevron-left"/>
-                        </h:link>
-                        <h1 class="main-bar--current-page--title">Cadastrar Documento</h1>                        
-                    </div>                         
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarDocumentos" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Documentos</span>
+                        </h:link>   
+                    </div>                             
                 </div> 
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Informações do Documento</div>
+                            <div class="form--section--title">Cadastrar Documento</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
@@ -32,7 +33,7 @@
                                     label="Nome"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Nome é obrigatório"
+                                    requiredMessage="Nome é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
@@ -42,7 +43,7 @@
                                 <h:outputLabel for="instituicao" styleClass="form--group--label">Instituição</h:outputLabel>
                                  <p:selectOneMenu id="categoria" value="#{documentoBean.documento.instituicao}"
                                     required='true'
-                                    requiredMessage="Instituição é obrigatória"
+                                    requiredMessage="Instituição é obrigatória."
                                     >
                                     <f:selectItem itemLabel="-- Selecione --" itemValue="" />
                                     <f:selectItems value="#{documentoBean.instituicoes}" />

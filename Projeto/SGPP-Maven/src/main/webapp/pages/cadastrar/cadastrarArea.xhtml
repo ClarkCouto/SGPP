@@ -13,17 +13,17 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <div class="main-bar"> 
-                    <div class="main-bar--actions">
-                        <h:link styleClass="button" outcome="listarAreas">
+                    <div class="main-bar--current-page">   
+                        <h:link styleClass="button" outcome="/pages/listar/listarAreas" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Áreas</span>
-                        </h:link>
-                    </div>                    
+                        </h:link>   
+                    </div>                   
                 </div> 
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Informações da Área</div>
+                            <div class="form--section--title">Cadastrar Área</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
@@ -32,7 +32,7 @@
                                     label="Nome"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Nome é obrigatório"
+                                    requiredMessage="Nome é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
@@ -40,8 +40,13 @@
                             </div>
                         </h:panelGroup>
                         <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{areaBean.salvar()}"/>
-                        </div>
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Limpar" action="#{areaBean.limpar()}"/>
+                            </div>       
+                            <div class="form--actions">
+                                <h:commandButton styleClass="button" value="Salvar" action="#{areaBean.salvar()}"/>
+                            </div>   
+                        </div>   
                         <div class="form--actions">
                             <p:messages id="messages" />  
                         </div>

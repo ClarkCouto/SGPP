@@ -65,13 +65,13 @@ public class TextoBaseDeclaracaoBean {
 
         if (textoBaseDeclaracaoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Texto Base Declaração!",
-                                   "Erro ao buscar Texto Base Declaração!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Texto Base Declaração!",
+                                   "Erro ao localizar Texto Base Declaração!"));
             return "/pages/listar/listarTextosBaseDeclaracao";
         }
         else {
             this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
-            return "/pages/detalhes/detalhesTextoBaseDeclaracao";
+            return "/pages/detalhes/detalhesTextoBaseDeclaracao?faces-redirect=true";
         }
     }
     
@@ -79,13 +79,16 @@ public class TextoBaseDeclaracaoBean {
         if(id != null)
             textoBaseDeclaracaoSelecionado = this.textoBaseDeclaracao.buscarPeloId(id);
 
-        if (textoBaseDeclaracaoSelecionado != null) {
-            this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (textoBaseDeclaracaoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Texto Base Declaração!",
+                                   "Erro ao localizar Texto Base Declaração!"));
+            return "/pages/listar/listarTextosBaseDeclaracao";
         }
-        return "/pages/editar/editarTextoBaseDeclaracao";
+        else {
+            this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
+            return "/pages/editar/editarTextoBaseDeclaracao?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
@@ -112,7 +115,7 @@ public class TextoBaseDeclaracaoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Texto Base Declaração!",
                                    "Erro ao salvar Texto Base Declaração!"));
-            return "/pages/cadastrar/listarTextosBaseDeclaracao";
+            return "/pages/cadastrar/cadastrarTextoBaseDeclaracao";
         }
     }
 }

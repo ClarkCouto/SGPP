@@ -8,23 +8,20 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
         <ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="0" />
             <ui:define name="content">                
                 <h:form>                                                  
-                    <p:dataTable  
+                    <p:dataTable
                         id='lista'
                         var="edital" 
                         value="#{editalBean.editais}" 
                         widgetVar="editaisTable"
                         emptyMessage="Nenhum edital foi encontrado." 
                         filteredValue="#{editalBean.listaFiltrada}"
-                        >
-
+                    >
                         <f:facet name="header">
-                            <p:outputPanel>              
-                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarEdital" style="float:left;">
-                                    <i class="fa fa-plus button--icon" />
-                                    <span class="button--label">Cadastrar Edital</span>
-                                </h:link>
+                            <p:outputPanel>             
+                                <h:commandButton styleClass="button button--label" value="Cadastrar Edital" action="${editalBean.cadastrar()}" style="float:left;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
@@ -59,14 +56,12 @@
                             <h:outputText value="#{edital.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{edital.ativo}" action="${editalBean.editar(edital.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{edital.ativo}" actionListener="${editalBean.remover(edital.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="${editalBean.detalhar(edital.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{edital.ativo}" actionListener="${editalBean.remover(edital.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

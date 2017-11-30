@@ -7,14 +7,12 @@
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{colaboradorBean.limpar()}" />
-        </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="5" />
             <ui:define name="content">
                 <h:form>
                     <p:dataTable var="colaborador" 
-                        value="#{colaboradorBean.colaborador}" 
+                        value="#{colaboradorBean.colaboradores}" 
                         widgetVar="colaboradorTable"
                         emptyMessage="Nenhum colaborador foi encontrado." 
                         filteredValue="#{colaboradorBean.listaFiltrada}"
@@ -56,14 +54,12 @@
                             <h:outputText value="#{colaborador.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{colaborador.ativo}" action="${colaboradorBean.editar(colaborador.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
-                        </p:column>
-
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{colaborador.ativo}" actionListener="${colaboradorBean.remover(colaborador.id)}" update="lista">
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="${colaboradorBean.detalhar(colaborador.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Editar" action="${colaboradorBean.editar(colaborador.id)}" icon="fa fa-edit" rendered="#{colaborador.ativo}"/>
+                            
+                            <p:commandButton value="Excluir" rendered="#{colaborador.ativo}" actionListener="${colaboradorBean.remover(colaborador.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

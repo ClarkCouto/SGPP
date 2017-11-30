@@ -2,11 +2,13 @@ package beans;
 
 import entities.Curso;
 import entities.Instituicao;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -60,9 +62,13 @@ public class CursoBean {
         this.editando = editando;
     }
     
-    public List<Instituicao> getInstituicoes(){
+    public List<SelectItem> getInstituicoes(){
         this.instituicoes = new Instituicao().buscarTodos();
-        return instituicoes;
+        List<SelectItem> items = new ArrayList<>();  
+        this.instituicoes.forEach((c) -> {
+            items.add(new SelectItem(c, c.getNome()));
+        }); 
+        return items;
     }
     
 // Ações
@@ -72,13 +78,13 @@ public class CursoBean {
 
         if (cursoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar Curso!",
-                                   "Erro ao buscar Curso!"));
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Curso!",
+                                   "Erro ao localizar Curso!"));
             return "/pages/listar/listarCursos";
         }
         else {
             this.curso = cursoSelecionado;
-            return "/pages/detalhes/detalhesCurso";
+            return "/pages/detalhes/detalhesCurso?faces-redirect=true";
         }
     }
     
@@ -86,13 +92,16 @@ public class CursoBean {
         if(id != null)
             cursoSelecionado = this.curso.buscarPeloId(id);
 
-        if (cursoSelecionado != null) {
-            this.curso = cursoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (cursoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Curso!",
+                                   "Erro ao localizar Curso!"));
+            return "/pages/listar/listarCursos";
         }
-        return "/pages/editar/editarCurso";
+        else {
+            this.curso = cursoSelecionado;
+            return "/pages/editar/editarCurso?faces-redirect=true";
+        }
     }  
     
     public void limpar(){
@@ -119,7 +128,7 @@ public class CursoBean {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Curso!",
                                    "Erro ao salvar Curso!"));
-            return "/pages/cadastrar/cadastrarCursos";
+            return "/pages/cadastrar/cadastrarCurso";
         }
     }
 }
