@@ -5,9 +5,11 @@
  */
 package beans;
 
+import entities.Instituicao;
 import entities.SetorDePesquisa;
 import entities.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -24,6 +26,7 @@ import javax.faces.context.FacesContext;
 public class SetorDePesquisaBean implements Serializable {    
     private SetorDePesquisa setorDePesquisa = new SetorDePesquisa(); 
     private SetorDePesquisa setorDePesquisaSelecionado;
+    private List<Instituicao> instituicoes;
     private List<SetorDePesquisa> setoresDePesquisa;
     private List<SetorDePesquisa> listaFiltrada;
     private Boolean editando;
@@ -45,13 +48,21 @@ public class SetorDePesquisaBean implements Serializable {
         this.setorDePesquisa = setorDePesquisa;
     }
 
-    public void setCagppiSelecionado(SetorDePesquisa setorDePesquisa) {
+    public void setSetorDePesquisaSelecionado(SetorDePesquisa setorDePesquisa) {
         this.setorDePesquisaSelecionado = setorDePesquisa;
     }
     
     public List<SetorDePesquisa> getSetoresDePesquisa(){
         this.setoresDePesquisa = new SetorDePesquisa().buscarTodosSetores();
         return setoresDePesquisa;
+    }
+
+    public List<Instituicao> getInstituicoes() {
+        this.instituicoes = new Instituicao().buscarTodos();
+        if(this.instituicoes == null){
+            this.instituicoes = new ArrayList<>();  
+        }
+        return instituicoes;
     }
     
     // Ações

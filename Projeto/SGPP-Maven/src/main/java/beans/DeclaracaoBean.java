@@ -229,7 +229,6 @@ public class DeclaracaoBean {
     
       
       
-    
         public List<SelectItem> getTextosBaseSelect(){
         this.textosBase = new TextoBaseDeclaracao().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  

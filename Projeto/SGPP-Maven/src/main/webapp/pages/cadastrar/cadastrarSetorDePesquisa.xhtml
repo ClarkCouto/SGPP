@@ -85,7 +85,7 @@
                                 </p:inputMask>
                                 <h:message for="celular" styleClass="form--group--message" />
                             </div>
-                            <div class="form--group">
+                            <div class="form--group size-half">
                                 <h:outputLabel for="cpf" styleClass="form--group--label">CPF</h:outputLabel>
                                 <p:inputMask
                                     value="#{setorDePesquisaBean.setorDePesquisa.cpf}"
@@ -99,23 +99,7 @@
                                     <f:validateRequired />
                                 </p:inputMask>
                                 <h:message for="cpf" styleClass="form--group--message" />
-                            </div>                            
-                            <div class="form--group size-half">
-                                <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
-                                <h:selectOneMenu
-                                    value="#{setorDePesquisaBean.setorDePesquisa.sexo}"
-                                    id="sexo"
-                                    label="Sexo"
-                                    required="true"
-                                    requiredMessage="Sexo é obrigatório."
-                                    styleClass="form--group--text-input"
-                                >
-                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>   
-                                    <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
-                                    <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
-                                </h:selectOneMenu>
-                                <h:message for="sexo" styleClass="form--group--message" />
-                            </div>
+                            </div>   
                             <div class="form--group size-half">
                                 <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Nascimento</h:outputLabel>
                                 <p:inputMask
@@ -131,6 +115,41 @@
                                     <f:validateRequired />
                                 </p:inputMask>
                                 <h:message for="data-nascimento" styleClass="form--group--message" />
+                            </div>    
+                            <div class="form--group size-half">
+                                <h:outputLabel for="instituicao-setor" styleClass="form--group--label">Instituição</h:outputLabel>
+                                <p:selectOneMenu id="instituicao-setor" 
+                                    value="#{setorDePesquisaBean.setorDePesquisa.instituicao}"  
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="inst" 
+                                    filter="true" 
+                                    filterMatchMode="contains"
+                                    required='true'
+                                    requiredMessage="Instituição é obrigatória.">
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/> 
+                                    <f:selectItems value="#{setorDePesquisaBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
+                                    <p:column>
+                                        <h:outputText value="#{inst.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="grupo-coordenador" styleClass="form--group--message" />
+                            </div>                     
+                            <div class="form--group size-half">
+                                <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
+                                <h:selectOneMenu
+                                    value="#{setorDePesquisaBean.setorDePesquisa.sexo}"
+                                    id="sexo"
+                                    label="Sexo"
+                                    required="true"
+                                    requiredMessage="Sexo é obrigatório."
+                                    styleClass="form--group--text-input"
+                                >
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>   
+                                    <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
+                                    <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
+                                </h:selectOneMenu>
+                                <h:message for="sexo" styleClass="form--group--message" />
                             </div>
                             <div class="form--actions">
                                 <div class="form--actions">
