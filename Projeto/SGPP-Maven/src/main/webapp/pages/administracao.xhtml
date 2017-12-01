@@ -9,8 +9,8 @@
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="5" />
-            <ui:define name="content">                
-                
+            <ui:define name="content">     
+                <p:growl id="messages"/>  
                 <div class="main-bar">
                     <div class="main-bar--actions">  
                         <h:link styleClass="button" outcome="/pages/listar/listarAlunos">

@@ -9,7 +9,8 @@
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
             <ui:define name="content">       
-                <h:form>             
+                <h:form>        
+                    <p:growl id="messages"/>       
                     <p:dataTable  
                         id='lista'
                         var="documento" 

@@ -1,0 +1,160 @@
+package beans;
+
+import entities.Aluno;
+import entities.Bolsa;
+import entities.Curso;
+import entities.Instituicao;
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
+/**
+ *
+ * @author CristianoSilva
+ */
+@ManagedBean
+@SessionScoped
+public class AlunoBean {
+    private Aluno aluno = new Aluno();
+    private Aluno alunoSelecionado;
+    private List<Aluno> alunos;
+    private List<Aluno> listaFiltrada;
+    private List<Bolsa> bolsas;
+    private List<Curso> cursos;
+    private List<Instituicao> instituicoes;
+    private Boolean editando;
+    
+// Getters e Setters
+    public List<Aluno> getListaFiltrada() {
+        return listaFiltrada;
+    }
+ 
+    public void setListaFiltrada(List<Aluno> listaFiltrada) {
+        this.listaFiltrada = listaFiltrada;
+    }
+    
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public void setAlunoSelecionado(Aluno aluno) {
+        this.alunoSelecionado = aluno;
+    }
+      
+    public List<Aluno> getAlunos(){
+        this.alunos = aluno.buscarTodos();
+        return alunos;
+    }
+    
+    public void setAlunos(List<Aluno> lista){
+        this.alunos = lista;
+    }
+
+    public Boolean getEditando() {
+        return editando;
+    }
+
+    public void setEditando(Boolean editando) {
+        this.editando = editando;
+    }
+
+    public List<SelectItem> getBolsas(){
+        this.bolsas = new Bolsa().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.bolsas.forEach((b) -> {
+            items.add(new SelectItem(b, b.getNome()));
+        }); 
+        return items;
+    }
+
+    public List<SelectItem> getCursos(){
+        this.cursos = new Curso().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.cursos.forEach((b) -> {
+            items.add(new SelectItem(b, b.getNome()));
+        }); 
+        return items;
+    }
+
+    public List<SelectItem> getInstituicoes(){
+        this.instituicoes = new Instituicao().buscarTodos();
+        List<SelectItem> items = new ArrayList<>();  
+        this.instituicoes.forEach((b) -> {
+            items.add(new SelectItem(b, b.getNome()));
+        }); 
+        return items;
+    }
+    
+// Ações
+    public String detalhar(Long id){
+        if(id != null)
+            alunoSelecionado = aluno.buscarPeloId(id);
+
+        if (alunoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Aluno!",
+                                   "Erro ao localizar Aluno!"));
+            return "/pages/listar/listarAlunos";
+        }
+        else {
+            this.aluno = alunoSelecionado;
+            return "/pages/detalhes/detalhesAluno?faces-redirect=true";
+        }
+    }
+    
+    public String editar(Long id){
+        if(id != null)
+            alunoSelecionado = aluno.buscarPeloId(id);
+
+        if (alunoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Aluno!",
+                                   "Erro ao localizar Aluno!"));
+            return "/pages/listar/listarAlunos";
+        }
+        else {
+            this.aluno = alunoSelecionado;
+            return "/pages/editar/editarAluno?faces-redirect=true";
+        }
+    }  
+    
+    public void limpar(){
+        this.editando = false;
+        this.aluno = new Aluno();
+        this.alunoSelecionado = new Aluno();
+    }
+    
+    public String remover(Long id) {
+        if(aluno.remover(id))
+            return "/pages/listar/listarAlunos?faces-redirect=true";
+        else{
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Aluno!",
+                                   "Erro ao excluir Aluno!"));
+            return "/pages/listar/listarAlunos";
+        }
+    }
+    
+    public String salvar() {
+        if(aluno.salvar())
+            return "/pages/listar/listarAlunos?faces-redirect=true";
+        else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Aluno!",
+                                   "Erro ao salvar Aluno!"));
+            return "/pages/cadastrar/cadastrarAluno";
+        }
+    }
+    
+    public void onInstituicaoChange(){ 
+    }
+}
+

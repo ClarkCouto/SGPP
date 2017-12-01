@@ -24,6 +24,7 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
+                            <p:growl id="messages"/>  
                             <div class="form--section--title">Cadastrar Tipo de Documento</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
@@ -48,9 +49,6 @@
                                 <h:commandButton styleClass="button" value="Salvar" action="#{tipoDocumentoBean.salvar()}"/>
                             </div>   
                         </div>   
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
-                        </div>
                     </div>     
                 </h:form>
             </ui:define>

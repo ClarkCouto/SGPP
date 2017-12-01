@@ -26,6 +26,7 @@
                         <h:panelGroup class="form--section">
                             <div class="form--section--title">Cadastrar Aluno</div>
                             <div class="form--group">
+                                <p:growl id="messages"/>  
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
                                     value="#{alunoBean.aluno.nome}"
@@ -141,6 +142,7 @@
                                     required='true'
                                     requiredMessage="Instituição é obrigatória."
                                     >                         
+                                    <p:ajax listener="#{alunoBean.onInstituicaoChange}" update="curso-aluno" />
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                
                                     <f:selectItems value="#{alunoBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
                                     <p:column>

@@ -10,7 +10,8 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="5" />
             <ui:define name="content">      
-                <h:form>           
+                <h:form>      
+                    <p:growl id="messages"/>       
                     <p:dataTable 
                         id='lista'
                         var="categoriaBolsa" 

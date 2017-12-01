@@ -21,7 +21,8 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Informações do Documento</div>
+                            <p:growl id="messages"/>  
+                            <div class="form--section--title">Editar Documento</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
@@ -51,9 +52,6 @@
                         </h:panelGroup>
                         <div class="form--actions">
                             <h:commandButton styleClass="button" value="Salvar" action="#{documentoBean.salvar()}"/>
-                        </div>
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
                         </div>
                     </div>     
                 </h:form>

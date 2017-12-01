@@ -24,6 +24,7 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
+                            <p:growl id="messages"/>  
                             <div class="form--section--title">Cadastrar Grupo De Pesquisa</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
@@ -47,10 +48,7 @@
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Salvar" action="#{grupoDePesquisaBean.salvar()}"/>
                             </div>   
-                        </div>   
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
-                        </div>
+                        </div>  
                     </div>     
                 </h:form>
             </ui:define>

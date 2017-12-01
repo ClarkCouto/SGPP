@@ -17,6 +17,7 @@ dao\CursoDAO.class
 dao\CagppiDAO.class
 entities\BaseEntityAudit.class
 entities\GrupoDePesquisa.class
+beans\SetorDePesquisaBean.class
 beans\DocumentoBean.class
 dao\DeclaracaoDAO.class
 entities\Projeto.class
@@ -33,6 +34,7 @@ beans\UsuarioBean.class
 entities\Edital.class
 entities\GrupoDePesquisa_.class
 entities\Usuario_.class
+beans\CagppiBean.class
 dao\BaseDAO.class
 dao\JPAUtil.class
 dao\CategoriaBolsaDAO.class
@@ -42,6 +44,7 @@ utils\StringToDateConverter.class
 beans\TipoDocumentoBean.class
 entities\Pessoa.class
 beans\CategoriaBolsaBean.class
+beans\CoordenadorBean.class
 beans\ColaboradorBean.class
 entities\Lembrete.class
 CriarBanco.class
@@ -82,4 +85,5 @@ entities\Instituicao.class
 dao\AlunoDAO.class
 entities\Colaborador.class
 entities\Projeto_.class
+utils\SimpleEntityConverter.class
 entities\Usuario.class

@@ -21,6 +21,7 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
+                            <p:growl id="messages"/>  
                             <div class="form--section--title">Editar Curso</div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="instituicao" styleClass="form--group--label">Instituição</h:outputLabel>
@@ -59,9 +60,6 @@
                         </h:panelGroup>
                         <div class="form--actions">
                             <h:commandButton styleClass="button" value="Salvar" action="#{cursoBean.salvar()}"/>
-                        </div>
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
                         </div>
                     </div>     
                 </h:form>

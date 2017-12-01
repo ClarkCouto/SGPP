@@ -10,7 +10,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-11-29T23:29:54")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-11-30T21:52:02")
 @StaticMetamodel(Projeto.class)
 public class Projeto_ extends BaseEntityAudit_ {
 

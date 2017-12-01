@@ -24,6 +24,7 @@
             </div>
             <div class="content">
                 <div class="login-box box">
+                    <p:growl id="messages"/>  
                     <span class="box--header">Identifique-se</span>
                     <div class="box--content">
                         <h:form>
@@ -61,9 +62,6 @@
                                     <h:link styleClass="link box--actions--left" value="Cadastrar usuário (temporário)" outcome="signup"/>
                                 </div>         
                                 <h:commandButton styleClass="button" value="Entrar" action="#{usuarioBean.logar()}"/>                           
-                            </div>
-                            <div class="box--actions">           
-                                <p:messages id="messages" />                              
                             </div>
                         </h:form>                        
                     </div>

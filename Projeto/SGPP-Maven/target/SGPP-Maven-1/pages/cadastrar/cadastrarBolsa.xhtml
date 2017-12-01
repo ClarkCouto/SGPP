@@ -24,6 +24,7 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
+                            <p:growl id="messages"/>   
                             <div class="form--section--title">Cadastrar Bolsa</div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
@@ -67,9 +68,6 @@
                                 <h:commandButton styleClass="button" value="Salvar" action="#{bolsaBean.salvar()}"/>
                             </div>   
                         </div>   
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
-                        </div>
                     </div>     
                 </h:form>
             </ui:define>
