@@ -28,6 +28,9 @@ public class Bolsa extends BaseEntityAudit implements Serializable{
     
     @Column(nullable=false, columnDefinition = "VARCHAR(50)")
     private String nome;
+    
+    @Column(nullable=false)
+    private Integer quantidade; 
 
     public Bolsa() {
     }
@@ -48,6 +51,14 @@ public class Bolsa extends BaseEntityAudit implements Serializable{
         this.nome = nome;
     }
 
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -72,6 +83,9 @@ public class Bolsa extends BaseEntityAudit implements Serializable{
             return false;
         }
         if (!Objects.equals(this.categoriaBolsa, other.categoriaBolsa)) {
+            return false;
+        }
+        if (!Objects.equals(this.quantidade, other.quantidade)) {
             return false;
         }
         return true;

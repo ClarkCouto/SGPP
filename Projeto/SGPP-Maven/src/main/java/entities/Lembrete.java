@@ -10,8 +10,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,11 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Lembrete extends BaseEntityAudit implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;   
     
-    
     @Column(nullable=false, columnDefinition = "VARCHAR(200)")
     private String descricao;
     
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Documento documento;
     
     @XmlTransient 

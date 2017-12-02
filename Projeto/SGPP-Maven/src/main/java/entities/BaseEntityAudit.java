@@ -6,12 +6,14 @@
 package entities;
 
 import java.util.Date;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -66,13 +68,23 @@ public class BaseEntityAudit extends BaseEntity {
 
     @PrePersist
     public void setCreationDate() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        String nome = usuario != null ? usuario.getNome() : "";
+        this.setAlteradoPor(nome);
         this.setAtivo(Boolean.TRUE);
+        this.setCriadoPor(nome);
         this.setDataCriacao(new Date());
         this.setDataUltimaAlteracao(new Date());
     }
     
     @PreUpdate
     public void setChangeDate() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        this.setAlteradoPor(usuario.getNome());
         this.setDataUltimaAlteracao(new Date());
     }  
                

@@ -10,6 +10,7 @@ import entities.Coordenador;
 import entities.GrupoDePesquisa;
 import entities.Instituicao;
 import entities.Usuario;
+import entities.Usuario.TipoUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -181,7 +182,7 @@ public class CoordenadorBean implements Serializable {
         else if(validarCpfUnico(coordenador.getCpf())){
             coordenador.setAtivo(Boolean.TRUE);
             coordenador.setSenha("1234");
-            coordenador.setTipo("Coordenador");
+            coordenador.setTipo(TipoUsuario.Coordenador);
             coordenador.setUltimoAcesso(new Date());
             if(coordenador.salvar())
                 return "/pages/listar/listarCoordenadores?faces-redirect=true";

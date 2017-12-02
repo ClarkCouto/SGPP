@@ -7,6 +7,7 @@ package beans;
 
 import entities.Cagppi;
 import entities.Usuario;
+import entities.Usuario.TipoUsuario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -109,7 +110,7 @@ public class CagppiBean implements Serializable {
             cagppi.setAtivo(Boolean.TRUE);
             cagppi.setDataNascimento(new Date());
             cagppi.setSenha("1234");
-            cagppi.setTipo("Cagppi");
+            cagppi.setTipo(TipoUsuario.CAGPPI);
             cagppi.setUltimoAcesso(new Date());
             if(cagppi.salvar())
                 return "/pages/listar/listarCagppi?faces-redirect=true";

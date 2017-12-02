@@ -9,6 +9,7 @@ import entities.Cagppi;
 import entities.Coordenador;
 import entities.SetorDePesquisa;
 import entities.Usuario;
+import entities.Usuario.TipoUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +26,8 @@ import javax.servlet.http.HttpSession;
  */
 @ManagedBean
 @RequestScoped
-public class UsuarioBean implements Serializable {    
+public class UsuarioBean implements Serializable {   
+    public static final String AUTH_KEY = "app.user.name"; 
     private Usuario usuario = new Usuario(); 
     private Usuario usuarioLogado;
     private List<Usuario> usuarios;
@@ -97,10 +99,11 @@ public class UsuarioBean implements Serializable {
     // Ações
     public String cadastrar() {
         String tipo = "";
+        boolean inserido = false;
         try{
             switch(getTipoUsuario()){
                 case "Cagppi":
-                    tipo = "Cagppi";
+                    tipo = TipoUsuario.CAGPPI.toString();
                     Cagppi cag = new Cagppi();
                     cag.setAtivo(Boolean.TRUE);
                     cag.setCpf(usuario.getCpf());
@@ -113,12 +116,12 @@ public class UsuarioBean implements Serializable {
                     cag.setSexo(usuario.getSexo());
                     cag.setTelefoneCelular(usuario.getTelefoneCelular());
                     cag.setTelefoneFixo(usuario.getTelefoneFixo());
-                    cag.setTipo(tipo);
+                    cag.setTipo(TipoUsuario.CAGPPI);
                     cag.setUltimoAcesso(new Date());
                     cag.salvar();
                     break;
                 case "Coordenador":
-                    tipo = "Coordenador";
+                    tipo = TipoUsuario.Coordenador.toString();
                     Coordenador coordenador = new Coordenador();
                     coordenador.setAtivo(Boolean.TRUE);
                     coordenador.setCpf(usuario.getCpf());
@@ -133,12 +136,12 @@ public class UsuarioBean implements Serializable {
                     coordenador.setSexo(usuario.getSexo());
                     coordenador.setTelefoneCelular(usuario.getTelefoneCelular());
                     coordenador.setTelefoneFixo(usuario.getTelefoneFixo());
-                    coordenador.setTipo(tipo);
+                    coordenador.setTipo(TipoUsuario.Coordenador);
                     coordenador.setUltimoAcesso(new Date());
                     coordenador.salvar();
                     break;
                 case "Setor De Pesquisa":
-                    tipo = "Setor De Pesquisa";
+                    tipo = TipoUsuario.SetorDePesquisa.toString();
                     SetorDePesquisa setor = new SetorDePesquisa();
                     setor.setAtivo(Boolean.TRUE);
                     setor.setCpf(usuario.getCpf());
@@ -151,12 +154,19 @@ public class UsuarioBean implements Serializable {
                     setor.setSexo(usuario.getSexo());
                     setor.setTelefoneCelular(usuario.getTelefoneCelular());
                     setor.setTelefoneFixo(usuario.getTelefoneFixo());
-                    setor.setTipo(tipo);
+                    setor.setTipo(TipoUsuario.SetorDePesquisa);
                     setor.setUltimoAcesso(new Date());
                     setor.salvar();
                     break;
             }
-            return "login";
+            if(inserido)
+                return "login";
+            else{
+                FacesContext.getCurrentInstance().addMessage(null,
+                           new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao cadastrar " + tipo + "!",
+                                       "Erro ao cadastrar " + tipo + "!"));
+                return "signup";
+            }
         }
         catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -166,19 +176,23 @@ public class UsuarioBean implements Serializable {
         }
     }
     
+    public boolean isLoggedIn() {
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(AUTH_KEY) != null;
+    }
+    
     public String logar() {
-        Usuario user = usuario.buscarPeloCpf(usuario.getCpf());
-        if (user == null || !user.checkSenha(usuario.getSenha())) {
+        Usuario user = this.usuario.buscarPeloCpf(this.usuario.getCpf());
+        if (user == null || !user.checkSenha(this.usuario.getSenha())) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado!",
                                    "Erro no Login!"));
             return "login";
-            //return "/pages/listar/listarEditais?faces-redirect=true";
         }           
         setUsuarioLogado(user);
         FacesContext ctx = FacesContext.getCurrentInstance();
         session = (HttpSession) ctx.getExternalContext().getSession(false);
-        session.setAttribute("usuarioLogado", usuarioLogado);
+        session.setAttribute("usuarioLogado", this.usuarioLogado);
+        ctx.getExternalContext().getSessionMap().put(AUTH_KEY, this.usuarioLogado.getNome());
         return "/pages/listar/listarEditais?faces-redirect=true";
     }
     
@@ -188,8 +202,12 @@ public class UsuarioBean implements Serializable {
             session = (HttpSession) ctx.getExternalContext().getSession(false);
             session.setAttribute("usuarioLogado", null);
             ctx.getExternalContext().redirect(ctx.getExternalContext().getRequestContextPath() + "/faces/login.xhtml");
+            ctx.getExternalContext().getSessionMap().remove(AUTH_KEY);
             session.invalidate();
         } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocorreu um erro ao efetuar loggout!",
+                                   "Erro no Loggout!"));
         }
     }
     

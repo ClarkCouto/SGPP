@@ -2,6 +2,7 @@ package beans;
 
 import entities.Bolsa;
 import entities.CategoriaBolsa;
+import entities.Documento;
 import entities.Edital;
 import javax.faces.bean.ManagedBean;
 import entities.Lembrete;
@@ -104,6 +105,19 @@ public class EditalBean {
         this.edital.setBolsas(bolsas);
     }
     
+    public void adicionarDocumentosCadastrados(){
+        this.lembretes.forEach((t) -> {
+            if(t.tipoDocumento != null){
+//                Documento documento = t.getDocumento() != null ? t.getDocumento() : new Documento();
+                Documento documento = new Documento();
+                documento.setAtivo(Boolean.TRUE);
+                documento.setEntregue(Boolean.FALSE);
+                documento.setTipoDocumento(t.tipoDocumento);
+                t.setDocumento(documento);
+            }
+        }); 
+    }
+    
     public void adicionarLembrete() {
         this.lembretes.add(new Lembrete());
         this.edital.setLembretes(lembretes);
@@ -170,6 +184,7 @@ public class EditalBean {
     }
 
     public String salvar() {
+        adicionarDocumentosCadastrados();
         this.edital.setLembretes(lembretes);
         this.edital.setBolsas(bolsas);
         if(edital.salvar())

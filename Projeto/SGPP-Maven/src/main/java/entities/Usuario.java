@@ -13,6 +13,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,6 +26,10 @@ import javax.persistence.TemporalType;
 @DiscriminatorValue(value="Usuario")
 public class Usuario extends Pessoa implements Serializable {
     private static final long serialVersionUID = 5953225846505938118L;
+        
+    public static enum TipoUsuario {
+        CAGPPI, Coordenador, SetorDePesquisa
+    }
             
     @Column(nullable=false, columnDefinition = "VARCHAR(30)")
     private String senha;
@@ -32,17 +38,18 @@ public class Usuario extends Pessoa implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimoAcesso;
     
-    @Column(nullable=false, columnDefinition = "VARCHAR(20)")
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
+    private TipoUsuario tipo;
 
     public Usuario() {
     }  
 
-    public String getTipo() {
+    public TipoUsuario getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
     }
 

@@ -22,7 +22,7 @@
                     <div class="form">                                  
                         <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
-                            <div class="form--section--title">Cadastrar do Edital</div>
+                            <div class="form--section--title">Cadastrar Edital</div>
                             <div class="form--group">
                                 <h:outputLabel for="titulo" styleClass="form--group--label">Título</h:outputLabel>
                                 <h:inputText
@@ -31,25 +31,11 @@
                                     label="Título"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Título é obrigatório"
+                                    requiredMessage="Título é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="titulo" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="numero" styleClass="form--group--label">Número</h:outputLabel>
-                                <h:inputText
-                                    value="#{editalBean.edital.numero}"
-                                    id="numero"
-                                    label="Número"
-                                    styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Número é obrigatório"
-                                    >
-                                    <f:validateRequired />
-                                </h:inputText>
-                                <h:message for="numero" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="origem" styleClass="form--group--label">Origem</h:outputLabel>
@@ -59,12 +45,41 @@
                                     label="Origem"
                                     styleClass="form--group--text-input"
                                     required="true"
-                                    requiredMessage="Origem é obrigatória"
+                                    requiredMessage="Origem é obrigatória."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="origem" styleClass="form--group--message" />
-                            </div>   
+                            </div>  
+                            <div class="form--group size-half">
+                                <h:outputLabel for="numero" styleClass="form--group--label">Número</h:outputLabel>
+                                <h:inputText
+                                    value="#{editalBean.edital.numero}"
+                                    id="numero"
+                                    label="Número"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Número é obrigatório."
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="numero" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group">
+                                <h:outputLabel for="pdf" styleClass="form--group--label">PDF</h:outputLabel>
+
+                                <p:fileUpload 
+                                    value="#{editalBean.edital.pdf}" 
+                                    label="Buscar PDF"
+                                    mode="simple" 
+                                    skinSimple="true"
+                                    required="true"
+                                    requiredMessage="PDF é obrigatório."
+                                >
+                                    <f:validateRequired />
+                                </p:fileUpload>
+                                <h:message for="pdf" styleClass="form--group--message" />
+                            </div> 
                         </h:panelGroup>
                         <h:panelGroup
                             id="listaLembretes" 
@@ -88,58 +103,61 @@
                                 varStatus="linha"
                                 >   
                                 <div class="form--row">
-                                    <div class="form--group">
-                                        <h:outputLabel for="lembrete-descricao" styleClass="form--group--label">Descrição</h:outputLabel>
-                                        <h:inputText
-                                            value="#{lembrete.descricao}"
-                                            id="lembrete-descricao"
-                                            label="Descrição"
-                                            styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Descrição é obrigatória"
-                                            >
-                                            <f:validateRequired />
-                                        </h:inputText>
-                                        <h:message for="lembrete-descricao" styleClass="form--group--message" />
-                                    </div>
-                                    <div class="form--group size-half">
-                                        <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Data Limite Entrega</h:outputLabel>
-                                        <p:inputMask
-                                            value="#{lembrete.dataLimite}"
-                                            id="lembrete-data-limite"
-                                            label="Data Limite"
-                                            styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Data Limite Entrega é obrigatória"
-                                            mask="99/99/9999"
-                                            converter="cmd.converter.stringToDate"
-                                            >
-                                            <f:validateRequired />
-                                        </p:inputMask>
-                                        <h:message for="lembrete-data-limite" styleClass="form--group--message" />
-                                    </div>
-                                    <div class="form--group size-half">
-                                        <h:outputLabel for="tipo-documento" styleClass="form--group--label">Tipo de Documento</h:outputLabel>
-                                        <p:selectOneMenu id="categoria-bolsa" 
-                                            value="#{lembrete.tipoDocumento}" 
-                                            converter="SimpleEntityConverter"
-                                            effect="fade" 
-                                            var="tipo" 
-                                            filter="true" 
-                                            filterMatchMode="contains">                     
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{editalBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
-                                            <p:column>
-                                                <h:outputText value="#{tipo.nome}" />
-                                            </p:column>
-                                        </p:selectOneMenu>
-                                    </div>
-                                    <div class="form--group size-half">
-                                        <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Obrigatório</h:outputLabel>
-                                        <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" />
-                                    </div>
-                                    <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete)}"/>
+                                    <div class="form--section">
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="lembrete-descricao" styleClass="form--group--label">Descrição</h:outputLabel>
+                                            <h:inputText
+                                                value="#{lembrete.descricao}"
+                                                id="lembrete-descricao"
+                                                label="Descrição"
+                                                styleClass="form--group--text-input"
+                                                required="true"
+                                                requiredMessage="Descrição é obrigatória."
+                                                >
+                                                <f:validateRequired />
+                                            </h:inputText>
+                                            <h:message for="lembrete-descricao" styleClass="form--group--message" />
+                                        </div>
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Data Limite Entrega</h:outputLabel>
+                                            <p:inputMask
+                                                value="#{lembrete.dataLimite}"
+                                                id="lembrete-data-limite"
+                                                label="Data Limite"
+                                                styleClass="form--group--text-input"
+                                                required="true"
+                                                requiredMessage="Data Limite Entrega é obrigatória."
+                                                mask="99/99/9999"
+                                                converter="cmd.converter.stringToDate"
+                                                >
+                                                <f:validateRequired />
+                                            </p:inputMask>
+                                            <h:message for="lembrete-data-limite" styleClass="form--group--message" />
+                                        </div>
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="tipo-documento" styleClass="form--group--label">Tipo de Documento</h:outputLabel>
+                                            <p:selectOneMenu id="categoria-bolsa" 
+                                                value="#{lembrete.tipoDocumento}" 
+                                                converter="SimpleEntityConverter"
+                                                effect="fade" 
+                                                var="tipo" 
+                                                filter="true" 
+                                                filterMatchMode="contains"
+                                                >                     
+                                                <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                                <f:selectItems value="#{editalBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
+                                                <p:column>
+                                                    <h:outputText value="#{tipo.nome}" />
+                                                </p:column>
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="lembrete-obrigatorio" styleClass="form--group--label">Obrigatório</h:outputLabel>
+                                            <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" />
+                                        </div>
+                                        <div class="form--group">
+                                            <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerLembrete(lembrete)}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </ui:repeat>
@@ -150,7 +168,7 @@
                             </div>            
                         </h:panelGroup>
                         <h:panelGroup
-                            id="bolsas" 
+                            id="listaBolsas" 
                             layout="block"
                             class="form--section"
                             >
@@ -170,50 +188,66 @@
                                 varStatus="linha"
                                 rendered="#{editalBean.bolsas.size() > 0}"
                                 >   
-                                <div class="form--row">
-                                    <div class="form--group">
-                                        <h:outputLabel for="bolsa-nome" styleClass="form--group--label">Nome</h:outputLabel>
-                                        <h:inputText
-                                            value="#{bolsa.nome}"
-                                            id="bolsa-nome"
-                                            label="Nome"
-                                            styleClass="form--group--text-input"
-                                            required="true"
-                                            requiredMessage="Nome é obrigatório"
-                                            >
-                                            <f:validateRequired />
-                                        </h:inputText>
-                                        <h:message for="bolsa-nome" styleClass="form--group--message" />
-                                    </div>
-                                    <div class="form--group size-half">
-                                        <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
-                                        <p:selectOneMenu id="categoria-bolsa" 
-                                            value="#{bolsa.categoriaBolsa}" 
-                                            converter="SimpleEntityConverter"
-                                            effect="fade" 
-                                            var="cat" 
-                                            filter="true"   
-                                            filterMatchMode="contains"
-                                            required='true'
-                                            requiredMessage="Categoria é obrigatória">                         
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
-                                            <p:column>
-                                                <h:outputText value="#{cat.descricao}" />
-                                            </p:column>
-                                        </p:selectOneMenu>
-                                        <h:message for="categoria" styleClass="form--group--message" />
-                                    </div>
-                                    <div class="form--group">
-                                        <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerBolsa(bolsa)}">
-                                            <f:ajax render="edital.bolsas"/>
-                                        </h:commandButton>
+                                <div class="form--row" id="bolsa-row">
+                                    <div class="form--section">
+                                        <div class="form--row">
+                                            <div class="form--group">
+                                                <h:outputLabel for="bolsa-nome" styleClass="form--group--label">Nome</h:outputLabel>
+                                                <h:inputText
+                                                    value="#{bolsa.nome}"
+                                                    id="bolsa-nome"
+                                                    label="Nome"
+                                                    styleClass="form--group--text-input"
+                                                    required="true"
+                                                    requiredMessage="Nome da bolsa é obrigatório."
+                                                    >
+                                                    <f:validateRequired />
+                                                </h:inputText>
+                                                <h:message for="bolsa-nome" styleClass="form--group--message" />
+                                            </div>
+                                            <div class="form--group">
+                                                <h:outputLabel for="categoria-bolsa" styleClass="form--group--label">Categoria</h:outputLabel>
+                                                <p:selectOneMenu id="categoria-bolsa" 
+                                                    value="#{bolsa.categoriaBolsa}" 
+                                                    converter="SimpleEntityConverter"
+                                                    effect="fade" 
+                                                    var="cat" 
+                                                    filter="true"   
+                                                    filterMatchMode="contains"
+                                                    required='true'
+                                                    requiredMessage="Categoria da bolsa é obrigatória.">                         
+                                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                                    <f:selectItems value="#{bolsaBean.categorias}" var="categoria" itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
+                                                    <p:column>
+                                                        <h:outputText value="#{cat.descricao}" />
+                                                    </p:column>
+                                                </p:selectOneMenu>
+                                                <h:message for="categoria-bolsa" styleClass="form--group--message" />
+                                            </div>
+                                            <div class="form--group">
+                                                <h:outputLabel for="bolsa-quantidade" styleClass="form--group--label">Quantidade</h:outputLabel>
+                                                <h:inputText
+                                                    value="#{bolsa.quantidade}"
+                                                    id="bolsa-quantidade"
+                                                    label="Quantidade"
+                                                    styleClass="form--group--text-input"
+                                                    required="true"
+                                                    requiredMessage="Quantidade de bolsas disponíveis é obrigatória."
+                                                    >
+                                                    <f:validateRequired />
+                                                </h:inputText>
+                                                <h:message for="bolsa-quantidade" styleClass="form--group--message" />
+                                            </div>
+                                        </div>
+                                        <div class="form--group">
+                                            <h:commandButton styleClass="button" value="Remover" action="#{editalBean.removerBolsa(bolsa)}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </ui:repeat>
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Adicionar Nova Bolsa" action="#{editalBean.adicionarBolsa()}">
-                                    <f:ajax render="bolsas"/>
+                                    <f:ajax render="listaBolsas"/>
                                 </h:commandButton>
                             </div>                            
                         </h:panelGroup>  

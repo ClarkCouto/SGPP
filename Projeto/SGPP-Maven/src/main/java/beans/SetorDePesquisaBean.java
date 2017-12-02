@@ -8,6 +8,7 @@ package beans;
 import entities.Instituicao;
 import entities.SetorDePesquisa;
 import entities.Usuario;
+import entities.Usuario.TipoUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -120,7 +121,7 @@ public class SetorDePesquisaBean implements Serializable {
             setorDePesquisa.setAtivo(Boolean.TRUE);
             setorDePesquisa.setDataNascimento(new Date());
             setorDePesquisa.setSenha("1234");
-            setorDePesquisa.setTipo("SetorDePesquisa");
+            setorDePesquisa.setTipo(TipoUsuario.SetorDePesquisa);
             setorDePesquisa.setUltimoAcesso(new Date());
             if(setorDePesquisa.salvar())
                 return "/pages/listar/listarSetoresDePesquisa?faces-redirect=true";
