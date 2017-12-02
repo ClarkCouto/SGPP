@@ -38,7 +38,7 @@ public class UsuarioBean implements Serializable {
     
     // Getters e Setters
     public List<Usuario> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Usuario> listaFiltrada) {
@@ -46,7 +46,7 @@ public class UsuarioBean implements Serializable {
     }
     
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -55,7 +55,7 @@ public class UsuarioBean implements Serializable {
     
     public List<Usuario> getUsuarios() {
         this.usuarios = this.usuario.buscarTodos();
-        return usuarios;
+        return this.usuarios;
     }
 
     public void setUsuarios(List<Usuario> usuarios) {
@@ -65,12 +65,12 @@ public class UsuarioBean implements Serializable {
     public Usuario getUsuarioLogado() {
         if(this.usuarioLogado == null){
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            session = (HttpSession) facesContext.getExternalContext().getSession(false);
-            this.usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+            this.session = (HttpSession) facesContext.getExternalContext().getSession(false);
+            this.usuarioLogado = (Usuario) this.session.getAttribute("usuarioLogado");
         }
         if(this.usuarioLogado == null)
             encerraSessao();
-        return usuarioLogado;
+        return this.usuarioLogado;
     }
 
     public void setUsuarioLogado(Usuario usuario) {
@@ -78,7 +78,7 @@ public class UsuarioBean implements Serializable {
     }
 
     public String getTipoUsuario() {
-        return tipoUsuario;
+        return this.tipoUsuario;
     }
 
     public void setTipoUsuario(String tipoUsuario) {
@@ -88,8 +88,8 @@ public class UsuarioBean implements Serializable {
     static{
         tiposUsuario = new ArrayList<>();
         tiposUsuario.add("Cagppi");
-        tiposUsuario.add("Coordenador");
-        tiposUsuario.add("Setor de Pesquisa");
+        tiposUsuario.add("SetorDePesquisa");
+//        tiposUsuario = TipoUsuario.values();
     }
 
     public List<String> getTiposUsuario() {
@@ -118,29 +118,9 @@ public class UsuarioBean implements Serializable {
                     cag.setTelefoneFixo(usuario.getTelefoneFixo());
                     cag.setTipo(TipoUsuario.CAGPPI);
                     cag.setUltimoAcesso(new Date());
-                    cag.salvar();
+                    inserido = cag.salvar();
                     break;
-                case "Coordenador":
-                    tipo = TipoUsuario.Coordenador.toString();
-                    Coordenador coordenador = new Coordenador();
-                    coordenador.setAtivo(Boolean.TRUE);
-                    coordenador.setCpf(usuario.getCpf());
-                    coordenador.setDataCriacao(new Date());
-                    coordenador.setDataNascimento(new Date());
-                    coordenador.setDataUltimaAlteracao(new Date());
-                    coordenador.setEmail(usuario.getEmail());
-                    //coordenador.setGruposDePesquisa();
-                    //coordenador.setInstituicao();
-                    coordenador.setNome(usuario.getNome());
-                    coordenador.setSenha("1234");
-                    coordenador.setSexo(usuario.getSexo());
-                    coordenador.setTelefoneCelular(usuario.getTelefoneCelular());
-                    coordenador.setTelefoneFixo(usuario.getTelefoneFixo());
-                    coordenador.setTipo(TipoUsuario.Coordenador);
-                    coordenador.setUltimoAcesso(new Date());
-                    coordenador.salvar();
-                    break;
-                case "Setor De Pesquisa":
+                default:
                     tipo = TipoUsuario.SetorDePesquisa.toString();
                     SetorDePesquisa setor = new SetorDePesquisa();
                     setor.setAtivo(Boolean.TRUE);
@@ -156,7 +136,7 @@ public class UsuarioBean implements Serializable {
                     setor.setTelefoneFixo(usuario.getTelefoneFixo());
                     setor.setTipo(TipoUsuario.SetorDePesquisa);
                     setor.setUltimoAcesso(new Date());
-                    setor.salvar();
+                    inserido = setor.salvar();
                     break;
             }
             if(inserido)
@@ -193,7 +173,7 @@ public class UsuarioBean implements Serializable {
         session = (HttpSession) ctx.getExternalContext().getSession(false);
         session.setAttribute("usuarioLogado", this.usuarioLogado);
         ctx.getExternalContext().getSessionMap().put(AUTH_KEY, this.usuarioLogado.getNome());
-        return "/pages/listar/listarEditais?faces-redirect=true";
+        return "/pages/listar/listarUsuarios?faces-redirect=true";
     }
     
     public void encerraSessao() {

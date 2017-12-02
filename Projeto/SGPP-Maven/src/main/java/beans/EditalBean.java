@@ -9,8 +9,6 @@ import entities.Lembrete;
 import entities.TipoDocumento;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -28,9 +26,11 @@ public class EditalBean {
     private List<Edital> editais;
     private List<Edital> listaFiltrada;
     private List<Bolsa> bolsas;
+    private List<Bolsa> bolsasARemover = new ArrayList<>();
     private List<CategoriaBolsa> categoriasBolsa;
     private List<TipoDocumento> tiposDocumento;
     private List<Lembrete> lembretes;
+    private List<Lembrete> lembretesARemover = new ArrayList<>();
        
 // Getters e Setters
     public List<Edital> getListaFiltrada() {
@@ -95,38 +95,6 @@ public class EditalBean {
     }   
     
 // Ações
-    public void adicionarBolsa() {
-        this.bolsas.add(new Bolsa());
-        this.edital.setBolsas(this.bolsas);
-    }
-    
-    public void removerBolsa(Long id) {
-        this.bolsas = this.bolsas.stream().filter(bolsa -> !Objects.equals(bolsa.getId(), id)).collect(Collectors.toList());
-        this.edital.setBolsas(this.bolsas);
-    }
-    
-    public void adicionarDocumentosCadastrados(){
-        this.lembretes.forEach((l) -> {
-            if(l.tipoDocumento != null){
-                Documento documento = l.getDocumento() != null ? l.getDocumento() : new Documento();
-                documento.setAtivo(Boolean.TRUE);
-                documento.setEntregue(Boolean.FALSE);
-                documento.setTipoDocumento(l.tipoDocumento);
-                l.setDocumento(documento);
-            }
-        }); 
-    }
-    
-    public void adicionarLembrete() {
-        this.lembretes.add(new Lembrete());
-        this.edital.setLembretes(this.lembretes);
-    }
-    
-    public void removerLembrete(Lembrete lembrete) {
-        this.lembretes.remove(lembrete);
-        this.edital.setLembretes(this.lembretes);
-    } 
-    
     public String cadastrar(){
         limpar();
         return "/pages/cadastrar/cadastrarEdital?faces-redirect=true";
@@ -146,42 +114,6 @@ public class EditalBean {
             this.edital = this.editalSelecionado;
             return "/pages/detalhes/detalhesEdital?faces-redirect=true";
         }
-    }
-    
-    public boolean desabilitarBolsas(){
-        getBolsas();
-        try{
-            if(this.bolsas != null){
-                this.bolsas.forEach((b) -> {
-                    b.setAtivo(Boolean.FALSE);
-                });
-            }
-            return true;
-        }
-        catch(Exception e){
-        }
-        return false;
-    }
-    
-    public boolean desabilitarLembretes(){
-        getLembretes();
-        try{
-            if(this.lembretes != null){
-                lembretes.forEach((l) -> {
-                    if(l.tipoDocumento != null){
-                        Documento documento = l.getDocumento();
-                        if(documento != null)
-                            documento.setAtivo(Boolean.FALSE);
-                        l.setDocumento(documento);
-                    }
-                    l.setAtivo(Boolean.FALSE);
-                });
-            }
-            return true;
-        }
-        catch(Exception e){
-        }
-        return false;
     }
     
     public String editar(Long id){
@@ -206,10 +138,69 @@ public class EditalBean {
         this.editalSelecionado = new Edital();
         this.lembretes = new ArrayList<>();  
     }
+    
+    public void adicionarBolsa() {
+        this.bolsas.add(new Bolsa());
+        this.edital.setBolsas(this.bolsas);
+    }
+    
+    public void removerBolsa(Bolsa b) {
+        this.bolsas.remove(b);
+        this.bolsasARemover.add(b);
+        this.edital.setBolsas(this.bolsas);
+    }
+    
+    public boolean desabilitarBolsas(List<Bolsa> lista){
+        try{
+            if(lista != null){
+                lista.forEach((b) -> {
+                    b.setAtivo(Boolean.FALSE);
+                    b.salvar();
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
+    public void adicionarLembrete() {
+        this.lembretes.add(new Lembrete());
+        this.edital.setLembretes(this.lembretes);
+    }
+    
+    public void removerLembrete(Lembrete l) {
+        this.lembretes.remove(l);
+        this.lembretesARemover.add(l);
+        this.edital.setLembretes(this.lembretes);
+    } 
+    
+    public boolean desabilitarLembretes(List<Lembrete> lista){
+        try{
+            if(lista != null){
+                lista.forEach((l) -> {
+                    if(l.tipoDocumento != null){
+                        Documento documento = l.getDocumento();
+                        if(documento != null){
+                            documento.setAtivo(Boolean.FALSE);
+                        }
+                        l.setDocumento(documento);
+                    }
+                    l.setAtivo(Boolean.FALSE);
+                    l.salvar();
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
 
     public String remover(Long id) {
         this.edital = this.edital.buscarPeloId(id);
-        if(desabilitarBolsas() && desabilitarLembretes()){
+        if(desabilitarBolsas(getBolsas()) && desabilitarLembretes(getLembretes())){
             this.edital.setLembretes(this.lembretes);
             this.edital.setBolsas(this.bolsas);
             if(this.edital.remover(id)){
@@ -226,14 +217,29 @@ public class EditalBean {
         adicionarDocumentosCadastrados();
         this.edital.setLembretes(this.lembretes);
         this.edital.setBolsas(this.bolsas);
-        if(this.edital.salvar())
+        if(this.edital.salvar()){
+            desabilitarBolsas(this.bolsasARemover);
+            desabilitarLembretes(this.lembretesARemover);
             return "/pages/listar/listarEditais?faces-redirect=true";
+        }
         else {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Edital!",
                                    "Erro ao salvar Edital!"));
             return "/pages/listar/cadastrarEditais";
         }
+    }
+    
+    public void adicionarDocumentosCadastrados(){
+        this.lembretes.forEach((l) -> {
+            if(l.tipoDocumento != null){
+                Documento documento = l.getDocumento() != null ? l.getDocumento() : new Documento();
+                documento.setAtivo(Boolean.TRUE);
+                documento.setEntregue(Boolean.FALSE);
+                documento.setTipoDocumento(l.tipoDocumento);
+                l.setDocumento(documento);
+            }
+        }); 
     }
 }
 

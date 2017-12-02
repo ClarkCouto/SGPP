@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>SGPP - IFRS POA</title>
         <h:outputStylesheet name="css/normalize.css" />
@@ -30,11 +31,11 @@
             </div>
             <p:tabMenu activeIndex="#{aba}">
                 <p:menuitem value="Editais" outcome="/pages/listar/listarEditais" />
-                <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />                
+                <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />               
                 <p:menuitem value="Coordenadores" outcome="/pages/listar/listarCoordenadores" />
                 <p:menuitem value="Relatórios" outcome="/pages/relatorios" />
                 <p:menuitem value="Declarações" outcome="/pages/listar/listarDeclaracoes" />
-                <p:menuitem value="Administração" outcome="/pages/administracao" />
+                <p:menuitem value="Usuários" outcome="/pages/listar/listarUsuarios" />
             </p:tabMenu>
 	    <div id="content" class="content">
 	  	<ui:insert name="content" >

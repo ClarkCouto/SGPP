@@ -33,7 +33,7 @@ public class TextoBaseDeclaracao extends BaseEntityAudit implements Serializable
     @Column(nullable=false, columnDefinition = "VARCHAR(30)")
     private String identificador;
     
-    @Column(nullable=false)
+    @Column(nullable=false, columnDefinition = "TEXT(3000)")
     private String texto;
 
     public TextoBaseDeclaracao() {
