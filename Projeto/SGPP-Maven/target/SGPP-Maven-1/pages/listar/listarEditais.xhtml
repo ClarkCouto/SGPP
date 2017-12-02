@@ -22,9 +22,17 @@
                     >
                         <f:facet name="header">
                             <p:outputPanel>             
-                                <h:commandButton styleClass="button button--label" value="Cadastrar Edital" action="${editalBean.cadastrar()}" style="float:left;" >
-                                    <i class="fa fa-plus button--icon" />
+                                <h:commandButton styleClass="button left" value="Cadastrar Edital" action="${editalBean.cadastrar()}" style="float:left;" >
+                                    <i class="fa fa-plus" />
                                 </h:commandButton>
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Categorias Bolsa</span>
+                                </h:link> 
+                                <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Tipos de Documento</span>
+                                </h:link> 
                                 <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

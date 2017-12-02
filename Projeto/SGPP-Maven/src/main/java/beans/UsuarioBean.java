@@ -54,7 +54,7 @@ public class UsuarioBean implements Serializable {
     }
     
     public List<Usuario> getUsuarios() {
-        this.usuarios = (List<Usuario>)(Usuario) this.usuario.buscarTodos();
+        this.usuarios = this.usuario.buscarTodos();
         return usuarios;
     }
 

@@ -66,6 +66,23 @@ public class DocumentoBean {
     }
     
 // Ações
+    
+    public String detalhar(Long id){
+        if(id != null)
+            this.documentoSelecionado = this.documento.buscarPeloId(id);
+
+        if (this.documentoSelecionado == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Documento!",
+                                   "Erro ao localizar Documento!"));
+            return "/pages/listar/listarDocumentos";
+        }
+        else {
+            this.documento = this.documentoSelecionado;
+            return "/pages/detalhes/detalhesDocumento?faces-redirect=true";
+        }
+    }
+    
     public String editar(Long id){
         if(id != null)
             documentoSelecionado = this.documento.buscarPeloId(id);

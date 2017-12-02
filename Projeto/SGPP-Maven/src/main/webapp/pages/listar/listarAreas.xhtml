@@ -8,7 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:param name="aba" value="5" />
+            <ui:param name="aba" value="2" />
             <ui:define name="content">
                 <h:form>    
                     <p:growl id="messages"/>  
@@ -22,11 +22,15 @@
                         >
 
                         <f:facet name="header">
-                            <p:outputPanel>              
-                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarArea" style="float:left;">
+                            <p:outputPanel>               
+                                <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarArea" style="float:left;">
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Área</span>
-                                </h:link>
+                                </h:link>   
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Coordenadores</span>
+                                </h:link>  
                                 <p:inputText id="globalFilter" onkeyup="PF('areaTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

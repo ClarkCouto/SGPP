@@ -30,7 +30,7 @@ public class AlunoBean {
     
 // Getters e Setters
     public List<Aluno> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Aluno> listaFiltrada) {
@@ -38,7 +38,7 @@ public class AlunoBean {
     }
     
     public Aluno getAluno() {
-        return aluno;
+        return this.aluno;
     }
 
     public void setAluno(Aluno aluno) {
@@ -51,7 +51,7 @@ public class AlunoBean {
       
     public List<Aluno> getAlunos(){
         this.alunos = aluno.buscarTodos();
-        return alunos;
+        return this.alunos;
     }
     
     public void setAlunos(List<Aluno> lista){
@@ -59,7 +59,7 @@ public class AlunoBean {
     }
 
     public Boolean getEditando() {
-        return editando;
+        return this.editando;
     }
 
     public void setEditando(Boolean editando) {
@@ -96,32 +96,32 @@ public class AlunoBean {
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            alunoSelecionado = aluno.buscarPeloId(id);
+            this.alunoSelecionado = this.aluno.buscarPeloId(id);
 
-        if (alunoSelecionado == null) {
+        if (this.alunoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Aluno!",
                                    "Erro ao localizar Aluno!"));
             return "/pages/listar/listarAlunos";
         }
         else {
-            this.aluno = alunoSelecionado;
+            this.aluno = this.alunoSelecionado;
             return "/pages/detalhes/detalhesAluno?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            alunoSelecionado = aluno.buscarPeloId(id);
+            this.alunoSelecionado = aluno.buscarPeloId(id);
 
-        if (alunoSelecionado == null) {
+        if (this.alunoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Aluno!",
                                    "Erro ao localizar Aluno!"));
             return "/pages/listar/listarAlunos";
         }
         else {
-            this.aluno = alunoSelecionado;
+            this.aluno = this.alunoSelecionado;
             return "/pages/editar/editarAluno?faces-redirect=true";
         }
     }  
@@ -133,7 +133,7 @@ public class AlunoBean {
     }
     
     public String remover(Long id) {
-        if(aluno.remover(id))
+        if(this.aluno.remover(id))
             return "/pages/listar/listarAlunos?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -144,6 +144,7 @@ public class AlunoBean {
     }
     
     public String salvar() {
+        aluno.setBolsista(Boolean.FALSE);
         if(aluno.salvar())
             return "/pages/listar/listarAlunos?faces-redirect=true";
         else {

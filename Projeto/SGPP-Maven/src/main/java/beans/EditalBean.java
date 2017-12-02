@@ -34,7 +34,7 @@ public class EditalBean {
        
 // Getters e Setters
     public List<Edital> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Edital> listaFiltrada) {
@@ -42,7 +42,7 @@ public class EditalBean {
     }
     
     public Edital getEdital() {
-        return edital;
+        return this.edital;
     }
 
     public void setEdital(Edital edital) {
@@ -97,30 +97,29 @@ public class EditalBean {
 // Ações
     public void adicionarBolsa() {
         this.bolsas.add(new Bolsa());
-        this.edital.setBolsas(bolsas);
+        this.edital.setBolsas(this.bolsas);
     }
     
     public void removerBolsa(Long id) {
         this.bolsas = this.bolsas.stream().filter(bolsa -> !Objects.equals(bolsa.getId(), id)).collect(Collectors.toList());
-        this.edital.setBolsas(bolsas);
+        this.edital.setBolsas(this.bolsas);
     }
     
     public void adicionarDocumentosCadastrados(){
-        this.lembretes.forEach((t) -> {
-            if(t.tipoDocumento != null){
-//                Documento documento = t.getDocumento() != null ? t.getDocumento() : new Documento();
-                Documento documento = new Documento();
+        this.lembretes.forEach((l) -> {
+            if(l.tipoDocumento != null){
+                Documento documento = l.getDocumento() != null ? l.getDocumento() : new Documento();
                 documento.setAtivo(Boolean.TRUE);
                 documento.setEntregue(Boolean.FALSE);
-                documento.setTipoDocumento(t.tipoDocumento);
-                t.setDocumento(documento);
+                documento.setTipoDocumento(l.tipoDocumento);
+                l.setDocumento(documento);
             }
         }); 
     }
     
     public void adicionarLembrete() {
         this.lembretes.add(new Lembrete());
-        this.edital.setLembretes(lembretes);
+        this.edital.setLembretes(this.lembretes);
     }
     
     public void removerLembrete(Lembrete lembrete) {
@@ -135,32 +134,68 @@ public class EditalBean {
     
     public String detalhar(Long id){
         if(id != null)
-            editalSelecionado = this.edital.buscarPeloId(id);
+            this.editalSelecionado = this.edital.buscarPeloId(id);
 
-        if (editalSelecionado == null) {
+        if (this.editalSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Edital!",
                                    "Erro ao localizar Edital!"));
             return "/pages/listar/listarEditais";
         }
         else {
-            this.edital = editalSelecionado;
+            this.edital = this.editalSelecionado;
             return "/pages/detalhes/detalhesEdital?faces-redirect=true";
         }
     }
     
+    public boolean desabilitarBolsas(){
+        getBolsas();
+        try{
+            if(this.bolsas != null){
+                this.bolsas.forEach((b) -> {
+                    b.setAtivo(Boolean.FALSE);
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
+    public boolean desabilitarLembretes(){
+        getLembretes();
+        try{
+            if(this.lembretes != null){
+                lembretes.forEach((l) -> {
+                    if(l.tipoDocumento != null){
+                        Documento documento = l.getDocumento();
+                        if(documento != null)
+                            documento.setAtivo(Boolean.FALSE);
+                        l.setDocumento(documento);
+                    }
+                    l.setAtivo(Boolean.FALSE);
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
     public String editar(Long id){
         if(id != null)
-            editalSelecionado = this.edital.buscarPeloId(id);
+            this.editalSelecionado = this.edital.buscarPeloId(id);
 
-        if (editalSelecionado == null) {
+        if (this.editalSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Edital!",
                                    "Erro ao localizar Edital!"));
             return "/pages/listar/listarEditais";
         }
         else {
-            this.edital = editalSelecionado;
+            this.edital = this.editalSelecionado;
             return "/pages/editar/editarEdital?faces-redirect=true";
         }
     }  
@@ -173,21 +208,25 @@ public class EditalBean {
     }
 
     public String remover(Long id) {
-        if(edital.remover(id))
-            return "/pages/listar/listarEditais?faces-redirect=true";
-        else{
-            FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
-                        "Erro ao excluir Edital!"));
-            return "/pages/listar/listarEditais";
+        this.edital = this.edital.buscarPeloId(id);
+        if(desabilitarBolsas() && desabilitarLembretes()){
+            this.edital.setLembretes(this.lembretes);
+            this.edital.setBolsas(this.bolsas);
+            if(this.edital.remover(id)){
+                return "/pages/listar/listarEditais?faces-redirect=true";
+            }
         }
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao excluir Edital!",
+                    "Erro ao excluir Edital!"));
+        return "/pages/listar/listarEditais";
     }
-
+    
     public String salvar() {
         adicionarDocumentosCadastrados();
-        this.edital.setLembretes(lembretes);
-        this.edital.setBolsas(bolsas);
-        if(edital.salvar())
+        this.edital.setLembretes(this.lembretes);
+        this.edital.setBolsas(this.bolsas);
+        if(this.edital.salvar())
             return "/pages/listar/listarEditais?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

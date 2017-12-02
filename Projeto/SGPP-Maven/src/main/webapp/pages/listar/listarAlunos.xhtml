@@ -22,11 +22,23 @@
                         >
 
                         <f:facet name="header">
-                            <p:outputPanel>              
-                                <h:link styleClass="button" outcome="/pages/cadastrar/cadastrarAluno" style="float:left;">
+                            <p:outputPanel>        
+                                <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarAluno" style="float:left;">
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Aluno</span>
-                                </h:link>
+                                </h:link>           
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Cursos</span>
+                                </h:link>  
+                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Instituições</span>
+                                </h:link>        
+                                <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Projetos</span>
+                                </h:link>  
                                 <p:inputText id="globalFilter" onkeyup="PF('alunoTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

@@ -166,7 +166,11 @@
                                         <h:outputText value="#{course.nome}" />
                                     </p:column>
                                 </p:selectOneMenu>
-                            </div>                          
+                            </div> 
+                            <div class="form--group size-half">
+                                <h:outputLabel for="aluno-bolsista" styleClass="form--group--label">Bolsista</h:outputLabel>
+                                <p:selectBooleanCheckbox value="#{alunoBean.aluno.bolsista}" />
+                            </div>                         
                             <div class="form--actions">
                                 <div class="form--actions">
                                     <h:commandButton styleClass="button" value="Limpar" action="#{alunoBean.limpar()}"/>

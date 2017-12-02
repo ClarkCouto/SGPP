@@ -33,7 +33,7 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @SessionScoped
 public class DeclaracaoBean {
-    private Declaracao declaracao;
+    private Declaracao declaracao = new Declaracao();
     private Declaracao declaracaoSelecionada;
     private List<Declaracao> declaracoes;
     private List<Declaracao> listaFiltrada;
@@ -85,7 +85,7 @@ public class DeclaracaoBean {
     }
 
     public Boolean getEditando() {
-        return editando;
+        return this.editando;
     }
 //Editado 26/11/2017, adicionado retorno para SELECT
     public void setEditando(Boolean editando) {
@@ -110,32 +110,32 @@ public class DeclaracaoBean {
       
     public List<TextoBaseDeclaracao> getTextosBase(){
         this.textosBase = new TextoBaseDeclaracao().buscarTodos();
-        return textosBase;
+        return this.textosBase;
     }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            declaracaoSelecionada = this.declaracao.buscarPeloId(id);
+            this.declaracaoSelecionada = this.declaracao.buscarPeloId(id);
 
-        if (declaracaoSelecionada == null) {
+        if (this.declaracaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Declaração!",
                                    "Erro ao localizar Declaração!"));
             return "/pages/listar/listarDeclaracoes";
         }
         else {
-            this.declaracao = declaracaoSelecionada;
+            this.declaracao = this.declaracaoSelecionada;
             return "/pages/detalhes/detalhesDeclaracao?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            declaracaoSelecionada = this.declaracao.buscarPeloId(id);
+            this.declaracaoSelecionada = this.declaracao.buscarPeloId(id);
 
-        if (declaracaoSelecionada != null) {
-            this.declaracao = declaracaoSelecionada;
+        if (this.declaracaoSelecionada != null) {
+            this.declaracao = this.declaracaoSelecionada;
             this.editando = Boolean.TRUE;
         } else {
             this.editando = Boolean.FALSE;
@@ -151,7 +151,7 @@ public class DeclaracaoBean {
     }
     
     public String remover(Long id) {
-        if(declaracao.remover(id))
+        if(this.declaracao.remover(id))
             return "/pages/listar/listarDeclaracoes?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -162,7 +162,7 @@ public class DeclaracaoBean {
     }
     
     public String salvar() {
-        if(declaracao.salvar())
+        if(this.declaracao.salvar())
             return "/pages/listar/listarDeclaracoes?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -174,9 +174,9 @@ public class DeclaracaoBean {
     
     //////////////////////para gerar e salvar o PDF
       public void gerarPDF(){
-          texto = declaracao.getTextoBaseDeclaracao().getTexto();
-          String coord = declaracao.getResponsavel().getNome();
-          String dest = declaracao.getDestinatario().getNome();
+          texto = this.declaracao.getTextoBaseDeclaracao().getTexto();
+          String coord = this.declaracao.getResponsavel().getNome();
+          String dest = this.declaracao.getDestinatario().getNome();
           //String coord = projeto;
           //String dest = aluno;
                   
@@ -203,7 +203,7 @@ public class DeclaracaoBean {
     }
 
     public String getTexto() {
-        return texto;
+        return this.texto;
     }
 
     public void setTexto(String texto) {
@@ -211,7 +211,7 @@ public class DeclaracaoBean {
     }
 
     public String getProjeto() {
-        return projeto;
+        return this.projeto;
     }
 
     public void setProjeto(String projeto) {

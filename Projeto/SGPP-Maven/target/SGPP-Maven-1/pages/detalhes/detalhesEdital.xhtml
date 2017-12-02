@@ -124,7 +124,8 @@
                                                 filter="true" 
                                                 filterMatchMode="contains"
                                                 disabled="true"
-                                                >                                                 
+                                                >               
+                                                <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                   
                                                 <f:selectItems value="#{editalBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
                                                 <p:column>
                                                     <h:outputText value="#{tipo.nome}" />

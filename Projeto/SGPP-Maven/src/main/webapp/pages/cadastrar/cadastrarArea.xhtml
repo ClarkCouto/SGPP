@@ -11,6 +11,7 @@
             <f:event type="preRenderView" listener="#{areaBean.limpar()}" />
         </f:metadata>
     	<ui:composition template="/template/layout.xhtml">
+            <ui:param name="aba" value="2" />
             <ui:define name="content">
                 <div class="main-bar"> 
                     <div class="main-bar--current-page">   
