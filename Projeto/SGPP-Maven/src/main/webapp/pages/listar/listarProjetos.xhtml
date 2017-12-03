@@ -23,10 +23,10 @@
 
                         <f:facet name="header">
                             <p:outputPanel>              
-                                <h:link  styleClass="button left" outcome="/pages/cadastrar/cadastrarProjeto" style="float:left;">
-                                    <i class="fa fa-plus button--icon" />
+                                <h:commandLink styleClass="button left" action="#{projetoBean.cadastrar}" style="float:left;">
+                                    <i class="fa fa-plus" />
                                     <span class="button--label">Cadastrar Projeto</span>
-                                </h:link>
+                                </h:commandLink>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
                                     <i class="fa fa-chevron-left" />
                                     <span class="button--label">Listar Alunos</span>                                        

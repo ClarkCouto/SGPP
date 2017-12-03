@@ -3,36 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"     
-      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="0" />
-            <ui:define name="content">                
-                <h:form>         
-                    <p:growl id="messages"/>                                           
+            <ui:define name="content">
+                <h:form>
+                    <p:growl id="messages"/>
                     <p:dataTable
                         id='lista'
-                        var="edital" 
-                        value="#{editalBean.editais}" 
+                        var="edital"
+                        value="#{editalBean.editais}"
                         widgetVar="editaisTable"
-                        emptyMessage="Nenhum edital foi encontrado." 
+                        emptyMessage="Nenhum edital foi encontrado."
                         filteredValue="#{editalBean.listaFiltrada}"
                     >
                         <f:facet name="header">
-                            <p:outputPanel>             
-                                <h:commandButton styleClass="button left" value="Cadastrar Edital" action="${editalBean.cadastrar()}" style="float:left;" >
+                            <p:outputPanel>
+                                <h:commandLink styleClass="button left" action="#{editalBean.cadastrar}" style="float:left;">
                                     <i class="fa fa-plus" />
-                                </h:commandButton>
+                                    <span class="button--label">Cadastrar Edital</span>
+                                </h:commandLink>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
                                     <i class="fa fa-chevron-left" />
                                     <span class="button--label">Listar Categorias Bolsa</span>
-                                </h:link> 
+                                </h:link>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
                                     <i class="fa fa-chevron-left" />
                                     <span class="button--label">Listar Tipos de Documento</span>
-                                </h:link> 
+                                </h:link>
                                 <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
@@ -69,9 +70,9 @@
 
                         <p:column headerText="Ações" >
                             <p:commandButton value="Detalhar" action="${editalBean.detalhar(edital.id)}" icon="fa fa-info-circle"/>
-                            
+
                             <p:commandButton value="Editar" action="${editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo}"/>
-                            
+
                             <p:commandButton value="Excluir" rendered="#{edital.ativo}" actionListener="${editalBean.remover(edital.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>

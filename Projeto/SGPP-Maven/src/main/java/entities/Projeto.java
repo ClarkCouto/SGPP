@@ -60,7 +60,7 @@ public class Projeto extends BaseEntityAudit implements Serializable{
     @JoinTable( name="PROJETO_COLABORADORES", 
         joinColumns={@JoinColumn(name="IDPROJETO")}, 
         inverseJoinColumns={@JoinColumn(name="IDCOLABORADORES")})
-    private Collection<Colaborador> listaColaboradores;
+    private List<Colaborador> listaColaboradores;
     
     @Column(nullable=true, columnDefinition = "VARCHAR(100)")
     private String titulo;
@@ -124,11 +124,11 @@ public class Projeto extends BaseEntityAudit implements Serializable{
         this.listaAlunos = listaAlunos;
     }
 
-    public Collection<Colaborador> getListaColaboradores() {
+    public List<Colaborador> getListaColaboradores() {
         return listaColaboradores;
     }
 
-    public void setListaColaboradores(Collection<Colaborador> listaColaboradores) {
+    public void setListaColaboradores(List<Colaborador> listaColaboradores) {
         this.listaColaboradores = listaColaboradores;
     }
 
