@@ -12,10 +12,22 @@
             <ui:define name="content">
                 <div class="main-bar"> 
                     <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarAreas" style="float:left;">
+                        <h:link styleClass="button" outcome="/pages/listar/listarAlunos" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Alunos</span>
-                        </h:link>   
+                        </h:link>           
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Cursos</span>
+                        </h:link>  
+                        <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Instituições</span>
+                        </h:link>        
+                        <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Projetos</span>
+                        </h:link>  
                     </div>                   
                 </div> 
                 <h:form>

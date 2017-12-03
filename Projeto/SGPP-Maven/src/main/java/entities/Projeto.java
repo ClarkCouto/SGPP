@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -48,6 +49,9 @@ public class Projeto extends BaseEntityAudit implements Serializable{
     
     @ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Edital edital;
+    
+    @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private List<Lembrete> lembretes;
     
     @ManyToMany(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable( name="PROJETO_ALUNOS", 
@@ -106,13 +110,21 @@ public class Projeto extends BaseEntityAudit implements Serializable{
     public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
-
+    
     public Edital getEdital() {
         return edital;
     }
 
     public void setEdital(Edital edital) {
         this.edital = edital;
+    }
+
+    public List<Lembrete> getLembretes() {
+        return lembretes;
+    }
+
+    public void setLembretes(List<Lembrete> lembretes) {
+        this.lembretes = lembretes;
     }
 
     public List<Aluno> getListaAlunos() {

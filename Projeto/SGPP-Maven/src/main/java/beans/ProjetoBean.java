@@ -4,7 +4,9 @@ import entities.Aluno;
 import entities.Bolsa;
 import entities.Colaborador;
 import entities.Coordenador;
+import entities.Documento;
 import entities.Edital;
+import entities.Lembrete;
 import entities.Projeto;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,6 +172,8 @@ public class ProjetoBean {
     public String salvar() {
         List<Aluno> lista = ajustarAlunoInseridos();
         this.projeto.setListaAlunos(lista);
+        if(this.projeto.getId() == null)
+            copiarLembretesEDocumentosDoEdital();
         if(this.projeto.salvar()){
             retirarBolsasDosAlunosExcluidos(this.alunosARemover);
             desabilitarColaboradoresExcluidos(this.colaboradoresARemover);
@@ -182,6 +186,21 @@ public class ProjetoBean {
                             "Erro ao salvar Projeto!"));
             return "/pages/cadastrar/cadastrarProjeto";
         }
+    }
+    
+    public void copiarLembretesEDocumentosDoEdital(){
+        List<Lembrete> lembretes = new Lembrete().buscarLembretesDetachedAtravesDoEdital(this.projeto.getEdital().getId());
+        lembretes.forEach((l) -> {
+            l.setId(null);
+            if(l.tipoDocumento != null){
+                Documento documento = new Documento();
+                documento.setAtivo(Boolean.TRUE);
+                documento.setEntregue(Boolean.FALSE);
+                documento.setTipoDocumento(l.tipoDocumento);
+                l.setDocumento(documento);
+            }
+        });
+        this.projeto.setLembretes(lembretes);
     }
     
     public List<Aluno> ajustarAlunoInseridos(){
@@ -223,6 +242,36 @@ public class ProjetoBean {
                 lista.forEach((c) -> {
                     c.setAtivo(Boolean.FALSE);
                     c.salvar();
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
+    public boolean desabilitarLembretesDoProjeto(List<Lembrete> lista){
+        try{
+            if(lista != null){
+                lista.forEach((l) -> {
+                    l.setAtivo(Boolean.FALSE);
+                    l.salvar();
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
+    public boolean desabilitarDocumentosDoProjeto(List<Documento> lista){
+        try{
+            if(lista != null){
+                lista.forEach((d) -> {
+                    d.setAtivo(Boolean.FALSE);
+                    d.salvar();
                 });
             }
             return true;
