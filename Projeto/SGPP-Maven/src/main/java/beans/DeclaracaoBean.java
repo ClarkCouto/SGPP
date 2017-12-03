@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,7 @@ public class DeclaracaoBean {
     private String arquivoTempName;
     private String projeto;
     private String aluno;
+    private String tipoPessoa;
     
 // Getters e Setters
     public List<Declaracao> getListaFiltrada() {
@@ -175,16 +177,17 @@ public class DeclaracaoBean {
     //////////////////////para gerar e salvar o PDF
       public void gerarPDF(){
           texto = this.declaracao.getTextoBaseDeclaracao().getTexto();
-          String coord = this.declaracao.getResponsavel().getNome();
+          String coord = this.declaracao.getProjeto().getCoordenador().getNome();
           String dest = this.declaracao.getDestinatario().getNome();
           //String coord = projeto;
           //String dest = aluno;
                   
           //Tags especiais
+          texto = texto.replaceAll("#projeto", declaracao.getProjeto().getTitulo());
           texto = texto.replaceAll("#coordenador", coord);
           texto = texto.replaceAll("#aluno", dest);
           texto = texto.replaceAll("#destinatario", dest);
-          texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(new Date()));
+          texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(LocalDate.now()));
 //          texto.replaceAll("#coordenadorCPF", declaracao.getProjeto().getCoordenador().getCpf());
 //          texto.replaceAll("#alunoCPF", declaracao.getProjeto().getCoordenador().getCpf());
                     //... e assim vai nas TAGs possíveis, além de tag de datas
@@ -205,8 +208,8 @@ public class DeclaracaoBean {
     public String getTexto() {
         return this.texto;
     }
-
-    public void setTexto(String texto) {
+ 
+   public void setTexto(String texto) {
         this.texto = texto;
     }
 
@@ -225,10 +228,16 @@ public class DeclaracaoBean {
     public void setAluno(String aluno) {
         this.aluno = aluno;
     }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
     
     
-      
-      
         public List<SelectItem> getTextosBaseSelect(){
         this.textosBase = new TextoBaseDeclaracao().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
@@ -250,7 +259,44 @@ public class DeclaracaoBean {
             return items;
         }
         
+        public List<SelectItem> getColaboradoresSelect(){
+            
+            List<SelectItem> items = new ArrayList<>(); 
+            
+            if (declaracao.getProjeto() != null &&
+                    declaracao.getProjeto().getListaColaboradores() != null){
+//                if (1==1) return new ArrayList<>();
+            //this.colaboradores.addAll(declaracao.getProjeto().getListaColaboradores());
+            this.colaboradores.forEach((c) -> {
+                if (c.getAtivo()){
+                items.add(new SelectItem(c, c.getNome()));}
+            }); }
+            
+            return items;
+        }
+        public List<SelectItem> getAlunosSelect(){
+            //if (1==1) return new ArrayList<>();
+            List<SelectItem> items = new ArrayList<>();  
+            
+            if (declaracao.getProjeto() != null &&
+                    declaracao.getProjeto().getListaAlunos()!= null){
+            this.alunos.addAll(declaracao.getProjeto().getListaAlunos());
+            this.alunos.forEach((c) -> {
+                if (c.getAtivo()){
+                items.add(new SelectItem(c, c.getNome()));}
+            }); }
+            return items;
+        }
         
+        public List<SelectItem> getProjetosSelect(){
+            this.projetos = new Projeto().buscarTodos();
+            List<SelectItem> items = new ArrayList<>();  
+            this.projetos.forEach((c) -> {
+                if (c.getAtivo()){
+                items.add(new SelectItem(c, c.getTitulo()));}
+            }); 
+            return items;
+        }
 
         public void setFile(StreamedContent file) {
         this.file = file;

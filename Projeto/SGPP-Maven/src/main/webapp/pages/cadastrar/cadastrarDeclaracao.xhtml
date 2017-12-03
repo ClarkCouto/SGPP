@@ -54,23 +54,43 @@
                             <div class="form--group size-half">
                                 <h:outputLabel for="projeto" styleClass="form--group--label">Projeto</h:outputLabel>
                                  <p:selectOneMenu id="projeto" 
-                                            value="#{declaracaoBean.declaracao.responsavel}" 
+                                            value="#{declaracaoBean.declaracao.projeto}" 
                                             converter="SimpleEntityConverter"
                                             effect="fade" 
                                             var="tipo" 
                                             filter="true" 
                                             filterMatchMode="contains"    
                                             required="true"
-                                            requiredMessage="Necessita responsável do projeto">
+                                            requiredMessage="Necessita responsável do projeto  #{declaracaoBean.tipoPessoa}">
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{declaracaoBean.coordenadoresSelect}" var="coordenador" 
-                                                           itemLabel="#{coordenador.nome}" itemValue="#{coordenador}" />
+                                            <f:selectItems value="#{declaracaoBean.projetosSelect}" var="projeto" 
+                                                           itemLabel="#{projeto.titulo}" itemValue="#{projeto}" />
                                             <p:column>
-                                                <h:outputText value="#{tipo.nome}" />
+                                                <h:outputText value="#{tipo.titulo}" />
                                             </p:column>
                                         </p:selectOneMenu>
                                 <h:message for="projeto" styleClass="form--group--message" />
                             </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="tipodestino" styleClass="form--group--label">Tipo</h:outputLabel>
+                                <p:selectOneMenu id="tipodestino" 
+                                            value="#{declaracaoBean.tipoPessoa}" 
+                                            var="tipo" 
+                                            required="true"
+                                            requiredMessage="Necessita destinatário">
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="Aluno" itemValue="Aluno"/> 
+                                            <f:selectItem itemLabel="Colaborador" itemValue="Colaborador"/> 
+                                            <f:selectItem itemLabel="Bolsista" itemValue="Bolsista"/> 
+                                            
+                                            <p:column>
+                                                <h:outputText value="#{itemLabel}" />
+                                            </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="tipodestino" styleClass="form--group--message" />
+                            </div> 
+                            <h:panelGroup >
+                            <div class="form--group size-half"></div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="destinatario" styleClass="form--group--label">Destinatário</h:outputLabel>
                                 <p:selectOneMenu id="destinatario" 
@@ -82,15 +102,23 @@
                                             filterMatchMode="contains"    
                                             required="true"
                                             requiredMessage="Necessita destinatário">
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{declaracaoBean.coordenadoresSelect}" var="coordenador" 
-                                                           itemLabel="#{coordenador.nome}" itemValue="#{coordenador}" />
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel=":: Colaboradores ::" noSelectionOption="true"/> 
+                                            <f:selectItems value="#{declaracaoBean.colaboradoresSelect}" var="colaborador" 
+                                                           itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" />
+                                            
+                                            <f:selectItem itemLabel=":: Alunos ::" noSelectionOption="true"/> 
+                                            <f:selectItems value="#{declaracaoBean.alunosSelect}" var="aluno" 
+                                                           itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
+                                            
+                                            
                                             <p:column>
                                                 <h:outputText value="#{tipo.nome}" />
                                             </p:column>
                                         </p:selectOneMenu>
                                 <h:message for="destinatario" styleClass="form--group--message" />
                             </div> 
+                            </h:panelGroup>
                            </h:panelGroup>
                             <div class="form--actions">
                             <p:commandButton value="Gerar PDF" ajax="false">
@@ -98,8 +126,9 @@
                             </p:commandButton>    
                             </div>
                      <br />                           
-                    <!--<h:outputText value="#{declaracaoBean.texto}" />-->
+                    
                 </div>
+                 <h:outputText value="::: #{declaracaoBean.tipoPessoa}" />
                 </h:form>
            </ui:define>
         </ui:composition>
