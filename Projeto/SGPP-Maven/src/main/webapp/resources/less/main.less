@@ -100,7 +100,9 @@
     }
     
     &--section {        
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         width: 100%;
         background: @bg-color-block;
         border: 1px solid @bg-color-feature;
@@ -110,6 +112,7 @@
         padding: 20px;
         
         &--title {
+            width: ~"calc(100% + 40px)";
             margin: -20px;
             margin-bottom: 20px;
             line-height: 30px;
@@ -189,6 +192,10 @@
         display: flex;
         width: 100%;
         justify-content: flex-end;
+
+        > * {
+            margin-left: 10px;
+        }
     }
 }
 
