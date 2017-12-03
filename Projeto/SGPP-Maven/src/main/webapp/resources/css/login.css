@@ -11,4 +11,8 @@
 .login-box {
   width: 380px;
 }
+.login-box .form {
+  padding: 0;
+  margin: 0;
+}
 /*# sourceMappingURL=login.css.map */
