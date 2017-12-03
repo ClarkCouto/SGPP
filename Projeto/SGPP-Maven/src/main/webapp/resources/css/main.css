@@ -83,7 +83,9 @@
   margin: auto;
 }
 .form--section {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid #004B18;
@@ -93,6 +95,7 @@
   padding: 20px;
 }
 .form--section--title {
+  width: calc(100% + 40px);
   margin: -20px;
   margin-bottom: 20px;
   line-height: 30px;
@@ -155,6 +158,9 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
+}
+.form--actions > * {
+  margin-left: 10px;
 }
 .box {
   background-color: rgba(255, 255, 255, 0.95);
