@@ -103,11 +103,11 @@
                                             required="true"
                                             requiredMessage="Necessita destinatário">
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
-                                            <f:selectItem itemLabel=":: Colaboradores ::" noSelectionOption="true"/> 
+                                            <f:selectItem itemLabel="Colaboradores....." noSelectionOption="true"/> 
                                             <f:selectItems value="#{declaracaoBean.colaboradoresSelect}" var="colaborador" 
                                                            itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" />
                                             
-                                            <f:selectItem itemLabel=":: Alunos ::" noSelectionOption="true"/> 
+                                            <f:selectItem itemLabel="Alunos....." noSelectionOption="true"/> 
                                             <f:selectItems value="#{declaracaoBean.alunosSelect}" var="aluno" 
                                                            itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
                                             
