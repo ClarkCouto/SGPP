@@ -6,7 +6,6 @@
 package beans;
 
 import entities.Cagppi;
-import entities.Coordenador;
 import entities.SetorDePesquisa;
 import entities.Usuario;
 import entities.Usuario.TipoUsuario;
@@ -173,7 +172,7 @@ public class UsuarioBean implements Serializable {
         session = (HttpSession) ctx.getExternalContext().getSession(false);
         session.setAttribute("usuarioLogado", this.usuarioLogado);
         ctx.getExternalContext().getSessionMap().put(AUTH_KEY, this.usuarioLogado.getNome());
-        return "/pages/listar/listarUsuarios?faces-redirect=true";
+        return "/pages/listar/listarProjetos?faces-redirect=true";
     }
     
     public void encerraSessao() {

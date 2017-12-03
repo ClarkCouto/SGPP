@@ -6,6 +6,8 @@ import entities.Curso;
 import entities.Instituicao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -77,13 +79,13 @@ public class AlunoBean {
 
     public List<SelectItem> getCursos(){
         this.cursos = new Curso().buscarTodos();
-        List<SelectItem> items = new ArrayList<>();  
+        List<SelectItem> items = new ArrayList<>();
         this.cursos.forEach((b) -> {
             items.add(new SelectItem(b, b.getNome()));
         }); 
         return items;
     }
-
+    
     public List<SelectItem> getInstituicoes(){
         this.instituicoes = new Instituicao().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
@@ -156,6 +158,7 @@ public class AlunoBean {
     }
     
     public void onInstituicaoChange(){ 
+        //this.cursos = this.cursos.stream().filter(curso -> !Objects.equals(curso.getInstituicao(), this.aluno.getInstituicao())).collect(Collectors.toList());
     }
 }
 

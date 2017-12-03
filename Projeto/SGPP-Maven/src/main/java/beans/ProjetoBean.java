@@ -21,14 +21,12 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @SessionScoped
 public class ProjetoBean {
-
     private Projeto projeto = new Projeto();
     private Projeto projetoSelecionado;
     private List<Aluno> alunos;
-    private List<Bolsa> bolsas;
+    private List<Aluno> alunosARemover = new ArrayList<>();
     private List<Colaborador> colaboradores;
-    private List<Edital> editais;
-    private Boolean editando;
+    private List<Colaborador> colaboradoresARemover = new ArrayList<>();
     private List<Projeto> listaFiltrada;
     private List<Projeto> projetos;
 
@@ -40,15 +38,32 @@ public class ProjetoBean {
     public void setListaFiltrada(List<Projeto> listaFiltrada) {
         this.listaFiltrada = listaFiltrada;
     }
-
-    public List<Aluno> getAlunos() {
-        this.alunos = (List<Aluno>) (Aluno) new Aluno().buscarTodos();
-        return alunos;
+    
+    public List<Aluno> getAlunos(){
+        this.alunos = this.projeto.getListaAlunos();
+        if(this.alunos == null)
+            this.alunos = new ArrayList<>();
+        return this.alunos;
+    }
+    
+    public void setAlunos(List<Aluno> alunos){
+        this.alunos = alunos;
+    }
+    
+    public List<SelectItem> getAlunosOption(){       
+        List<SelectItem> items = new ArrayList<>(); 
+        new Aluno().buscarTodos().forEach((a) -> {
+            items.add(new SelectItem(a, a.getNome()));
+        }); 
+        return items;
     }
 
-    public List<Bolsa> getBolsas() {
-        this.bolsas = new Bolsa().buscarTodos();
-        return bolsas;
+    public List<SelectItem> getBolsas() {
+        List<SelectItem> items = new ArrayList<>();
+        new Bolsa().buscarTodos().forEach((b) -> {
+            items.add(new SelectItem(b, b.getNome()));
+        });
+        return items;
     }
 
     public List<Colaborador> getColaboradores() {
@@ -64,25 +79,15 @@ public class ProjetoBean {
         new Coordenador().buscarTodosCoordenadores().forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
         });
-
         return items;
     }
 
     public List<SelectItem> getEditais() {
-        this.editais = new Edital().buscarTodos();
         List<SelectItem> items = new ArrayList<>();
-        this.editais.forEach((e) -> {
+        new Edital().buscarTodos().forEach((e) -> {
             items.add(new SelectItem(e, e.getTitulo()));
         });
         return items;
-    }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
     }
 
     public Projeto getProjeto() {
@@ -145,13 +150,14 @@ public class ProjetoBean {
     }
 
     public void limpar() {
-        this.editando = false;
         this.projeto = new Projeto();
         this.projetoSelecionado = new Projeto();
     }
 
     public String remover(Long id) {
-        if (projeto.remover(id)) {
+        if (retirarBolsasDosAlunosExcluidos(this.alunosARemover) && 
+            desabilitarColaboradoresExcluidos(this.colaboradoresARemover)){
+            this.projeto.remover(id);
             return "/pages/listar/listarProjetos?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -162,17 +168,79 @@ public class ProjetoBean {
     }
 
     public String salvar() {
-        try {
-            System.out.println(projeto);
-            projeto.salvar();
+        List<Aluno> lista = ajustarAlunoInseridos();
+        this.projeto.setListaAlunos(lista);
+        if(this.projeto.salvar()){
+            retirarBolsasDosAlunosExcluidos(this.alunosARemover);
+            desabilitarColaboradoresExcluidos(this.colaboradoresARemover);
+            atualizarAlunos(lista);
             return "/pages/listar/listarProjetos?faces-redirect=true";
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        }
+        else{
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar Projeto!",
                             "Erro ao salvar Projeto!"));
             return "/pages/cadastrar/cadastrarProjeto";
         }
+    }
+    
+    public List<Aluno> ajustarAlunoInseridos(){
+        List<Aluno> lista = new ArrayList<>();
+        this.alunos.forEach((a) -> {
+            Aluno aluno = new Aluno().buscarPeloId(Long.parseLong(a.getNome().replaceAll("[^\\d]", "")));
+            aluno.setBolsa(a.getBolsa());
+            aluno.setBolsista(a.getBolsista());
+            lista.add(aluno);
+        });
+        return lista;
+    }
+    
+    public void atualizarAlunos(List<Aluno> lista){
+        lista.forEach((a) -> {
+            a.salvar();
+        });
+    }
+    
+    public boolean retirarBolsasDosAlunosExcluidos(List<Aluno> lista){
+        try{
+            if(lista != null){
+                lista.forEach((a) -> {
+                    a.setBolsista(Boolean.FALSE);
+                    a.setBolsa(null);
+                    a.salvar();
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
+    public boolean desabilitarColaboradoresExcluidos(List<Colaborador> lista){
+        try{
+            if(lista != null){
+                lista.forEach((c) -> {
+                    c.setAtivo(Boolean.FALSE);
+                    c.salvar();
+                });
+            }
+            return true;
+        }
+        catch(Exception e){
+        }
+        return false;
+    }
+    
+    public void adicionarAluno(){
+        this.alunos.add(new Aluno());
+        this.projeto.setListaAlunos(this.alunos);
+    }
+    
+    public void removerAluno(Aluno a) {
+        this.alunos.remove(a);
+        this.alunosARemover.add(a);
+        this.projeto.setListaAlunos(this.alunos);
     }
 
     public void adicionarColaborador() {
@@ -182,6 +250,7 @@ public class ProjetoBean {
 
     public void removerColaborador(Colaborador c) {
         this.colaboradores.remove(c);
+        this.colaboradoresARemover.add(c);
         this.projeto.setListaColaboradores(colaboradores);
     }
 }

@@ -8,7 +8,6 @@ package entities;
 import dao.ProjetoDAO;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -50,13 +49,13 @@ public class Projeto extends BaseEntityAudit implements Serializable{
     @ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Edital edital;
     
-    @ManyToMany
+    @ManyToMany(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable( name="PROJETO_ALUNOS", 
         joinColumns={@JoinColumn(name="IDPROJETO")}, 
         inverseJoinColumns={@JoinColumn(name="IDALUNO")})
-    private Collection<Aluno> listaAlunos;
+    private List<Aluno> listaAlunos;
     
-    @ManyToMany
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinTable( name="PROJETO_COLABORADORES", 
         joinColumns={@JoinColumn(name="IDPROJETO")}, 
         inverseJoinColumns={@JoinColumn(name="IDCOLABORADORES")})
@@ -116,11 +115,11 @@ public class Projeto extends BaseEntityAudit implements Serializable{
         this.edital = edital;
     }
 
-    public Collection<Aluno> getListaAlunos() {
+    public List<Aluno> getListaAlunos() {
         return listaAlunos;
     }
 
-    public void setListaAlunos(Collection<Aluno> listaAlunos) {
+    public void setListaAlunos(List<Aluno> listaAlunos) {
         this.listaAlunos = listaAlunos;
     }
 

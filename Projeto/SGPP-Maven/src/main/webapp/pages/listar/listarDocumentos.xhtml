@@ -25,8 +25,12 @@
                             <p:outputPanel>       
                                 <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
                                     <i class="fa fa-chevron-left" />
-                                    <span class="button--label">Voltar para Projetos</span>
+                                    <span class="button--label">Listar Projetos</span>
                                 </h:link>
+                                <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
+                                    <i class="fa fa-chevron-left" />
+                                    <span class="button--label">Listar Tipos de Documento</span>
+                                </h:link> 
                                 <p:inputText id="globalFilter" onkeyup="PF('documentoTable').filter()"  placeholder="Filtrar" style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

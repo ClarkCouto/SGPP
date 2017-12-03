@@ -81,6 +81,10 @@ public class Curso extends BaseEntityAudit implements Serializable{
         return new CursoDAO().findById(id);
     }
     
+    public List<Curso> buscarPelaInstituicao(Long id){
+        return new CursoDAO().findByInstituicao(id);
+    }
+    
     public List<Curso> buscarTodos() {
         return new CursoDAO().findAll();
     }
