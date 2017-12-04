@@ -144,7 +144,7 @@ public class Edital extends BaseEntityAudit implements Serializable{
     public List<Edital> buscarTodos() {
         return new EditalDAO().findAll();
     }
-   
+        
     public boolean remover(Long id) {
         return new EditalDAO().remove(id);
     } 

@@ -123,6 +123,10 @@ public class Lembrete extends BaseEntityAudit implements Serializable{
         return true;
     }
     
+    public List<Lembrete> buscarLembretesDetachedAtravesDoEdital(Long idEdital){
+        return new LembreteDAO().buscarLembretesDetachedAtravesDoEdital(idEdital);
+    }
+    
     public Lembrete buscarPeloId(Long id){
         return new LembreteDAO().findById(id);
     }

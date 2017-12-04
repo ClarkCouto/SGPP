@@ -18,6 +18,18 @@
                         <h:link styleClass="button" outcome="/pages/listar/listarAlunos" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Alunos</span>
+                        </h:link>      
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Cursos</span>
+                        </h:link>  
+                        <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Instituições</span>
+                        </h:link>        
+                        <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
+                            <i class="fa fa-chevron-left" />
+                            <span class="button--label">Listar Projetos</span>
                         </h:link>   
                     </div>                   
                 </div> 
@@ -166,10 +178,6 @@
                                         <h:outputText value="#{course.nome}" />
                                     </p:column>
                                 </p:selectOneMenu>
-                            </div> 
-                            <div class="form--group size-half">
-                                <h:outputLabel for="aluno-bolsista" styleClass="form--group--label">Bolsista</h:outputLabel>
-                                <p:selectBooleanCheckbox value="#{alunoBean.aluno.bolsista}" />
                             </div>                         
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Limpar" action="#{alunoBean.limpar()}"/>

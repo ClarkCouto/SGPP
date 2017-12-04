@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-    	<ui:composition template="/template/layout.xhtml">
+        <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="1" />
             <ui:define name="content">
                 <div class="main-bar">
@@ -21,8 +21,204 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Detalhes do Projeto</div>
+                            <p:growl id="messages"/>  
+                            <div class="form--section--title">Detalhes Projeto</div>
+                            <div class="form--group">
+                                <h:outputLabel for="titulo" styleClass="form--group--label">Título</h:outputLabel>
+                                <h:inputText
+                                    value="#{projetoBean.projeto.titulo}"
+                                    id="titulo"
+                                    label="Origem"
+                                    styleClass="form--group--text-input"
+                                    disabled="true"
+                                    >
+                                </h:inputText>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="edital" styleClass="form--group--label">Edital</h:outputLabel>
+                                <p:selectOneMenu id="edital" 
+                                    value="#{projetoBean.projeto.edital}"
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="edital" 
+                                    filter="true" 
+                                    filterMatchMode="contains"
+                                    disabled="true"
+                                >                                                     
+                                    <f:selectItems value="#{projetoBean.editais}" var="editalSelecionado" itemLabel="#{editalSelecionado.label}" itemValue="#{editalSelecionado}" />
+                                    <p:column>
+                                        <h:outputText value="#{edital.titulo}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="coordenador" styleClass="form--group--label">Coordenador</h:outputLabel>
+                                <p:selectOneMenu id="coordenador" 
+                                    value="#{projetoBean.projeto.coordenador}" 
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="coordenador" 
+                                    filter="true" 
+                                    filterMatchMode="contains"
+                                    disabled="true"
+                                >                                                   
+                                    <f:selectItems value="#{projetoBean.coordenadores}" var="coordenadorOpcao" itemLabel="#{coordenadorOpcao.label}" itemValue="#{edital}" />
+                                    <p:column>
+                                        <h:outputText value="#{coordenador.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="aipct" styleClass="form--group--label">AIPCT</h:outputLabel>
+                                <p:selectBooleanButton
+                                    value="#{projetoBean.projeto.aipct}"
+                                    onLabel="Sim"
+                                    offLabel="Nao"
+                                    disabled="true"
+                                />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="ano" styleClass="form--group--label">Ano</h:outputLabel>
+                                <h:inputText
+                                    value="#{projetoBean.projeto.ano}"
+                                    id="ano"
+                                    maxlength="4"
+                                    label="Origem"
+                                    styleClass="form--group--text-input"
+                                    disabled="true"
+                                    >
+                                </h:inputText>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-inicio" styleClass="form--group--label">Data do Início</h:outputLabel>
+                                <p:inputMask
+                                    value="#{projetoBean.projeto.dataInicio}"
+                                    id="data-inicio"
+                                    label="Data de Inicio"
+                                    styleClass="form--group--text-input"
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                    disabled="true"
+                                >
+                                </p:inputMask>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-fim" styleClass="form--group--label">Data do Fim</h:outputLabel>
+                                <p:inputMask
+                                    value="#{projetoBean.projeto.dataFim}"
+                                    id="data-nascimento"
+                                    label="Data de Fim"
+                                    styleClass="form--group--text-input"
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                    disabled="true"
+                                >
+                                </p:inputMask>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup
+                            id="listaAlunos" 
+                            layout="block"
+                            class="form--section"
+                            >
+                            <div class="form--section--title">Alunos Bolsistas e Voluntários</div>
+                            <h:panelGroup
+                                layout="block"
+                                styleClass="message-bar"
+                                rendered="#{projetoBean.alunos.size() == 0}">                                
+                                <span class="message-bar--icon">
+                                    <i class="fa fa-clock-o" />
+                                </span>
+                                <span class="message-bar--text">Nenhum aluno bolsista ou voluntário foi adicionado ao projeto...</span> 
+                            </h:panelGroup>
                             
+                            <ui:repeat
+                                value="#{projetoBean.alunos}"
+                                var="aluno"
+                                varStatus="linha"
+                                >   
+                                <div class="form--row">
+                                    <div class="form--section">
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="projeto-aluno" styleClass="form--group--label">Aluno</h:outputLabel>
+                                            <p:selectOneMenu id="projeto-aluno" 
+                                                value="#{aluno.nome}" 
+                                                converter="SimpleEntityConverter"
+                                                effect="fade" 
+                                                var="al" 
+                                                filter="true" 
+                                                filterMatchMode="contains"
+                                                disabled="true"
+                                            >                                                    
+                                                <f:selectItems value="#{projetoBean.alunosOption}" var="alunoOption" itemLabel="#{alunoOption.nome}" itemValue="#{alunoOption}" />
+                                                <p:column>
+                                                    <h:outputText value="#{al.nome}" />
+                                                </p:column>
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="projeto-aluno" styleClass="form--group--label">Bolsa</h:outputLabel>
+                                            <p:selectOneMenu id="projeto-aluno-bolsa" 
+                                                value="#{aluno.bolsa}" 
+                                                converter="SimpleEntityConverter"
+                                                effect="fade" 
+                                                var="bol" 
+                                                filter="true" 
+                                                filterMatchMode="contains"
+                                                disabled="true"
+                                            >                     
+                                                <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                                <f:selectItems value="#{projetoBean.bolsas}" var="bolsa" itemLabel="#{bolsa.nome}" itemValue="#{bolsa}" />
+                                                <p:column>
+                                                    <h:outputText value="#{bol.nome}" />
+                                                </p:column>
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="form--group size-half">
+                                            <h:outputLabel for="aluno-bolsista" styleClass="form--group--label">Bolsista</h:outputLabel>
+                                            <p:selectBooleanCheckbox value="#{aluno.bolsista}" disabled="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ui:repeat>        
+                        </h:panelGroup>
+                        <h:panelGroup
+                            id="listaColaborador"
+                            layout="block"
+                            class="form--section"
+                            >
+                            <div class="form--section--title">Colaboradores</div>
+                            <h:panelGroup
+                                layout="block"
+                                styleClass="message-bar"
+                                rendered="#{projetoBean.colaboradores.size() == 0}">
+                                <span class="message-bar--icon">
+                                    <i class="fa fa-clock-o" />
+                                </span>
+                                <span class="message-bar--text">Nenhum colaborador foi adicionado ao projeto...</span>
+                            </h:panelGroup>
+
+                            <ui:repeat
+                                value="#{projetoBean.colaboradores}"
+                                var="colaborador"
+                                varStatus="linha"
+                                >
+                                <div class="form--row">
+                                    <div class="form--section">
+                                        <div class="form--group">
+                                            <h:outputLabel for="colaborador-nome" styleClass="form--group--label">Nome</h:outputLabel>
+                                            <h:inputText
+                                                value="#{colaborador.nome}"
+                                                id="colaborador-nome"
+                                                label="Nome"
+                                                styleClass="form--group--text-input"
+                                                disabled="true"
+                                                >
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ui:repeat>
                         </h:panelGroup>
                     </div>     
                 </h:form>
