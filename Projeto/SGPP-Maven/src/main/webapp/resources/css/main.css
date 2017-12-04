@@ -480,18 +480,26 @@
   justify-content: center;
 }
 .main-bar--tabs {
-  padding: 10px 20px 0;
+  align-items: center;
   display: flex;
   flex-direction: row;
 }
-.main-bar--tabs--item {
-  text-decoration: none;
-  color: #FAFAFA;
-  padding: 10px 20px;
-  border-radius: 5px 5px 0 0;
+.main-bar--tabs--session {
+  display: flex;
+  margin-top: 12px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 15px;
 }
-.main-bar--tabs--item.selected {
-  background: #008C47;
+.main-bar--tabs--session--info {
+  font-size: 14px;
+  font-weight: 600;
+}
+.main-bar--tabs--session--quit {
+  color: #FAFAFA;
+  text-decoration: none;
+  margin-right: auto;
+  margin-left: 10px;
 }
 .main-bar--actions {
   padding: 20px 15px;

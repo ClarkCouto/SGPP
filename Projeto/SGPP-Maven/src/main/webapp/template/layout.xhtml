@@ -21,23 +21,31 @@
 	<div id="page" class="container">
             <div class="main-bar">
                 <div class="main-bar--header">
-                    <h1 class="main-bar--header--title">SGPP</h1>
-                    <h:outputText value="#{usuarioBean.usuarioLogado.nome}" />
-                    <h:form>
-                        <h:commandButton styleClass="button" value="Log out" action="#{usuarioBean.encerraSessao}"/>
-                    </h:form>
+                    <h1 class="main-bar--header--title">SGPP</h1>                    
                     <h:graphicImage name="imgs/logo-ifrs.png" class="main-bar--header--logo"/>
                 </div>
+                <div class="main-bar--tabs">
+                    <p:tabMenu activeIndex="#{aba}">
+                        <p:menuitem value="Editais" outcome="/pages/listar/listarEditais" />
+                        <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />
+                        <p:menuitem value="Coordenadores" outcome="/pages/listar/listarCoordenadores" />
+                        <p:menuitem value="Relatórios" outcome="/pages/relatorios" />
+                        <p:menuitem value="Declarações" outcome="/pages/listar/listarDeclaracoes" />
+                        <p:menuitem value="Usuários" outcome="/pages/listar/listarUsuarios" />
+                    </p:tabMenu>
+                    <div class="main-bar--tabs--session">
+                        <span class="main-bar--tabs--session--info">
+                            <h:outputText value="Olá, #{usuarioBean.usuarioLogado.nome}!" />
+                        </span>
+                        <h:form>
+                            <h:commandLink styleClass="main-bar--tabs--session--quit" action="#{usuarioBean.encerraSessao}">
+                                <i class="fa fa-sign-out" />
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+                </div>
             </div>
-            <p:tabMenu activeIndex="#{aba}">
-                <p:menuitem value="Editais" outcome="/pages/listar/listarEditais" />
-                <p:menuitem value="Projetos" outcome="/pages/listar/listarProjetos" />               
-                <p:menuitem value="Coordenadores" outcome="/pages/listar/listarCoordenadores" />
-                <p:menuitem value="Relatórios" outcome="/pages/relatorios" />
-                <p:menuitem value="Declarações" outcome="/pages/listar/listarDeclaracoes" />
-                <p:menuitem value="Usuários" outcome="/pages/listar/listarUsuarios" />
-            </p:tabMenu>
-	    <div id="content" class="content">
+            <div id="content" class="content">
 	  	<ui:insert name="content" >
 	 	  <ui:include src="/template/conteudo.xhtml" />
 	   	</ui:insert>
