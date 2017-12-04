@@ -48,8 +48,10 @@ public class DeclaracaoBean {
     private StreamedContent file;
     private String arquivoTempName;
     private String projeto;
-    private String aluno;
+    private String destinatario;
     private String tipoPessoa;
+    private List<SelectItem> opColaboradores;
+    private List<SelectItem> opAlunos;
     
 // Getters e Setters
     public List<Declaracao> getListaFiltrada() {
@@ -178,16 +180,16 @@ public class DeclaracaoBean {
       public void gerarPDF(){
           texto = this.declaracao.getTextoBaseDeclaracao().getTexto();
           String coord = this.declaracao.getProjeto().getCoordenador().getNome();
-          String dest = this.declaracao.getDestinatario().getNome();
+          //String dest = this.declaracao.getDestinatario().getNome();
           //String coord = projeto;
-          //String dest = aluno;
+          String dest = destinatario;
                   
           //Tags especiais
           texto = texto.replaceAll("#projeto", declaracao.getProjeto().getTitulo());
           texto = texto.replaceAll("#coordenador", coord);
           texto = texto.replaceAll("#aluno", dest);
           texto = texto.replaceAll("#destinatario", dest);
-          texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(LocalDate.now()));
+          texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(new Date()));
 //          texto.replaceAll("#coordenadorCPF", declaracao.getProjeto().getCoordenador().getCpf());
 //          texto.replaceAll("#alunoCPF", declaracao.getProjeto().getCoordenador().getCpf());
                     //... e assim vai nas TAGs possíveis, além de tag de datas
@@ -221,12 +223,12 @@ public class DeclaracaoBean {
         this.projeto = projeto;
     }
 
-    public String getAluno() {
-        return aluno;
+    public String getDestinatario() {
+        return destinatario;
     }
 
-    public void setAluno(String aluno) {
-        this.aluno = aluno;
+    public void setDestinatario(String aluno) {
+        this.destinatario = aluno;
     }
 
     public String getTipoPessoa() {
@@ -236,6 +238,25 @@ public class DeclaracaoBean {
     public void setTipoPessoa(String tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
+
+    public List<SelectItem> getOpColaboradores() {
+        return opColaboradores;
+    }
+
+    public void setOpColaboradores(List<SelectItem> opColaboradores) {
+        this.opColaboradores = opColaboradores;
+    }
+
+    public List<SelectItem> getOpAlunos() {
+        return opAlunos;
+    }
+
+    public void setOpAlunos(List<SelectItem> opAlunos) {
+        this.opAlunos = opAlunos;
+    }
+    
+    
+    
     
     
         public List<SelectItem> getTextosBaseSelect(){
@@ -317,8 +338,37 @@ public class DeclaracaoBean {
         
 
         return file;  
-    } 
+    }
     
-    
+        public void onProjetoChange() {
+        List<SelectItem> items = new ArrayList<>();
+        this.colaboradores = new Colaborador().buscarTodos();
+        this.colaboradores.forEach((Colaborador b) -> {
+            
+            List<Colaborador> l = declaracao.getProjeto().getListaColaboradores();
+            
+            for(int i=0;i<l.size();i++){
+            if (l.get(i).getNome() == b.getNome()) {
+            items.add(new SelectItem(b, b.getNome()));
+            i=l.size()+1;
+                }
+            }
+        });
+        this.opColaboradores = items;
+        
+        List<SelectItem> itemsb = new ArrayList<>();
+        this.alunos = new Aluno().buscarTodos();
+        this.alunos.forEach((Aluno b) -> {
+            
+            List<Aluno> l = declaracao.getProjeto().getListaAlunos();
+            
+            for(int i=0;i<l.size();i++){
+            if (l.get(i).getNome() == b.getNome()) {
+            itemsb.add(new SelectItem(b, b.getNome()));
+            i=l.size()+1;
+                }
+            }
+        });
+        this.opAlunos = itemsb;
+    }
 }
-

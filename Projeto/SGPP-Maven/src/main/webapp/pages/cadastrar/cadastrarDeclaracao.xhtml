@@ -62,6 +62,7 @@
                                             filterMatchMode="contains"    
                                             required="true"
                                             requiredMessage="Necessita responsável do projeto  #{declaracaoBean.tipoPessoa}">
+                                     <p:ajax listener="#{declaracaoBean.onProjetoChange}" update="destinatario" event="change"/>
                                             <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
                                             <f:selectItems value="#{declaracaoBean.projetosSelect}" var="projeto" 
                                                            itemLabel="#{projeto.titulo}" itemValue="#{projeto}" />
@@ -71,45 +72,30 @@
                                         </p:selectOneMenu>
                                 <h:message for="projeto" styleClass="form--group--message" />
                             </div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="tipodestino" styleClass="form--group--label">Tipo</h:outputLabel>
-                                <p:selectOneMenu id="tipodestino" 
-                                            value="#{declaracaoBean.tipoPessoa}" 
-                                            var="tipo" 
-                                            required="true"
-                                            requiredMessage="Necessita destinatário">
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
-                                            <f:selectItem itemLabel="Aluno" itemValue="Aluno"/> 
-                                            <f:selectItem itemLabel="Colaborador" itemValue="Colaborador"/> 
-                                            <f:selectItem itemLabel="Bolsista" itemValue="Bolsista"/> 
-                                            
-                                            <p:column>
-                                                <h:outputText value="#{itemLabel}" />
-                                            </p:column>
-                                </p:selectOneMenu>
-                                <h:message for="tipodestino" styleClass="form--group--message" />
-                            </div> 
+                           
                             <h:panelGroup >
-                            <div class="form--group size-half"></div>
+                            
                             <div class="form--group size-half">
                                 <h:outputLabel for="destinatario" styleClass="form--group--label">Destinatário</h:outputLabel>
                                 <p:selectOneMenu id="destinatario" 
-                                            value="#{declaracaoBean.declaracao.destinatario}" 
-                                            converter="SimpleEntityConverter"
+                                            value="#{declaracaoBean.destinatario}" 
                                             effect="fade" 
                                             var="tipo" 
                                             filter="true" 
                                             filterMatchMode="contains"    
                                             required="true"
-                                            requiredMessage="Necessita destinatário">
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
-                                            <f:selectItem itemLabel="Colaboradores....." noSelectionOption="true"/> 
-                                            <f:selectItems value="#{declaracaoBean.colaboradoresSelect}" var="colaborador" 
-                                                           itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" />
+                                            requiredMessage="Necessita destinatário">      
+<!--                                            To conseguindo pegar só a ID do destinatario, mesmo selecionando o label ele pega a ID-->
+                                            <f:selectItem itemLabel="------Colaboradores-----" noSelectionOption="true"/>                                          
+                                            <f:selectItems value="#{declaracaoBean.opColaboradores}" var="colaborador" 
+                                                           itemLabel="#{colaborador.nome}" itemValue="#{colaborador.label}"
+                                                           /> 
                                             
-                                            <f:selectItem itemLabel="Alunos....." noSelectionOption="true"/> 
-                                            <f:selectItems value="#{declaracaoBean.alunosSelect}" var="aluno" 
-                                                           itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
+                                            <f:selectItem itemLabel="------Alunos------" noSelectionOption="true"/> 
+                                            <f:selectItems value="#{declaracaoBean.opAlunos}" var="aluno" 
+                                                           itemLabel="#{aluno.nome}" itemValue="#{aluno.label}"
+                                                           />
+                                            
                                             
                                             
                                             <p:column>
