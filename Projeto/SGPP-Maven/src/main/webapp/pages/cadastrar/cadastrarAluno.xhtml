@@ -142,7 +142,7 @@
                                     required='true'
                                     requiredMessage="Instituição é obrigatória."
                                     >                         
-                                    <p:ajax listener="#{alunoBean.onInstituicaoChange()}" update="curso-aluno" event="change"/>
+                                    <p:ajax listener="#{alunoBean.onInstituicaoChange}" update="curso-aluno" event="change"/>
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                
                                     <f:selectItems value="#{alunoBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
                                     <p:column>
@@ -161,7 +161,7 @@
                                     requiredMessage="Categoria é obrigatório."
                                     >                         
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                    <f:selectItems value="#{alunoBean.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" rendered="#{not empty alunoBean.aluno.instituicao}"/>                                    
+                                    <f:selectItems value="#{alunoBean.cursosOpcoes}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" rendered="#{not empty alunoBean.aluno.instituicao}"/>
                                     <p:column>
                                         <h:outputText value="#{course.nome}" />
                                     </p:column>
@@ -172,12 +172,8 @@
                                 <p:selectBooleanCheckbox value="#{alunoBean.aluno.bolsista}" />
                             </div>                         
                             <div class="form--actions">
-                                <div class="form--actions">
-                                    <h:commandButton styleClass="button" value="Limpar" action="#{alunoBean.limpar()}"/>
-                                </div>       
-                                <div class="form--actions">
-                                    <h:commandButton styleClass="button" value="Salvar" action="#{alunoBean.salvar()}"/>
-                                </div>   
+                                <h:commandButton styleClass="button" value="Limpar" action="#{alunoBean.limpar()}"/>
+                                <h:commandButton styleClass="button" value="Salvar" action="#{alunoBean.salvar()}"/>
                             </div>   
                         </h:panelGroup>
                     </div>     

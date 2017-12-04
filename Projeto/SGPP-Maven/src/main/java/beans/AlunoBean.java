@@ -27,9 +27,14 @@ public class AlunoBean {
     private List<Aluno> listaFiltrada;
     private List<Bolsa> bolsas;
     private List<Curso> cursos;
+    private List<SelectItem> cursosOptions;
     private List<Instituicao> instituicoes;
     private Boolean editando;
-    
+
+    public AlunoBean() {
+        this.cursos = new ArrayList<>();
+    }
+
 // Getters e Setters
     public List<Aluno> getListaFiltrada() {
         return this.listaFiltrada;
@@ -77,13 +82,20 @@ public class AlunoBean {
         return items;
     }
 
-    public List<SelectItem> getCursos(){
-        this.cursos = new Curso().buscarTodos();
-        List<SelectItem> items = new ArrayList<>();
-        this.cursos.forEach((b) -> {
-            items.add(new SelectItem(b, b.getNome()));
-        }); 
-        return items;
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public List<SelectItem> getCursosOpcoes() {
+        return cursosOptions;
+    }
+
+    public void setCursosOptions(List<SelectItem> cursosOptions) {
+        this.cursosOptions = cursosOptions;
     }
     
     public List<SelectItem> getInstituicoes(){
@@ -157,8 +169,14 @@ public class AlunoBean {
         }
     }
     
-    public void onInstituicaoChange(){ 
-        //this.cursos = this.cursos.stream().filter(curso -> !Objects.equals(curso.getInstituicao(), this.aluno.getInstituicao())).collect(Collectors.toList());
+    public void onInstituicaoChange() {
+        List<SelectItem> items = new ArrayList<>();
+        this.cursos = new Curso().buscarTodos();
+        this.cursos.forEach((Curso b) -> {
+            if (aluno.getInstituicao().getNome() == b.getInstituicao().getNome())
+                items.add(new SelectItem(b, b.getNome()));
+        });
+        this.cursosOptions = items;
     }
 }
 
