@@ -8,6 +8,7 @@ import entities.Documento;
 import entities.Edital;
 import entities.Lembrete;
 import entities.Projeto;
+import entities.TipoDocumento;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -91,7 +92,11 @@ public class ProjetoBean {
         });
         return items;
     }
-
+    
+    public List<Lembrete> getLembretes(){
+        return this.projeto.getLembretes();
+    }
+    
     public Projeto getProjeto() {
         return projeto;
     }
@@ -111,6 +116,14 @@ public class ProjetoBean {
 
     public void setProjetos(List<Projeto> lista) {
         this.projetos = lista;
+    }
+
+    public List<SelectItem> getTiposDocumento() {
+        List<SelectItem> items = new ArrayList<>();
+        new TipoDocumento().buscarTodos().forEach((e) -> {
+            items.add(new SelectItem(e, e.getNome()));
+        });
+        return items;
     }
 
 // Ações
