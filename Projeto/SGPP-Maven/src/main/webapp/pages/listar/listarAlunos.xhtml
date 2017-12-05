@@ -43,19 +43,19 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Instituição" sortBy="#{aluno.curso.instituicao.nome}">
+                        <p:column headerText="Instituição" filterBy="#{aluno.curso.instituicao.nome}" sortBy="#{aluno.curso.instituicao.nome}"   filterStyle="display:none">
                             <h:outputText value="#{aluno.curso.instituicao.nome}" />
                         </p:column>
 
-                        <p:column headerText="Curso" sortBy="#{aluno.curso.nome}">
+                        <p:column headerText="Curso" filterBy="#{aluno.curso.nome}" sortBy="#{aluno.curso.nome}"  filterStyle="display:none">
                             <h:outputText value="#{aluno.curso.nome}" />
                         </p:column>
 
-                        <p:column headerText="Nome" sortBy="#{aluno.nome}">
+                        <p:column headerText="Nome" filterBy="#{aluno.nome}" sortBy="#{aluno.nome}"  filterStyle="display:none">
                             <h:outputText value="#{aluno.nome}" />
                         </p:column>
 
-                        <p:column headerText="Bolsista" sortBy="#{aluno.bolsista}">
+                        <p:column headerText="Bolsista"  sortBy="#{aluno.bolsista}">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('alunoTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
@@ -66,11 +66,11 @@
                             <h:outputText value="#{aluno.bolsista ? 'Sim' : 'Não'}" />
                         </p:column>
 
-                        <p:column headerText="Bolsa" sortBy="#{aluno.bolsa.nome}">
+                        <p:column headerText="Bolsa" filterBy="#{aluno.bolsa.nome}" sortBy="#{aluno.bolsa.nome}" filterStyle="display:none">
                             <h:outputText value="#{aluno.bolsa.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{aluno.dataUltimaAlteracao}">
+                        <p:column headerText="Última Alteração" filterBy="#{aluno.bolsista}" sortBy="#{aluno.dataUltimaAlteracao}"  filterStyle="display:none">
                             <h:outputText value="#{aluno.dataUltimaAlteracao}" >
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:outputText>
