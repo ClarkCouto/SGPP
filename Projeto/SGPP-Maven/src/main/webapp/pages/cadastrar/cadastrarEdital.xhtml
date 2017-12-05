@@ -36,21 +36,7 @@
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="titulo" styleClass="form--group--message" />
-                            </div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="origem" styleClass="form--group--label">Origem</h:outputLabel>
-                                <h:inputText
-                                    value="#{editalBean.edital.origem}"
-                                    id="origem"
-                                    label="Origem"
-                                    styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Origem é obrigatória."
-                                    >
-                                    <f:validateRequired />
-                                </h:inputText>
-                                <h:message for="origem" styleClass="form--group--message" />
-                            </div>  
+                            </div> 
                             <div class="form--group size-half">
                                 <h:outputLabel for="numero" styleClass="form--group--label">Número</h:outputLabel>
                                 <h:inputText
@@ -65,6 +51,20 @@
                                 </h:inputText>
                                 <h:message for="numero" styleClass="form--group--message" />
                             </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="origem" styleClass="form--group--label">Origem</h:outputLabel>
+                                <h:inputText
+                                    value="#{editalBean.edital.origem}"
+                                    id="origem"
+                                    label="Origem"
+                                    styleClass="form--group--text-input"
+                                    required="true"
+                                    requiredMessage="Origem é obrigatória."
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="origem" styleClass="form--group--message" />
+                            </div> 
                             <div class="form--group">
                                 <h:outputLabel for="pdf" styleClass="form--group--label">PDF</h:outputLabel>
 

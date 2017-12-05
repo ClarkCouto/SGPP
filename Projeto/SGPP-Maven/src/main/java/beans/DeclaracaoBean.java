@@ -1,9 +1,6 @@
 package beans;
 
 import com.itextpdf.html2pdf.HtmlConverter;
-import entities.Aluno;
-import entities.Colaborador;
-import entities.Coordenador;
 import entities.Declaracao;
 import entities.Projeto;
 import entities.TextoBaseDeclaracao;
@@ -13,9 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,21 +35,13 @@ public class DeclaracaoBean {
     private Declaracao declaracaoSelecionada;
     private List<Declaracao> declaracoes;
     private List<Declaracao> listaFiltrada;
-    private List<Aluno> alunos;
-    private List<Colaborador> colaboradores;
-    private List<Coordenador> coordenadores;
-    private List<Projeto> projetos;
-    private List<TextoBaseDeclaracao> textosBase;
-    private Boolean editando;
-    private String texto = "ARQUIVO GERADO HERE";
+    private List<SelectItem> alunosOption = new ArrayList<>();
+    private List<SelectItem> colaboradoresOption = new ArrayList<>();
+    private static HashMap<String, String> tiposDestinatario;
+    private String tipoDestinatario;
     private StreamedContent file;
     private String arquivoTempName;
-    private String projeto;
-    private String destinatario;
-    private String tipoPessoa;
-    private List<SelectItem> opColaboradores;
-    private List<SelectItem> opAlunos;
-    
+        
 // Getters e Setters
     public List<Declaracao> getListaFiltrada() {
         return listaFiltrada;
@@ -62,13 +51,30 @@ public class DeclaracaoBean {
         this.listaFiltrada = listaFiltrada;
     }
     
-    public List<Coordenador> getCoordenadores(){
-        this.coordenadores = new Coordenador().buscarTodosCoordenadores();
-        return coordenadores;
+    static{
+        tiposDestinatario = new HashMap<String, String>();
+        tiposDestinatario.put("Aluno", "ALUNO");
+        tiposDestinatario.put("Colaborador", "COLABORADOR");
+    }
+    
+    public String getTipoDestinatario() {
+        return this.tipoDestinatario;
+    }
+
+    public void setTipoDestinatario(String tipoDestinatario) {
+        this.tipoDestinatario = tipoDestinatario;
+    }
+    
+    public HashMap<String, String> getTiposDestinatario() {
+        return this.tiposDestinatario;
+    }
+
+    public void setTipoDestinatario(HashMap<String, String> tipoDestinatario) {
+        this.tiposDestinatario = tiposDestinatario;
     }
     
     public Declaracao getDeclaracao() {
-        return declaracao;
+        return this.declaracao;
     }
 
     public void setDeclaracao(Declaracao declaracao) {
@@ -87,34 +93,41 @@ public class DeclaracaoBean {
     public void setDeclaracoes(List<Declaracao> lista){
         this.declaracoes = lista;
     }
+    
+    public List<SelectItem> getAlunosOption() {
+        return this.alunosOption;
+    }
 
-    public Boolean getEditando() {
-        return this.editando;
+    public void setAlunosOption(List<SelectItem> alunosOption) {
+        this.alunosOption = alunosOption;
     }
-//Editado 26/11/2017, adicionado retorno para SELECT
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
+
+    public List<SelectItem> getColaboradoresOption() {
+        return this.colaboradoresOption;
     }
-      
-    public List<Aluno> getAlunos(){
-        this.alunos = new Aluno().buscarTodos();
-        return this.alunos;
+
+    public void setColaboradoresOption(List<SelectItem> colaboradoresOption) {
+        this.colaboradoresOption = colaboradoresOption;
     }
-      
-    public List<Colaborador> getColaboradores(){
-        this.colaboradores = new Colaborador().buscarTodos();
-        return this.colaboradores;
+
+    public List<SelectItem> getProjetosSelect(){
+        List<SelectItem> items = new ArrayList<>();  
+        new Projeto().buscarTodos().forEach((c) -> {
+            if (c.getAtivo()){
+                items.add(new SelectItem(c, c.getTitulo()));
+            }
+        }); 
+        return items;
     }
-      
-    //Editado 26/11/2017, adicionado retorno para SELECT
-    public List<Projeto> getProjetos(){
-        this.projetos = new Projeto().buscarTodos();
-        return this.projetos;
-    }
-      
-    public List<TextoBaseDeclaracao> getTextosBase(){
-        this.textosBase = new TextoBaseDeclaracao().buscarTodos();
-        return this.textosBase;
+    
+    public List<SelectItem> getTextosBaseSelect(){
+        List<SelectItem> items = new ArrayList<>();  
+        new TextoBaseDeclaracao().buscarTodos().forEach((c) -> {
+            if (c.getAtivo()){
+                items.add(new SelectItem(c, c.getIdentificador()));
+            }
+        }); 
+        return items;
     }
     
 // Ações
@@ -138,34 +151,26 @@ public class DeclaracaoBean {
         if(id != null)
             this.declaracaoSelecionada = this.declaracao.buscarPeloId(id);
 
-        if (this.declaracaoSelecionada != null) {
-            this.declaracao = this.declaracaoSelecionada;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
+        if (declaracaoSelecionada == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Declaração!",
+                            "Erro ao localizar Declaração!"));
+            return "/pages/listar/listarDeclaracoes";
+        } 
+        else {
+            this.declaracao = declaracaoSelecionada;
+            return "/pages/editar/editarDeclaracao?faces-redirect=true";
         }
-        return "/pages/editar/editarDeclaracao?faces-redirect=true";
     }  
     
     public void limpar(){
-        this.editando = false;
         this.declaracao = new Declaracao();
-        //texto = "Novo Bean"; //testes para ver se era executado toda vez que entrava na aba
         this.declaracaoSelecionada = new Declaracao();
     }
     
-    public String remover(Long id) {
-        if(this.declaracao.remover(id))
-            return "/pages/listar/listarDeclaracoes?faces-redirect=true";
-        else{
-            FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Declaração!",
-                                   "Erro ao excluir Declaração!"));
-            return "/pages/listar/listarDeclaracoes";
-        }
-    }
-    
     public String salvar() {
+        this.declaracao.setDataEmissao(new Date());
+        this.declaracao.setResponsavel(this.declaracao.getProjeto().getCoordenador());
         if(this.declaracao.salvar())
             return "/pages/listar/listarDeclaracoes?faces-redirect=true";
         else {
@@ -176,24 +181,58 @@ public class DeclaracaoBean {
         }
     }
     
+    public void onProjetoChange() {
+        List<SelectItem> itens = new ArrayList<>();
+        if(this.declaracao.getProjeto() != null){
+            this.declaracao.getProjeto().getListaAlunos().forEach((c) -> {
+                itens.add(new SelectItem(c, c.getNome()));
+            });
+        }
+        this.alunosOption = itens;
+        
+        List<SelectItem> items = new ArrayList<>();
+        if(this.declaracao.getProjeto() != null){
+            this.declaracao.getProjeto().getListaColaboradores().forEach((c) -> {
+                items.add(new SelectItem(c, c.getNome()));
+            });
+        }
+        this.colaboradoresOption = items;
+    }
+
+    public void setFile(StreamedContent file) {
+        this.file = file;
+    }
+
+    public StreamedContent getFile()  {
+        gerarPDF(); //Método que cria o PDF e salva localmente
+        //String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
+        InputStream stream;
+        try {
+            stream = new FileInputStream(arquivoTempName); //Caminho onde está salvo o arquivo.
+            file = new DefaultStreamedContent(stream, "application/pdf", "Projeto_" + this.declaracao.getProjeto().getTitulo() + "_Destinatario_" + this.declaracao.getDestinatario().getNome() + ".pdf");  
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DeclaracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return file;  
+    }
+    
     //////////////////////para gerar e salvar o PDF
-      public void gerarPDF(){
-          texto = this.declaracao.getTextoBaseDeclaracao().getTexto();
-          String coord = this.declaracao.getProjeto().getCoordenador().getNome();
-          //String dest = this.declaracao.getDestinatario().getNome();
-          //String coord = projeto;
-          String dest = destinatario;
-                  
-          //Tags especiais
-          texto = texto.replaceAll("#projeto", declaracao.getProjeto().getTitulo());
-          texto = texto.replaceAll("#coordenador", coord);
-          texto = texto.replaceAll("#aluno", dest);
-          texto = texto.replaceAll("#destinatario", dest);
-          texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(new Date()));
-//          texto.replaceAll("#coordenadorCPF", declaracao.getProjeto().getCoordenador().getCpf());
-//          texto.replaceAll("#alunoCPF", declaracao.getProjeto().getCoordenador().getCpf());
-                    //... e assim vai nas TAGs possíveis, além de tag de datas
-          
+    public void gerarPDF(){
+        if(this.declaracao.getId() == null)
+            salvar();
+        String texto = this.declaracao.getTextoBaseDeclaracao().getTexto();
+
+        //Tags replace
+        texto = texto.replaceAll("#projeto", declaracao.getProjeto().getTitulo());
+        texto = texto.replaceAll("#coordenador", this.declaracao.getProjeto().getCoordenador().getNome());
+        texto = texto.replaceAll("#coordenadorCPF", this.declaracao.getProjeto().getCoordenador().getCpf());
+        texto = texto.replaceAll("#destinatario", this.declaracao.getDestinatario().getNome());
+        if(this.declaracao.getId() == null){
+            texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(new Date()));
+        }
+        else{
+            texto = texto.replaceAll("#data", (new SimpleDateFormat("dd/mm/yyyy")).format(this.declaracao.getDataEmissao()));
+        }
         try {
             //String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/declaracoes/");
             String path = System.getProperty("java.io.tmpdir");
@@ -201,174 +240,19 @@ public class DeclaracaoBean {
             
             HtmlConverter.convertToPdf(texto, new FileOutputStream(arquivoTempName));
             texto = path + texto; //Testes: Ver diretório que é salvo.
+            
         } catch (IOException ex) {
             Logger.getLogger(DeclaracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage(null,
+                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao gerar PDF Declaração!",
+                                   "Erro ao gerar PDF Declaração!"));
         }
-            
-    }
-
-    public String getTexto() {
-        return this.texto;
-    }
- 
-   public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public String getProjeto() {
-        return this.projeto;
-    }
-
-    public void setProjeto(String projeto) {
-        this.projeto = projeto;
-    }
-
-    public String getDestinatario() {
-        return destinatario;
-    }
-
-    public void setDestinatario(String aluno) {
-        this.destinatario = aluno;
-    }
-
-    public String getTipoPessoa() {
-        return tipoPessoa;
-    }
-
-    public void setTipoPessoa(String tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
-    }
-
-    public List<SelectItem> getOpColaboradores() {
-        return opColaboradores;
-    }
-
-    public void setOpColaboradores(List<SelectItem> opColaboradores) {
-        this.opColaboradores = opColaboradores;
-    }
-
-    public List<SelectItem> getOpAlunos() {
-        return opAlunos;
-    }
-
-    public void setOpAlunos(List<SelectItem> opAlunos) {
-        this.opAlunos = opAlunos;
     }
     
-    
-    
-    
-    
-        public List<SelectItem> getTextosBaseSelect(){
-        this.textosBase = new TextoBaseDeclaracao().buscarTodos();
-        List<SelectItem> items = new ArrayList<>();  
-        this.textosBase.forEach((c) -> {
-            if (c.getAtivo()){
-            items.add(new SelectItem(c, c.getIdentificador()));}
-        }); 
-        return items;
+    public void imprimirPDF(Long id){
+        if(this.declaracao == null){
+            this.declaracao = new Declaracao().buscarPeloId(id);
         }
-        
-     
-        public List<SelectItem> getCoordenadoresSelect(){
-            this.coordenadores = new Coordenador().buscarTodosCoordenadores();
-            List<SelectItem> items = new ArrayList<>();  
-            this.coordenadores.forEach((c) -> {
-                if (c.getAtivo()){
-                items.add(new SelectItem(c, c.getNome()));}
-            }); 
-            return items;
-        }
-        
-        public List<SelectItem> getColaboradoresSelect(){
-            
-            List<SelectItem> items = new ArrayList<>(); 
-            
-            if (declaracao.getProjeto() != null &&
-                    declaracao.getProjeto().getListaColaboradores() != null){
-//                if (1==1) return new ArrayList<>();
-            //this.colaboradores.addAll(declaracao.getProjeto().getListaColaboradores());
-            this.colaboradores.forEach((c) -> {
-                if (c.getAtivo()){
-                items.add(new SelectItem(c, c.getNome()));}
-            }); }
-            
-            return items;
-        }
-        public List<SelectItem> getAlunosSelect(){
-            //if (1==1) return new ArrayList<>();
-            List<SelectItem> items = new ArrayList<>();  
-            
-            if (declaracao.getProjeto() != null &&
-                    declaracao.getProjeto().getListaAlunos()!= null){
-            this.alunos.addAll(declaracao.getProjeto().getListaAlunos());
-            this.alunos.forEach((c) -> {
-                if (c.getAtivo()){
-                items.add(new SelectItem(c, c.getNome()));}
-            }); }
-            return items;
-        }
-        
-        public List<SelectItem> getProjetosSelect(){
-            this.projetos = new Projeto().buscarTodos();
-            List<SelectItem> items = new ArrayList<>();  
-            this.projetos.forEach((c) -> {
-                if (c.getAtivo()){
-                items.add(new SelectItem(c, c.getTitulo()));}
-            }); 
-            return items;
-        }
-
-        public void setFile(StreamedContent file) {
-        this.file = file;
-    }
-
-    //https://pt.stackoverflow.com/questions/49042/como-fazer-download-de-um-arquivo-pdf-com-jsf
-    //http://www.guj.com.br/t/resolvido-filedownload-primefaces-jsf/190724/6
-    public StreamedContent getFile()  {
-        gerarPDF(); //Método que cria o PDF e salva localmente
-        //String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
-        InputStream stream;
-        try {
-            stream = new FileInputStream(arquivoTempName); //Caminho onde está salvo o arquivo.
-            file = new DefaultStreamedContent(stream, "application/pdf", declaracao.getTextoBaseDeclaracao().getIdentificador()+".pdf");  
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DeclaracaoBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-
-        return file;  
-    }
-    
-        public void onProjetoChange() {
-        List<SelectItem> items = new ArrayList<>();
-        this.colaboradores = new Colaborador().buscarTodos();
-        this.colaboradores.forEach((Colaborador b) -> {
-            
-            List<Colaborador> l = declaracao.getProjeto().getListaColaboradores();
-            
-            for(int i=0;i<l.size();i++){
-            if (l.get(i).getNome() == b.getNome()) {
-            items.add(new SelectItem(b, b.getNome()));
-            i=l.size()+1;
-                }
-            }
-        });
-        this.opColaboradores = items;
-        
-        List<SelectItem> itemsb = new ArrayList<>();
-        this.alunos = new Aluno().buscarTodos();
-        this.alunos.forEach((Aluno b) -> {
-            
-            List<Aluno> l = declaracao.getProjeto().getListaAlunos();
-            
-            for(int i=0;i<l.size();i++){
-            if (l.get(i).getNome() == b.getNome()) {
-            itemsb.add(new SelectItem(b, b.getNome()));
-            i=l.size()+1;
-                }
-            }
-        });
-        this.opAlunos = itemsb;
+        gerarPDF();
     }
 }

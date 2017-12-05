@@ -19,12 +19,10 @@ public class SimpleEntityConverter implements Converter {
     }  
   
     public String getAsString(FacesContext ctx, UIComponent component, Object value) {  
-  
         if (value != null && !"".equals(value)) {  
   
             BaseEntity entity = (BaseEntity) value;  
   
-            // adiciona item como atributo do componente  
             this.addAttribute(component, entity);  
   
             Long codigo = entity.getId();  
@@ -32,12 +30,11 @@ public class SimpleEntityConverter implements Converter {
                 return String.valueOf(codigo);  
             }  
         }  
-  
         return (String) value;  
     }  
   
     protected void addAttribute(UIComponent component, BaseEntity o) {  
-        String key = o.getId().toString(); // codigo da empresa como chave neste caso  
+        String key = o.getId().toString();
         this.getAttributesFrom(component).put(key, o);  
     }  
   

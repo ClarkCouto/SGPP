@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,8 @@ import javax.persistence.ManyToOne;
  * @author CristianoSilva
  */
 @Entity
-public class Aluno extends Pessoa implements Serializable{
+@DiscriminatorValue(value="Aluno")
+public class Aluno extends Destinatario implements Serializable{
     private static final long serialVersionUID = 5953225846505938118L;
    
     @Column(nullable=false)

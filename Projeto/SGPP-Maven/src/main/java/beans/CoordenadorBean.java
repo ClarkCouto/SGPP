@@ -40,7 +40,7 @@ public class CoordenadorBean implements Serializable {
     
     // Getters e Setters
     public List<Coordenador> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Coordenador> listaFiltrada) {
@@ -48,9 +48,8 @@ public class CoordenadorBean implements Serializable {
     }
     
     public List<SelectItem> getAreasOptions(){
-        List<Area> areas = new Area().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
-        areas.forEach((c) -> {
+        new Area().buscarTodos().forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
         }); 
         return items;
@@ -71,7 +70,7 @@ public class CoordenadorBean implements Serializable {
     }
 
     public GrupoDePesquisa getGrupoDePesquisaSelecionado() {
-        return grupoDePesquisaSelecionado;
+        return this.grupoDePesquisaSelecionado;
     }
 
     public void setGrupoDePesquisaSelecionado(GrupoDePesquisa grupoDePesquisaSelecionado) {
@@ -92,11 +91,11 @@ public class CoordenadorBean implements Serializable {
         if(this.instituicoes == null){
             this.instituicoes = new ArrayList<>();  
         }
-        return instituicoes;
+        return this.instituicoes;
     }
     
     public Coordenador getCoordenador() {
-        return coordenador;
+        return this.coordenador;
     }
 
     public void setCoordenador(Coordenador coordenador) {
@@ -119,25 +118,25 @@ public class CoordenadorBean implements Serializable {
     // Ações    
     public String detalhar(Long id){
         if(id != null)
-            coordenadorSelecionado = this.coordenador.buscarPeloId(id);
+            this.coordenadorSelecionado = this.coordenador.buscarPeloId(id);
 
-        if (coordenadorSelecionado == null) {
+        if (this.coordenadorSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Coordenador!",
                                    "Erro ao localizar Coordenador!"));
             return "/pages/listar/listarCoordenadores";
         }
         else {
-            this.coordenador = coordenadorSelecionado;
+            this.coordenador = this.coordenadorSelecionado;
             return "/pages/detalhes/detalhesCoordenador?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            coordenadorSelecionado = this.coordenador.buscarPeloId(id);
+            this.coordenadorSelecionado = this.coordenador.buscarPeloId(id);
 
-        if (coordenadorSelecionado == null) {
+        if (this.coordenadorSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Coordenador!",
                                    "Erro ao localizar Coordenador!"));
@@ -145,7 +144,7 @@ public class CoordenadorBean implements Serializable {
         }
         else {
             this.editando = true;
-            this.coordenador = coordenadorSelecionado;
+            this.coordenador = this.coordenadorSelecionado;
             return "/pages/editar/editarCoordenador?faces-redirect=true";
         }
     }  
@@ -156,7 +155,7 @@ public class CoordenadorBean implements Serializable {
     }
     
     public String remover(Long id) {
-        if(coordenador.remover(id))
+        if(this.coordenador.remover(id))
             return "/pages/listar/listarCoordenadores?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -168,9 +167,9 @@ public class CoordenadorBean implements Serializable {
     
     public String salvar() {
         setGruposDePesquisa();
-        coordenador.setGruposDePesquisa(gruposDePesquisa);
+        this.coordenador.setGruposDePesquisa(gruposDePesquisa);
         if(this.editando){
-            if(coordenador.salvar())
+            if(this.coordenador.salvar())
                 return "/pages/listar/listarCoordenadores?faces-redirect=true";
             else {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -180,11 +179,9 @@ public class CoordenadorBean implements Serializable {
             }
         }
         else if(validarCpfUnico(coordenador.getCpf())){
-            coordenador.setAtivo(Boolean.TRUE);
-            coordenador.setSenha("1234");
-            coordenador.setTipo(TipoUsuario.Coordenador);
-            coordenador.setUltimoAcesso(new Date());
-            if(coordenador.salvar())
+            this.coordenador.setSenha("1234");
+            this.coordenador.setTipo(TipoUsuario.Coordenador);
+            if(this.coordenador.salvar())
                 return "/pages/listar/listarCoordenadores?faces-redirect=true";
             else {
                 FacesContext.getCurrentInstance().addMessage(null,

@@ -77,14 +77,10 @@
                             </h:commandLink>
                         </p:column>
 
-                        <p:column headerText="Excluir" >
-                            <p:commandButton value="Excluir" rendered="#{declaracao.ativo}" actionListener="${declaracaoBean.remover(declaracao.id)}" update="lista">
-                                <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
-                            </p:commandButton>
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
+                        <p:column headerText="Ações" >
+                            <p:commandButton value="Detalhar" action="#{declaracaoBean.detalhar(declaracao.id)}" icon="fa fa-info-circle"/>
+                            
+                            <p:commandButton value="Gerar PDF" action="#{declaracaoBean.imprimirPdf(declaracao.id)}" icon="fa fa-edit"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

@@ -118,11 +118,8 @@ public class SetorDePesquisaBean implements Serializable {
     
     public String salvar() {
         if(validarCpfUnico(setorDePesquisa.getCpf())){
-            setorDePesquisa.setAtivo(Boolean.TRUE);
-            setorDePesquisa.setDataNascimento(new Date());
             setorDePesquisa.setSenha("1234");
             setorDePesquisa.setTipo(TipoUsuario.SetorDePesquisa);
-            setorDePesquisa.setUltimoAcesso(new Date());
             if(setorDePesquisa.salvar())
                 return "/pages/listar/listarSetoresDePesquisa?faces-redirect=true";
             else {

@@ -29,13 +29,14 @@ public abstract class Pessoa extends BaseEntityAudit {
         Masculino, Feminino
     }
     
-    @Column(nullable=false, columnDefinition = "VARCHAR(14)")
+    @Column(nullable=true, columnDefinition = "VARCHAR(14)")
     private String cpf;   
     
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable=true)
     private Date dataNascimento;
             
-    @Column(nullable=false, columnDefinition = "VARCHAR(50)")
+    @Column(nullable=true, columnDefinition = "VARCHAR(50)")
     private String email;
     
     @ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -45,7 +46,7 @@ public abstract class Pessoa extends BaseEntityAudit {
     private String nome;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable=false)
+    @Column(nullable=true)
     private Sexo sexo;
     
     @Column(nullable=true, columnDefinition = "VARCHAR(15)")

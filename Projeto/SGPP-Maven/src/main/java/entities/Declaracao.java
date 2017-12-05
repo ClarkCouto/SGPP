@@ -29,7 +29,7 @@ public class Declaracao extends BaseEntityAudit implements Serializable{
     private Date dataEmissao;
     
     @ManyToOne
-    private Usuario destinatario;
+    private Destinatario destinatario;
     
     @ManyToOne
     private Projeto projeto;
@@ -51,11 +51,11 @@ public class Declaracao extends BaseEntityAudit implements Serializable{
         this.dataEmissao = dataEmissao;
     }
 
-    public Pessoa getDestinatario() {
+    public Destinatario getDestinatario() {
         return destinatario;
     }
 
-    public void setDestinatario(Usuario destinatario) {
+    public void setDestinatario(Destinatario destinatario) {
         this.destinatario = destinatario;
     }
 

@@ -3,6 +3,7 @@ package beans;
 import entities.Aluno;
 import entities.Bolsa;
 import entities.Curso;
+import entities.Destinatario;
 import entities.Instituicao;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ public class AlunoBean {
     private List<Curso> cursos;
     private List<SelectItem> cursosOptions;
     private List<Instituicao> instituicoes;
-    private Boolean editando;
 
     public AlunoBean() {
         this.cursos = new ArrayList<>();
@@ -61,14 +61,6 @@ public class AlunoBean {
     
     public void setAlunos(List<Aluno> lista){
         this.alunos = lista;
-    }
-
-    public Boolean getEditando() {
-        return this.editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
     }
 
     public List<SelectItem> getBolsas(){
@@ -139,7 +131,6 @@ public class AlunoBean {
     }  
     
     public void limpar(){
-        this.editando = false;
         this.aluno = new Aluno();
         this.alunoSelecionado = new Aluno();
     }
@@ -156,8 +147,9 @@ public class AlunoBean {
     }
     
     public String salvar() {
-        aluno.setBolsista(Boolean.FALSE);
-        if(aluno.salvar())
+        this.aluno.setTipoDestinatario(Destinatario.TipoDestinatario.Aluno);
+        this.aluno.setBolsista(Boolean.FALSE);
+        if(this.aluno.salvar())
             return "/pages/listar/listarAlunos?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,
@@ -171,7 +163,7 @@ public class AlunoBean {
         List<SelectItem> items = new ArrayList<>();
         this.cursos = new Curso().buscarTodos();
         this.cursos.forEach((Curso b) -> {
-            if (aluno.getInstituicao().getNome() == b.getInstituicao().getNome())
+            if (this.aluno.getInstituicao().getNome() == b.getInstituicao().getNome())
                 items.add(new SelectItem(b, b.getNome()));
         });
         this.cursosOptions = items;

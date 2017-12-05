@@ -4,6 +4,7 @@ import entities.Aluno;
 import entities.Bolsa;
 import entities.Colaborador;
 import entities.Coordenador;
+import entities.Destinatario;
 import entities.Documento;
 import entities.Edital;
 import entities.Lembrete;
@@ -306,7 +307,9 @@ public class ProjetoBean {
     }
 
     public void adicionarColaborador() {
-        this.colaboradores.add(new Colaborador());
+        Colaborador colaborador = new Colaborador();
+        colaborador.setTipoDestinatario(Destinatario.TipoDestinatario.Colaborador);
+        this.colaboradores.add(colaborador);
         this.projeto.setListaColaboradores(this.colaboradores);
     }
 

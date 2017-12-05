@@ -16,7 +16,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author CristianoSilva
@@ -29,7 +28,6 @@ public class Coordenador extends Usuario implements Serializable{
     @ManyToOne
     private Area area;
     
-//    @XmlTransient 
     @OneToMany(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<GrupoDePesquisa> gruposDePesquisa;
     

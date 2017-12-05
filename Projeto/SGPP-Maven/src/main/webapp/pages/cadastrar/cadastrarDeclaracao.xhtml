@@ -24,99 +24,127 @@
                             <span class="button--label">Listar Textos Base Declaração</span>
                         </h:link>
                     </div>                          
-                </div>   
-                
-             <h:form>  
-             <div class="form">  
-             <h:panelGroup class="form--section">
+                </div>  
+                <h:form>  
+                    <div class="form">  
+                        <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
                             <div class="form--section--title">Gerar declaração</div>
-                            <div class="form--group">
-                                <h:outputLabel for="tipobase" styleClass="form--group--label">Tipo declaração</h:outputLabel>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="tipobase" styleClass="form--group--label">Texto base declaração</h:outputLabel>
                                 <p:selectOneMenu id="tipobase" 
-                                            value="#{declaracaoBean.declaracao.textoBaseDeclaracao}" 
-                                            converter="SimpleEntityConverter"
-                                            effect="fade" 
-                                            var="tipo" 
-                                            filter="true" 
-                                            filterMatchMode="contains"    
-                                            required="true"
-                                            requiredMessage="Necessita tipo do documento a ser gerado">
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{declaracaoBean.textosBaseSelect}" var="textoBaseDeclaracao" 
-                                                           itemLabel="#{textoBaseDeclaracao.identificador}" itemValue="#{textoBaseDeclaracao}" />
-                                            <p:column>
-                                                <h:outputText value="#{tipo.identificador}" />
-                                            </p:column>
-                                        </p:selectOneMenu>
-                                 <h:message for="tipobase" styleClass="form--group--message" />
+                                    value="#{declaracaoBean.declaracao.textoBaseDeclaracao}" 
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="tipo" 
+                                    filter="true" 
+                                    filterMatchMode="contains"    
+                                    required="true"
+                                    requiredMessage="Texto base declaração é obrigatório."
+                                 >
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                    <f:selectItems value="#{declaracaoBean.textosBaseSelect}" var="textoBaseDeclaracao" itemLabel="#{textoBaseDeclaracao.identificador}" itemValue="#{textoBaseDeclaracao}" />
+                                    <p:column>
+                                        <h:outputText value="#{tipo.identificador}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <h:message for="tipobase" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="projeto" styleClass="form--group--label">Projeto</h:outputLabel>
-                                 <p:selectOneMenu id="projeto" 
-                                            value="#{declaracaoBean.declaracao.projeto}" 
-                                            converter="SimpleEntityConverter"
-                                            effect="fade" 
-                                            var="tipo" 
-                                            filter="true" 
-                                            filterMatchMode="contains"    
-                                            required="true"
-                                            requiredMessage="Necessita responsável do projeto  #{declaracaoBean.tipoPessoa}">
-                                     <p:ajax listener="#{declaracaoBean.onProjetoChange}" update="destinatario" event="change"/>
-                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                            <f:selectItems value="#{declaracaoBean.projetosSelect}" var="projeto" 
-                                                           itemLabel="#{projeto.titulo}" itemValue="#{projeto}" />
-                                            <p:column>
-                                                <h:outputText value="#{tipo.titulo}" />
-                                            </p:column>
-                                        </p:selectOneMenu>
+                                <p:selectOneMenu 
+                                    id="projeto" 
+                                    value="#{declaracaoBean.declaracao.projeto}" 
+                                    converter="SimpleEntityConverter"
+                                    effect="fade" 
+                                    var="tipo" 
+                                    filter="true" 
+                                    filterMatchMode="contains"    
+                                    required="true"
+                                    requiredMessage="Projeto é obrigatório."
+                                    >
+                                    <p:ajax listener="#{declaracaoBean.onProjetoChange}" event="change" update="destinatario"/>
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
+                                    <f:selectItems value="#{declaracaoBean.projetosSelect}" var="projeto" itemLabel="#{projeto.titulo}" itemValue="#{projeto}" />
+                                    <p:column>
+                                        <h:outputText value="#{tipo.titulo}" />
+                                    </p:column>
+                                </p:selectOneMenu>
                                 <h:message for="projeto" styleClass="form--group--message" />
                             </div>
-                           
-                            <h:panelGroup >
-                            
                             <div class="form--group size-half">
-                                <h:outputLabel for="destinatario" styleClass="form--group--label">Destinatário</h:outputLabel>
-                                <p:selectOneMenu id="destinatario" 
-                                            value="#{declaracaoBean.destinatario}" 
+                                <h:outputLabel for="tipo-destinatario" styleClass="form--group--label">Tipo Destinatário</h:outputLabel>
+                                <p:selectOneMenu 
+                                    id="tipo-destinatario" 
+                                    value="#{declaracaoBean.tipoDestinatario}"
+                                    effect="fade" 
+                                    var="option"  
+                                    required="true"
+                                    requiredMessage="Tipo Destinatário é obrigatório"
+                                    > 
+                                    <p:ajax event="change" update="destinatario"/>
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>   
+                                    <f:selectItems value="#{declaracaoBean.tiposDestinatario}"/>
+                                </p:selectOneMenu>
+                                <h:message for="tipo-destinatario" styleClass="form--group--message" />
+                            </div>
+                            <h:panelGroup id="destinatario">
+                                <h:panelGroup rendered="#{declaracaoBean.tipoDestinatario == 'ALUNO'}">
+                                    <div class="form--group size-half">
+                                        <h:outputLabel for="destinatario-aluno" styleClass="form--group--label">Destinatário</h:outputLabel>
+                                        <p:selectOneMenu 
+                                            id="destinatario-aluno" 
+                                            value="#{declaracaoBean.declaracao.destinatario}" 
+                                            converter="SimpleEntityConverter"
                                             effect="fade" 
-                                            var="tipo" 
+                                            var="option" 
                                             filter="true" 
                                             filterMatchMode="contains"    
                                             required="true"
-                                            requiredMessage="Necessita destinatário">      
-<!--                                            To conseguindo pegar só a ID do destinatario, mesmo selecionando o label ele pega a ID-->
-                                            <f:selectItem itemLabel="------Colaboradores-----" noSelectionOption="true"/>                                          
-                                            <f:selectItems value="#{declaracaoBean.opColaboradores}" var="colaborador" 
-                                                           itemLabel="#{colaborador.nome}" itemValue="#{colaborador.label}"
-                                                           /> 
-                                            
-                                            <f:selectItem itemLabel="------Alunos------" noSelectionOption="true"/> 
-                                            <f:selectItems value="#{declaracaoBean.opAlunos}" var="aluno" 
-                                                           itemLabel="#{aluno.nome}" itemValue="#{aluno.label}"
-                                                           />
-                                            
-                                            
-                                            
+                                            requiredMessage="Destinatário é obrigatório">      
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                         
+                                            <f:selectItems value="#{declaracaoBean.alunosOption}" var="aluno" itemLabel="#{aluno.nome}" itemValue="#{aluno}"/> 
                                             <p:column>
-                                                <h:outputText value="#{tipo.nome}" />
+                                                <h:outputText value="#{option.nome}" />
                                             </p:column>
                                         </p:selectOneMenu>
-                                <h:message for="destinatario" styleClass="form--group--message" />
-                            </div> 
+                                        <h:message for="destinatario-aluno" styleClass="form--group--message" />
+                                    </div> 
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{declaracaoBean.tipoDestinatario == 'COLABORADOR'}">
+                                    <div class="form--group size-half">
+                                        <h:outputLabel for="destinatario-colaborador" styleClass="form--group--label">Destinatário</h:outputLabel>
+                                        <p:selectOneMenu 
+                                            id="destinatario-colaborador" 
+                                            value="#{declaracaoBean.declaracao.destinatario}" 
+                                            converter="SimpleEntityConverter"
+                                            effect="fade" 
+                                            var="option" 
+                                            filter="true" 
+                                            filterMatchMode="contains"    
+                                            required="true"
+                                            requiredMessage="Destinatário é obrigatório">      
+                                            <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                         
+                                            <f:selectItems value="#{declaracaoBean.colaboradoresOption}" var="colaborador" itemLabel="#{colaborador.nome}" itemValue="#{colaborador}"/> 
+                                            <p:column>
+                                                <h:outputText value="#{option.nome}" />
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                        <h:message for="destinatario-colaborador" styleClass="form--group--message" />
+                                    </div> 
+                                </h:panelGroup>
                             </h:panelGroup>
-                           </h:panelGroup>
-                            <div class="form--actions">
-                            <p:commandButton value="Gerar PDF" ajax="false">
-                                    <p:fileDownload value="#{declaracaoBean.file}" />
+                        </h:panelGroup>
+                        <div class="form--actions">
+                            <h:commandButton styleClass="button left" value="Salvar" action="#{declaracaoBean.salvar()}"/>
+                            <p:commandButton styleClass="button left" title="Salvar e Gerar PDF" ajax="false">
+                                <p:fileDownload value="#{declaracaoBean.file}" />
                             </p:commandButton>    
-                            </div>
-                     <br />                           
-                    
-                </div>
-                 <h:outputText value="::: #{declaracaoBean.tipoPessoa}" />
+                        </div>
+                        <br />    
+                    </div>
                 </h:form>
-           </ui:define>
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>

@@ -1,6 +1,7 @@
 package beans;
 
 import entities.Colaborador;
+import entities.Destinatario;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,7 +19,6 @@ public class ColaboradorBean {
     private Colaborador colaboradorSelecionado;
     private List<Colaborador> colaboradores;
     private List<Colaborador> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<Colaborador> getListaFiltrada() {
@@ -49,56 +49,47 @@ public class ColaboradorBean {
     public void setColaboradores(List<Colaborador> lista){
         this.colaboradores = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            colaboradorSelecionado = this.colaborador.buscarPeloId(id);
+            this.colaboradorSelecionado = this.colaborador.buscarPeloId(id);
 
-        if (colaboradorSelecionado == null) {
+        if (this.colaboradorSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Colaborador!",
                                    "Erro ao localizar Colaborador!"));
             return "/pages/listar/listarColaboradores";
         }
         else {
-            this.colaborador = colaboradorSelecionado;
+            this.colaborador = this.colaboradorSelecionado;
             return "/pages/detalhes/detalhesColaborador?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            colaboradorSelecionado = this.colaborador.buscarPeloId(id);
+            this.colaboradorSelecionado = this.colaborador.buscarPeloId(id);
 
-        if (colaboradorSelecionado == null) {
+        if (this.colaboradorSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Colaborador!",
                                    "Erro ao localizar Colaborador!"));
             return "/pages/listar/listarColaboradores";
         }
         else {
-            this.colaborador = colaboradorSelecionado;
+            this.colaborador = this.colaboradorSelecionado;
             return "/pages/editar/editarColaborador?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.colaborador = new Colaborador();
         this.colaboradorSelecionado = new Colaborador();
     }
     
     public String remover(Long id) {
-        if(colaborador.remover(id))
+        if(this.colaborador.remover(id))
             return "/pages/listar/listarColaboradores?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -109,7 +100,7 @@ public class ColaboradorBean {
     }
     
     public String salvar() {
-        if(colaborador.salvar())
+        if(this.colaborador.salvar())
             return "/pages/listar/listarColaboradores?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

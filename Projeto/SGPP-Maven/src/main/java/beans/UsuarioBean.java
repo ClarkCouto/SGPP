@@ -106,9 +106,7 @@ public class UsuarioBean implements Serializable {
                     Cagppi cag = new Cagppi();
                     cag.setAtivo(Boolean.TRUE);
                     cag.setCpf(usuario.getCpf());
-                    cag.setDataCriacao(new Date());
-                    cag.setDataNascimento(new Date());
-                    cag.setDataUltimaAlteracao(new Date());
+                    cag.setDataNascimento(usuario.getDataNascimento());
                     cag.setEmail(usuario.getEmail());
                     cag.setNome(usuario.getNome());
                     cag.setSenha("1234");
@@ -124,9 +122,7 @@ public class UsuarioBean implements Serializable {
                     SetorDePesquisa setor = new SetorDePesquisa();
                     setor.setAtivo(Boolean.TRUE);
                     setor.setCpf(usuario.getCpf());
-                    setor.setDataCriacao(new Date());
-                    setor.setDataNascimento(new Date());
-                    setor.setDataUltimaAlteracao(new Date());
+                    setor.setDataNascimento(usuario.getDataNascimento());
                     setor.setEmail(usuario.getEmail());
                     setor.setNome(usuario.getNome());
                     setor.setSenha("1234");

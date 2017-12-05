@@ -34,7 +34,7 @@ public class Usuario extends Pessoa implements Serializable {
     @Column(nullable=false, columnDefinition = "VARCHAR(30)")
     private String senha;
     
-    @Column(nullable=false)
+    @Column(nullable=true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimoAcesso;
     
