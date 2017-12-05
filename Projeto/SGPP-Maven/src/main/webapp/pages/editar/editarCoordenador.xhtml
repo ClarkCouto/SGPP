@@ -99,7 +99,7 @@
                             </div>                           
                             <div class="form--group size-half">
                                 <h:outputLabel for="sexo" styleClass="form--group--label">Sexo</h:outputLabel>
-                                <h:selectOneMenu
+                                <p:selectOneMenu
                                     value="#{coordenadorBean.coordenador.sexo}"
                                     id="sexo"
                                     label="Sexo"
@@ -110,7 +110,7 @@
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/> 
                                     <f:selectItem itemValue="Feminino" itemLabel="Feminino" class="form--group--radio"/>
                                     <f:selectItem itemValue="Masculino" itemLabel="Masculino" class="form--group--radio"/>
-                                </h:selectOneMenu>
+                                </p:selectOneMenu>
                                 <h:message for="sexo" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">

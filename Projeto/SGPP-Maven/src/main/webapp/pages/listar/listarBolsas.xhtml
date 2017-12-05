@@ -27,11 +27,11 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Bolsa</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('bolsaTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('bolsaTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.descricao}" >
+                        <p:column headerText="Categoria" sortBy="#{bolsa.categoriaBolsa.descricao}" filterBy="#{bolsa.categoriaBolsa.descricao}" >
                             <h:outputText value="#{bolsa.categoriaBolsa.descricao}" />
                         </p:column>
 
@@ -39,17 +39,16 @@
                             <h:outputText value="#{bolsa.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{bolsa.dataUltimaAlteracao}" >
+                        <p:column headerText="Última Alteração" sortBy="#{bolsa.dataUltimaAlteracao}" style="width: 160px;">
                             <h:outputText value="#{bolsa.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{bolsa.ativo}" >
+                        <p:column headerText="Ativo" filterBy="#{bolsa.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('bolsaTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -57,12 +56,12 @@
                             <h:outputText value="#{bolsa.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${bolsaBean.detalhar(bolsa.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${bolsaBean.detalhar(bolsa.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${bolsaBean.editar(bolsa.id)}" icon="fa fa-edit" rendered="#{bolsa.ativo}"/>
+                            <p:commandButton title="Editar" action="${bolsaBean.editar(bolsa.id)}" icon="fa fa-edit" rendered="#{bolsa.ativo}"/>
                             
-                            <p:commandButton value="Excluir" rendered="#{bolsa.ativo}" actionListener="${bolsaBean.remover(bolsa.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{bolsa.ativo}" actionListener="${bolsaBean.remover(bolsa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

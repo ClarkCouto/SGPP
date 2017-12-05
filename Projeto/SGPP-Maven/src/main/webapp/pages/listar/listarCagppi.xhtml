@@ -27,7 +27,7 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Cagppi</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('cagppiTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -41,23 +41,22 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Data Nascimento" sortBy="#{cagppi.dataNascimento}" >
+                        <p:column headerText="Data Nascimento" sortBy="#{cagppi.dataNascimento}" filterBy="#{cagppi.dataNascimento}" filterStyle="display: none;">
                             <h:outputText value="#{cagppi.dataNascimento}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{cagppi.dataUltimaAlteracao}" >
+                        <p:column headerText="Última Alteração" sortBy="#{cagppi.dataUltimaAlteracao}" filterBy="#{cagppi.dataUltimaAlteracao}" filterStyle="display: none;" style="width: 160px;">
                             <h:outputText value="#{cagppi.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{cagppi.ativo}" >
+                        <p:column headerText="Ativo" filterBy="#{cagppi.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('cagppiTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -65,12 +64,12 @@
                             <h:outputText value="#{cagppi.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${cagppiBean.detalhar(cagppi.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${cagppiBean.detalhar(cagppi.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${cagppiBean.editar(cagppi.id)}" icon="fa fa-edit" rendered="#{cagppi.ativo}"/>
+                            <p:commandButton title="Editar" action="${cagppiBean.editar(cagppi.id)}" icon="fa fa-edit" rendered="#{cagppi.ativo}"/>
                             
-                            <p:commandButton value="Excluir" rendered="#{cagppi.ativo}" actionListener="${cagppiBean.remover(cagppi.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{cagppi.ativo}" actionListener="${cagppiBean.remover(cagppi.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

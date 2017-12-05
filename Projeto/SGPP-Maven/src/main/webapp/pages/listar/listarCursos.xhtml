@@ -28,14 +28,14 @@
                                     <span class="button--label">Cadastrar Curso</span>
                                 </h:link>          
                                 <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Instituições</span>
                                 </h:link> 
-                                <p:inputText id="globalFilter" onkeyup="PF('cursoTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('cursoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Instiuição" sortBy="#{curso.instituicao.nome}" >
+                        <p:column headerText="Instiuição" sortBy="#{curso.instituicao.nome}" filterBy="#{curso.instituicao.nome}" filterStyle="display:none;">
                             <h:outputText value="#{curso.instituicao.nome}" />
                         </p:column>
 
@@ -43,17 +43,16 @@
                             <h:outputText value="#{curso.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{curso.dataUltimaAlteracao}" >
+                        <p:column headerText="Última Alteração" sortBy="#{curso.dataUltimaAlteracao}" filterBy="#{curso.dataUltimaAlteracao}" filterStyle="display:none;" style="width: 160px;">
                             <h:outputText value="#{curso.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{curso.ativo}" >
+                        <p:column filterBy="#{curso.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('cursoTable').filter()">
-                                    <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:converter converterId="javax.faces.Boolean" />   
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -61,12 +60,12 @@
                             <h:outputText value="#{curso.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="#{cursoBean.detalhar(curso.id)}" icon="fa fa-info-circle"/>
-                            
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${cursoBean.detalhar(curso.id)}" icon="fa fa-info-circle"/>
+
                             <p:commandButton value="Editar" action="#{cursoBean.editar(curso.id)}" icon="fa fa-edit" rendered="#{curso.ativo}"/>
-                            
-                            <p:commandButton value="Excluir" rendered="#{curso.ativo}" actionListener="#{cursoBean.remover(curso.id)}" icon="fa fa-trash" update="lista">
+
+                            <p:commandButton title="Excluir" rendered="#{curso.ativo}" actionListener="${cursoBean.remover(curso.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

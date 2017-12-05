@@ -24,28 +24,22 @@
                         <f:facet name="header">
                             <p:outputPanel>       
                                 <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Projetos</span>
                                 </h:link>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Tipos de Documento</span>
                                 </h:link> 
-                                <p:inputText id="globalFilter" onkeyup="PF('documentoTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('documentoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Tipo" sortBy="#{documento.tipoDocumento.nome}" >
+                        <p:column headerText="Tipo" sortBy="#{documento.tipoDocumento.nome}" filterBy="#{documento.tipoDocumento.nome}" filterStyle="display:none;" >
                             <h:outputText value="#{documento.tipoDocumento.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{documento.dataUltimaAlteracao}" >
-                            <h:outputText value="#{documento.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column headerText="Entregue" sortBy="#{documento.entregue}" >
+                        <p:column filterBy="#{documento.entregue}">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('documentoTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
@@ -57,17 +51,22 @@
                             <h:outputText value="#{documento.entregue ? 'Entregue' : 'Pendente'}" />
                         </p:column>
 
-                        <p:column headerText="Data Entrega" sortBy="#{documento.dataEntregue}" >
+                        <p:column headerText="Data Entrega" sortBy="#{documento.dataEntregue}" filterBy="#{documento.dataEntregue}" filterStyle="display:none;">
                             <h:outputText value="#{documento.dataEntregue}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{documento.ativo}" >
+                        <p:column headerText="Última Alteração" sortBy="#{documento.dataUltimaAlteracao}" filterBy="#{documento.dataUltimaAlteracao}" filterStyle="display:none;" style="width: 160px;">
+                            <h:outputText value="#{documento.dataUltimaAlteracao}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column filterBy="#{documento.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('documentoTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -75,10 +74,10 @@
                             <h:outputText value="#{documento.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${documentoBean.detalhar(documento.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${documentoBean.detalhar(documento.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${documentoBean.editar(documento.id)}" icon="fa fa-edit" rendered="#{documento.ativo}"/>
+                            <p:commandButton title="Editar" action="${documentoBean.editar(documento.id)}" icon="fa fa-edit" rendered="#{documento.ativo}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

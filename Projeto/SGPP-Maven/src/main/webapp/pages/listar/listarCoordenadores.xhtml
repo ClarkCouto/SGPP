@@ -28,48 +28,47 @@
                                     <span class="button--label">Cadastrar Coordenador</span>
                                 </h:link>             
                                 <h:link styleClass="button left" outcome="/pages/listar/listarAreas">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Áreas</span>
                                 </h:link>         
                                 <h:link styleClass="button left" outcome="/pages/listar/listarGruposDePesquisa">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Grupos de Pesquisa</span>
                                 </h:link>       
                                 <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Intituições</span>
                                 </h:link> 
-                                <p:inputText id="globalFilter" onkeyup="PF('coordenadorTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('coordenadorTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Nome" sortBy="#{coordenador.nome}" >
+                        <p:column headerText="Nome" sortBy="#{coordenador.nome}" filterBy="#{coordenador.nome}" filterStyle="display: none;">
                             <h:outputText value="#{coordenador.nome}" />
                         </p:column>
 
-                        <p:column headerText="CPF" sortBy="#{coordenador.cpf}" >
+                        <p:column headerText="CPF" sortBy="#{coordenador.cpf}" filterBy="#{coordenador.cpf}" filterStyle="display: none;">
                             <h:outputText value="#{coordenador.cpf}" >
                                 <f:convertNumber pattern="999.999.999-99"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Data Nascimento" sortBy="#{coordenador.dataNascimento}" >
+                        <p:column headerText="Data Nascimento" sortBy="#{coordenador.dataNascimento}" filterBy="#{coordenador.dataNascimento}" filterStyle="display: none;" >
                             <h:outputText value="#{coordenador.dataNascimento}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{coordenador.dataUltimaAlteracao}" >
+                        <p:column headerText="Última Alteração" sortBy="#{coordenador.dataUltimaAlteracao}" style="width: 160px;" filterBy="#{coordenador.cpf}" filterStyle="display: none;">
                             <h:outputText value="#{coordenador.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{coordenador.ativo}" >
+                        <p:column filterBy="#{coordenador.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('coordenadorTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -77,12 +76,12 @@
                             <h:outputText value="#{coordenador.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${coordenadorBean.detalhar(coordenador.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${coordenadorBean.detalhar(coordenador.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${coordenadorBean.editar(coordenador.id)}" icon="fa fa-edit" rendered="#{coordenador.ativo}"/>
+                            <p:commandButton title="Editar" action="${coordenadorBean.editar(coordenador.id)}" icon="fa fa-edit" rendered="#{coordenador.ativo}"/>
                             
-                            <p:commandButton value="Excluir" rendered="#{coordenador.ativo}" actionListener="${coordenadorBean.remover(coordenador.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{coordenador.ativo}" actionListener="${coordenadorBean.remover(coordenador.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

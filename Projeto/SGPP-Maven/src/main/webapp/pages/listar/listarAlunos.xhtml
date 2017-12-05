@@ -28,59 +28,59 @@
                                     <span class="button--label">Cadastrar Aluno</span>
                                 </h:link>           
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Cursos</span>
                                 </h:link>  
                                 <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Instituições</span>
                                 </h:link>        
                                 <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Projetos</span>
                                 </h:link>  
-                                <p:inputText id="globalFilter" onkeyup="PF('alunoTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('alunoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Instituição" sortBy="#{aluno.curso.instituicao.nome}">
+                        <p:column headerText="Instituição" filterBy="#{aluno.curso.instituicao.nome}" sortBy="#{aluno.curso.instituicao.nome}" filterStyle="display:none">
                             <h:outputText value="#{aluno.curso.instituicao.nome}" />
                         </p:column>
 
-                        <p:column headerText="Curso" sortBy="#{aluno.curso.nome}">
+                        <p:column headerText="Curso" filterBy="#{aluno.curso.nome}" sortBy="#{aluno.curso.nome}" filterStyle="display:none">
                             <h:outputText value="#{aluno.curso.nome}" />
                         </p:column>
 
-                        <p:column headerText="Nome" sortBy="#{aluno.nome}">
+                        <p:column headerText="Nome" filterBy="#{aluno.nome}" sortBy="#{aluno.nome}" filterStyle="display:none">
                             <h:outputText value="#{aluno.nome}" />
                         </p:column>
 
-                        <p:column headerText="Bolsista" sortBy="#{aluno.bolsista}">
+                        <p:column filterBy="#{aluno.bolsista}" colspan="2">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('alunoTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Sim" itemValue="true" />
-                                    <f:selectItem itemLabel="Não" itemValue="false" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Bolsista" itemValue="true" />
+                                    <f:selectItem itemLabel="Não bolsista" itemValue="false" />
                                 </p:selectOneButton>
                             </f:facet>
                             <h:outputText value="#{aluno.bolsista ? 'Sim' : 'Não'}" />
                         </p:column>
 
-                        <p:column headerText="Bolsa" sortBy="#{aluno.bolsa.nome}">
-                            <h:outputText value="#{aluno.bolsa.nome}" />
+                        <p:column headerText="Bolsa" filterBy="#{aluno.bolsa.nome}" sortBy="#{aluno.bolsa.nome}" filterStyle="display:none">
+                            <h:outputText value="#{aluno.bolsa ? aluno.bolsa.nome: '-'}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{aluno.dataUltimaAlteracao}">
+                        <p:column headerText="Última Alteração" filterBy="#{aluno.bolsista}" sortBy="#{aluno.dataUltimaAlteracao}"  filterStyle="display:none" style="width: 160px;">
                             <h:outputText value="#{aluno.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{aluno.ativo}">
+                        <p:column filterBy="#{aluno.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('alunoTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -88,12 +88,12 @@
                             <h:outputText value="#{aluno.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="#{alunoBean.detalhar(aluno.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="#{alunoBean.detalhar(aluno.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${alunoBean.editar(aluno.id)}" icon="fa fa-edit" rendered="#{aluno.ativo}"/>
+                            <p:commandButton title="Editar" action="${alunoBean.editar(aluno.id)}" icon="fa fa-edit" rendered="#{aluno.ativo}"/>
                             
-                            <p:commandButton value="Excluir" actionListener="${alunoBean.remover(aluno.id)}" icon="fa fa-trash" rendered="#{aluno.ativo}" update="lista">
+                            <p:commandButton title="Excluir" actionListener="${alunoBean.remover(aluno.id)}" icon="fa fa-trash" rendered="#{aluno.ativo}" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

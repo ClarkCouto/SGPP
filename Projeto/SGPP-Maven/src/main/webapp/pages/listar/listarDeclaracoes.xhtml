@@ -28,59 +28,39 @@
                                     <span class="button--label">Cadastrar Declaração</span>
                                 </h:link>            
                                 <h:link styleClass="button left" outcome="/pages/listar/listarTextosBaseDeclaracao" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Textos Base Declaração</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('declaracoesTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('declaracoesTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Emissão" sortBy="#{declaracao.dataEmissao}"  >
+                        <p:column headerText="Emissão" sortBy="#{declaracao.dataEmissao}" filterBy="#{declaracao.dataEmissao}" filterStyle="display: none;">
                             <h:outputText value="#{declaracao.dataEmissao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Projeto" sortBy="#{declaracao.projeto.titulo}" >
+                        <p:column headerText="Projeto" sortBy="#{declaracao.projeto.titulo}" filterBy="#{declaracao.projeto.titulo}" filterStyle="display: none;">
                             <h:outputText value="#{declaracao.projeto.titulo}" />
                         </p:column>
 
-                        <p:column headerText="Responsável" sortBy="#{declaracao.responsavel.nome}" >
+                        <p:column headerText="Responsável" sortBy="#{declaracao.responsavel.nome}" filterBy="#{declaracao.responsavel.nome}" filterStyle="display: none;">
                             <h:outputText value="#{declaracao.responsavel.nome}" />
                         </p:column>
 
-                        <p:column headerText="Destinatário" sortBy="#{declaracao.destinatario.nome}" >
+                        <p:column headerText="Destinatário" sortBy="#{declaracao.destinatario.nome}" filterBy="#{declaracao.destinatario.nome}" filterStyle="display: none;">
                             <h:outputText value="#{declaracao.destinatario.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{declaracao.dataUltimaAlteracao}" >
-                            <h:outputText value="#{declaracao.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column headerText="Ativo" sortBy="#{declaracao.ativo}" >
-                            <f:facet name="filter">
-                                <p:selectOneButton onchange="PF('declaracoesTable').filter()">
-                                    <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
-                                    <f:selectItem itemLabel="Ativos" itemValue="true" />
-                                    <f:selectItem itemLabel="Inativos" itemValue="false" />
-                                </p:selectOneButton>
-                            </f:facet>
-                            <h:outputText value="#{declaracao.ativo ? 'Ativo' : 'Inativo'}" />
-                        </p:column>
-
-                        <p:column headerText="Editar" >
-                            <h:commandLink styleClass="data-table--row--action" rendered="#{declaracao.ativo}" action="${declaracaoBean.editar(declaracao.id)}">
-                                <i class="fa fa-edit" />
-                            </h:commandLink>
+                        <p:column headerText="Tipo Destinatário" sortBy="#{declaracao.destinatario.tipoDestinatario}" filterBy="#{declaracao.destinatario.tipoDestinatario}" filterStyle="display: none;" style="width: 160px;">
+                            <h:outputText value="#{declaracao.dataUltimaAlteracao}"/>
                         </p:column>
 
                         <p:column headerText="Ações" >
                             <p:commandButton value="Detalhar" action="#{declaracaoBean.detalhar(declaracao.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Gerar PDF" action="#{declaracaoBean.imprimirPdf(declaracao.id)}" icon="fa fa-edit"/>
+                            <p:commandButton value="Gerar PDF" action="#{declaracaoBean.imprimirPDF(declaracao.id)}" icon="fa fa-edit"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

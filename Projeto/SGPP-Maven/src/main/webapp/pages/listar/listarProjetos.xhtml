@@ -28,52 +28,51 @@
                                     <span class="button--label">Cadastrar Projeto</span>
                                 </h:commandLink>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Alunos</span>                                        
                                 </h:link>            
                                 <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Documentos</span>
                                 </h:link>
                                 <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Instituições</span>
                                 </h:link>   
-                                <p:inputText id="globalFilter" onkeyup="PF('projetoTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('projetoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Edital" sortBy="#{projeto.edital.titulo}" >
+                        <p:column headerText="Edital" sortBy="#{projeto.edital.titulo}" filterBy="#{projeto.edital.titulo}" filterStyle="display:none;">
                             <h:outputText value="#{projeto.edital.titulo}" />
                         </p:column>
 
-                        <p:column headerText="Ano" sortBy="#{projeto.ano}" >
+                        <p:column headerText="Ano" sortBy="#{projeto.ano}" filterBy="#{projeto.ano}" filterStyle="display:none;">
                             <h:outputText value="#{projeto.ano}" />
                         </p:column>
 
-                        <p:column headerText="Título" sortBy="#{projeto.titulo}" >
+                        <p:column headerText="Título" sortBy="#{projeto.titulo}" filterBy="#{projeto.titulo}" filterStyle="display:none;">
                             <h:outputText value="#{projeto.titulo}" />
                         </p:column>
 
-                        <p:column headerText="Coordenador" sortBy="#{projeto.coordenador.nome}" >
+                        <p:column headerText="Coordenador" sortBy="#{projeto.coordenador.nome}" filterBy="#{projeto.coordenador.nome}" filterStyle="display:none;">
                             <h:outputText value="#{projeto.coordenador.nome}" />
                         </p:column>
 
-                        <p:column headerText="AIPCT" sortBy="#{projeto.aipct}" >
+                        <p:column headerText="AIPCT" sortBy="#{projeto.aipct}" filterBy="#{projeto.aipct}" filterStyle="display:none;">
                             <h:outputText value="#{projeto.aipct}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{projeto.ativo}" >
+                        <p:column headerText="Última Alteração" sortBy="#{projeto.dataUltimaAlteracao}" filterBy="#{projeto.dataUltimaAlteracao}" filterStyle="display:none;" style="width:160px;">
                             <h:outputText value="#{projeto.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{projeto.ativo}" >
+                        <p:column filterBy="#{projeto.ativo}" style="width:160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('projetoTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -81,12 +80,12 @@
                             <h:outputText value="#{projeto.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${projetoBean.detalhar(projeto.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${projetoBean.detalhar(projeto.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${projetoBean.editar(projeto.id)}" icon="fa fa-edit" rendered="#{projeto.ativo}"/>
+                            <p:commandButton title="Editar" action="${projetoBean.editar(projeto.id)}" icon="fa fa-edit" rendered="#{projeto.ativo}"/>
                             
-                            <p:commandButton value="Excluir" rendered="#{projeto.ativo}" actionListener="${projetoBean.remover(projeto.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{projeto.ativo}" actionListener="${projetoBean.remover(projeto.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
