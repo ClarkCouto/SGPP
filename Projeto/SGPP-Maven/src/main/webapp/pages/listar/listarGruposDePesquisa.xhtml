@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"f
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"   
       xmlns:p="http://primefaces.org/ui"   
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-    	<ui:composition template="/template/layout.xhtml">
+        <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="2" />
             <ui:define name="content">                                     
                 <h:form>
@@ -28,24 +28,24 @@
                                     <span class="button--label">Cadastrar Grupo de Pesquisa</span>
                                 </h:link>       
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+
                                     <span class="button--label">Listar Coordenadores</span>
                                 </h:link>  
-                                <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Filtrar" styleClass="right" />
+                                <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Pesquisar..." styleClass="right" />
                             </p:outputPanel>
                         </f:facet>
-<!--
-                        <p:column headerText="Coordenador" sortBy="# {grupoDePesquisa.coordenador.nome}">
-                            <h:outputText value="# {grupoDePesquisa.coordenador.nome}" />
-                        </p:column>
--->
+                        <!--
+                                                <p:column headerText="Coordenador" sortBy="# {grupoDePesquisa.coordenador.nome}">
+                                                    <h:outputText value="# {grupoDePesquisa.coordenador.nome}" />
+                                                </p:column>
+                        -->
                         <p:column headerText="Nome" sortBy="#{grupoDePesquisa.nome}">
                             <h:outputText value="#{grupoDePesquisa.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{grupoDePesquisa.dataUltimaAlteracao}">
+                        <p:column headerText="Última Alteração" sortBy="#{grupoDePesquisa.dataUltimaAlteracao}" style="width:160px;">
                             <h:outputText value="#{grupoDePesquisa.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
@@ -53,7 +53,6 @@
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('gruposDePesquisaTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -61,12 +60,12 @@
                             <h:outputText value="#{grupoDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${grupoDePesquisaBean.detalhar(grupoDePesquisa.id)}" icon="fa fa-info-circle"/>
-                            
-                            <p:commandButton value="Editar" action="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}" icon="fa fa-edit" rendered="#{grupoDePesquisa.ativo}"/>
-                            
-                            <p:commandButton value="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(grupoDePesquisa.id)}" icon="fa fa-trash" update="lista">
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${grupoDePesquisaBean.detalhar(grupoDePesquisa.id)}" icon="fa fa-info-circle"/>
+
+                            <p:commandButton title="Editar" action="${grupoDePesquisaBean.editar(grupoDePesquisa.id)}" icon="fa fa-edit" rendered="#{grupoDePesquisa.ativo}"/>
+
+                            <p:commandButton title="Excluir" rendered="#{grupoDePesquisa.ativo}" actionListener="${grupoDePesquisaBean.remover(grupoDePesquisa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -77,7 +76,7 @@
                     </p:dataTable>
                 </h:form>
             </ui:define>
-    	</ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 

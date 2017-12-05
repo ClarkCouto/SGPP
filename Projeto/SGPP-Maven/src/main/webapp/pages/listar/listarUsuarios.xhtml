@@ -35,39 +35,38 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Setor de Pesquisa</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('usuarioTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('usuarioTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Tipo" sortBy="#{usuario.tipo}" >
+                        <p:column headerText="Tipo" sortBy="#{usuario.tipo}" filterBy="#{usuario.tipo}" filterStyle="display: none;" >
                             <h:outputText value="#{usuario.tipo}" />
                         </p:column>
 
-                        <p:column headerText="Nome" sortBy="#{usuario.nome}" >
+                        <p:column headerText="Nome" sortBy="#{usuario.nome}" filterBy="#{usuario.nome}" filterStyle="display: none;" >
                             <h:outputText value="#{usuario.nome}" />
                         </p:column>
 
-                        <p:column headerText="CPF" sortBy="#{usuario.cpf}" >
+                        <p:column headerText="CPF" sortBy="#{usuario.cpf}" filterBy="#{usuario.cpf}" filterStyle="display: none;">
                             <h:outputText value="#{usuario.cpf}" />
                         </p:column>
 
-                        <p:column headerText="Data Nascimento" sortBy="#{usuario.dataNascimento}" >
+                        <p:column headerText="Data Nascimento" sortBy="#{usuario.dataNascimento}" filterBy="#{usuario.dataNascimento}" filterStyle="display: none;">
                             <h:outputText value="#{usuario.dataNascimento}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{usuario.dataUltimaAlteracao}" >
+                        <p:column headerText="Última Alteração" sortBy="#{usuario.dataUltimaAlteracao}" filterBy="#{usuario.dataUltimaAlteracao}" filterStyle="display: none;" style="width: 160px;">
                             <h:outputText value="#{usuario.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{usuario.ativo}" >
+                        <p:column filterBy="#{usuario.ativo}" style="width:160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('usuarioTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -75,12 +74,12 @@
                             <h:outputText value="#{usuario.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${usuarioBean.detalhar(usuario.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${usuarioBean.detalhar(usuario.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${usuarioBean.editar(usuario.id)}" icon="fa fa-edit" rendered="#{usuario.ativo}"/>
+                            <p:commandButton title="Editar" action="${usuarioBean.editar(usuario.id)}" icon="fa fa-edit" rendered="#{usuario.ativo}"/>
                             
-                            <p:commandButton value="Excluir" rendered="#{usuario.ativo}" actionListener="${usuarioBean.remover(usuario.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{usuario.ativo}" actionListener="${usuarioBean.remover(usuario.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

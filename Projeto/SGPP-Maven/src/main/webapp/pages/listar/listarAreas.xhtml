@@ -28,10 +28,10 @@
                                     <span class="button--label">Cadastrar Área</span>
                                 </h:link>   
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Coordenadores</span>
                                 </h:link>  
-                                <p:inputText id="globalFilter" onkeyup="PF('areaTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('areaTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -39,17 +39,16 @@
                             <h:outputText value="#{area.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{area.dataUltimaAlteracao}">
-                            <h:outputText value="#{area.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        <p:column headerText="Última Alteração" sortBy="#{area.dataUltimaAlteracao}" style="width: 160px;">
+                            <h:outputText value="#{area.dataUltimaAlteracao}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{area.ativo}">
+                        <p:column filterBy="#{area.ativo}" style="width: 160px;" >
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('areaTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -57,12 +56,12 @@
                             <h:outputText value="#{area.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="#{areaBean.detalhar(area.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="#{areaBean.detalhar(area.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${areaBean.editar(area.id)}" icon="fa fa-edit" rendered="#{area.ativo}"/>
+                            <p:commandButton title="Editar" action="${areaBean.editar(area.id)}" icon="fa fa-edit" rendered="#{area.ativo}"/>
                             
-                            <p:commandButton value="Excluir" actionListener="${areaBean.remover(area.id)}" icon="fa fa-trash" rendered="#{area.ativo}" update="lista">
+                            <p:commandButton title="Excluir" actionListener="${areaBean.remover(area.id)}" icon="fa fa-trash" rendered="#{area.ativo}" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

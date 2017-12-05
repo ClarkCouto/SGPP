@@ -27,40 +27,38 @@
                                     <span class="button--label">Cadastrar Edital</span>
                                 </h:commandLink>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
                                     <span class="button--label">Listar Categorias Bolsa</span>
                                 </h:link>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
-                                    <i class="fa fa-chevron-left" />
+                                    
                                     <span class="button--label">Listar Tipos de Documento</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column sortBy="#{edital.titulo}" headerText="Título">
+                        <p:column sortBy="#{edital.titulo}" filterBy="#{edital.titulo}" filterStyle="display: none;" headerText="Título">
                             <h:outputText value="#{edital.titulo}" />
                         </p:column>
 
-                        <p:column sortBy="#{edital.numero}" headerText="Número">
+                        <p:column sortBy="#{edital.numero}" filterBy="#{edital.numero}" filterStyle="display: none;" headerText="Número">
                             <h:outputText value="#{edital.numero}" />
                         </p:column>
 
-                        <p:column sortBy="#{edital.origem}" headerText="Origem">
+                        <p:column sortBy="#{edital.origem}" filterBy="#{edital.origem}" filterStyle="display: none;" headerText="Origem">
                             <h:outputText value="#{edital.origem}" />
                         </p:column>
 
-                        <p:column sortBy="#{edital.dataUltimaAlteracao}" headerText="Última Alteração">
+                        <p:column sortBy="#{edital.dataUltimaAlteracao}" headerText="Última Alteração" style="width: 160px;">
                             <h:outputText value="#{edital.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column sortBy="#{edital.ativo}" headerText="Ativo">
+                        <p:column filterBy="#{edital.ativo}" style="width: 160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('editaisTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -68,12 +66,12 @@
                             <h:outputText value="#{edital.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${editalBean.detalhar(edital.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${editalBean.detalhar(edital.id)}" icon="fa fa-info-circle"/>
 
-                            <p:commandButton value="Editar" action="${editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo}"/>
+                            <p:commandButton title="Editar" action="${editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo}"/>
 
-                            <p:commandButton value="Excluir" rendered="#{edital.ativo}" actionListener="${editalBean.remover(edital.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{edital.ativo}" actionListener="${editalBean.remover(edital.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

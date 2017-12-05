@@ -20,6 +20,13 @@
 .container .ui-widget-header a {
   color: inherit;
 }
+.container .ui-widget-content.ui-datatable-empty-message {
+  height: 38px;
+  text-align: center;
+}
+.container .ui-buttonset {
+  margin-right: 0;
+}
 .container .ui-state-default {
   background: #FAFAFA;
   box-shadow: none;

@@ -27,37 +27,36 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Setor de Pesquisa</span>
                                 </h:link>
-                                <p:inputText id="globalFilter" onkeyup="PF('setorDePesquisaTable').filter()"  placeholder="Filtrar" style="float: right;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('setorDePesquisaTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Nome" sortBy="#{setorDePesquisa.nome}" >
+                        <p:column headerText="Nome" sortBy="#{setorDePesquisa.nome}" filterBy="#{setorDePesquisa.nome}" filterStyle="display:none;" >
                             <h:outputText value="#{setorDePesquisa.nome}" />
                         </p:column>
 
-                        <p:column headerText="CPF" sortBy="#{setorDePesquisa.cpf}" >
+                        <p:column headerText="CPF" sortBy="#{setorDePesquisa.cpf}" filterBy="#{setorDePesquisa.cpf}" filterStyle="display:none;">
                             <h:outputText value="#{setorDePesquisa.cpf}" >
                                 <f:convertNumber pattern="999.999.999-99"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Data Nascimento" sortBy="#{setorDePesquisa.dataNascimento}" >
+                        <p:column headerText="Data Nascimento" sortBy="#{setorDePesquisa.dataNascimento}" filterBy="#{setorDePesquisa.dataNascimento}" filterStyle="display:none;">
                             <h:outputText value="#{setorDePesquisa.dataNascimento}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Última Alteração" sortBy="#{setorDePesquisa.dataUltimaAlteracao}" >
+                        <p:column headerText="Última Alteração" sortBy="#{setorDePesquisa.dataUltimaAlteracao}" filterBy="#{setorDePesquisa.dataUltimaAlteracao}" filterStyle="display:none;" style="width: 160px;">
                             <h:outputText value="#{setorDePesquisa.dataUltimaAlteracao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{setorDePesquisa.ativo}">
+                        <p:column filterBy="#{setorDePesquisa.ativo}" style="width:160px;">
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('setorDePesquisaTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />
-                                    <f:selectItem itemLabel="Todos" itemValue="" />
                                     <f:selectItem itemLabel="Ativos" itemValue="true" />
                                     <f:selectItem itemLabel="Inativos" itemValue="false" />
                                 </p:selectOneButton>
@@ -65,12 +64,12 @@
                             <h:outputText value="#{setorDePesquisa.ativo ? 'Ativo' : 'Inativo'}" />
                         </p:column>
 
-                        <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="${setorDePesquisaBean.detalhar(setorDePesquisa.id)}" icon="fa fa-info-circle"/>
+                        <p:column headerText="Ações" style="width: 125px">
+                            <p:commandButton title="Detalhar" action="${setorDePesquisaBean.detalhar(setorDePesquisa.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Editar" action="${setorDePesquisaBean.editar(setorDePesquisa.id)}" icon="fa fa-edit" rendered="#{setorDePesquisa.ativo}"/>
+                            <p:commandButton title="Editar" action="${setorDePesquisaBean.editar(setorDePesquisa.id)}" icon="fa fa-edit" rendered="#{setorDePesquisa.ativo}"/>
                             
-                            <p:commandButton value="Excluir" rendered="#{setorDePesquisa.ativo}" actionListener="${setorDePesquisaBean.remover(setorDePesquisa.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{setorDePesquisa.ativo}" actionListener="${setorDePesquisaBean.remover(setorDePesquisa.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
