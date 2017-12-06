@@ -1,6 +1,7 @@
 package beans;
 
 import entities.TextoBaseDeclaracao;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,11 +19,10 @@ public class TextoBaseDeclaracaoBean {
     private TextoBaseDeclaracao textoBaseDeclaracaoSelecionado;
     private List<TextoBaseDeclaracao> listaFiltrada;
     private List<TextoBaseDeclaracao> textosBaseDeclaracao;
-    private Boolean editando;
     
 // Getters e Setters
     public List<TextoBaseDeclaracao> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<TextoBaseDeclaracao> listaFiltrada) {
@@ -30,7 +30,7 @@ public class TextoBaseDeclaracaoBean {
     }
     
     public TextoBaseDeclaracao getTextoBaseDeclaracao() {
-        return textoBaseDeclaracao;
+        return this.textoBaseDeclaracao;
     }
 
     public void setTextoBaseDeclaracao(TextoBaseDeclaracao textoBaseDeclaracao) {
@@ -43,62 +43,54 @@ public class TextoBaseDeclaracaoBean {
       
     public List<TextoBaseDeclaracao> getTextosBaseDeclaracao(){
         this.textosBaseDeclaracao = this.textoBaseDeclaracao.buscarTodos();
-        return textosBaseDeclaracao;
+        return this.textosBaseDeclaracao;
     }
     
     public void setTextosBaseDeclaracao(List<TextoBaseDeclaracao> lista){
         this.textosBaseDeclaracao = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            textoBaseDeclaracaoSelecionado = this.textoBaseDeclaracao.buscarPeloId(id);
+            this.textoBaseDeclaracaoSelecionado = this.textoBaseDeclaracao.buscarPeloId(id);
 
-        if (textoBaseDeclaracaoSelecionado == null) {
+        if (this.textoBaseDeclaracaoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Texto Base Declaração!",
                                    "Erro ao localizar Texto Base Declaração!"));
             return "/pages/listar/listarTextosBaseDeclaracao";
         }
         else {
-            this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
+            this.textoBaseDeclaracao = this.textoBaseDeclaracaoSelecionado;
             return "/pages/detalhes/detalhesTextoBaseDeclaracao?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            textoBaseDeclaracaoSelecionado = this.textoBaseDeclaracao.buscarPeloId(id);
+            this.textoBaseDeclaracaoSelecionado = this.textoBaseDeclaracao.buscarPeloId(id);
 
-        if (textoBaseDeclaracaoSelecionado == null) {
+        if (this.textoBaseDeclaracaoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Texto Base Declaração!",
                                    "Erro ao localizar Texto Base Declaração!"));
             return "/pages/listar/listarTextosBaseDeclaracao";
         }
         else {
-            this.textoBaseDeclaracao = textoBaseDeclaracaoSelecionado;
+            this.textoBaseDeclaracao = this.textoBaseDeclaracaoSelecionado;
             return "/pages/editar/editarTextoBaseDeclaracao?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.textoBaseDeclaracao = new TextoBaseDeclaracao();
         this.textoBaseDeclaracaoSelecionado = new TextoBaseDeclaracao();
     }
     
     public String remover(Long id) {
-        if(textoBaseDeclaracao.remover(id))
+        this.textoBaseDeclaracao.setDataDesativacao(new Date());
+        if(this.textoBaseDeclaracao.remover(id))
             return "/pages/listar/listarTextosBaseDeclaracao?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -109,7 +101,7 @@ public class TextoBaseDeclaracaoBean {
     }
     
     public String salvar() {
-        if(textoBaseDeclaracao.salvar())
+        if(this.textoBaseDeclaracao.salvar())
             return "/pages/listar/listarTextosBaseDeclaracao?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

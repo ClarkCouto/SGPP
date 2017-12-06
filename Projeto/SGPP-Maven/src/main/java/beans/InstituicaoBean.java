@@ -18,11 +18,10 @@ public class InstituicaoBean {
     private Instituicao instituicaoSelecionada;
     private List<Instituicao> instituicoes;
     private List<Instituicao> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<Instituicao> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Instituicao> listaFiltrada) {
@@ -30,7 +29,7 @@ public class InstituicaoBean {
     }
     
     public Instituicao getInstituicao() {
-        return instituicao;
+        return this.instituicao;
     }
 
     public void setInstituicao(Instituicao instituicao) {
@@ -43,27 +42,19 @@ public class InstituicaoBean {
       
     public List<Instituicao> getInstituicoes(){
         this.instituicoes = this.instituicao.buscarTodos();
-        return instituicoes;
+        return this.instituicoes;
     }
     
     public void setInstituicoes(List<Instituicao> lista){
         this.instituicoes = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            instituicaoSelecionada = this.instituicao.buscarPeloId(id);
+            this.instituicaoSelecionada = this.instituicao.buscarPeloId(id);
 
-        if (instituicaoSelecionada == null) {
+        if (this.instituicaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Instituição!",
                                    "Erro ao localizar Instituição!"));
@@ -77,28 +68,27 @@ public class InstituicaoBean {
     
     public String editar(Long id){
         if(id != null)
-            instituicaoSelecionada = this.instituicao.buscarPeloId(id);
+            this.instituicaoSelecionada = this.instituicao.buscarPeloId(id);
 
-        if (instituicaoSelecionada == null) {
+        if (this.instituicaoSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Instituição!",
                                    "Erro ao localizar Instituição!"));
             return "/pages/listar/listarInstituicoes";
         }
         else {
-            this.instituicao = instituicaoSelecionada;
+            this.instituicao = this.instituicaoSelecionada;
             return "/pages/editar/editarInstituicao?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.instituicao = new Instituicao();
         this.instituicaoSelecionada = new Instituicao();
     }
     
     public String remover(Long id) {
-        if(instituicao.remover(id))
+        if(this.instituicao.remover(id))
             return "/pages/listar/listarInstituicoes?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -109,7 +99,7 @@ public class InstituicaoBean {
     }
     
     public String salvar() {
-        if(instituicao.salvar())
+        if(this.instituicao.salvar())
             return "/pages/listar/listarInstituicoes?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

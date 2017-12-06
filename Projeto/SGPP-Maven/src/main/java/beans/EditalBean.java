@@ -86,7 +86,8 @@ public class EditalBean {
     } 
     
     public List<SelectItem> getTiposDocumento(){
-        this.tiposDocumento = new TipoDocumento().buscarTodos();
+        if(this.tiposDocumento == null)
+            this.tiposDocumento = new TipoDocumento().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
         this.tiposDocumento.forEach((t) -> {
             items.add(new SelectItem(t, t.getNome()));
@@ -240,6 +241,10 @@ public class EditalBean {
                 l.setDocumento(documento);
             }
         }); 
+    }
+    
+    public boolean possuiProjetos(Long id){
+        return this.edital.possuiProjetos(id);
     }
 }
 

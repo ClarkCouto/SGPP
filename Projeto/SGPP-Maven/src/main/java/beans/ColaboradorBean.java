@@ -1,7 +1,6 @@
 package beans;
 
 import entities.Colaborador;
-import entities.Destinatario;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +21,7 @@ public class ColaboradorBean {
     
 // Getters e Setters
     public List<Colaborador> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Colaborador> listaFiltrada) {
@@ -30,7 +29,7 @@ public class ColaboradorBean {
     }
     
     public Colaborador getColaborador() {
-        return colaborador;
+        return this.colaborador;
     }
 
     public void setColaborador(Colaborador colaborador) {
@@ -43,7 +42,7 @@ public class ColaboradorBean {
       
     public List<Colaborador> getColaboradores(){
         this.colaboradores = this.colaborador.buscarTodos();
-        return colaboradores;
+        return this.colaboradores;
     }
     
     public void setColaboradores(List<Colaborador> lista){

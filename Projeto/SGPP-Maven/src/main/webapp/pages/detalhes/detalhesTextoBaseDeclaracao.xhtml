@@ -11,11 +11,13 @@
             <ui:param name="aba" value="4" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">   
+                    <div class="main-bar--current-page">  
                         <h:link styleClass="button" outcome="/pages/listar/listarTextosBaseDeclaracao" style="float:left;">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Textos Base Declarações</span>
                         </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarDeclaracoes" style="float:left;">
+                            <span class="button--label">Listar Declarações</span>
+                        </h:link>  
                     </div>                          
                 </div> 
                 <h:form>

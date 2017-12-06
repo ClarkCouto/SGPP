@@ -28,15 +28,15 @@
                                     <span class="button--label">Cadastrar Aluno</span>
                                 </h:link>           
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
-                                    
                                     <span class="button--label">Listar Cursos</span>
+                                </h:link>       
+                                <h:link styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                                    <span class="button--label">Listar Documentos</span>
                                 </h:link>  
                                 <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
-                                    
                                     <span class="button--label">Listar Instituições</span>
                                 </h:link>        
                                 <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
-                                    
                                     <span class="button--label">Listar Projetos</span>
                                 </h:link>  
                                 <p:inputText id="globalFilter" onkeyup="PF('alunoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
@@ -64,14 +64,14 @@
                                     <f:selectItem itemLabel="Não bolsista" itemValue="false" />
                                 </p:selectOneButton>
                             </f:facet>
-                            <h:outputText value="#{aluno.bolsista ? 'Sim' : 'Não'}" />
+                            <h:outputText value="#{aluno.bolsista ? 'Bolsista' : 'Não bolsista'}" />
                         </p:column>
 
                         <p:column headerText="Bolsa" filterBy="#{aluno.bolsa.nome}" sortBy="#{aluno.bolsa.nome}" filterStyle="display:none">
-                            <h:outputText value="#{aluno.bolsa ? aluno.bolsa.nome: '-'}" />
+                            <h:outputText value="#{aluno.bolsa.nome}" />
                         </p:column>
 
-                        <p:column headerText="Última Alteração" filterBy="#{aluno.bolsista}" sortBy="#{aluno.dataUltimaAlteracao}"  filterStyle="display:none" style="width: 160px;">
+                        <p:column headerText="Última Alteração" filterBy="#{aluno.dataUltimaAlteracao}" sortBy="#{aluno.dataUltimaAlteracao}"  filterStyle="display:none" style="width: 160px;">
                             <h:outputText value="#{aluno.dataUltimaAlteracao}" >
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                             </h:outputText>
@@ -91,9 +91,9 @@
                         <p:column headerText="Ações" style="width: 125px">
                             <p:commandButton title="Detalhar" action="#{alunoBean.detalhar(aluno.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton title="Editar" action="${alunoBean.editar(aluno.id)}" icon="fa fa-edit" rendered="#{aluno.ativo}"/>
+                            <p:commandButton title="Editar" action="#{alunoBean.editar(aluno.id)}" icon="fa fa-edit" rendered="#{aluno.ativo}"/>
                             
-                            <p:commandButton title="Excluir" actionListener="${alunoBean.remover(aluno.id)}" icon="fa fa-trash" rendered="#{aluno.ativo}" update="lista">
+                            <p:commandButton title="Excluir" actionListener="#{alunoBean.remover(aluno.id)}" icon="fa fa-trash" rendered="#{aluno.ativo}" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

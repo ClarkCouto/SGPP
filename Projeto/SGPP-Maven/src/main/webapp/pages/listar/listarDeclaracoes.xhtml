@@ -54,11 +54,11 @@
                         </p:column>
 
                         <p:column headerText="Tipo Destinatário" sortBy="#{declaracao.destinatario.tipoDestinatario}" filterBy="#{declaracao.destinatario.tipoDestinatario}" filterStyle="display: none;" style="width: 160px;">
-                            <h:outputText value="#{declaracao.dataUltimaAlteracao}"/>
+                            <h:outputText value="#{declaracao.destinatario.tipoDestinatario}"/>
                         </p:column>
 
                         <p:column headerText="Ações" >
-                            <p:commandButton value="Detalhar" action="#{declaracaoBean.detalhar(declaracao.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton title="Detalhar" action="#{declaracaoBean.detalhar(declaracao.id)}" icon="fa fa-info-circle"/>
                             
                             <p:commandButton value="Gerar PDF" action="#{declaracaoBean.imprimirPDF(declaracao.id)}" icon="fa fa-edit"/>
                         </p:column>

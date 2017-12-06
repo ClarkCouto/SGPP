@@ -22,11 +22,10 @@ public class BolsaBean {
     private List<Bolsa> bolsas;
     private List<Bolsa> listaFiltrada;
     private List<CategoriaBolsa> categorias;
-    private Boolean editando;
     
 // Getters e Setters
     public List<Bolsa> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Bolsa> listaFiltrada) {
@@ -34,7 +33,7 @@ public class BolsaBean {
     }
     
     public Bolsa getBolsa() {
-        return bolsa;
+        return this.bolsa;
     }
 
     public void setBolsa(Bolsa bolsa) {
@@ -47,7 +46,7 @@ public class BolsaBean {
       
     public List<Bolsa> getBolsas(){
         this.bolsas = this.bolsa.buscarTodos();
-        return bolsas;
+        return this.bolsas;
     }
     
     public void setBolsas(List<Bolsa> lista){
@@ -63,55 +62,46 @@ public class BolsaBean {
         return items;
     }
     
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
-    
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            bolsaSelecionada = this.bolsa.buscarPeloId(id);
+            this.bolsaSelecionada = this.bolsa.buscarPeloId(id);
 
-        if (bolsaSelecionada == null) {
+        if (this.bolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Bolsa!",
                                    "Erro ao localizar Bolsa!"));
             return "/pages/listar/listarBolsas";
         }
         else {
-            this.bolsa = bolsaSelecionada;
+            this.bolsa = this.bolsaSelecionada;
             return "/pages/detalhes/detalhesBolsa?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            bolsaSelecionada = this.bolsa.buscarPeloId(id);
+            this.bolsaSelecionada = this.bolsa.buscarPeloId(id);
 
-        if (bolsaSelecionada == null) {
+        if (this.bolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Bolsa!",
                                    "Erro ao localizar Bolsa!"));
             return "/pages/listar/listarBolsas";
         }
         else {
-            this.bolsa = bolsaSelecionada;
+            this.bolsa = this.bolsaSelecionada;
             return "/pages/editar/editarBolsa?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.bolsa = new Bolsa();
         this.bolsaSelecionada = new Bolsa();
     }
     
     public String remover(Long id) {
-        if(bolsa.remover(id))
+        if(this.bolsa.remover(id))
             return "/pages/listar/listarBolsas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -122,7 +112,7 @@ public class BolsaBean {
     }
     
     public String salvar() {
-        if(bolsa.salvar())
+        if(this.bolsa.salvar())
             return "/pages/listar/listarBolsas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

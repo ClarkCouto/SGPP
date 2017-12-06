@@ -10,41 +10,51 @@
     	<ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="2" />
             <ui:define name="content">
-                <div class="main-bar"> 
+                <div class="main-bar">      
                     <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarAreas" style="float:left;">
-                            <span class="button--label">Listar Áreas</span>
-                        </h:link>  
+                        <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                            <span class="button--label">Listar Instituições</span>
+                        </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                            <span class="button--label">Listar Alunos</span>                                        
+                        </h:link>             
                         <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
                             <span class="button--label">Listar Coordenadores</span>
-                        </h:link>         
-                        <h:link styleClass="button left" outcome="/pages/listar/listarGruposDePesquisa">
-                            <span class="button--label">Listar Grupos de Pesquisa</span>
-                        </h:link>       
-                        <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
-                            <span class="button--label">Listar Intituições</span>
-                        </h:link> 
-                    </div>                   
+                        </h:link>      
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                            <span class="button--label">Listar Cursos</span>
+                        </h:link>  
+                        <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                            <span class="button--label">Listar Documentos</span>
+                        </h:link>
+                        <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
+                            <span class="button--label">Listar Projetos</span>
+                        </h:link>  
+                    </div>                         
                 </div> 
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
-                            <div class="form--section--title">Detalhes da Área</div>
+                            <div class="form--section--title">Editar Instituição</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
-                                    value="#{areaBean.area.nome}"
+                                    value="#{instituicaoBean.instituicao.nome}"
                                     id="nome"
                                     label="Nome"
                                     styleClass="form--group--text-input"
-                                    readonly="true"
+                                    required="true"
+                                    requiredMessage="Nome é obrigatório."
                                     >
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="nome" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
+                        <div class="form--actions">
+                            <h:commandButton styleClass="button" value="Salvar" action="#{instituicaoBean.salvar()}"/>
+                        </div>
                     </div>     
                 </h:form>
             </ui:define>

@@ -73,7 +73,7 @@ public class AlunoBean {
     }
 
     public List<Curso> getCursos() {
-        return cursos;
+        return this.cursos;
     }
 
     public void setCursos(List<Curso> cursos) {
@@ -81,7 +81,7 @@ public class AlunoBean {
     }
 
     public List<SelectItem> getCursosOpcoes() {
-        return cursosOptions;
+        return this.cursosOptions;
     }
 
     public void setCursosOptions(List<SelectItem> cursosOptions) {
@@ -116,7 +116,7 @@ public class AlunoBean {
     
     public String editar(Long id){
         if(id != null)
-            this.alunoSelecionado = aluno.buscarPeloId(id);
+            this.alunoSelecionado = this.aluno.buscarPeloId(id);
 
         if (this.alunoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,

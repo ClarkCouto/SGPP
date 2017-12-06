@@ -26,10 +26,6 @@ public class TextoBaseDeclaracao extends BaseEntityAudit implements Serializable
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataDesativacao;
     
-    @Column(nullable=false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataUltimaAlteracao;
-    
     @Column(nullable=false, columnDefinition = "VARCHAR(30)")
     private String identificador;
     
@@ -45,14 +41,6 @@ public class TextoBaseDeclaracao extends BaseEntityAudit implements Serializable
 
     public void setDataDesativacao(Date dataDesativacao) {
         this.dataDesativacao = dataDesativacao;
-    }
-
-    public Date getDataUltimaAlteracao() {
-        return dataUltimaAlteracao;
-    }
-
-    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
-        this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
     public String getIdentificador() {

@@ -13,9 +13,17 @@
                 <div class="main-bar">
                     <div class="main-bar--current-page">   
                         <h:link styleClass="button" outcome="/pages/listar/listarGruposDePesquisa" style="float:left;">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Grupos De Pesquisa</span>
-                        </h:link>   
+                        </h:link>    
+                        <h:link styleClass="button left" outcome="/pages/listar/listarAreas">
+                            <span class="button--label">Listar Áreas</span>
+                        </h:link>        
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
+                            <span class="button--label">Listar Coordenadores</span>
+                        </h:link>       
+                        <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
+                            <span class="button--label">Listar Intituições</span>
+                        </h:link> 
                     </div>                             
                 </div> 
                 <h:form>
@@ -38,13 +46,8 @@
                                 <h:message for="nome" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>   
-                        <div class="form--actions">
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Limpar" action="#{grupoDePesquisaBean.limpar()}"/>
-                            </div>       
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Salvar" action="#{grupoDePesquisaBean.salvar()}"/>
-                            </div>   
+                        <div class="form--actions">    
+                            <h:commandButton styleClass="button" value="Salvar" action="#{grupoDePesquisaBean.salvar()}"/>
                         </div>  
                     </div>     
                 </h:form>

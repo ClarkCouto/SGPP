@@ -13,7 +13,6 @@ import entities.Usuario;
 import entities.Usuario.TipoUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -108,7 +107,7 @@ public class CoordenadorBean implements Serializable {
     
     public List<Coordenador> getCoordenadores(){
         this.coordenadores = new Coordenador().buscarTodosCoordenadores();
-        return coordenadores;
+        return this.coordenadores;
     }
     
     public void setCoordenadores(List<Coordenador> coordenadores){

@@ -22,11 +22,10 @@ public class GrupoDePesquisaBean {
     private List<Coordenador> coordenadores;
     private List<GrupoDePesquisa> gruposDePesquisa;
     private List<GrupoDePesquisa> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<GrupoDePesquisa> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<GrupoDePesquisa> listaFiltrada) {
@@ -34,16 +33,15 @@ public class GrupoDePesquisaBean {
     }
     
     public List<SelectItem> getCoordenadores(){
-        this.coordenadores = new Coordenador().buscarTodosCoordenadores();
         List<SelectItem> items = new ArrayList<>();  
-        this.coordenadores.forEach((c) -> {
+        new Coordenador().buscarTodosCoordenadores().forEach((c) -> {
             items.add(new SelectItem(c, c.getNome()));
         }); 
         return items;
     }
     
     public GrupoDePesquisa getGrupoDePesquisa() {
-        return grupoDePesquisa;
+        return this.grupoDePesquisa;
     }
 
     public void setGrupoDePesquisa(GrupoDePesquisa grupoDePesquisa) {
@@ -62,56 +60,47 @@ public class GrupoDePesquisaBean {
     public void setGruposDePesquisa(List<GrupoDePesquisa> lista){
         this.gruposDePesquisa = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
+            this.grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
 
-        if (grupoDePesquisaSelecionado == null) {
+        if (this.grupoDePesquisaSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Grupo De Pesquisa!",
                                    "Erro ao localizar Grupo De Pesquisa!"));
             return "/pages/listar/listarGruposDePesquisa";
         }
         else {
-            this.grupoDePesquisa = grupoDePesquisaSelecionado;
+            this.grupoDePesquisa = this.grupoDePesquisaSelecionado;
             return "/pages/detalhes/detalhesGrupoDePesquisa?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
+            this.grupoDePesquisaSelecionado = this.grupoDePesquisa.buscarPeloId(id);
 
-        if (grupoDePesquisaSelecionado == null) {
+        if (this.grupoDePesquisaSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Grupo De Pesquisa!",
                                    "Erro ao localizar Grupo De Pesquisa!"));
             return "/pages/listar/listarGruposDePesquisa";
         }
         else {
-            this.grupoDePesquisa = grupoDePesquisaSelecionado;
+            this.grupoDePesquisa = this.grupoDePesquisaSelecionado;
             return "/pages/editar/editarGrupoDePesquisa?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.grupoDePesquisa = new GrupoDePesquisa();
         this.grupoDePesquisaSelecionado = new GrupoDePesquisa();
     }
     
     public String remover(Long id) {
-        if(grupoDePesquisa.remover(id))
+        if(this.grupoDePesquisa.remover(id))
             return "/pages/listar/listarGruposDePesquisa?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -122,7 +111,7 @@ public class GrupoDePesquisaBean {
     }
     
     public String salvar() {
-        if(grupoDePesquisa.salvar())
+        if(this.grupoDePesquisa.salvar())
             return "/pages/listar/listarGruposDePesquisa?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

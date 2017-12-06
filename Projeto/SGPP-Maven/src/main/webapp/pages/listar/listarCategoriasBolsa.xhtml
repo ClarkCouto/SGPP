@@ -28,9 +28,11 @@
                                     <span class="button--label">Cadastrar Categoria Bolsa</span>
                                 </h:link>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarEditais" style="float:left;">
-                                    
                                     <span class="button--label">Listar Editais</span>
-                                </h:link>       
+                                </h:link>   
+                                <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
+                                    <span class="button--label">Listar Tipos de Documento</span>
+                                </h:link>   
                                 <p:inputText id="globalFilter" onkeyup="PF('categoriaBolsaTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

@@ -99,7 +99,7 @@ public class ProjetoBean {
     }
     
     public Projeto getProjeto() {
-        return projeto;
+        return this.projeto;
     }
 
     public void setProjeto(Projeto projeto) {
@@ -112,7 +112,7 @@ public class ProjetoBean {
 
     public List<Projeto> getProjetos() {
         this.projetos = this.projeto.buscarTodos();
-        return projetos;
+        return this.projetos;
     }
 
     public void setProjetos(List<Projeto> lista) {
@@ -130,16 +130,16 @@ public class ProjetoBean {
 // Ações
     public String detalhar(Long id) {
         if (id != null) {
-            projetoSelecionado = this.projeto.buscarPeloId(id);
+            this.projetoSelecionado = this.projeto.buscarPeloId(id);
         }
 
-        if (projetoSelecionado == null) {
+        if (this.projetoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Projeto!",
                             "Erro ao localizar Projeto!"));
             return "/pages/listar/listarProjetos";
         } else {
-            this.projeto = projetoSelecionado;
+            this.projeto = this.projetoSelecionado;
             return "/pages/detalhes/detalhesProjeto?faces-redirect=true";
         }
     }
@@ -151,16 +151,16 @@ public class ProjetoBean {
 
     public String editar(Long id) {
         if (id != null) {
-            projetoSelecionado = this.projeto.buscarPeloId(id);
+            this.projetoSelecionado = this.projeto.buscarPeloId(id);
         }
 
-        if (projetoSelecionado == null) {
+        if (this.projetoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Projeto!",
                             "Erro ao localizar Projeto!"));
             return "/pages/listar/listarProjetos";
         } else {
-            this.projeto = projetoSelecionado;
+            this.projeto = this.projetoSelecionado;
             return "/pages/editar/editarProjeto?faces-redirect=true";
         }
     }

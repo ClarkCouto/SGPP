@@ -88,7 +88,6 @@ public class UsuarioBean implements Serializable {
         tiposUsuario = new ArrayList<>();
         tiposUsuario.add("Cagppi");
         tiposUsuario.add("SetorDePesquisa");
-//        tiposUsuario = TipoUsuario.values();
     }
 
     public List<String> getTiposUsuario() {

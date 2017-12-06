@@ -18,11 +18,10 @@ public class CategoriaBolsaBean {
     private CategoriaBolsa categoriaBolsaSelecionada;
     private List<CategoriaBolsa> categorias;
     private List<CategoriaBolsa> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<CategoriaBolsa> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<CategoriaBolsa> listaFiltrada) {
@@ -30,7 +29,7 @@ public class CategoriaBolsaBean {
     }
     
     public CategoriaBolsa getCategoriaBolsa() {
-        return categoriaBolsa;
+        return this.categoriaBolsa;
     }
 
     public void setCategoriaBolsa(CategoriaBolsa categoriaBolsa) {
@@ -43,62 +42,53 @@ public class CategoriaBolsaBean {
       
     public List<CategoriaBolsa> getCategorias(){
         this.categorias = this.categoriaBolsa.buscarTodos();
-        return categorias;
+        return this.categorias;
     }
     
     public void setCategorias(List<CategoriaBolsa> lista){
         this.categorias = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
+            this.categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
 
-        if (categoriaBolsaSelecionada == null) {
+        if (this.categoriaBolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao v Categoria!",
                                    "Erro ao localizar Categoria!"));
             return "/pages/listar/listarCategoriasBolsa";
         }
         else {
-            this.categoriaBolsa = categoriaBolsaSelecionada;
+            this.categoriaBolsa = this.categoriaBolsaSelecionada;
             return "/pages/detalhes/detalhesCategoriaBolsa?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
+            this.categoriaBolsaSelecionada = this.categoriaBolsa.buscarPeloId(id);
 
-        if (categoriaBolsaSelecionada == null) {
+        if (this.categoriaBolsaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao v Categoria!",
                                    "Erro ao localizar Categoria!"));
             return "/pages/listar/listarCategoriasBolsa";
         }
         else {
-            this.categoriaBolsa = categoriaBolsaSelecionada;
+            this.categoriaBolsa = this.categoriaBolsaSelecionada;
             return "/pages/editar/editarCategoriaBolsa?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.categoriaBolsa = new CategoriaBolsa();
         this.categoriaBolsaSelecionada = new CategoriaBolsa();
     }
     
     public String remover(Long id) {
-        if(categoriaBolsa.remover(id))
+        if(this.categoriaBolsa.remover(id))
             return "/pages/listar/listarCategoriasBolsa?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -109,7 +99,7 @@ public class CategoriaBolsaBean {
     }
     
     public String salvar() {
-        if(categoriaBolsa.salvar())
+        if(this.categoriaBolsa.salvar())
             return "/pages/listar/listarCategoriasBolsa?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

@@ -8,7 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
     	<ui:composition template="/template/layout.xhtml">
-            <ui:param name="aba" value="2" />
+            <ui:param name="aba" value="1" />
             <ui:define name="content">    
                 <h:form>    
                     <p:growl id="messages"/>           
@@ -26,11 +26,19 @@
                                 <h:link styleClass="button left" outcome="/pages/cadastrar/cadastrarCurso" style="float:left;">
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Curso</span>
-                                </h:link>          
-                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
-                                    
+                                </h:link>     
+                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                                    <span class="button--label">Listar Alunos</span>                                        
+                                </h:link>  
+                                <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                                    <span class="button--label">Listar Documentos</span>
+                                </h:link>
+                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
                                     <span class="button--label">Listar Instituições</span>
-                                </h:link> 
+                                </h:link>                  
+                                <h:link styleClass="button left" outcome="/pages/listar/listarProjetos">
+                                    <span class="button--label">Listar Projetos</span>
+                                </h:link>  
                                 <p:inputText id="globalFilter" onkeyup="PF('cursoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
@@ -63,7 +71,7 @@
                         <p:column headerText="Ações" style="width: 125px">
                             <p:commandButton title="Detalhar" action="${cursoBean.detalhar(curso.id)}" icon="fa fa-info-circle"/>
 
-                            <p:commandButton value="Editar" action="#{cursoBean.editar(curso.id)}" icon="fa fa-edit" rendered="#{curso.ativo}"/>
+                            <p:commandButton title="Editar" action="#{cursoBean.editar(curso.id)}" icon="fa fa-edit" rendered="#{curso.ativo}"/>
 
                             <p:commandButton title="Excluir" rendered="#{curso.ativo}" actionListener="${cursoBean.remover(curso.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />

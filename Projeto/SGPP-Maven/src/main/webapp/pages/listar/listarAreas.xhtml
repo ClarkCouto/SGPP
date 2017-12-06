@@ -28,9 +28,14 @@
                                     <span class="button--label">Cadastrar Área</span>
                                 </h:link>   
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
-                                    
                                     <span class="button--label">Listar Coordenadores</span>
-                                </h:link>  
+                                </h:link>        
+                                <h:link styleClass="button left" outcome="/pages/listar/listarGruposDePesquisa">
+                                    <span class="button--label">Listar Grupos de Pesquisa</span>
+                                </h:link>       
+                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
+                                    <span class="button--label">Listar Intituições</span>
+                                </h:link> 
                                 <p:inputText id="globalFilter" onkeyup="PF('areaTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

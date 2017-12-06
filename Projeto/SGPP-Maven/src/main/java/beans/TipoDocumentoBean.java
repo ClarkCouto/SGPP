@@ -18,11 +18,10 @@ public class TipoDocumentoBean {
     private TipoDocumento tipoDocumentoSelecionado;
     private List<TipoDocumento> tiposDocumento;
     private List<TipoDocumento> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<TipoDocumento> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<TipoDocumento> listaFiltrada) {
@@ -30,7 +29,7 @@ public class TipoDocumentoBean {
     }
     
     public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
+        return this.tipoDocumento;
     }
 
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
@@ -43,62 +42,53 @@ public class TipoDocumentoBean {
       
     public List<TipoDocumento> getTiposDocumento(){
         this.tiposDocumento = this.tipoDocumento.buscarTodos();
-        return tiposDocumento;
+        return this.tiposDocumento;
     }
     
     public void setTiposDocumento(List<TipoDocumento> lista){
         this.tiposDocumento = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            tipoDocumentoSelecionado = this.tipoDocumento.buscarPeloId(id);
+            this.tipoDocumentoSelecionado = this.tipoDocumento.buscarPeloId(id);
 
-        if (tipoDocumentoSelecionado == null) {
+        if (this.tipoDocumentoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Tipo de Documento!",
                                    "Erro ao localizar Tipo de Documento!"));
             return "/pages/listar/listarTiposDocumento";
         }
         else {
-            this.tipoDocumento = tipoDocumentoSelecionado;
+            this.tipoDocumento = this.tipoDocumentoSelecionado;
             return "/pages/detalhes/detalhesTipoDocumento?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            tipoDocumentoSelecionado = this.tipoDocumento.buscarPeloId(id);
+            this.tipoDocumentoSelecionado = this.tipoDocumento.buscarPeloId(id);
 
-        if (tipoDocumentoSelecionado == null) {
+        if (this.tipoDocumentoSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Tipo de Documento!",
                                    "Erro ao localizar Tipo de Documento!"));
             return "/pages/listar/listarTiposDocumento";
         }
         else {
-            this.tipoDocumento = tipoDocumentoSelecionado;
+            this.tipoDocumento = this.tipoDocumentoSelecionado;
             return "/pages/editar/editarTipoDocumento?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.tipoDocumento = new TipoDocumento();
         this.tipoDocumentoSelecionado = new TipoDocumento();
     }
     
     public String remover(Long id) {
-        if(tipoDocumento.remover(id))
+        if(this.tipoDocumento.remover(id))
             return "/pages/listar/listarTiposDocumento?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -109,7 +99,7 @@ public class TipoDocumentoBean {
     }
     
     public String salvar() {
-        if(tipoDocumento.salvar())
+        if(this.tipoDocumento.salvar())
             return "/pages/listar/listarTiposDocumento?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

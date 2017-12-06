@@ -27,9 +27,20 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Instituição</span>
                                 </h:link> 
+                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                                    <span class="button--label">Listar Alunos</span>                                        
+                                </h:link>             
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
-                                    
                                     <span class="button--label">Listar Coordenadores</span>
+                                </h:link>      
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                                    <span class="button--label">Listar Cursos</span>
+                                </h:link>  
+                                <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                                    <span class="button--label">Listar Documentos</span>
+                                </h:link>
+                                <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
+                                    <span class="button--label">Listar Projetos</span>
                                 </h:link>  
                                 <p:inputText id="globalFilter" onkeyup="PF('instituicaoTable').filter()" placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
@@ -57,11 +68,11 @@
                         </p:column>
 
                         <p:column headerText="Ações" style="width: 125px">
-                            <p:commandButton title="Detalhar" action="${instituicaoBean.detalhar(instituicao.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton title="Detalhar" action="#{instituicaoBean.detalhar(instituicao.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton title="Editar" action="${instituicaoBean.editar(instituicao.id)}" icon="fa fa-edit" rendered="#{instituicao.ativo}"/>
+                            <p:commandButton title="Editar" action="#{instituicaoBean.editar(instituicao.id)}" icon="fa fa-edit" rendered="#{instituicao.ativo}"/>
                             
-                            <p:commandButton title="Excluir" rendered="#{instituicao.ativo}" actionListener="${instituicaoBean.remover(instituicao.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{instituicao.ativo}" actionListener="#{instituicaoBean.remover(instituicao.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

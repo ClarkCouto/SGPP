@@ -25,6 +25,21 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Colaborador</span>
                                 </h:link>
+                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                                    <span class="button--label">Listar Alunos</span>                                        
+                                </h:link>                  
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                                    <span class="button--label">Listar Cursos</span>
+                                </h:link>  
+                                <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                                    <span class="button--label">Listar Documentos</span>
+                                </h:link>
+                                <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                                    <span class="button--label">Listar Instituições</span>
+                                </h:link>  
+                                <h:link styleClass="button" outcome="/pages/listar/listarProjetos" style="float:left;">
+                                    <span class="button--label">Listar Projetos</span>
+                                </h:link>   
                                 <p:inputText id="globalFilter" onkeyup="PF('colaboradorTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>
@@ -51,11 +66,11 @@
                         </p:column>
 
                         <p:column headerText="Ações" style="width: 125px">
-                            <p:commandButton title="Detalhar" action="${colaboradorBean.detalhar(colaborador.id)}" icon="fa fa-info-circle"/>
+                            <p:commandButton title="Detalhar" action="#{colaboradorBean.detalhar(colaborador.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton title="Editar" action="${colaboradorBean.editar(colaborador.id)}" icon="fa fa-edit" rendered="#{colaborador.ativo}"/>
+                            <p:commandButton title="Editar" action="#{colaboradorBean.editar(colaborador.id)}" icon="fa fa-edit" rendered="#{colaborador.ativo}"/>
                             
-                            <p:commandButton title="Excluir" rendered="#{colaborador.ativo}" actionListener="${colaboradorBean.remover(colaborador.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" rendered="#{colaborador.ativo}" actionListener="#{colaboradorBean.remover(colaborador.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

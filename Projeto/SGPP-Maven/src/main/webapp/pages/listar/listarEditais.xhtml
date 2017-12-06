@@ -30,7 +30,6 @@
                                     <span class="button--label">Listar Categorias Bolsa</span>
                                 </h:link>
                                 <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
-                                    
                                     <span class="button--label">Listar Tipos de Documento</span>
                                 </h:link>
                                 <p:inputText id="globalFilter" onkeyup="PF('editaisTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
@@ -69,7 +68,7 @@
                         <p:column headerText="Ações" style="width: 125px">
                             <p:commandButton title="Detalhar" action="#{editalBean.detalhar(edital.id)}" icon="fa fa-info-circle"/>
 
-                            <p:commandButton title="Editar" action="#{editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo}"/>
+                            <p:commandButton title="Editar" action="#{editalBean.editar(edital.id)}" icon="fa fa-edit" rendered="#{edital.ativo and !editalBean.possuiProjetos(edital.id)}"/>
 
                             <p:commandButton title="Excluir" rendered="#{edital.ativo}" actionListener="#{editalBean.remover(edital.id)}" icon="fa fa-trash" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />

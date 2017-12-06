@@ -27,10 +27,15 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Tipo de Documento</span>
                                 </h:link>  
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
+                                    <span class="button--label">Listar Categorias Bolsa</span>
+                                </h:link>
+                                <h:link styleClass="button left" outcome="/pages/listar/listarDocumentos" style="float:left;">
+                                    <span class="button--label">Listar Documentos</span>
+                                </h:link> 
                                 <h:link styleClass="button left" outcome="/pages/listar/listarEditais" style="float:left;">
-                                    
-                                    <span class="button--label">Voltar para Editais</span>
-                                </h:link>   
+                                    <span class="button--label">Listar Editais</span>
+                                </h:link>  
                                 <p:inputText id="globalFilter" onkeyup="PF('tiposDocumentoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
                             </p:outputPanel>
                         </f:facet>

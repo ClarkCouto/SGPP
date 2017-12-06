@@ -250,9 +250,7 @@ public class DeclaracaoBean {
     }
     
     public void imprimirPDF(Long id){
-        if(this.declaracao == null){
-            this.declaracao = new Declaracao().buscarPeloId(id);
-        }
-        gerarPDF();
+        setDeclaracao(new Declaracao().buscarPeloId(id));
+        getFile();
     }
 }

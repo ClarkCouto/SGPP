@@ -7,9 +7,6 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <f:metadata>
-            <f:event type="preRenderView" listener="#{alunoBean.limpar()}" />
-        </f:metadata>
         <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="1" />
             <ui:define name="content">
@@ -22,7 +19,10 @@
                         <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Cursos</span>
-                        </h:link>  
+                        </h:link>      
+                        <h:link styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                            <span class="button--label">Listar Documentos</span>
+                        </h:link> 
                         <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
                             <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Instituições</span>
@@ -36,7 +36,7 @@
                 <h:form>
                     <div class="form">
                         <h:panelGroup class="form--section">
-                            <div class="form--section--title">Cadastrar Aluno</div>
+                            <div class="form--section--title">Editar Aluno</div>
                             <div class="form--group">
                                 <p:growl id="messages"/>
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
@@ -146,14 +146,15 @@
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="instituicao-aluno" styleClass="form--group--label">Instituição</h:outputLabel>
-                                <p:selectOneMenu id="instituicao-aluno"
-                                                 value="#{alunoBean.aluno.instituicao}"
-                                                 converter="SimpleEntityConverter"
-                                                 effect="fade"
-                                                 var="instituition"
-                                                 required='true'
-                                                 requiredMessage="Instituição é obrigatória."
-                                                 >
+                                <p:selectOneMenu 
+                                    id="instituicao-aluno"
+                                    value="#{alunoBean.aluno.instituicao}"
+                                    converter="SimpleEntityConverter"
+                                    effect="fade"
+                                    var="instituition"
+                                    required='true'
+                                    requiredMessage="Instituição é obrigatória."
+                                    >
                                     <p:ajax listener="#{alunoBean.onInstituicaoChange}" update="curso-aluno" event="change"/>
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
                                     <f:selectItems value="#{alunoBean.instituicoes}" var="instituicao" itemLabel="#{instituicao.nome}" itemValue="#{instituicao}" />
@@ -165,13 +166,13 @@
                             <div class="form--group size-half">
                                 <h:outputLabel for="curso-aluno" styleClass="form--group--label">Curso</h:outputLabel>
                                 <p:selectOneMenu id="curso-aluno"
-                                                 value="#{alunoBean.aluno.curso}"
-                                                 converter="SimpleEntityConverter"
-                                                 effect="fade"
-                                                 var="course"
-                                                 required='true'
-                                                 requiredMessage="Categoria é obrigatório."
-                                                 >
+                                    value="#{alunoBean.aluno.curso}"
+                                    converter="SimpleEntityConverter"
+                                    effect="fade"
+                                    var="course"
+                                    required='true'
+                                    requiredMessage="Categoria é obrigatório."
+                                    >
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
                                     <f:selectItems value="#{alunoBean.cursosOpcoes}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" rendered="#{not empty alunoBean.aluno.instituicao}"/>
                                     <p:column>
@@ -181,7 +182,23 @@
                             </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="aluno-bolsista" styleClass="form--group--label">Bolsista</h:outputLabel>
-                                <p:selectBooleanCheckbox value="#{alunoBean.aluno.bolsista}" />
+                                <p:selectBooleanCheckbox value="#{alunoBean.aluno.bolsista}" disabled="true"/>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="bolsa-aluno" styleClass="form--group--label">Bolsa</h:outputLabel>
+                                <p:selectOneMenu id="bolsa-aluno"
+                                    value="#{alunoBean.aluno.bolsa}"
+                                    converter="SimpleEntityConverter"
+                                    effect="fade"
+                                    var="course"
+                                    disabled="true"
+                                    >
+                                    <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>
+                                    <f:selectItems value="#{alunoBean.bolsas}" var="bolsa" itemLabel="#{bolsa.nome}" itemValue="#{bolsa}"/>
+                                    <p:column>
+                                        <h:outputText value="#{course.nome}" />
+                                    </p:column>
+                                </p:selectOneMenu>
                             </div>
                             <div class="form--actions">
                                 <h:commandButton styleClass="button" value="Salvar" action="#{alunoBean.salvar()}"/>

@@ -27,11 +27,10 @@ public class CagppiBean implements Serializable {
     private Cagppi cagppiSelecionado;
     private List<Cagppi> cagppis;
     private List<Cagppi> listaFiltrada;
-    private Boolean editando;
     
     // Getters e Setters
     public List<Cagppi> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Cagppi> listaFiltrada) {
@@ -39,7 +38,7 @@ public class CagppiBean implements Serializable {
     }
     
     public Cagppi getCagppi() {
-        return cagppi;
+        return this.cagppi;
     }
 
     public void setCagppi(Cagppi cagppi) {
@@ -52,50 +51,49 @@ public class CagppiBean implements Serializable {
     
     public List<Cagppi> getCagppis(){
         this.cagppis = new Cagppi().buscarTodosCagppis();
-        return cagppis;
+        return this.cagppis;
     }
     
     // Ações
     public String detalhar(Long id){
         if(id != null)
-            cagppiSelecionado = this.cagppi.buscarPeloId(id);
+            this.cagppiSelecionado = this.cagppi.buscarPeloId(id);
 
-        if (cagppiSelecionado == null) {
+        if (this.cagppiSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar CAGPPI!",
                                    "Erro ao localizar CAGPPI!"));
             return "/pages/listar/listarCagppi";
         }
         else {
-            this.cagppi = cagppiSelecionado;
+            this.cagppi = this.cagppiSelecionado;
             return "/pages/detalhes/detalhesCagppi?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            cagppiSelecionado = this.cagppi.buscarPeloId(id);
+            this.cagppiSelecionado = this.cagppi.buscarPeloId(id);
 
-        if (cagppiSelecionado == null) {
+        if (this.cagppiSelecionado == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar CAGPPI!",
                                    "Erro ao localizar CAGPPI!"));
             return "/pages/listar/listarCagppi";
         }
         else {
-            this.cagppi = cagppiSelecionado;
+            this.cagppi = this.cagppiSelecionado;
             return "/pages/editar/editarCagppi?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.cagppi = new Cagppi();
         this.cagppiSelecionado = new Cagppi();
     }
     
     public String remover(Long id) {
-        if(cagppi.remover(id))
+        if(this.cagppi.remover(id))
             return "/pages/listar/listarCagppi?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -106,13 +104,10 @@ public class CagppiBean implements Serializable {
     }
     
     public String salvar() {
-        if(validarCpfUnico(cagppi.getCpf())){
-            cagppi.setAtivo(Boolean.TRUE);
-            cagppi.setDataNascimento(new Date());
-            cagppi.setSenha("1234");
-            cagppi.setTipo(TipoUsuario.CAGPPI);
-            cagppi.setUltimoAcesso(new Date());
-            if(cagppi.salvar())
+        if(validarCpfUnico(this.cagppi.getCpf())){
+            this.cagppi.setSenha("1234");
+            this.cagppi.setTipo(TipoUsuario.CAGPPI);
+            if(this.cagppi.salvar())
                 return "/pages/listar/listarCagppi?faces-redirect=true";
             else {
                 FacesContext.getCurrentInstance().addMessage(null,

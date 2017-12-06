@@ -20,11 +20,10 @@ public class DocumentoBean {
     private List<Documento> documentos;
     private List<Documento> listaFiltrada;
     private List<TipoDocumento> tiposDocumento;
-    private Boolean editando;
     
 // Getters e Setters
     public List<Documento> getListaFiltrada() {
-        return listaFiltrada;
+        return this.listaFiltrada;
     }
  
     public void setListaFiltrada(List<Documento> listaFiltrada) {
@@ -32,7 +31,7 @@ public class DocumentoBean {
     }
     
     public Documento getDocumento() {
-        return documento;
+        return this.documento;
     }
 
     public void setDocumento(Documento documento) {
@@ -45,24 +44,16 @@ public class DocumentoBean {
       
     public List<Documento> getDocumentos(){
         this.documentos = this.documento.buscarTodos();
-        return documentos;
+        return this.documentos;
     }
     
     public void setDocumentos(List<Documento> lista){
         this.documentos = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
       
     public List<TipoDocumento> getTiposDocumento(){
         this.tiposDocumento = new TipoDocumento().buscarTodos();
-        return tiposDocumento;
+        return this.tiposDocumento;
     }
     
 // Ações
@@ -83,38 +74,8 @@ public class DocumentoBean {
         }
     }
     
-    public String editar(Long id){
-        if(id != null)
-            documentoSelecionado = this.documento.buscarPeloId(id);
-
-        if (documentoSelecionado != null) {
-            this.documento = documentoSelecionado;
-            this.editando = Boolean.TRUE;
-        } else {
-            this.editando = Boolean.FALSE;
-        }
-        return "editarDocumento";
-    }  
-    
-    public void limpar(){
-        this.editando = false;
-        this.documento = new Documento();
-        this.documentoSelecionado = new Documento();
-    }
-    
-    public String remover(Long id) {
-        if(documento.remover(id))
-            return "listarDocumentos?faces-redirect=true";
-        else{
-            FacesContext.getCurrentInstance().addMessage(null,
-                       new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao exluir Documento!",
-                                   "Erro ao excluir Documento!"));
-            return "listarDocumentos";
-        }
-    }
-    
     public String salvar() {
-        if(documento.salvar())
+        if(this.documento.salvar())
             return "listarDocumentos?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

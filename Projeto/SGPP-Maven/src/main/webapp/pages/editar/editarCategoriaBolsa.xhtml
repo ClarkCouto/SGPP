@@ -13,8 +13,13 @@
                 <div class="main-bar">
                     <div class="main-bar--current-page">   
                         <h:link styleClass="button" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Categorias de Bolsas</span>
+                        </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarEditais" style="float:left;">
+                            <span class="button--label">Listar Editais</span>
+                        </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
+                            <span class="button--label">Listar Tipos de Documento</span>
                         </h:link>   
                     </div>                            
                 </div> 
@@ -23,20 +28,6 @@
                         <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
                             <div class="form--section--title">Editar Categoria</div>
-                            <div class="form--group size-half">
-                                <h:outputLabel for="valor" styleClass="form--group--label">Valor</h:outputLabel>
-                                <p:inputNumber 
-                                    id="valor" 
-                                    value="#{categoriaBolsaBean.categoriaBolsa.valor}"
-                                    decimalSeparator="," 
-                                    thousandSeparator="."
-                                    label="Valor"
-                                    required="true"
-                                    requiredMessage="Valor é obrigatório.">  
-                                    <f:validateRequired />
-                                </p:inputNumber>  
-                                <h:message for="valor" styleClass="form--group--message" />
-                            </div>
                             <div class="form--group size-half">
                                 <h:outputLabel for="descricao" styleClass="form--group--label">Descrição</h:outputLabel>
                                 <h:inputText
@@ -50,6 +41,20 @@
                                     <f:validateRequired />
                                 </h:inputText>
                                 <h:message for="descricao" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="valor" styleClass="form--group--label">Valor</h:outputLabel>
+                                <p:inputNumber 
+                                    id="valor" 
+                                    value="#{categoriaBolsaBean.categoriaBolsa.valor}"
+                                    decimalSeparator="," 
+                                    thousandSeparator="."
+                                    label="Valor"
+                                    required="true"
+                                    requiredMessage="Valor é obrigatório.">  
+                                    <f:validateRequired />
+                                </p:inputNumber>  
+                                <h:message for="valor" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
                         <div class="form--actions">

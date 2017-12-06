@@ -18,7 +18,6 @@ public class AreaBean {
     private Area areaSelecionada;
     private List<Area> areas;
     private List<Area> listaFiltrada;
-    private Boolean editando;
     
 // Getters e Setters
     public List<Area> getListaFiltrada() {
@@ -49,56 +48,47 @@ public class AreaBean {
     public void setAreas(List<Area> lista){
         this.areas = lista;
     }
-
-    public Boolean getEditando() {
-        return editando;
-    }
-
-    public void setEditando(Boolean editando) {
-        this.editando = editando;
-    }
     
 // Ações
     public String detalhar(Long id){
         if(id != null)
-            areaSelecionada = area.buscarPeloId(id);
+            this.areaSelecionada = area.buscarPeloId(id);
 
-        if (areaSelecionada == null) {
+        if (this.areaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Área!",
                                    "Erro ao localizar Área!"));
             return "/pages/listar/listarAreas";
         }
         else {
-            this.area = areaSelecionada;
+            this.area = this.areaSelecionada;
             return "/pages/detalhes/detalhesArea?faces-redirect=true";
         }
     }
     
     public String editar(Long id){
         if(id != null)
-            areaSelecionada = area.buscarPeloId(id);
+            this.areaSelecionada = this.area.buscarPeloId(id);
 
-        if (areaSelecionada == null) {
+        if (this.areaSelecionada == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao localizar Área!",
                                    "Erro ao localizar Área!"));
             return "/pages/listar/listarAreas";
         }
         else {
-            this.area = areaSelecionada;
+            this.area = this.areaSelecionada;
             return "/pages/editar/editarArea?faces-redirect=true";
         }
     }  
     
     public void limpar(){
-        this.editando = false;
         this.area = new Area();
         this.areaSelecionada = new Area();
     }
     
     public String remover(Long id) {
-        if(area.remover(id))
+        if(this.area.remover(id))
             return "/pages/listar/listarAreas?faces-redirect=true";
         else{
             FacesContext.getCurrentInstance().addMessage(null,
@@ -109,7 +99,7 @@ public class AreaBean {
     }
     
     public String salvar() {
-        if(area.salvar())
+        if(this.area.salvar())
             return "/pages/listar/listarAreas?faces-redirect=true";
         else {
             FacesContext.getCurrentInstance().addMessage(null,

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"f
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"   
       xmlns:p="http://primefaces.org/ui"   
@@ -27,18 +27,19 @@
                                     <i class="fa fa-plus button--icon" />
                                     <span class="button--label">Cadastrar Grupo de Pesquisa</span>
                                 </h:link>       
+                                <h:link styleClass="button left" outcome="/pages/listar/listarAreas">
+                                    <span class="button--label">Listar Áreas</span>
+                                </h:link>        
                                 <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
-
                                     <span class="button--label">Listar Coordenadores</span>
-                                </h:link>  
+                                </h:link>       
+                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes">
+                                    <span class="button--label">Listar Intituições</span>
+                                </h:link> 
                                 <p:inputText id="globalFilter" onkeyup="PF('gruposDePesquisaTable').filter()"  placeholder="Pesquisar..." styleClass="right" />
                             </p:outputPanel>
                         </f:facet>
-                        <!--
-                                                <p:column headerText="Coordenador" sortBy="# {grupoDePesquisa.coordenador.nome}">
-                                                    <h:outputText value="# {grupoDePesquisa.coordenador.nome}" />
-                                                </p:column>
-                        -->
+                        
                         <p:column headerText="Nome" sortBy="#{grupoDePesquisa.nome}">
                             <h:outputText value="#{grupoDePesquisa.nome}" />
                         </p:column>
@@ -49,7 +50,7 @@
                             </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Ativo" sortBy="#{grupoDePesquisa.ativo}" >
+                        <p:column filterBy="#{grupoDePesquisa.ativo}" style="width: 160px;" >
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('gruposDePesquisaTable').filter()">
                                     <f:converter converterId="javax.faces.Boolean" />

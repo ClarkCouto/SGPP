@@ -11,10 +11,24 @@
             <ui:param name="aba" value="1" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">   
+                    <div class="main-bar--current-page"> 
                         <h:link styleClass="button" outcome="/pages/listar/listarProjetos" style="float:left;" includeViewParams="false">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Projetos</span>
+                        </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                            <span class="button--label">Listar Alunos</span>                                        
+                        </h:link>                          
+                        <h:link styleClass="button left" outcome="/pages/listar/listarColaboradores">
+                            <span class="button--label">Listar Colaboradores</span>
+                        </h:link>             
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                            <span class="button--label">Listar Cursos</span>
+                        </h:link>  
+                        <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                            <span class="button--label">Listar Documentos</span>
+                        </h:link>
+                        <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                            <span class="button--label">Listar Instituições</span>
                         </h:link>   
                     </div>                       
                 </div>
@@ -22,7 +36,7 @@
                     <div class="form">
                         <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
-                            <div class="form--section--title">Editar Projeto</div>
+                            <div class="form--section--title">Cadastrar Projeto</div>
                             <div class="form--group">
                                 <h:outputLabel for="titulo" styleClass="form--group--label">Título</h:outputLabel>
                                 <h:inputText
@@ -125,86 +139,6 @@
                                 </p:inputMask>
                                 <h:message for="data-fim" styleClass="form--group--message" />
                             </div>
-                        </h:panelGroup>
-                        <h:panelGroup
-                            id="listaLembretes" 
-                            layout="block"
-                            class="form--section"
-                            >
-                            <div class="form--section--title">Editar lembretes</div>
-                            <h:panelGroup
-                                layout="block"
-                                styleClass="message-bar"
-                                rendered="#{projetoBean.lembretes.size() == 0}">                                
-                                <span class="message-bar--icon">
-                                    <i class="fa fa-clock-o" />
-                                </span>
-                                <span class="message-bar--text">Nenhum lembretes para entrega de documentos, datas limites do projeto...</span> 
-                            </h:panelGroup>
-                            
-                            <ui:repeat
-                                value="#{projetoBean.lembretes}"
-                                var="lembrete"
-                                varStatus="linha"
-                                >   
-                                <div class="form--row">
-                                    <div class="form--section">
-                                        <div class="form--group size-half">
-                                            <h:outputLabel for="lembrete-descricao" styleClass="form--group--label">Descrição</h:outputLabel>
-                                            <h:inputText
-                                                value="#{lembrete.descricao}"
-                                                id="lembrete-descricao"
-                                                label="Descrição"
-                                                styleClass="form--group--text-input"
-                                                required="true"
-                                                requiredMessage="Descrição é obrigatória."
-                                                disabled="true"
-                                                >
-                                                <f:validateRequired />
-                                            </h:inputText>
-                                            <h:message for="lembrete-descricao" styleClass="form--group--message" />
-                                        </div>
-                                        <div class="form--group size-half">
-                                            <h:outputLabel for="lembrete-data-limite" styleClass="form--group--label">Data Limite Entrega</h:outputLabel>
-                                            <p:inputMask
-                                                value="#{lembrete.dataLimite}"
-                                                id="lembrete-data-limite"
-                                                label="Data Limite"
-                                                styleClass="form--group--text-input"
-                                                required="true"
-                                                requiredMessage="Data Limite Entrega é obrigatória."
-                                                mask="99/99/9999"
-                                                converter="cmd.converter.stringToDate"
-                                                disabled="true"
-                                                >
-                                                <f:validateRequired />
-                                            </p:inputMask>
-                                            <h:message for="lembrete-data-limite" styleClass="form--group--message" />
-                                        </div>
-                                        <div class="form--group size-half" rendered="#{not empty lembrete.documento}">
-                                            <h:outputLabel for="tipo-documento" styleClass="form--group--label">Tipo de Documento</h:outputLabel>
-                                            <p:selectOneMenu id="categoria-bolsa" 
-                                                value="#{lembrete.tipoDocumento}" 
-                                                converter="SimpleEntityConverter"
-                                                effect="fade" 
-                                                var="tipo" 
-                                                filter="true" 
-                                                filterMatchMode="contains"
-                                                disabled="true"
-                                                >                                                   
-                                                <f:selectItems value="#{projetoBean.tiposDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
-                                                <p:column>
-                                                    <h:outputText value="#{tipo.nome}" />
-                                                </p:column>
-                                            </p:selectOneMenu>
-                                        </div>
-                                        <div class="form--group size-half" rendered="#{lembrete.documento != null}">
-                                            <h:outputLabel for="lembrete-obrigatorio" styleClass="form--group--label">Obrigatório</h:outputLabel>
-                                            <p:selectBooleanCheckbox value="#{lembrete.obrigatorio}" disabled="true"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ui:repeat>         
                         </h:panelGroup>
                         <h:panelGroup
                             id="listaAlunos" 
@@ -331,12 +265,7 @@
                             </div>
                         </h:panelGroup>
                         <div class="form--actions">
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Limpar" action="#{projetoBean.limpar()}"/>
-                            </div>
-                            <div class="form--actions">
-                                <h:commandButton styleClass="button" value="Salvar" action="#{projetoBean.salvar()}"/>
-                            </div>
+                            <h:commandButton styleClass="button" value="Salvar" action="#{projetoBean.salvar()}"/>
                         </div> 
                     </div>     
                 </h:form>

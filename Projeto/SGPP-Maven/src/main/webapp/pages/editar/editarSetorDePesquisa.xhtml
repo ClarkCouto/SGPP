@@ -11,10 +11,15 @@
             <ui:param name="aba" value="5" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">   
+                    <div class="main-bar--current-page">  
                         <h:link styleClass="button" outcome="/pages/listar/listarSetoresDePesquisa" style="float:left;">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Setores de Pesquisa</span>
+                        </h:link>      
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCagppi" style="float:left;">
+                            <span class="button--label">Listar CAGPPIs</span>
+                        </h:link>            
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCoordenador" style="float:left;">
+                            <span class="button--label">Listar Coordenadores</span>
                         </h:link>   
                     </div>                          
                 </div> 

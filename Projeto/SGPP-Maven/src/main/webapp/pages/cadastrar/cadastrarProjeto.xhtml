@@ -11,10 +11,24 @@
             <ui:param name="aba" value="1" />
             <ui:define name="content">
                 <div class="main-bar">
-                    <div class="main-bar--current-page">   
+                    <div class="main-bar--current-page"> 
                         <h:link styleClass="button" outcome="/pages/listar/listarProjetos" style="float:left;" includeViewParams="false">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Projetos</span>
+                        </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                            <span class="button--label">Listar Alunos</span>                                        
+                        </h:link>                          
+                        <h:link styleClass="button left" outcome="/pages/listar/listarColaboradores">
+                            <span class="button--label">Listar Colaboradores</span>
+                        </h:link>             
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                            <span class="button--label">Listar Cursos</span>
+                        </h:link>  
+                        <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
+                            <span class="button--label">Listar Documentos</span>
+                        </h:link>
+                        <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                            <span class="button--label">Listar Instituições</span>
                         </h:link>   
                     </div>                       
                 </div>

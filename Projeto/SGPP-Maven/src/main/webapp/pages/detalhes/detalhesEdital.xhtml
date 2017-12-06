@@ -13,9 +13,14 @@
                 <div class="main-bar">      
                     <div class="main-bar--current-page">   
                         <h:link styleClass="button" outcome="/pages/listar/listarEditais" style="float:left;">
-                            <i class="fa fa-chevron-left" />
                             <span class="button--label">Listar Editais</span>
                         </h:link>   
+                        <h:link styleClass="button left" outcome="/pages/listar/listarCategoriasBolsa" style="float:left;">
+                            <span class="button--label">Listar Categorias Bolsa</span>
+                        </h:link>
+                        <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
+                            <span class="button--label">Listar Tipos de Documento</span>
+                        </h:link>
                     </div>                        
                 </div>                
                 <h:form>
@@ -30,7 +35,7 @@
                                     id="titulo"
                                     label="Título"
                                     styleClass="form--group--text-input"
-                                    disabled="true"
+                                    readonly="true"
                                     >
                                 </h:inputText>
                             </div>
@@ -41,7 +46,7 @@
                                     id="origem"
                                     label="Origem"
                                     styleClass="form--group--text-input"
-                                    disabled="true"
+                                    readonly="true"
                                     >
                                 </h:inputText>
                             </div>  
@@ -52,7 +57,7 @@
                                     id="numero"
                                     label="Número"
                                     styleClass="form--group--text-input"
-                                    disabled="true"
+                                    readonly="true"
                                     >
                                 </h:inputText>
                             </div>
@@ -99,7 +104,7 @@
                                                 id="lembrete-descricao"
                                                 label="Descrição"
                                                 styleClass="form--group--text-input"
-                                                disabled="true">
+                                                readonly="true">
                                             </h:inputText>
                                         </div>
                                         <div class="form--group size-half">
@@ -111,7 +116,7 @@
                                                 styleClass="form--group--text-input"
                                                 mask="99/99/9999"
                                                 converter="cmd.converter.stringToDate"
-                                                disabled="true">
+                                                readonly="true">
                                             </p:inputMask>
                                         </div>
                                         <div class="form--group size-half">
@@ -171,7 +176,7 @@
                                                     id="bolsa-nome"
                                                     label="Nome"
                                                     styleClass="form--group--text-input"
-                                                    disabled="true"
+                                                    readonly="true"
                                                     >
                                                 </h:inputText>
                                             </div>
@@ -198,7 +203,7 @@
                                                     id="bolsa-quantidade"
                                                     label="Quantidade"
                                                     styleClass="form--group--text-input"
-                                                    disabled="true"
+                                                    readonly="true"
                                                     >
                                                 </h:inputText>
                                             </div>
