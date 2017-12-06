@@ -80,7 +80,19 @@ public class AlunoBean {
         this.cursos = cursos;
     }
 
-    public List<SelectItem> getCursosOpcoes() {
+    public List<SelectItem> getCursosOptions() {
+        List<Curso> cursosInstituicaoSelecionada = new ArrayList<>();
+        if(this.cursosOptions == null){
+            if(this.aluno.getInstituicao() != null)
+                cursosInstituicaoSelecionada = new Curso().buscarPelaInstituicao(this.aluno.getInstituicao().getId());
+            else
+                cursosInstituicaoSelecionada = new Curso().buscarTodos();
+            List<SelectItem> items = new ArrayList<>();  
+            cursosInstituicaoSelecionada.forEach((c) -> {
+                items.add(new SelectItem(c, c.getNome()));
+            }); 
+            return items;
+        }
         return this.cursosOptions;
     }
 
@@ -162,9 +174,9 @@ public class AlunoBean {
     public void onInstituicaoChange() {
         List<SelectItem> items = new ArrayList<>();
         this.cursos = new Curso().buscarTodos();
-        this.cursos.forEach((Curso b) -> {
-            if (this.aluno.getInstituicao().getNome() == b.getInstituicao().getNome())
-                items.add(new SelectItem(b, b.getNome()));
+        this.cursos.forEach((c) -> {
+            if (this.aluno.getInstituicao().getId() == c.getInstituicao().getId())
+                items.add(new SelectItem(c, c.getNome()));
         });
         this.cursosOptions = items;
     }

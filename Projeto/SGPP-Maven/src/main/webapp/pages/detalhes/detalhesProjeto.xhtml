@@ -231,18 +231,16 @@
                                                 converter="SimpleEntityConverter"
                                                 effect="fade" 
                                                 var="al" 
-                                                filter="true" 
-                                                filterMatchMode="contains"
                                                 disabled="true"
                                             >                                                    
-                                                <f:selectItems value="#{projetoBean.alunosOption}" var="alunoOption" itemLabel="#{alunoOption.nome}" itemValue="#{alunoOption}" />
+                                                <f:selectItems value="#{projetoBean.alunos}" var="aluno" itemLabel="#{aluno.nome}" itemValue="#{aluno}" />
                                                 <p:column>
                                                     <h:outputText value="#{al.nome}" />
                                                 </p:column>
                                             </p:selectOneMenu>
                                         </div>
                                         <div class="form--group size-half">
-                                            <h:outputLabel for="projeto-aluno" styleClass="form--group--label">Bolsa</h:outputLabel>
+                                            <h:outputLabel for="projeto-aluno-bolsa" styleClass="form--group--label">Bolsa</h:outputLabel>
                                             <p:selectOneMenu id="projeto-aluno-bolsa" 
                                                 value="#{aluno.bolsa}" 
                                                 converter="SimpleEntityConverter"

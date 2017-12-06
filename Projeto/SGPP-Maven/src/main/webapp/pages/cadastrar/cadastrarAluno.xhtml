@@ -173,10 +173,10 @@
                                     effect="fade" 
                                     var="course" 
                                     required='true'
-                                    requiredMessage="Categoria é obrigatório."
+                                    requiredMessage="Curso é obrigatório."
                                     >                         
                                     <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                    <f:selectItems value="#{alunoBean.cursosOpcoes}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" rendered="#{not empty alunoBean.aluno.instituicao}"/>
+                                    <f:selectItems value="#{alunoBean.cursosOptions}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}" rendered="#{not empty alunoBean.aluno.instituicao}"/>
                                     <p:column>
                                         <h:outputText value="#{course.nome}" />
                                     </p:column>

@@ -86,8 +86,7 @@ public class EditalBean {
     } 
     
     public List<SelectItem> getTiposDocumento(){
-        if(this.tiposDocumento == null)
-            this.tiposDocumento = new TipoDocumento().buscarTodos();
+        this.tiposDocumento = new TipoDocumento().buscarTodos();
         List<SelectItem> items = new ArrayList<>();  
         this.tiposDocumento.forEach((t) -> {
             items.add(new SelectItem(t, t.getNome()));

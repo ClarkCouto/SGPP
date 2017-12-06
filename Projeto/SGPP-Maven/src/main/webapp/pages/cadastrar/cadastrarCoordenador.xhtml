@@ -7,6 +7,9 @@
       xmlns:p="http://primefaces.org/ui"    
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>        
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{coordenadorBean.limpar()}" />
+        </f:metadata>
         <ui:composition template="/template/layout.xhtml">
             <ui:param name="aba" value="2" />
             <ui:define name="content">

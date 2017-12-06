@@ -56,10 +56,10 @@ public class ProjetoBean {
         this.alunos = alunos;
     }
     
-    public List<SelectItem> getAlunosOption(){       
+    public List<SelectItem> getAlunosOption(){ 
         List<SelectItem> items = new ArrayList<>(); 
         new Aluno().buscarTodos().forEach((a) -> {
-            items.add(new SelectItem(a, a.getNome()));
+             items.add(new SelectItem(a, a.getNome()));
         }); 
         return items;
     }

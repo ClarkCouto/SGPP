@@ -22,9 +22,8 @@ public class CursoDAO extends BaseDAO<Curso>{
         em = JPAUtil.getEntityManager();
         TypedQuery<Curso> query = em.createQuery(
                 "SELECT c FROM Curso c "
-                + "where c.instituicao_id = :idInstituicao",
+                + "where c.instituicao.id = " + idInstituicao,
                 Curso.class);
-        query.setParameter("idInstituicao", idInstituicao);
         
         try {
             List<Curso> cursos = query.getResultList();

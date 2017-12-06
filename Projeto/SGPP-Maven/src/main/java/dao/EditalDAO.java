@@ -7,6 +7,7 @@ package dao;
 
 import entities.Edital;
 import entities.Projeto;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -25,9 +26,9 @@ public class EditalDAO extends BaseDAO<Edital>{
                 Projeto.class);
         
         try {
-            Integer quantidade = query.getMaxResults();
+            List<Projeto> lista = query.getResultList();
             em.close();
-            return (quantidade > 0 ? true : false);
+            return (lista.size() > 0 ? true : false);
         } 
         catch (Exception e) {
             em.close();

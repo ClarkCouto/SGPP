@@ -32,7 +32,7 @@
                         <p:menuitem value="Relatórios" outcome="/pages/relatorios" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}" />
                         <p:menuitem value="Declarações" outcome="/pages/listar/listarDeclaracoes" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa' or usuarioBean.usuarioLogado.tipo == 'Coordenador'}"/>
                         <p:menuitem value="Usuários" outcome="/pages/listar/listarUsuarios" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}"/>
-                        <p:menuitem value="Alterações" outcome="/pages/relatorios"/>
+                        <p:menuitem value="Alterações" outcome="/pages/alteracoes"/>
                     </p:tabMenu>
                     <div class="main-bar--tabs--session">
                         <span class="main-bar--tabs--session--info">
