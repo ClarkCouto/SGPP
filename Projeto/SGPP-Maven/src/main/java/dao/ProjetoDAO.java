@@ -6,6 +6,9 @@
 package dao;
 
 import entities.Projeto;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -13,5 +16,22 @@ import entities.Projeto;
  */
 public class ProjetoDAO extends BaseDAO<Projeto>{ 
     private static final long serialVersionUID = 5953225846505938118L;
+    private EntityManager em;
     
+    public List<Projeto> buscarPeloCoordenador(Long id) {
+        em = JPAUtil.getEntityManager();
+        TypedQuery<Projeto> query = em.createQuery(
+                "SELECT p FROM Projeto p where p.coordenador.id = " + id,
+                Projeto.class);
+        
+        try {
+            List<Projeto> projetos = query.getResultList();
+            em.close();
+            return projetos;
+        } 
+        catch (Exception e) {
+            em.close();
+            return null;
+        }
+    }    
 }

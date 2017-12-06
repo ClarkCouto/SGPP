@@ -4,6 +4,8 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import entities.Declaracao;
 import entities.Projeto;
 import entities.TextoBaseDeclaracao;
+import entities.Usuario;
+import entities.Usuario.TipoUsuario;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -86,7 +88,13 @@ public class DeclaracaoBean {
     }
       
     public List<Declaracao> getDeclaracoes(){
-        this.declaracoes = this.declaracao.buscarTodos();
+        Usuario user = new UsuarioBean().getUsuarioLogado();
+        if(user.getTipo() == TipoUsuario.Coordenador){
+            this.declaracoes = this.declaracao.buscarPeloResponsavel(user.getId());
+        }
+        else{
+            this.declaracoes = this.declaracao.buscarTodos();
+        }
         return declaracoes;
     }
     
@@ -202,6 +210,11 @@ public class DeclaracaoBean {
     public void setFile(StreamedContent file) {
         this.file = file;
     }
+    
+    public void imprimirPDF(Long id){
+        setDeclaracao(this.declaracao.buscarPeloId(id));
+        getFile();
+    }
 
     public StreamedContent getFile()  {
         gerarPDF(); //Método que cria o PDF e salva localmente
@@ -247,10 +260,5 @@ public class DeclaracaoBean {
                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao gerar PDF Declaração!",
                                    "Erro ao gerar PDF Declaração!"));
         }
-    }
-    
-    public void imprimirPDF(Long id){
-        setDeclaracao(new Declaracao().buscarPeloId(id));
-        getFile();
     }
 }

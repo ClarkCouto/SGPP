@@ -212,6 +212,10 @@ public class Projeto extends BaseEntityAudit implements Serializable{
         return new ProjetoDAO().findById(id);
     }
     
+    public List<Projeto> buscarPeloCoordenador(Long id){
+        return new ProjetoDAO().buscarPeloCoordenador(id);
+    }
+    
     public List<Projeto> buscarTodos() {
         return new ProjetoDAO().findAll();
     }

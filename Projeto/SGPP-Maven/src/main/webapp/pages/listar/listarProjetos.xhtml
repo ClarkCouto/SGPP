@@ -23,23 +23,23 @@
 
                         <f:facet name="header">
                             <p:outputPanel>              
-                                <h:commandLink styleClass="button left" action="#{projetoBean.cadastrar}" style="float:left;">
+                                <h:commandLink styleClass="button left" action="#{projetoBean.cadastrar}" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <i class="fa fa-plus" />
                                     <span class="button--label">Cadastrar Projeto</span>
                                 </h:commandLink>
-                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Alunos</span>                                        
                                 </h:link>                 
-                                <h:link styleClass="button left" outcome="/pages/listar/listarColaboradores">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarColaboradores" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Colaboradores</span>
                                 </h:link>                 
-                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Cursos</span>
                                 </h:link>  
                                 <h:link  styleClass="button left" outcome="/pages/listar/listarDocumentos">
                                     <span class="button--label">Listar Documentos</span>
                                 </h:link>
-                                <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Instituições</span>
                                 </h:link>   
                                 <p:inputText id="globalFilter" onkeyup="PF('projetoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
@@ -86,9 +86,9 @@
                         <p:column headerText="Ações" style="width: 125px">
                             <p:commandButton title="Detalhar" action="#{projetoBean.detalhar(projeto.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton title="Editar" action="#{projetoBean.editar(projeto.id)}" icon="fa fa-edit" rendered="#{projeto.ativo}"/>
+                            <p:commandButton title="Editar" action="#{projetoBean.editar(projeto.id)}" icon="fa fa-edit" rendered="#{projeto.ativo and usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}"/>
                             
-                            <p:commandButton title="Excluir" rendered="#{projeto.ativo}" actionListener="#{projetoBean.remover(projeto.id)}" icon="fa fa-trash" update="lista">
+                            <p:commandButton title="Excluir" actionListener="#{projetoBean.remover(projeto.id)}" icon="fa fa-trash" rendered="#{projeto.ativo and usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}" update="lista">
                                 <p:confirm header="Confirmação" message="Deseja mesmo continuar com a exclusão?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

@@ -12,7 +12,9 @@
             <ui:define name="content">
                 <h:form>
                     <p:growl id="messages"/>  
-                    <p:dataTable var="colaborador" 
+                    <p:dataTable 
+                        id="lista"
+                        var="colaborador" 
                         value="#{colaboradorBean.colaboradores}" 
                         widgetVar="colaboradorTable"
                         emptyMessage="Nenhum colaborador foi encontrado." 

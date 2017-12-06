@@ -12,12 +12,15 @@
             <ui:define name="content">
                 <div class="main-bar">      
                     <div class="main-bar--current-page">   
-                        <h:link styleClass="button" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                        <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
                             <span class="button--label">Listar Instituições</span>
                         </h:link>   
                         <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
                             <span class="button--label">Listar Alunos</span>                                        
-                        </h:link>             
+                        </h:link>                 
+                        <h:link styleClass="button left" outcome="/pages/listar/listarColaboradores" style="float:left;">
+                            <span class="button--label">Listar Colaboradores</span>
+                        </h:link>         
                         <h:link styleClass="button left" outcome="/pages/listar/listarCoordenadores" style="float:left;">
                             <span class="button--label">Listar Coordenadores</span>
                         </h:link>      
@@ -36,25 +39,19 @@
                     <div class="form">
                         <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
-                            <div class="form--section--title">Editar Instituição</div>
+                            <div class="form--section--title">Detalhes Colaborador</div>
                             <div class="form--group">
                                 <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
                                 <h:inputText
-                                    value="#{instituicaoBean.instituicao.nome}"
+                                    value="#{colaboradorBean.colaborador.nome}"
                                     id="nome"
                                     label="Nome"
                                     styleClass="form--group--text-input"
-                                    required="true"
-                                    requiredMessage="Nome é obrigatório."
+                                    readonly="true"
                                     >
-                                    <f:validateRequired />
                                 </h:inputText>
-                                <h:message for="nome" styleClass="form--group--message" />
                             </div>
                         </h:panelGroup>
-                        <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{instituicaoBean.salvar()}"/>
-                        </div>
                     </div>     
                 </h:form>
             </ui:define>

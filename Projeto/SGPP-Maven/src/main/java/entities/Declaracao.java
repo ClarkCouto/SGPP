@@ -6,6 +6,7 @@
 package entities;
 
 import dao.DeclaracaoDAO;
+import dao.ProjetoDAO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -126,6 +127,10 @@ public class Declaracao extends BaseEntityAudit implements Serializable{
     
     public Declaracao buscarPeloId(Long id){
         return new DeclaracaoDAO().findById(id);
+    }
+    
+    public List<Declaracao> buscarPeloResponsavel(Long id){
+        return new DeclaracaoDAO().buscarPeloResponsavel(id);
     }
     
     public List<Declaracao> buscarTodos() {

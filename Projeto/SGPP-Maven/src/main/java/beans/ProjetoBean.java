@@ -10,6 +10,8 @@ import entities.Edital;
 import entities.Lembrete;
 import entities.Projeto;
 import entities.TipoDocumento;
+import entities.Usuario;
+import entities.Usuario.TipoUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -111,7 +113,13 @@ public class ProjetoBean {
     }
 
     public List<Projeto> getProjetos() {
-        this.projetos = this.projeto.buscarTodos();
+        Usuario user = new UsuarioBean().getUsuarioLogado();
+        if(user.getTipo() == TipoUsuario.Coordenador){
+            this.projetos = this.projeto.buscarPeloCoordenador(user.getId());
+        }
+        else{
+            this.projetos = this.projeto.buscarTodos();
+        }
         return this.projetos;
     }
 

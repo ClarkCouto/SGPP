@@ -23,19 +23,19 @@
 
                         <f:facet name="header">
                             <p:outputPanel>    
-                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarAlunos" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Alunos</span>                                        
                                 </h:link>     
-                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarCursos" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Cursos</span>                                        
                                 </h:link> 
-                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" style="float:left;">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarInstituicoes" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Instituições</span>
                                 </h:link>      
-                                <h:link styleClass="button left" outcome="/pages/listar/listarProjetos" style="float:left;">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarProjetos">
                                     <span class="button--label">Listar Projetos</span>
                                 </h:link>
-                                <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" style="float:left;">
+                                <h:link styleClass="button left" outcome="/pages/listar/listarTiposDocumento" rendered="#{usuarioBean.usuarioLogado.tipo == 'SetorDePesquisa'}">
                                     <span class="button--label">Listar Tipos de Documento</span>
                                 </h:link> 
                                 <p:inputText id="globalFilter" onkeyup="PF('documentoTable').filter()"  placeholder="Pesquisar..." style="float: right;" />
