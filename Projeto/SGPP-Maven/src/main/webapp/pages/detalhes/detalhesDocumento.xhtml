@@ -23,10 +23,23 @@
                         <h:panelGroup class="form--section">
                             <p:growl id="messages"/>  
                             <div class="form--section--title">Detalhes do Documento</div>
-                            <div class="form--group">
-                                <h:outputLabel for="nome" styleClass="form--group--label">Nome</h:outputLabel>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="projeto" styleClass="form--group--label">Projeto</h:outputLabel>
                                 <h:inputText
-                                    value="#{documentoBean.documento.nome}"
+                                    value="#{documentoBean.documento.tipoDocumento.nome}"
+                                    id="projeto"
+                                    label="Projeto"
+                                    styleClass="form--group--text-input"
+                                    readonly="true"
+                                    >
+                                    <f:validateRequired />
+                                </h:inputText>
+                                <h:message for="nome" styleClass="form--group--message" />
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="nome" styleClass="form--group--label">Tipo Documento</h:outputLabel>
+                                <h:inputText
+                                    value="#{documentoBean.documento.tipoDocumento.nome}"
                                     id="nome"
                                     label="Nome"
                                     styleClass="form--group--text-input"
@@ -37,24 +50,23 @@
                                 <h:message for="nome" styleClass="form--group--message" />
                             </div>
                             <div class="form--group size-half">
-                                <h:outputLabel for="instituicao" styleClass="form--group--label">Instituição</h:outputLabel>
-                                 <p:selectOneMenu id="categoria" value="#{documentoBean.documento.instituicao}"
-                                    required='true'
-                                    requiredMessage="Instituição é obrigatória"
-                                    >
-                                    <f:selectItem itemLabel="-- Selecione --" itemValue="" />
-                                    <f:selectItems value="#{documentoBean.instituicoes}" />
-                                    <f:validateRequired />
-                                </p:selectOneMenu>
-                                <h:message for="instituicao" styleClass="form--group--message" />
+                                <h:outputLabel for="entregue" styleClass="form--group--label">Entregue</h:outputLabel>
+                                <p:selectBooleanCheckbox value="#{documentoBean.documento.entregue}" disabled="true"/>
+                            </div>
+                            <div class="form--group size-half">
+                                <h:outputLabel for="data-nascimento" styleClass="form--group--label">Data de Entrega</h:outputLabel>
+                                <p:inputMask
+                                    value="#{documentoBean.documento.dataEntregue}"
+                                    id="data-nascimento"
+                                    label="Data de Entrega"
+                                    styleClass="form--group--text-input"
+                                    mask="99/99/9999"
+                                    converter="cmd.converter.stringToDate"
+                                    readonly="true"
+                                >
+                                </p:inputMask>
                             </div>
                         </h:panelGroup>
-                        <div class="form--actions">
-                            <h:commandButton styleClass="button" value="Salvar" action="#{documentoBean.salvar()}"/>
-                        </div>
-                        <div class="form--actions">
-                            <p:messages id="messages" />  
-                        </div>
                     </div>     
                 </h:form>
             </ui:define>

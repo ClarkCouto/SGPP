@@ -38,12 +38,6 @@
                             <h:outputText value="#{textoBaseDeclaracao.identificador}" />
                         </p:column>
 
-                        <p:column headerText="Data Desativação" sortBy="#{textoBaseDeclaracao.dataDesativacao}" filterBy="#{textoBaseDeclaracao.dataDesativacao}" filterStyle="display:none;" style="width:160px;">
-                            <h:outputText value="#{textoBaseDeclaracao.dataDesativacao}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-                            </h:outputText>
-                        </p:column>
-
                         <p:column headerText="Última Alteração" sortBy="#{textoBaseDeclaracao.dataUltimaAlteracao}" filterBy="#{textoBaseDeclaracao.dataUltimaAlteracao}" filterStyle="display:none;" style="width: 160px;">
                             <h:outputText value="#{textoBaseDeclaracao.dataUltimaAlteracao}" >
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
