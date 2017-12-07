@@ -164,25 +164,6 @@
                                 <div class="form--row">
                                     <div class="form--section">
                                         <div class="form--group size-half">
-                                            <h:outputLabel for="projeto-aluno" styleClass="form--group--label">Aluno</h:outputLabel>
-                                            <p:selectOneMenu id="projeto-aluno" 
-                                                value="#{aluno.nome}" 
-                                                converter="SimpleEntityConverter"
-                                                effect="fade" 
-                                                var="al" 
-                                                filter="true" 
-                                                filterMatchMode="contains"
-                                                required='true'
-                                                requiredMessage="Aluno é obrigatório."
-                                            >                     
-                                                <f:selectItem itemLabel="-- Selecione --" noSelectionOption="true"/>                                  
-                                                <f:selectItems value="#{projetoBean.alunosOption}" var="alunoOption" itemLabel="#{alunoOption.nome}" itemValue="#{alunoOption}" />
-                                                <p:column>
-                                                    <h:outputText value="#{al.nome}" />
-                                                </p:column>
-                                            </p:selectOneMenu>
-                                        </div>
-                                        <div class="form--group size-half">
                                             <h:outputLabel for="projeto-aluno" styleClass="form--group--label">Bolsa</h:outputLabel>
                                             <p:selectOneMenu id="projeto-aluno-bolsa" 
                                                 value="#{aluno.bolsa}" 
