@@ -210,10 +210,13 @@ public class DeclaracaoBean {
     public void setFile(StreamedContent file) {
         this.file = file;
     }
+    public void setReimpressao(StreamedContent Reimpressao) {
+        this.file = Reimpressao;
+    }
     
-    public void imprimirPDF(Long id){
+    public StreamedContent reimpressaoPDF(Long id){
         setDeclaracao(this.declaracao.buscarPeloId(id));
-        getFile();
+        return getFile();
     }
 
     public StreamedContent getFile()  {

@@ -60,7 +60,11 @@
                         <p:column headerText="Ações" >
                             <p:commandButton title="Detalhar" action="#{declaracaoBean.detalhar(declaracao.id)}" icon="fa fa-info-circle"/>
                             
-                            <p:commandButton value="Gerar PDF" action="#{declaracaoBean.imprimirPDF(declaracao.id)}" icon="fa fa-edit"/>
+                            
+                            
+                            <p:commandButton styleClass="button left" value="Gerar PDF" ajax="false" icon="fa fa-edit">
+                                <p:fileDownload value="#{declaracaoBean.reimpressaoPDF(declaracao.id)}" />
+                            </p:commandButton>  
                         </p:column>
                     </p:dataTable>
                 </h:form>
